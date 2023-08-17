@@ -6,17 +6,50 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postinstall": "husky install"
   },
-  "dependencies": {
-    "@types/node": "20.5.0",
-    "@types/react": "18.2.20",
+   "dependencies": {
+    "@chakra-ui/next-js": "^2.1.5",
+    "@chakra-ui/react": "^2.8.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@next/font": "13.4.12",
+    "@svgr/webpack": "^8.0.1",
+    "@types/node": "20.4.4",
+    "@types/react": "18.2.15",
     "@types/react-dom": "18.2.7",
-    "eslint": "8.47.0",
-    "eslint-config-next": "13.4.17",
-    "next": "13.4.17",
+    "eslint": "8.45.0",
+    "eslint-config-next": "13.4.12",
+    "framer-motion": "^10.13.0",
+    "i18next": "^23.2.11",
+    "next": "13.4.12",
+    "next-i18next": "^14.0.0",
+    "nprogress": "^0.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-i18next": "^13.0.2",
+    "react-redux": "^8.0.5",
+    "redux": "^4.2.1",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-persist": "^6.0.0",
+    "redux-thunk": "^2.4.2",
+    "swiper": "^9.1.1",
     "typescript": "5.1.6"
+  },
+  "devDependencies": {
+    "@types/nprogress": "^0.2.0",
+    "@types/react-redux": "^7.1.25",
+    "@types/redux": "^3.6.0",
+    "@types/redux-thunk": "^2.1.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^5.0.0-alpha.1",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.3",
+    "prettier": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=16",
+    "npm": ">=8"
   }
 }
