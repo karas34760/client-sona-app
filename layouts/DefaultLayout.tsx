@@ -1,10 +1,11 @@
 import React, { PropsWithChildren, useEffect } from 'react';
 import NProgress from 'nprogress';
 import { useRouter } from 'next/router';
-import { Box, Flex } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import Header from './Header';
 import Footer from './Footer';
 import Main from './Main';
+
 const DefaultLayout = ({ children }: PropsWithChildren) => {
   const router = useRouter();
   useEffect(() => {
@@ -29,6 +30,7 @@ const DefaultLayout = ({ children }: PropsWithChildren) => {
       router.events.off('routeChangeError', handleRouteDone);
     };
   }, [router]);
+  const bgImageLink = 'url(assets/bg/bg-type-1.svg)';
   return (
     <>
       <Box
@@ -49,7 +51,7 @@ const DefaultLayout = ({ children }: PropsWithChildren) => {
         height="0.1875rem"
         zIndex="banner"
       />
-      <Box>
+      <Box backgroundImage={bgImageLink} height="100vh">
         <Header />
         <Main>{children}</Main>
         <Footer />
