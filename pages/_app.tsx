@@ -1,3 +1,4 @@
+import DefaultLayout from '@/layouts/DefaultLayout';
 import theme from '@/themes/theme';
 import { ChakraProvider } from '@chakra-ui/react';
 import { AppProps } from 'next/app';
