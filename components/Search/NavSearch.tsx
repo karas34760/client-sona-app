@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'next-i18next';
 import { Icon, Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
-import SearchIcon from 'public/assets/icons/search.svg';
+import SearchIcon from 'public/assets/icons/generals/search.svg';
 const NavSearch = () => {
   const { t } = useTranslation();
   return (

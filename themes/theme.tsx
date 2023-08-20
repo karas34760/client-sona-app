@@ -11,6 +11,7 @@ const config: ThemeConfig = {
 export const backgrounds = {
   gradient: {
     100: 'linear-gradient(62deg, #1A3E92 0%, #661B88 100%)',
+    200: 'linear-gradient(214deg, #B75CFF 0%, #671AE4 100%)',
   },
 };
 export const colors = {
@@ -48,10 +49,10 @@ export const colors = {
       500: '#0CC857',
     },
   },
+  ...backgrounds,
 };
 
 const theme = extendTheme({
-  backgrounds,
   colors,
   config,
 });
