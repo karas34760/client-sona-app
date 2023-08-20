@@ -1,18 +1,25 @@
 import LogoText from '@/components/Logo/LogoText';
-import { Container, HStack, Input } from '@chakra-ui/react';
+import NavSearch from '@/components/Search/NavSearch';
+import { Box, Container, Flex, HStack, Input } from '@chakra-ui/react';
 import React from 'react';
-import { useTranslation } from 'next-i18next';
+import ListNavHeader from './components/ListNavHeader';
 
 const Header = () => {
-  const { t } = useTranslation();
   return (
     <>
-      <Container maxWidth="container.lg" py={6}>
-        <HStack>
-          <LogoText />
-          <Input placeholder={t('search_place_holder')} />
-        </HStack>
-      </Container>
+      <Box as="header">
+        <Container maxWidth="container.lg" py={6}>
+          <HStack justifyContent="space-between">
+            <Flex alignItems="center" gap={8}>
+              <LogoText />
+              <NavSearch />
+            </Flex>
+            <Flex alignItems="center" gap={8}>
+              <ListNavHeader />
+            </Flex>
+          </HStack>
+        </Container>
+      </Box>
     </>
   );
 };

@@ -14,7 +14,7 @@ function App({ Component, pageProps }: AppProps) {
       <style jsx global>
         {`
           :root {
-            --font-public: ${work_sans.style.fontFamily};
+            --font-work: ${work_sans.style.fontFamily};
           }
         `}
       </style>

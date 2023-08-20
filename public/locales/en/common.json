@@ -1,4 +1,9 @@
 {
+     "/=================*Header*=================/": "",
     "search_place_holder":"Search Items, Collections , Users...",
-    "TEST":"Test"
+    "TEST":"Test",
+    "/=================*Header Link*=================/": "",
+    "marketplace":"MarketPlace",
+    "sell":"Sell",
+    "create_events":"Create Events"
 }
