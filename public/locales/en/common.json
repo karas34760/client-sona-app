@@ -1,7 +1,11 @@
-{
+{   
+    "/=================*Personal*=================/": "",
+    "author":"© 2023 , Karas - Brian Developers",
+
      "/=================*Header*=================/": "",
     "search_place_holder":"Search Items, Collections , Users...",
     "TEST":"Test",
+    
     "/=================*Header Link*=================/": "",
     "marketplace":"MarketPlace",
     "sell":"Sell",

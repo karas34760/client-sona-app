@@ -22,11 +22,11 @@ const LinkPrimary = ({ label, link, sx }: IProps) => {
         }}
         _after={{
           content: "''",
-          height: '2px',
+          height: '0.125rem',
           width: 0,
           backgroundColor: 'primary.purple.400',
           position: 'absolute',
-          bottom: '-2px',
+          bottom: '-0.125rem',
           right: 0,
           opacity: 0,
           transition: '.5s',

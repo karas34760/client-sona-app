@@ -12,6 +12,7 @@ export const backgrounds = {
   gradient: {
     100: 'linear-gradient(62deg, #1A3E92 0%, #661B88 100%)',
     200: 'linear-gradient(214deg, #B75CFF 0%, #671AE4 100%)',
+    300: 'linear-gradient(62deg, #1A3E92 0%, #661B88 100%)',
   },
 };
 export const colors = {
@@ -29,7 +30,7 @@ export const colors = {
       100: '#F4F4F5',
       200: '#F8F7FA',
       300: '#E4E4E7',
-      400: '',
+      400: '#A1A1AA',
       500: '#71717A',
       600: '#52525B',
       700: '#3F3F46',
@@ -48,6 +49,9 @@ export const colors = {
       400: '#29E072',
       500: '#0CC857',
     },
+  },
+  divide: {
+    100: '#EAECF0',
   },
   ...backgrounds,
 };

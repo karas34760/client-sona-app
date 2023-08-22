@@ -13,7 +13,7 @@ const NavSearch = () => {
         <Input
           background="primary.gray.300"
           placeholder={t('search_place_holder')}
-          borderRadius="8px"
+          borderRadius="lg"
           minWidth="25rem"
         />
       </InputGroup>

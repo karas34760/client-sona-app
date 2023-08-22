@@ -6,6 +6,7 @@ import ListNavHeader from './components/ListNavHeader';
 import BtnSwitchColor from '@/components/Switch/BtnSwitchColor';
 import BtnSwitchLanguage from '@/components/Switch/BtnSwitchLanguage';
 import ConnectWallet from '@/components/ConnectWallet/ConnectWallet';
+import Link from 'next/link';
 
 const Header = () => {
   return (
@@ -14,7 +15,10 @@ const Header = () => {
         <Container maxWidth="container.xl" py={6}>
           <HStack justifyContent="space-between">
             <Flex alignItems="center" gap={8}>
-              <LogoText />
+              <Link href="/">
+                <LogoText />
+              </Link>
+
               <NavSearch />
             </Flex>
             <Flex alignItems="center" gap={8}>
