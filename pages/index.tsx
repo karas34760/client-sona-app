@@ -1,6 +1,7 @@
 import { Box } from '@chakra-ui/react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
+import SubcribeEmail from '@/layouts/Section/SubcribeEmail';
 export async function getStaticProps({ locale }: { locale: string }) {
   return {
     props: {
@@ -11,5 +12,9 @@ export async function getStaticProps({ locale }: { locale: string }) {
 
 export default function Home() {
   const { t } = useTranslation();
-  return <Box color={'red'}>{t('TEST')}</Box>;
+  return (
+    <Box>
+      <SubcribeEmail />
+    </Box>
+  );
 }

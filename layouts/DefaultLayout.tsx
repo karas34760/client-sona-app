@@ -54,7 +54,7 @@ const DefaultLayout = ({ children }: PropsWithChildren) => {
       <Box backgroundImage={bgImageLink} height="100vh">
         <Header />
         <Main>{children}</Main>
-        <Footer />
+        {/*  <Footer /> */}
       </Box>
     </>
   );
