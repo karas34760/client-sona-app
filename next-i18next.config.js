@@ -4,7 +4,8 @@ const path = require('path');
 module.exports = {
   i18n: {
     defaultLocale: 'en',
-    locales: ['en', 'vn'],
+    locales: ['en', 'vi'],
   },
   localePath: path.resolve('./public/locales'),
+
 };
