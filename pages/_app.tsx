@@ -4,7 +4,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 import { AppProps } from 'next/app';
 import 'nprogress/nprogress.css';
 import { appWithTranslation } from 'next-i18next';
-import { Work_Sans } from '@next/font/google';
+import { Work_Sans } from 'next/font/google';
 
 const work_sans = Work_Sans({ subsets: ['latin'] });
 

@@ -1,13 +1,12 @@
 import {
   Box,
   Button,
+  Center,
   Container,
   Flex,
   HStack,
   Image,
   Input,
-  InputGroup,
-  InputRightElement,
   Text,
 } from '@chakra-ui/react';
 import React from 'react';
@@ -17,20 +16,28 @@ const SubcribeEmail = () => {
     <Container
       maxWidth="container.xl"
       boxShadow="0px 4px 8px 0px rgba(134, 106, 250, 0.40)"
-      borderRadius="24px"
-      height="418px"
+      borderRadius="3xl"
     >
-      <HStack py="64px" px="180px" gap="32px">
+      <Center
+        py={12}
+        px={{ lg: '11.25rem', md: 4 }}
+        gap={8}
+        flexWrap={{ md: 'nowrap', base: 'wrap' }}
+      >
         <Image
-          borderRadius="16px"
+          borderRadius="2xl"
           src="assets/images/sub.png"
           objectFit="cover"
-          height="282px"
-          width="325px"
+          height="17.625rem"
+          width="20.313rem"
         />
 
-        <Flex flexDirection="column" gap="10px">
-          <Text fontSize="42px" color="primary.purple.500" fontWeight="bold">
+        <Flex flexDirection="column" gap={2.5}>
+          <Text
+            fontSize="2rem"
+            color="primary.purple.500"
+            fontWeight="extrabold"
+          >
             Join our community
           </Text>
           <Text>
@@ -42,12 +49,18 @@ const SubcribeEmail = () => {
           <HStack gap={0}>
             <Input placeholder="Your Email address" borderRightRadius={0} />
 
-            <Button borderLeftRadius={0} px={6}>
+            <Button
+              borderLeftRadius={0}
+              px={6}
+              bg="primary.purple.400"
+              color="white"
+              _hover={{}}
+            >
               Get Email
             </Button>
           </HStack>
         </Flex>
-      </HStack>
+      </Center>
     </Container>
   );
 };

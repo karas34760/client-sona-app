@@ -1,5 +1,6 @@
 import {
   ComponentStyleConfig,
+  StyleFunctionProps,
   ThemeConfig,
   extendTheme,
 } from '@chakra-ui/react';
@@ -56,7 +57,19 @@ export const colors = {
   ...backgrounds,
 };
 
+/* const styles = {
+  global: (props: StyleFunctionProps) => ({
+    body: {
+      'extra-bold': 800,
+    },
+  }),
+}; */
+export const fonts = {
+  body: `'Work Sans', sans-serif`,
+};
+
 const theme = extendTheme({
+  fonts,
   colors,
   config,
 });

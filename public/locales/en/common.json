@@ -6,9 +6,24 @@
     "search_place_holder":"Search Items, Collections , Users...",
     "TEST":"Test",
     
-    "/=================*Header Link*=================/": "",
+    "/=================*Header-Footer Link*=================/": "",
     "marketplace":"MarketPlace",
     "sell":"Sell",
     "create_events":"Create Events",
-    "connect_wallet":"Connect Wallet"
+    "connect_wallet":"Connect Wallet",
+    "about_us":"About Us",
+    "buy_products":"Buy Products",
+    "sell_products":"Sell Products",
+    "create_tickets":"Create Tickets",
+    "resources":"Resources",
+    "faq":"FAQ",
+    "support":"Support",
+    "events":"Events",
+    "legal":"Legal",
+    "terms":"Terms",
+    "privacy":"Privacy",
+    "company":"Company",
+    "media":"Media",
+    "blog":"Blog",
+    "feature":"Feature"
 }

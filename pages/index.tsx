@@ -11,7 +11,6 @@ export async function getStaticProps({ locale }: { locale: string }) {
 }
 
 export default function Home() {
-  const { t } = useTranslation();
   return (
     <Box>
       <SubcribeEmail />
