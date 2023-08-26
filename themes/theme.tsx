@@ -60,7 +60,7 @@ export const colors = {
 /* const styles = {
   global: (props: StyleFunctionProps) => ({
     body: {
-      'extra-bold': 800,
+      overflowX: 'hidden',
     },
   }),
 }; */

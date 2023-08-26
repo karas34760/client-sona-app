@@ -17,6 +17,7 @@ const Main = ({ children }: MainProps) => {
         display="flex"
         maxWidth="container.2xl"
         flexDirection="column"
+        gap={32}
       >
         {children}
       </Container>

@@ -5,11 +5,15 @@ import {
   Container,
   Flex,
   HStack,
+  Icon,
   Image,
   Input,
   Text,
 } from '@chakra-ui/react';
 import React from 'react';
+import BNBIcon from 'public/assets/icons/crypto/BNB.svg';
+import EtherIcon from 'public/assets/icons/crypto/ETH.svg';
+import BTCIcon from 'public/assets/icons/crypto/BTC.svg';
 
 const SubcribeEmail = () => {
   return (
@@ -31,7 +35,6 @@ const SubcribeEmail = () => {
           height="17.625rem"
           width="20.313rem"
         />
-
         <Flex flexDirection="column" gap={2.5}>
           <Text
             fontSize="2rem"
@@ -60,6 +63,39 @@ const SubcribeEmail = () => {
             </Button>
           </HStack>
         </Flex>
+        <Box
+          position="relative"
+          right={0}
+          display={{ md: 'inherit', base: 'none' }}
+        >
+          <Icon
+            as={BNBIcon}
+            position="absolute"
+            height={{ lg: '9.625rem', md: '4rem' }}
+            width={{ lg: '9.625rem', md: '4rem' }}
+            transform={{
+              md: 'translate(150%,-30%)',
+              lg: 'translate(30%,-30%)',
+            }}
+          />
+          <Icon
+            as={BTCIcon}
+            position="absolute"
+            height="12.188rem"
+            width="12.188rem"
+            transform={{
+              lg: 'translate(-20%,-120%)',
+              md: 'translate(-40%,-100%)',
+            }}
+          />
+          <Icon
+            as={EtherIcon}
+            position="absolute"
+            height="6rem"
+            width="6rem"
+            transform="translate(80%,100%)"
+          />
+        </Box>
       </Center>
     </Container>
   );

@@ -51,7 +51,7 @@ const DefaultLayout = ({ children }: PropsWithChildren) => {
         height="0.1875rem"
         zIndex="banner"
       />
-      <Box backgroundImage={bgImageLink} height="100vh">
+      <Box backgroundImage={bgImageLink} height="100vh" overflowX="hidden">
         <Header />
         <Main>{children}</Main>
         <Footer />
