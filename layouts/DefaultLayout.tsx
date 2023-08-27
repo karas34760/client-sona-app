@@ -54,7 +54,7 @@ const DefaultLayout = ({ children }: PropsWithChildren) => {
       <Box
         backgroundImage={bgImageLink}
         /* backgroundRepeat={'repeat'} */
-        overflowX="hidden"
+        /*     overflowX="hidden" */
       >
         <Header />
         <Main>{children}</Main>
