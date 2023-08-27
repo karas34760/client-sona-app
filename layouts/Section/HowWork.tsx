@@ -2,14 +2,14 @@ import {
   Box,
   Center,
   Container,
-  HStack,
+  Icon,
   Image,
   Text,
   keyframes,
 } from '@chakra-ui/react';
 import React from 'react';
 import { useTranslation } from 'next-i18next';
-import BgHowWork from 'public/assets/bg/bg-how-work.svg';
+
 import BgRectangle from 'public/assets/bg/bg-rectangle-work.svg';
 const slid = keyframes`
 
@@ -25,41 +25,36 @@ const HowWork = () => {
   const { t } = useTranslation();
   const ListImage = [
     {
-      link: 'https://i.postimg.cc/BQcRL38F/pexels-photo-761963.jpg',
+      link: 'https://images.squarespace-cdn.com/content/v1/641a832cd4167e73e6d2e927/e42ccb85-2821-4779-8eb7-26b1e9207702/ezgif-5-8a9acce601.gif?format=500w',
     },
     {
-      link: 'https://i.postimg.cc/1RWVB11x/pexels-photo-941693.jpg',
+      link: 'https://images.squarespace-cdn.com/content/v1/641a832cd4167e73e6d2e927/d3eb2b89-c781-41ff-b578-ce45e5ebf125/5zef+-+420+%28Uz%CC%8C+je+c%CC%8Cas%29.gif?format=500w',
+    },
+    {
+      link: 'https://images.squarespace-cdn.com/content/v1/641a832cd4167e73e6d2e927/9d9b8b24-c27a-4f87-87f8-3dcc96431b9c/tumblr_26e6cb0c69630312ea8312717a447ab3_51084b0d_540.gif?format=500w',
+    },
+
+    {
+      link: 'https://images.squarespace-cdn.com/content/v1/641a832cd4167e73e6d2e927/d9400a4c-57a9-479b-8fbc-b593f1339628/original_dc71e7d45c6c08f8decfe881e61ce46a.gif?format=500w',
     },
     {
       link: 'https://i.postimg.cc/CMfHRKfP/woman-2003647-960-720.jpg',
     },
     {
-      link: 'https://i.postimg.cc/1RWVB11x/pexels-photo-941693.jpg',
+      link: 'https://images.squarespace-cdn.com/content/v1/641a832cd4167e73e6d2e927/bca602f4-786f-49b7-a28a-2151f9cd68a6/Apr-13-2023+23-51-32.gif?format=2500w',
     },
     {
-      link: 'https://i.postimg.cc/1RWVB11x/pexels-photo-941693.jpg',
+      link: 'https://i.postimg.cc/CMfHRKfP/woman-2003647-960-720.jpg',
     },
     {
-      link: 'https://i.postimg.cc/1RWVB11x/pexels-photo-941693.jpg',
-    },
-    {
-      link: 'https://i.postimg.cc/1RWVB11x/pexels-photo-941693.jpg',
-    },
-    {
-      link: 'https://i.postimg.cc/1RWVB11x/pexels-photo-941693.jpg',
-    },
-    {
-      link: 'https://i.postimg.cc/1RWVB11x/pexels-photo-941693.jpg',
-    },
-    {
-      link: 'https://i.postimg.cc/1RWVB11x/pexels-photo-941693.jpg',
+      link: 'https://i.postimg.cc/BQcRL38F/pexels-photo-761963.jpg',
     },
   ];
   return (
     <>
       <Container maxWidth="container.xl">
-        <Center justifyContent="space-between">
-          <Box maxWidth="500px">
+        <Center justifyContent="space-between" flexWrap="wrap" rowGap={6}>
+          <Box maxWidth="31.25rem">
             <Text
               fontSize="48px"
               color="primary.purple.500"
@@ -70,51 +65,51 @@ const HowWork = () => {
             <Text>{t('how_work_content')}</Text>
           </Box>
           <Box position="relative">
-            <BgRectangle />
+            <Icon as={BgRectangle} width="full" height="full" />
             <Box
               position="absolute"
-              top="-20%"
-              right="90%"
-              transform=" rotateZ(-25deg) "
+              top={{ md: '-20%', base: '-60%' }}
+              right={{ md: '90%', base: '80%' }}
+              transform=" rotateZ(-25deg)"
             >
               <Box
                 position="relative"
                 sx={{
                   transformStyle: 'preserve-3d',
                 }}
-                transform="rotate(90deg)"
-                width="150px"
-                height="150px"
+                width="9.375rem"
+                height="9.375rem"
                 animation={`${slid} 30s linear infinite`}
-                _hover={{
+                /*   _hover={{
                   animationPlayState: 'paused',
-                }}
+                }} */
               >
                 {ListImage.map((item, index) => (
-                  <>
-                    <Box
-                      key={`work-ig-${index}`}
-                      position="absolute"
-                      transformOrigin="center"
-                      top={0}
-                      left={0}
+                  <Box
+                    key={`work-ig-${index}`}
+                    position="absolute"
+                    transformOrigin="center"
+                    top={0}
+                    left={0}
+                    width={{ md: '9.375rem', base: '5rem' }}
+                    height={{ md: '9.375rem', base: '5rem' }}
+                    sx={{
+                      transformStyle: 'preserve-3d',
+                      transform: {
+                        md: `rotateY(calc(${index}* 45deg)) translateY(300px) translateZ(200px)`,
+                        base: `rotateY(calc(${index}* 45deg)) translateY(300px) translateZ(120px)`,
+                      } /* rotateX(-25deg)  translateY(calc(${index}*30px)) */,
+                    }}
+                  >
+                    <Image
+                      src={item.link}
+                      alt={''}
+                      borderRadius="15px"
                       width="full"
                       height="full"
-                      sx={{
-                        transformStyle: 'preserve-3d',
-                        transform: `rotateY(calc(${index}* 40deg)) translateY(300px) translateZ(220px)` /* rotateX(-25deg)  translateY(calc(${index}*30px)) */,
-                      }}
-                    >
-                      <Image
-                        src={item.link}
-                        alt={''}
-                        borderRadius="15px"
-                        width="full"
-                        height="full"
-                        objectFit="cover"
-                      />
-                    </Box>
-                  </>
+                      objectFit="cover"
+                    />
+                  </Box>
                 ))}
               </Box>
             </Box>

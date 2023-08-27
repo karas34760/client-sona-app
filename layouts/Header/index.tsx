@@ -6,7 +6,7 @@ import DesktopHeader from './components/DesktopHeader';
 const Header = () => {
   return (
     <>
-      <Box as="header">
+      <Box as="header" zIndex="popover" position="sticky" top={0}>
         <Container maxWidth="container.xl" py={6}>
           <DesktopHeader />
         </Container>

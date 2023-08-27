@@ -18,11 +18,7 @@ const DesktopHeader = () => {
 
         <NavSearch />
       </Flex>
-      <Flex
-        alignItems="center"
-        gap={8}
-        display={{ lg: 'inherit', base: 'none' }}
-      >
+      <Flex alignItems="center" gap={8}>
         <ListNavHeader />
         <BtnSwitchLanguage />
         <BtnSwitchColor />

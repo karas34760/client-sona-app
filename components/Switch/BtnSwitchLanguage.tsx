@@ -42,14 +42,19 @@ const BtnSwitchLanguage = () => {
             </MenuButton>
 
             <Portal>
-              <MenuList zIndex="sticky" padding={0} minWidth="fit-content">
+              <MenuList
+                zIndex="sticky"
+                padding={0}
+                minWidth="fit-content"
+                overflow="hidden"
+              >
                 {React.Children.toArray(
                   ListLanguage.map(language => (
                     <MenuItem
-                      bg={
+                      color={
                         language.key === locale
-                          ? 'primary.gray.400'
-                          : 'transparent'
+                          ? 'primary.purple.400'
+                          : 'transparents'
                       }
                       textTransform="capitalize"
                       fontSize="sm"
