@@ -1,48 +1,58 @@
-import { Box, Button, Text } from '@chakra-ui/react';
+import { Box, Button, Container, Grid, Text } from '@chakra-ui/react';
 import React from 'react';
 import FlexIcon from 'public/assets/icons/generals/flexibility.svg';
 import MarketIcon from 'public/assets/icons/generals/marketplace.svg';
 import ShieldIcon from 'public/assets/icons/generals/shield.svg';
+import CardFeature from '@/components/Card/CardFeature';
+import { useTranslation } from 'next-i18next';
 
 const FeatureSection = () => {
   const ListFeature = [
     {
       icon: MarketIcon,
-      title: 'Expansive NFT Marketplace',
-      content:
-        'Publish your tickets on multiple NFT ticketing marketplaces. Enable crypto and credit card payments through YellowHeart’s wallets across iOS, Android, and Desktop.',
+      title: 'feature_title_1',
+      content: 'feature_content_1',
     },
     {
       icon: FlexIcon,
-      title: 'Engagement Management',
-      content:
-        'Build and manage your fan communities through our Web3-fueled and gamified engagement tools, enabling direct communication with the ones that matter the most to your business.',
+      title: 'feature_title_2',
+      content: 'feature_content_2',
     },
     {
       icon: FlexIcon,
-      title: 'Flexible Delivery',
-      content:
-        'Customizable and brandable marketplaces for artists and small to large-scale venues, enabling NFT ticketing for single or year-round events. Enterprise offering for customizable direct access to YellowHeart’s platform.',
+      title: 'feature_title_3',
+      content: 'feature_content_3',
     },
     {
       icon: ShieldIcon,
-      title: 'Robust & Secure Redemption',
-      content:
-        'Redeem tickets using YellowHeart’s intuitive App for secure and fraud-proof event entry. YellowHeart redemption provides customizable staff accounts, actionable insights, rapid flows, and built-in troubleshooting for a seamless experience',
+      title: 'feature_title_4',
+      content: 'feature_content_4',
     },
   ];
+  const { t } = useTranslation();
   return (
     <>
-      <Box>
-        <Text>The Next Generation of Ticking....</Text>
-        <Text>
-          Tickifi enables venues and artists to utilize its proprietary Web3
-          ticketing platform to increase sales through tiered and customizable
-          web3 tools to drive traffic, energize engagement, and reduce fraud and
-          ticket scalping.
-        </Text>
-        <Button>Request Demo</Button>
-      </Box>
+      <Container maxW="container.xl">
+        <Box mb={12}>
+          <Text fontSize="3rem" color="primary.purple.500" fontWeight="bold">
+            {t('ticket_section_title')}
+          </Text>
+          <Text>{t('ticket_section_content')}</Text>
+        </Box>
+        <Grid
+          gridTemplateColumns={{ lg: 'repeat(2,1fr)', md: 'repeat(1,1fr)' }}
+          gap={6}
+        >
+          {ListFeature.map(item => (
+            <CardFeature
+              key={`feature-sec-${item.title}`}
+              title={t(item.title)}
+              icon={item.icon}
+              content={t(item.content)}
+            />
+          ))}
+        </Grid>
+      </Container>
     </>
   );
 };
