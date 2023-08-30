@@ -1,43 +1,48 @@
 import React, { useRef } from 'react';
-import NextIcon from 'public/assets/line/chevron-01.svg';
+import NextIcon from 'public/assets/icons/arrow/down.svg';
 import { Swiper } from 'swiper/react';
-import { Navigation } from 'swiper';
-import { Box, Button, ButtonProps, Icon } from '@chakra-ui/react';
-/* import { SwiperOptions } from 'swiper/types/swiper-options.d.ts'; */
-// eslint-disable-next-line import/no-unresolved
+// Core modules imports are same as usual
+import { Navigation, Mousewheel } from 'swiper';
+import { Box, BoxProps, Button, ButtonProps, Icon } from '@chakra-ui/react';
 import { SwiperOptions } from 'swiper/types';
-/* // eslint-disable-next-line import/no-unresolved
-import 'swiper/css';
-// eslint-disable-next-line import/no-unresolved
-import 'swiper/css/navigation'; */
-
+import 'swiper/css/mousewheel';
+import 'swiper/css/bundle';
+import 'swiper/css/navigation';
 interface IProps {
   children: React.ReactNode;
   options?: SwiperOptions;
   styleButton?: ButtonProps;
+  sxProps?: BoxProps;
 }
-const Carousel = ({ children, options, styleButton }: IProps) => {
+const Carousel = ({ children, options, styleButton, sxProps }: IProps) => {
   const prevRef = useRef<HTMLButtonElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
   return (
     <>
-      <Box position="relative">
+      <Box
+        position="relative"
+        sx={{
+          _hover: {
+            '.btn-carousel': {
+              opacity: 1,
+              visibility: 'visible',
+            },
+          },
+        }}
+      >
         <Swiper
-          // install Swiper modules
           spaceBetween={20}
           slidesPerView={4}
-          modules={[Navigation]}
+          modules={[Navigation, Mousewheel]}
+          mousewheel={{
+            forceToAxis: true,
+          }}
           navigation={{
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             prevEl: prevRef.current!,
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
             nextEl: nextRef.current!,
           }}
-          onInit={swiper => {
-            //  @typescript-eslint/ban-ts-comment
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            // eslint-disable-next-line no-param-reassign
+          /*    onInit={swiper => {
             setTimeout(() => {
               // Override prevEl & nextEl now that refs are defined
               //  @typescript-eslint/ban-ts-comment
@@ -45,6 +50,7 @@ const Carousel = ({ children, options, styleButton }: IProps) => {
               // @ts-ignore
               // eslint-disable-next-line no-param-reassign
               swiper.params.navigation.prevEl = prevRef.current;
+
               //  @typescript-eslint/ban-ts-comment
               // eslint-disable-next-line @typescript-eslint/ban-ts-comment
               // @ts-ignore
@@ -56,10 +62,11 @@ const Carousel = ({ children, options, styleButton }: IProps) => {
               swiper.navigation.init();
               swiper.navigation.update();
             });
-          }}
+          }} */
           breakpoints={{
             360: {
-              slidesPerView: 1,
+              slidesPerView: 1.1,
+              spaceBetween: 10,
             },
             630: {
               slidesPerView: 2,
@@ -74,6 +81,7 @@ const Carousel = ({ children, options, styleButton }: IProps) => {
           }}
           style={{
             position: 'relative',
+            paddingBottom: '1rem',
           }}
           {...options}
         >
@@ -81,22 +89,26 @@ const Carousel = ({ children, options, styleButton }: IProps) => {
         </Swiper>
         <Box
           display="flex"
+          opacity={0}
+          visibility="hidden"
+          className="btn-carousel"
+          transition="visibility 0.3s , opacity 0.3s ease-in-out"
           justifyContent="space-between"
           width="100%"
           position="absolute"
           sx={{
-            top: '50%',
+            top: '40%',
             zIndex: 10,
           }}
+          {...sxProps}
         >
           <Button
             ref={prevRef}
             variant="navigation"
             sx={{
-              left: '-20px',
+              left: { md: '-1.25rem', base: '-0.75rem' },
             }}
             {...styleButton}
-            color="primary.a.500"
           >
             <Icon as={NextIcon} height={6} w={6} transform="rotate(90deg)" />
           </Button>
@@ -104,9 +116,8 @@ const Carousel = ({ children, options, styleButton }: IProps) => {
             ref={nextRef}
             variant="navigation"
             sx={{
-              right: '-20px',
+              right: { md: '-1.25rem', base: '-0.75rem' },
             }}
-            color="primary.a.500"
             {...styleButton}
           >
             <Icon as={NextIcon} height={6} w={6} transform="rotate(-90deg)" />

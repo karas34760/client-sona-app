@@ -73,8 +73,20 @@ export const Text: ComponentStyleConfig = {
     }),
   },
 };
+export const Button: ComponentStyleConfig = {
+  variants: {
+    navigation: {
+      borderRadius: 'full',
+      bg: 'white',
+      color: 'primary.gray.800',
+      height: '50px',
+      width: '50px',
+    },
+  },
+};
 export const fonts = {
   body: `'Work Sans', sans-serif`,
+  /*   body: `'Inter',sans-serif`, */
 };
 
 const theme = extendTheme({
@@ -83,6 +95,7 @@ const theme = extendTheme({
   config,
   components: {
     Text,
+    Button,
   },
 });
 

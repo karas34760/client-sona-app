@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, useEffect } from 'react';
 import NProgress from 'nprogress';
-import 'swiper/css';
-import 'swiper/css/navigation';
+import 'nprogress/nprogress.css';
+
 import { useRouter } from 'next/router';
 import { Box } from '@chakra-ui/react';
 import Header from './Header';
