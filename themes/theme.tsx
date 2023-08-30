@@ -64,6 +64,15 @@ export const colors = {
     },
   }),
 }; */
+export const Text: ComponentStyleConfig = {
+  variants: {
+    type_title: (props: StyleFunctionProps) => ({
+      fontSize: { lg: '3rem', base: '2rem' },
+      fontWeight: 'bold',
+      color: 'primary.purple.500',
+    }),
+  },
+};
 export const fonts = {
   body: `'Work Sans', sans-serif`,
 };
@@ -72,6 +81,9 @@ const theme = extendTheme({
   fonts,
   colors,
   config,
+  components: {
+    Text,
+  },
 });
 
 export default theme;

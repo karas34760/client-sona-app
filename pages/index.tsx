@@ -4,6 +4,7 @@ import SubcribeEmail from '@/layouts/Section/SubcribeEmail';
 import HowWork from '@/layouts/Section/HowWork';
 import FeatureSection from '@/layouts/Section/FeatureSection';
 import ArtistSection from '@/layouts/Section/ArtistSection';
+import HeroSection from '@/layouts/Section/HeroSection';
 export async function getStaticProps({ locale }: { locale: string }) {
   return {
     props: {
@@ -15,6 +16,7 @@ export async function getStaticProps({ locale }: { locale: string }) {
 export default function Home() {
   return (
     <>
+      <HeroSection />
       <HowWork />
       <ArtistSection />
 

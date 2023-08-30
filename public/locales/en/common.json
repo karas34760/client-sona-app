@@ -5,7 +5,7 @@
      "/=================*Header*=================/": "",
     "search_place_holder":"Search Items, Collections , Users...",
     "TEST":"Test",
-    
+    "artist":"Artist",
     "/=================*Header-Footer Link*=================/": "",
     "marketplace":"MarketPlace",
     "sell":"Sell",
@@ -28,7 +28,7 @@
     "feature":"Feature",
     "============How It Work Section":"",
     "ticket_section_title":" The Next Generation of Ticking....",
-    "ticket_section_content":"Tickifi enables venues and artists to utilize its proprietary Web3 ticketing platform to increase sales through tiered and customizable web3 tools to drive traffic, energize engagement, and reduce fraud and ticket scalping",
+    "ticket_section_content":"More visibility, greater control, traceable ownership.A next-generation event ticketing platform that lets you engage with your customers and provide a more immersive experience in ways never before possible. You make the rules",
     "how_work_title":"How do Tickets NFTs Work ?",
     "how_work_content":"NFTs are unique assets stored and tradable on a blockchain. They are, immutable, scarce and publicly verifiable. In the music world, artistes get to sell limited digital content to their fans who pay via crypto. You can now produce any music content that cannot be counterfeited.",
     "=========Feature Section=======":"",
@@ -36,9 +36,10 @@
     "feature_content_1":"Publish your tickets on multiple NFT ticketing marketplaces. Enable crypto and credit card payments through YellowHeart’s wallets across iOS, Android, and Desktop.",
     "feature_title_2":"Engagement Management",
     "feature_content_2":"Build and manage your fan communities through our Web3-fueled and gamified engagement tools, enabling direct communication with the ones that matter the most to your business.",
-    "feature_title_3":"Flexible Delivery'",
+    "feature_title_3":"Flexible Delivery",
     "feature_content_3":"Customizable and brandable marketplaces for artists and small to large-scale venues, enabling NFT ticketing for single or year-round events. Enterprise offering for customizable direct access to YellowHeart’s platform.",
     "feature_title_4":"Robust & Secure Redemption",
-    "feature_content_4":"Redeem tickets using YellowHeart’s intuitive App for secure and fraud-proof event entry. YellowHeart redemption provides customizable staff accounts, actionable insights, rapid flows, and built-in troubleshooting for a seamless experience"
-
+    "feature_content_4":"Redeem tickets using YellowHeart’s intuitive App for secure and fraud-proof event entry. YellowHeart redemption provides customizable staff accounts, actionable insights, rapid flows, and built-in troubleshooting for a seamless experience",
+    "======================Artist Section":"",
+    "artist_section_content":"Leading the charge towards ticketing & music in Web3"
 }

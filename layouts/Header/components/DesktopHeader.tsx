@@ -10,7 +10,10 @@ import ConnectWallet from '@/components/ConnectWallet/ConnectWallet';
 
 const DesktopHeader = () => {
   return (
-    <HStack justifyContent="space-between">
+    <HStack
+      justifyContent="space-between"
+      display={{ lg: 'flex', base: 'none' }}
+    >
       <Flex alignItems="center" gap={8}>
         <Link href="/">
           <LogoText />

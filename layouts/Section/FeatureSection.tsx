@@ -34,9 +34,7 @@ const FeatureSection = () => {
     <>
       <Container maxW="container.xl">
         <Box mb={12}>
-          <Text fontSize="3rem" color="primary.purple.500" fontWeight="bold">
-            {t('ticket_section_title')}
-          </Text>
+          <Text variant="type_title">{t('ticket_section_title')}</Text>
           <Text>{t('ticket_section_content')}</Text>
         </Box>
         <Grid

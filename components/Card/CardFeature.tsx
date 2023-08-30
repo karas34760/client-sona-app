@@ -11,8 +11,8 @@ const CardFeature = ({ icon, title, content, sx }: IProps) => {
     <>
       <Box
         borderRadius="xl"
-        px={10}
-        py={14}
+        px={{ lg: 10, base: 4 }}
+        py={{ lg: 14, base: 8 }}
         border="0.063rem solid"
         borderColor="primary.purple.500"
         boxShadow=" 0px 4px 18px 0px rgba(0, 0, 0, 0.25)"
@@ -23,7 +23,11 @@ const CardFeature = ({ icon, title, content, sx }: IProps) => {
           background: 'primary.purple.500',
         }}
       >
-        <HStack alignItems="flex-start" gap={6}>
+        <HStack
+          alignItems="flex-start"
+          gap={6}
+          flexWrap={{ lg: 'nowrap', base: 'wrap' }}
+        >
           <Icon
             as={icon}
             height="3.375rem"
@@ -35,7 +39,7 @@ const CardFeature = ({ icon, title, content, sx }: IProps) => {
           />
           <Flex flexDirection="column" gap={4}>
             <Text
-              fontSize="28px"
+              fontSize="1.75rem"
               fontWeight="semibold"
               color="primary.purple.500"
               _groupHover={{

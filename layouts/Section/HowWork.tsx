@@ -53,15 +53,17 @@ const HowWork = () => {
   return (
     <>
       <Container maxWidth="container.xl">
-        <Center justifyContent="space-between" flexWrap="wrap" rowGap={6}>
+        <Center
+          justifyContent={{
+            lg: 'space-between',
+            md: 'center',
+            base: 'space-between',
+          }}
+          flexWrap="wrap"
+          rowGap={6}
+        >
           <Box maxWidth="31.25rem">
-            <Text
-              fontSize="48px"
-              color="primary.purple.500"
-              fontWeight="extrabold"
-            >
-              {t('how_work_title')}
-            </Text>
+            <Text variant="type_title">{t('how_work_title')}</Text>
             <Text>{t('how_work_content')}</Text>
           </Box>
           <Box position="relative">
