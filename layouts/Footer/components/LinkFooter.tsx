@@ -3,6 +3,7 @@ import { useTranslation } from 'next-i18next';
 import LinkPrimary from '@/components/Link/LinkPrimary';
 import { LinkContent } from '@/utils/type';
 import { Box, Flex, Text } from '@chakra-ui/react';
+import LinkSecondary from '@/components/Link/LinkSecondary';
 interface ListProps {
   label: string;
   items: Array<LinkContent>;
@@ -96,7 +97,7 @@ const LinkFooter = () => {
                   key={`sublink-footer${sub_item.label}`}
                   width="fit-content"
                 >
-                  <LinkPrimary
+                  <LinkSecondary
                     sx={{
                       fontSize: 'sm',
                       color: 'primary.gray.400',
