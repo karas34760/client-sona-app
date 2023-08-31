@@ -2,10 +2,9 @@ import { Container, VStack, Text, Box, Image } from '@chakra-ui/react';
 import React from 'react';
 import { useTranslation } from 'next-i18next';
 import Carousel from '@/components/Carousel/Carousel';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { Mousewheel, Navigation } from 'swiper';
 
 const ArtistSection = () => {
   const { t } = useTranslation();
@@ -16,11 +15,10 @@ const ArtistSection = () => {
     },
     {
       image:
-        'https://demo.lunartheme.com/stevecadey/wp-content/uploads/2016/07/gallery1-960x615.jpg',
+        'https://media.vov.vn/sites/default/files/styles/large/public/2023-06/fzhnvbpagaalfdq.jpg',
     },
     {
-      image:
-        'https://demo.lunartheme.com/stevecadey/wp-content/uploads/2016/07/gallery1-960x615.jpg',
+      image: 'https://yh.io/assets/graphics/artists-block-02.png',
     },
     {
       image:
@@ -32,7 +30,7 @@ const ArtistSection = () => {
     },
   ];
   return (
-    <Container maxWidth="container.xl">
+    <Container maxWidth="container.2xl">
       <VStack width="full" mb={6}>
         <Text
           color="primary.purple.500"
@@ -43,14 +41,15 @@ const ArtistSection = () => {
         </Text>
         <Text fontSize="lg">{t('artist_section_content')}</Text>
       </VStack>
-      <Carousel /* styleButton={{ display: 'none' }} */>
+      <Carousel styleButton={{ display: 'none' }}>
         {ListArtist.map((item, index) => (
           <SwiperSlide key={index}>
-            <Box>
+            <Box height="250px">
               <Image
                 src={item.image}
                 alt={`image ${index}`}
                 height="full"
+                width="full"
                 objectFit="cover"
                 borderRadius="xl"
               />

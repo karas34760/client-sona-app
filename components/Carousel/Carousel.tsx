@@ -97,7 +97,7 @@ const Carousel = ({ children, options, styleButton, sxProps }: IProps) => {
           width="100%"
           position="absolute"
           sx={{
-            top: '40%',
+            top: '50%',
             zIndex: 10,
           }}
           {...sxProps}
