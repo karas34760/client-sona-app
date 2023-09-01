@@ -63,7 +63,7 @@ const SubcribeEmail = () => {
               </Button>
             </HStack>
           </Flex>
-          <Box
+          {/*   <Box
             position="relative"
             right={0}
             display={{ md: 'inherit', base: 'none' }}
@@ -95,7 +95,7 @@ const SubcribeEmail = () => {
               width="6rem"
               transform="translate(80%,100%)"
             />
-          </Box>
+          </Box> */}
         </Center>
       </Box>
     </Container>

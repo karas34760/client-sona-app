@@ -43,5 +43,18 @@
     "feature_title_4":"Robust & Secure Redemption",
     "feature_content_4":"Redeem tickets using YellowHeart’s intuitive App for secure and fraud-proof event entry. YellowHeart redemption provides customizable staff accounts, actionable insights, rapid flows, and built-in troubleshooting for a seamless experience",
     "======================Artist Section":"",
-    "artist_section_content":"Leading the charge towards ticketing & music in Web3"
+    "artist_section_content":"Leading the charge towards ticketing & music in Web3",
+     "======================Ticket Feature Section":"",
+     "ticket_title_1":"NFT Tickets",
+     "ticket_content_1":"Use an eco-friendly blockchain to drive transparency and engagement while reducing fraud.",
+     "ticket_title_2":"Resale Royalties",
+     "ticket_content_2":"Enable ticket issuers to receive a payment on every resale.",
+     "ticket_title_3":"Rotating QR Codes",
+     "ticket_content_3":"Ensures that only redeemed tickets are validated and the ticket holder is the one redeeming.",
+     "ticket_title_4":"Collectible Content",
+     "ticket_content_4":"Coupled with tickets, such as art, music, and video allow fans to enjoy or resell.",
+     "=========== Investor Section=========":"",
+     "our_investors":"Our Investors",
+     "our_investors_content":"Backed by some of the leading investors in Web3"
+
 }

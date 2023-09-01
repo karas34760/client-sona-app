@@ -82,6 +82,12 @@ export const Button: ComponentStyleConfig = {
       height: '50px',
       width: '50px',
     },
+    primary: {
+      border: '0.063rem solid',
+      borderColor: 'primary.purple.400',
+      color: 'primary.purple.500',
+      px: 4,
+    },
   },
 };
 export const fonts = {

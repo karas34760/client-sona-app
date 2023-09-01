@@ -5,6 +5,8 @@ import HowWork from '@/layouts/Section/HowWork';
 import FeatureSection from '@/layouts/Section/FeatureSection';
 import ArtistSection from '@/layouts/Section/ArtistSection';
 import HeroSection from '@/layouts/Section/HeroSection';
+import TicketFeature from '@/layouts/Section/TicketFeature';
+import InvestorSection from '@/layouts/Section/InvestorSection';
 export async function getStaticProps({ locale }: { locale: string }) {
   return {
     props: {
@@ -18,9 +20,11 @@ export default function Home() {
     <>
       <HeroSection />
       <HowWork />
+      <TicketFeature />
       <ArtistSection />
 
       <FeatureSection />
+      <InvestorSection />
       <SubcribeEmail />
     </>
   );
