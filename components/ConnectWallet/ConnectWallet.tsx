@@ -1,6 +1,6 @@
-import { Button } from '@chakra-ui/react';
+import { Button, Icon } from '@chakra-ui/react';
 import React from 'react';
-
+import ShoppingCart from 'public/assets/icons/generals/shopping-cart.svg';
 const ConnectWallet = () => {
   return (
     <>
@@ -13,6 +13,7 @@ const ConnectWallet = () => {
         _hover={{}}
       >
         Connect Wallet
+        <Icon as={ShoppingCart} />
       </Button>
     </>
   );

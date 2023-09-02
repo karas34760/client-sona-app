@@ -22,7 +22,7 @@ const Footer = () => {
   return (
     <>
       <Box as="footer" bg={bgFooter}>
-        <Container maxWidth="container.xl" px={{ md: 6, base: 4 }}>
+        <Container maxWidth="container.xl" px={{ lg: 4, md: 8, base: 4 }}>
           <HStack
             justifyContent="space-between"
             py={12}

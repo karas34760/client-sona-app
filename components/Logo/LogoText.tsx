@@ -9,7 +9,11 @@ const LogoText = ({ sx, styleText }: IProps) => {
   return (
     <>
       <HStack gap={4} width="inherit" {...sx}>
-        <Icon as={LogoIcon} height={12} width={12} />
+        <Icon
+          as={LogoIcon}
+          height={{ md: 12, base: 8 }}
+          width={{ md: 12, base: 8 }}
+        />
         <Text
           fontSize={'28px'}
           fontWeight="bold"

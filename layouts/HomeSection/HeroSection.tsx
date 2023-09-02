@@ -13,8 +13,8 @@ import Image from 'next/image';
 const HeroSection = () => {
   const bg = useColorModeValue(
     'gradient.300',
-    'linear-gradient(214deg, #0C0C0C 40%, #6F4FF2 100%);'
-  );
+    'transparent'
+  ); /* linear-gradient(184deg, #0C0C0C 40%, #6F4FF2 100%) */
   return (
     <Box py={16} bg={bg}>
       <Container maxWidth="container.xl">
