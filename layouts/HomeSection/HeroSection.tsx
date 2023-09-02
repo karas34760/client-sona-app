@@ -5,11 +5,11 @@ import {
   Container,
   HStack,
   Button,
-  Icon,
   Flex,
 } from '@chakra-ui/react';
 import React from 'react';
-import TicketTwin from 'public/assets/icons/art/digital_twin.svg';
+
+import Image from 'next/image';
 const HeroSection = () => {
   const bg = useColorModeValue(
     'gradient.300',
@@ -20,7 +20,8 @@ const HeroSection = () => {
       <Container maxWidth="container.xl">
         <HStack
           justifyContent="space-between"
-          flexWrap={{ md: 'nowrap', base: 'wrap' }}
+          flexWrap={{ md: 'nowrap', base: 'wrap-reverse' }}
+          rowGap={6}
         >
           <Flex color="white" flexDirection="column" gap={6}>
             <Box>
@@ -40,8 +41,24 @@ const HeroSection = () => {
               <Button variant="solid">Buy Ticket</Button>
             </Flex>
           </Flex>
-          <Box>
-            <Icon as={TicketTwin} height="full" width="full" />
+          <Box
+            width={{ lg: '43.75rem', md: '31.25rem', base: 'full' }}
+            position="relative"
+            height={{ lg: '40.625rem', md: '25rem', base: '18.75rem' }}
+          >
+            <Image
+              style={{
+                transformStyle: 'preserve-3d',
+                transform:
+                  'translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg)',
+              }}
+              src={`assets/bg/bg-hero.svg`}
+              priority
+              fill
+              /*  width="700"
+              height="760" */
+              alt="Hero Image"
+            />
           </Box>
         </HStack>
       </Container>
