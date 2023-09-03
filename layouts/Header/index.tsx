@@ -23,6 +23,7 @@ import HamburgerIcon from 'public/assets/icons/arrow/hamburger.svg';
 import CloseIcon from 'public/assets/icons/arrow/close.svg';
 import Sidebar from '@/components/Modal/Sidebar';
 import CartDrawer from '@/components/Cart/CartDrawer';
+import NavMobileSearch from '@/components/Search/NavMobileSearch';
 const Header = () => {
   const [transparency, setTransparency] = useState(0.0);
   const bgHeader = useColorModeValue(
@@ -64,18 +65,19 @@ const Header = () => {
       >
         <Container maxWidth="container.xl" py={6}>
           <HStack justifyContent="space-between">
-            <Flex alignItems="center" gap={{ md: 8, base: 4 }}>
+            <Flex alignItems="center" gap={{ lg: 6, base: 4 }}>
               <Center
                 display={{ lg: 'none', base: 'flex' }}
                 verticalAlign="middle"
+                color="primary.gray.400"
               >
                 {isOpen ? (
                   <>
                     <Icon
                       onClick={onClose}
                       as={CloseIcon}
-                      height={{ md: 8, base: 6 }}
-                      width={{ md: 8, base: 6 }}
+                      height={8}
+                      width={8}
                     />
                   </>
                 ) : (
@@ -93,12 +95,14 @@ const Header = () => {
               <Link href="/">
                 <LogoText />
               </Link>
-              <NavSearch />
+              <Box display={{ base: 'none', md: 'flex' }}>
+                <NavSearch />
+              </Box>
             </Flex>
-            <Flex alignItems="center" gap={6}>
+            <Flex alignItems="center" gap={{ base: 4, md: 6 }}>
               <Box
                 display={{ lg: 'flex', base: 'none' }}
-                gap={8}
+                gap={6}
                 alignItems="center"
               >
                 <ListNavHeader />
@@ -107,6 +111,9 @@ const Header = () => {
               </Box>
               <Box display={{ md: 'block', base: 'none' }}>
                 <ConnectWallet />
+              </Box>
+              <Box display={{ md: 'none', base: 'block' }}>
+                <NavMobileSearch />
               </Box>
               <CartDrawer />
             </Flex>
