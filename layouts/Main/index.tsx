@@ -8,10 +8,6 @@ const Main = ({ children }: MainProps) => {
   return (
     <>
       <Container
-        pb={{
-          md: 4,
-          base: 3,
-        }}
         width="full"
         as="main"
         display="flex"
