@@ -8,15 +8,13 @@ const Main = ({ children }: MainProps) => {
   return (
     <>
       <Container
-        py={{
-          md: 4,
-          base: 3,
-        }}
         width="full"
         as="main"
         display="flex"
         maxWidth="container.2xl"
+        px={0}
         flexDirection="column"
+        gap={32}
       >
         {children}
       </Container>

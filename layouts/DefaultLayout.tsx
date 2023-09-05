@@ -1,5 +1,7 @@
 import React, { PropsWithChildren, useEffect } from 'react';
 import NProgress from 'nprogress';
+import 'nprogress/nprogress.css';
+
 import { useRouter } from 'next/router';
 import { Box } from '@chakra-ui/react';
 import Header from './Header';
@@ -51,10 +53,14 @@ const DefaultLayout = ({ children }: PropsWithChildren) => {
         height="0.1875rem"
         zIndex="banner"
       />
-      <Box backgroundImage={bgImageLink} height="100vh">
+      <Box
+        backgroundImage={bgImageLink}
+        /* backgroundRepeat={'repeat'} */
+        /*     overflowX="hidden" */
+      >
         <Header />
         <Main>{children}</Main>
-        {/*  <Footer /> */}
+        <Footer />
       </Box>
     </>
   );

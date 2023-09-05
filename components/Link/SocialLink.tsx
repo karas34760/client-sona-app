@@ -42,6 +42,7 @@ const SocialLink = () => {
             as={item.icon}
             width={6}
             height={6}
+            transition="ease-in-out 0.3s"
             color="primary.gray.400"
             _hover={{
               color: 'white',

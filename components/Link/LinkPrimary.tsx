@@ -12,8 +12,9 @@ const LinkPrimary = ({ label, link, sx }: IProps) => {
     <Link href={link}>
       <Text
         position="relative"
+        transition=".5s ease-in-out"
         _hover={{
-          color: 'primary.purple.400',
+          color: 'primary.purple.500',
           _after: {
             width: '100%',
             opacity: 1,
@@ -29,7 +30,7 @@ const LinkPrimary = ({ label, link, sx }: IProps) => {
           bottom: '-0.125rem',
           right: 0,
           opacity: 0,
-          transition: '.5s',
+          transition: '.4s ease-in-out',
         }}
         {...sx}
       >

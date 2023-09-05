@@ -1,5 +1,7 @@
 import {
   ComponentStyleConfig,
+  StyleFunctionProps,
+  SystemStyleObject,
   ThemeConfig,
   extendTheme,
 } from '@chakra-ui/react';
@@ -56,9 +58,58 @@ export const colors = {
   ...backgrounds,
 };
 
+/* const styles = {
+  global: (props: StyleFunctionProps) => ({
+    body: {
+      overflowX: 'hidden',
+    },
+  }),
+}; */
+
+const Text: ComponentStyleConfig = {
+  variants: {
+    type_title: (props: StyleFunctionProps) => ({
+      fontSize: { lg: '3rem', base: '2rem' },
+      fontWeight: 'bold',
+      color: 'primary.purple.500',
+    }),
+  },
+};
+const Button: ComponentStyleConfig = {
+  variants: {
+    navigation: {
+      borderRadius: 'full',
+      bg: 'white',
+      color: 'primary.gray.800',
+      height: '50px',
+      width: '50px',
+    },
+    primary: {
+      border: '0.063rem solid',
+      borderColor: 'primary.purple.400',
+      color: 'primary.purple.500',
+      px: 4,
+      transition: 'all linear .4s',
+      _hover: {
+        bg: 'primary.purple.500',
+        color: 'white',
+      },
+    },
+  },
+};
+export const fonts = {
+  body: `'Work Sans', sans-serif`,
+  /*   body: `'Inter',sans-serif`, */
+};
+
 const theme = extendTheme({
+  fonts,
   colors,
   config,
+  components: {
+    Text,
+    Button,
+  },
 });
 
 export default theme;
