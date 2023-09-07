@@ -18,7 +18,7 @@ jobs:
       - run: curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash - # Install Node.js LTS
       - run: sudo apt install -y nodejs # Install Node.js
       - run: npm install -g yarn # Install Yarn globally
-      - run: npm ci # Install project dependencies
+      - run: yarn install # Install project dependencies
       - run: yarn build
         env:
           NEXT_PUBLIC_FIREBASE_API_KEY: ${{secrets.NEXT_PUBLIC_FIREBASE_API_KEY}}
