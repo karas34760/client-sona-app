@@ -1,6 +1,6 @@
 import SocialLink from '@/components/Link/SocialLink';
 import LogoText from '@/components/Logo/LogoText';
-import { colors } from '@/themes/theme';
+import { breakpoints, colors } from '@/themes/theme';
 import { convertHex } from '@/utils/utils';
 import {
   Box,
@@ -22,7 +22,7 @@ const Footer = () => {
   return (
     <>
       <Box as="footer" bg={bgFooter}>
-        <Container maxWidth="container.xl" px={{ lg: 4, md: 8, base: 4 }}>
+        <Container maxWidth="container.xl">
           <HStack
             justifyContent="space-between"
             py={12}

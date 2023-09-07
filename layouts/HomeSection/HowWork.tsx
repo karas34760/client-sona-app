@@ -52,7 +52,7 @@ const HowWork = () => {
   ];
   return (
     <>
-      <Container maxWidth="container.xl">
+      <Container maxWidth="container.xl" py={16}>
         <Center
           justifyContent={{
             lg: 'space-between',

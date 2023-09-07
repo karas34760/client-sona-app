@@ -13,10 +13,10 @@ const ListNavHeader = () => {
       label: t('marketplace'),
       link: '/marketplace',
     },
-    /*  {
-      label: t('sell'),
-      link: '/sell',
-    }, */
+    {
+      label: t('discover'),
+      link: '/discover',
+    },
     {
       label: t('create_events'),
       link: '/create-events',

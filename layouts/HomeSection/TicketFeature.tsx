@@ -36,7 +36,7 @@ const TicketFeature = () => {
   const { t } = useTranslation();
   return (
     <>
-      <Container maxW="container.xl">
+      <Container maxW="container.xl" py={16}>
         <Grid
           gridTemplateColumns={{ lg: 'repeat(4,1fr)', md: 'repeat(2,1fr)' }}
           gap={6}

@@ -8,6 +8,7 @@ import HeroSection from '@/layouts/HomeSection/HeroSection';
 import TicketFeature from '@/layouts/HomeSection/TicketFeature';
 import InvestorSection from '@/layouts/HomeSection/InvestorSection';
 import OrganizeSection from '@/layouts/HomeSection/OrganizeSection';
+import { Box, Flex } from '@chakra-ui/react';
 export async function getStaticProps({ locale }: { locale: string }) {
   return {
     props: {
@@ -19,14 +20,16 @@ export async function getStaticProps({ locale }: { locale: string }) {
 export default function Home() {
   return (
     <>
-      <HeroSection />
-      <HowWork />
-      <TicketFeature />
-      <ArtistSection />
-      <OrganizeSection />
-      <FeatureSection />
-      <InvestorSection />
-      <SubcribeEmail />
+      <Box>
+        <HeroSection />
+        <HowWork />
+        <TicketFeature />
+        <ArtistSection />
+        <OrganizeSection />
+        <FeatureSection />
+        <InvestorSection />
+        <SubcribeEmail />
+      </Box>
     </>
   );
 }

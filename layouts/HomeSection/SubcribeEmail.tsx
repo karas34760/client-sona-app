@@ -11,13 +11,10 @@ import {
   Text,
 } from '@chakra-ui/react';
 import React from 'react';
-import BNBIcon from 'public/assets/icons/crypto/BNB.svg';
-import EtherIcon from 'public/assets/icons/crypto/ETH.svg';
-import BTCIcon from 'public/assets/icons/crypto/BTC.svg';
 
 const SubcribeEmail = () => {
   return (
-    <Container maxWidth="container.xl">
+    <Container maxWidth="container.xl" py={16}>
       <Box
         boxShadow="0px 4px 8px 0px rgba(134, 106, 250, 0.40)"
         borderRadius="3xl"

@@ -11,7 +11,7 @@ import {
 import React, { useEffect, useState } from 'react';
 
 import { convertHex, debounce, throttle } from '@/utils/utils';
-import { colors } from '@/themes/theme';
+import { breakpoints, colors } from '@/themes/theme';
 import Link from 'next/link';
 import ListNavHeader from './components/ListNavHeader';
 import BtnSwitchLanguage from '@/components/Switch/BtnSwitchLanguage';
@@ -63,7 +63,7 @@ const Header = () => {
         bg={isOpen ? bgHeaderOverlay : bgHeader}
         backdropFilter={`blur(${transparency * 8}px)`}
       >
-        <Container maxWidth="container.xl" py={6}>
+        <Container maxWidth={breakpoints['2xl']} px={{ md: 8, base: 4 }} py={6}>
           <HStack justifyContent="space-between">
             <Flex alignItems="center" gap={{ lg: 6, base: 4 }}>
               <Center
