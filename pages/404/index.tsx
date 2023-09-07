@@ -15,7 +15,7 @@ export async function getStaticProps({ locale }: { locale: string }) {
 const PageNotFound = () => {
   return (
     <Container maxW="container.lg">
-      <Center flexDirection="column" py={'32px'}>
+      <Center flexDirection="column" py={8} gap={5}>
         <BgNotFound />
         <Text variant="type_title" fontSize="28px">
           Opps! you’r on the wrong place.

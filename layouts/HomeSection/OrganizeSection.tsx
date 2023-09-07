@@ -8,11 +8,11 @@ import {
   Text,
 } from '@chakra-ui/react';
 import React from 'react';
-import TwinDigitalIcon from 'public/assets/icons/art/digital_twin.svg';
+
 import OganizeIcon from 'public/assets/icons/art/organize-art.svg';
 const OrganizeSection = () => {
   return (
-    <Container maxWidth="container.xl">
+    <Container maxWidth="container.xl" py={16}>
       <HStack
         width="full"
         flexWrap={{ md: 'nowrap', base: 'wrap' }}

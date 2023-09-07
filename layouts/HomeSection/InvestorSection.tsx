@@ -54,7 +54,7 @@ const InvestorSection = () => {
     },
   ];
   return (
-    <Container maxWidth="container.xl">
+    <Container maxWidth="container.xl" py={16}>
       <Center flexDir="column" mb={6}>
         <Text variant="type_title">{t('our_investors')}</Text>
         <Text>{t('our_investors_content')}</Text>

@@ -32,7 +32,7 @@ const FeatureSection = () => {
   const { t } = useTranslation();
   return (
     <>
-      <Container maxW="container.xl">
+      <Container maxW="container.xl" py={16}>
         <Box mb={12}>
           <Text variant="type_title">{t('ticket_section_title')}</Text>
           <Text>{t('ticket_section_content')}</Text>
