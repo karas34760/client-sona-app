@@ -50,7 +50,7 @@
   "engines": {
     "node": ">=16",
     "npm": ">=8"
-  },
-  "packageManager": "yarn@3.6.3"
+  }
+ 
  
 }
