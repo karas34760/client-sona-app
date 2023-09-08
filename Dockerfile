@@ -7,7 +7,7 @@ WORKDIR /app
 COPY  package.json yarn.lock* package-lock.json* ./
 #COPY .yarn  .yarn 
 #COPY ./packages /app/packages
-RUN nvm use 18
+
 RUN yarn install
 
 
