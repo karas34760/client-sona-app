@@ -3,10 +3,12 @@ WORKDIR /app
 
 
 # install dependencies
-COPY .yarnrc.yml  package.json yarn.lock* package-lock.json* * ./
+# Install dependencies based on the preferred package manager
+COPY .yarnrc.yml  package.json yarn.lock* package-lock.json* ./
+COPY .yarn  .yarn 
 COPY ./packages /app/packages
-
 RUN yarn install
+
 
 # Rebuild the source code only when needed
 FROM node:18 AS builder
@@ -36,4 +38,4 @@ EXPOSE 3000
 
 ENV PORT 3000
 
-CMD ["yarn", "start"]
+CMD ["yarn", "start","node","server.js"]

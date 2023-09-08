@@ -9,7 +9,7 @@
     "lint": "next lint",
     "postinstall": "husky install"
   },
-   "dependencies": {
+  "dependencies": {
     "@chakra-ui/next-js": "^2.1.5",
     "@chakra-ui/react": "^2.8.0",
     "@emotion/react": "^11.11.1",
@@ -50,5 +50,9 @@
   "engines": {
     "node": ">=16",
     "npm": ">=8"
-  }
+  },
+  "packageManager": "yarn@3.6.3",
+  "workspaces": [
+    "packages/*"
+  ]
 }
