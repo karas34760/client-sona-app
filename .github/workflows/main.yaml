@@ -14,10 +14,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2 # Checkout the code
-      - run: sudo apt update && sudo apt install -y curl # Install Curl
-      - run: curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash - # Install Node.js LTS
-      - run: sudo apt install -y nodejs # Install Node.js
-      - run: npm install -g yarn # Install Yarn globally
       - run: yarn install # Install project dependencies
       - run: yarn build
         env:
