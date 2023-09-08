@@ -1,7 +1,7 @@
 FROM node:18 as deps
 WORKDIR /app
 
-RUN npm install -g yarn
+
 # install dependencies
 COPY .yarnrc.yml  package.json yarn.lock* package-lock.json* * ./
 COPY ./packages /app/packages
