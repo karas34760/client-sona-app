@@ -1,4 +1,5 @@
 import { Center, Text, Container, Button } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
 
@@ -13,6 +14,7 @@ export async function getStaticProps({ locale }: { locale: string }) {
 }
 
 const PageNotFound = () => {
+  const { t } = useTranslation();
   return (
     <Container maxW="container.lg">
       <Center flexDirection="column" py={8} gap={5}>
@@ -20,10 +22,7 @@ const PageNotFound = () => {
         <Text variant="type_title" fontSize="28px">
           Opps! you’r on the wrong place.
         </Text>
-        <Text>
-          Can not find what you need? Take a moment and do a search below or
-          start from our Homepage.
-        </Text>
+        <Text>{t('404_content')}</Text>
         <Button variant="primary">Back to Home</Button>
       </Center>
     </Container>

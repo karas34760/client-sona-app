@@ -1,5 +1,5 @@
-import React from 'react';
 import { useTranslation } from 'next-i18next';
+import React from 'react';
 
 import LinkPrimary from '@/components/Link/LinkPrimary';
 interface ListProps {
