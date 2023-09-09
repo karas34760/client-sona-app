@@ -19,7 +19,6 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.VPS_SSH }} # Use SSH keys instead of passwords
-          passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
           script: |
             docker build -t karas34760/sona-app:latest -f Dockerfile .
 
