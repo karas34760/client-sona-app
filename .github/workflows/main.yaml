@@ -60,7 +60,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.VPS_SSH_PRIVATE_KEY }} # Use SSH keys instead of password
           script: |
-            DOCKER_NAME=${{screts.DOCKER_NAME}} 
+            DOCKER_NAME=${{secrets.DOCKER_NAME}} 
             DOCKERHUB_IMAGE=${{ secrets.$DOCKERHUB_IMAGE }}
             docker stop $DOCKER_NAME || true
             docker rm $DOCKER_NAME || true
