@@ -1,10 +1,11 @@
+import { Box, BoxProps, Button, ButtonProps, Icon } from '@chakra-ui/react';
 import React, { useRef } from 'react';
-import NextIcon from 'public/assets/icons/arrow/down.svg';
+import { Navigation, Mousewheel } from 'swiper';
 import { Swiper } from 'swiper/react';
 // Core modules imports are same as usual
-import { Navigation, Mousewheel } from 'swiper';
-import { Box, BoxProps, Button, ButtonProps, Icon } from '@chakra-ui/react';
 import { SwiperOptions } from 'swiper/types';
+
+import NextIcon from 'public/assets/icons/arrow/down.svg';
 import 'swiper/css/mousewheel';
 import 'swiper/css/bundle';
 import 'swiper/css/navigation';

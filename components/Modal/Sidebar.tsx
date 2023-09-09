@@ -1,17 +1,18 @@
-import ListNavHeader from '@/layouts/Header/components/ListNavHeader';
 import {
   Drawer,
   DrawerBody,
   DrawerContent,
-  DrawerHeader,
   DrawerOverlay,
   HStack,
   useColorModeValue,
   Text,
 } from '@chakra-ui/react';
 import React from 'react';
+
 import BtnSwitchColor from '../Switch/BtnSwitchColor';
-import BtnSwitchLanguage from '../Switch/BtnSwitchLanguage';
+/* import BtnSwitchLanguage from '../Switch/BtnSwitchLanguage';
+
+import ListNavHeader from '@/layouts/Header/components/ListNavHeader'; */
 interface IProps {
   onClose: () => void;
   isOpen: boolean;

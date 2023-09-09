@@ -1,14 +1,14 @@
+import { Box } from '@chakra-ui/react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-import SubcribeEmail from '@/layouts/HomeSection/SubcribeEmail';
-import HowWork from '@/layouts/HomeSection/HowWork';
-import FeatureSection from '@/layouts/HomeSection/FeatureSection';
 import ArtistSection from '@/layouts/HomeSection/ArtistSection';
+import FeatureSection from '@/layouts/HomeSection/FeatureSection';
 import HeroSection from '@/layouts/HomeSection/HeroSection';
-import TicketFeature from '@/layouts/HomeSection/TicketFeature';
+import HowWork from '@/layouts/HomeSection/HowWork';
 import InvestorSection from '@/layouts/HomeSection/InvestorSection';
 import OrganizeSection from '@/layouts/HomeSection/OrganizeSection';
-import { Box, Flex } from '@chakra-ui/react';
+import SubcribeEmail from '@/layouts/HomeSection/SubcribeEmail';
+import TicketFeature from '@/layouts/HomeSection/TicketFeature';
 export async function getStaticProps({ locale }: { locale: string }) {
   return {
     props: {

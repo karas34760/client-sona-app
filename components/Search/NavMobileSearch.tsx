@@ -1,6 +1,7 @@
-import React from 'react';
-import SearchIcon from 'public/assets/icons/generals/search.svg';
 import { Center, Icon, useColorModeValue } from '@chakra-ui/react';
+import React from 'react';
+
+import SearchIcon from 'public/assets/icons/generals/search.svg';
 const NavMobileSearch = () => {
   const bg = useColorModeValue('primary.gray.200', 'dark.100');
   return (

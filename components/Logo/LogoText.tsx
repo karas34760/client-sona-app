@@ -1,6 +1,7 @@
-import React from 'react';
-import LogoIcon from 'public/logo/logo.svg';
 import { HStack, Icon, StackProps, Text, TextProps } from '@chakra-ui/react';
+import React from 'react';
+
+import LogoIcon from 'public/logo/logo.svg';
 interface IProps {
   sx?: StackProps;
   styleText?: TextProps;

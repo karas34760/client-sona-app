@@ -1,5 +1,4 @@
 import {
-  Button,
   Icon,
   Menu,
   MenuButton,
@@ -7,9 +6,10 @@ import {
   MenuList,
   Portal,
 } from '@chakra-ui/react';
-
+import { Button } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import React from 'react';
+
 import LanguageIcon from 'public/assets/icons/generals/language.svg';
 
 const BtnSwitchLanguage = () => {

@@ -1,7 +1,7 @@
+import { Center, Text, Container, Button } from '@chakra-ui/react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
 
-import { Center, Text, Container, Button } from '@chakra-ui/react';
 import BgNotFound from '@/animations/404/BgNotFound';
 
 export async function getStaticProps({ locale }: { locale: string }) {

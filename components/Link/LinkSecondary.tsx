@@ -1,7 +1,8 @@
-import { colors } from '@/themes/theme';
 import { Text, TextProps } from '@chakra-ui/react';
 import Link from 'next/link';
 import React from 'react';
+
+import { colors } from '@/themes/theme';
 
 interface IProps {
   label: string;

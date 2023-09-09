@@ -1,11 +1,12 @@
-import React from 'react';
-import FacebookIcon from 'public/assets/icons/socials/facebook.svg';
-import TwitterIcon from 'public/assets/icons/socials/twitter.svg';
-import GithubIcon from 'public/assets/icons/socials/github.svg';
-import LinkedInIcon from 'public/assets/icons/socials/linkedin.svg';
-import WebsiteIcon from 'public/assets/icons/generals/website.svg';
 import { Icon, Link as NextLink } from '@chakra-ui/react';
 import Link from 'next/link';
+import React from 'react';
+
+import WebsiteIcon from 'public/assets/icons/generals/website.svg';
+import FacebookIcon from 'public/assets/icons/socials/facebook.svg';
+import GithubIcon from 'public/assets/icons/socials/github.svg';
+import LinkedInIcon from 'public/assets/icons/socials/linkedin.svg';
+import TwitterIcon from 'public/assets/icons/socials/twitter.svg';
 const LinkSocials = [
   {
     key: 'twitter',

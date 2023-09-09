@@ -1,7 +1,8 @@
 import { Icon, useColorMode } from '@chakra-ui/react';
 import React from 'react';
-import SunIcon from 'public/assets/icons/generals/sun.svg';
+
 import MoonIcon from 'public/assets/icons/generals/moon.svg';
+import SunIcon from 'public/assets/icons/generals/sun.svg';
 const BtnSwitchColor = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   return (

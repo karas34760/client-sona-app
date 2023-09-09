@@ -1,6 +1,7 @@
-import React from 'react';
-import ShoppingCart from 'public/assets/icons/generals/shopping-cart.svg';
 import { Center, Icon, useColorModeValue } from '@chakra-ui/react';
+import React from 'react';
+
+import ShoppingCart from 'public/assets/icons/generals/shopping-cart.svg';
 const CartDrawer = () => {
   const bg = useColorModeValue('primary.gray.200', 'dark.100');
   return (
