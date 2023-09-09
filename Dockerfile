@@ -2,9 +2,7 @@ FROM node:18 as deps
 WORKDIR /app
 
 
-# install dependencies
-# Install dependencies based on the preferred package manager
-# Install dependencies based on the preferred package manager
+
 COPY .yarnrc.yml .nvmrc  package.json yarn.lock* package-lock.json* ./
 COPY .yarn  .yarn 
 #COPY ./packages /app/packages
@@ -12,7 +10,7 @@ COPY .yarn  .yarn
 RUN yarn install
 
 # Rebuild the source code only when needed
-FROM deps as builder
+FROM node:18 AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules /app/node_modules
 COPY . .
@@ -39,4 +37,4 @@ EXPOSE 3000
 
 ENV PORT 3000
 
-CMD ["yarn", "start"]
+CMD ["node", "server.js"]
