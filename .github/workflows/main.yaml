@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - 'dev' # dev
-      - '!dependabot/**' # exclude dependbot branches
   workflow_dispatch: # Manually run the workflow
 
 jobs:
@@ -47,3 +46,18 @@ jobs:
           docker build -t $DOCKERHUB_IMAGE .
           echo "Pushing Image to Docker Hub"
           docker push $DOCKERHUB_IMAGE
+  deploy-to-vps:
+    needs: docker-push # Job depends on docker-push job
+    runs-on: ubuntu-latest # Change to ubuntu-20.04 if required
+    steps:
+      - name: SSH into VPS and deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.VPS_SSH}} # Consider using SSH keys instead
+          script: |
+            docker stop $DOCKER_NAME || true
+            docker rm $DOCKER_NAME || true
+            docker pull $DOCKERHUB_IMAGE
+            docker run -d --name $DOCKER_NAME -p 3000:3000 $DOCKERHUB_IMAGE
