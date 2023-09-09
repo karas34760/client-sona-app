@@ -1,0 +1,31 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches:
+      - main # Change to your main branch or the branch you want to deploy
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: SSH into VPS and deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.VPS_SSH }} # Use SSH keys instead of passwords
+          script: |
+            # Stop and remove the existing Docker container (if any)
+            docker stop sona-app || true
+            docker rm sona-app || true
+
+            # Pull the latest Docker image from Docker Hub (replace with your image name)
+            docker pull karas34760/sona-app:latest
+
+            # Run the Docker container
+            docker run -d --name sona-app -p 3000:3000 karas34760/sona-app:latest
