@@ -22,13 +22,13 @@ jobs:
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
             # Navigate to your project directory (change this to your project path)
-            cd /overkill/client-sona-app
+            cd overkill/client-sona-app
             git pull
-            # Build the Docker image from your Dockerfile
-            docker build -t karas34760/sona-app:latest .
 
-            # Pull the latest Docker image (if needed, replace with your image name)
-            docker pull karas34760/sona-app:latest
+            echo "${{ secrets.DOCKERHUB_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+
+            # Push the Docker image to Docker Hub
+            docker push karas34760/sona-app:latest
 
             # Remove any existing Docker container with the same name
             docker stop sona-app || true
