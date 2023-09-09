@@ -3,7 +3,7 @@ name: Deploy to VPS
 on:
   push:
     branches:
-      - main # Change to your main branch or the branch you want to deploy
+      - dev # Change to your main branch or the branch you want to deploy
 
 jobs:
   deploy:
@@ -19,13 +19,12 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.VPS_SSH }} # Use SSH keys instead of passwords
+          passphrase: ${{ secrets.VPS_SSH_PASSPHRASE }}
           script: |
-            # Stop and remove the existing Docker container (if any)
-            docker stop sona-app || true
-            docker rm sona-app || true
+            docker build -t karas34760/sona-app:latest -f Dockerfile .
 
             # Pull the latest Docker image from Docker Hub (replace with your image name)
-            docker pull karas34760/sona-app:latest
+            docker run -d -p 3000:3000 karas34760/sona-app:latest
 
             # Run the Docker container
             docker run -d --name sona-app -p 3000:3000 karas34760/sona-app:latest
