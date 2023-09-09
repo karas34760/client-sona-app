@@ -1,4 +1,5 @@
 import { Center, Text, Container, Button } from '@chakra-ui/react';
+import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
@@ -23,7 +24,9 @@ const PageNotFound = () => {
           Opps! you’r on the wrong place.
         </Text>
         <Text>{t('404_content')}</Text>
-        <Button variant="primary">Back to Home Success</Button>
+        <Link href="/">
+          <Button variant="primary">Back to Home </Button>
+        </Link>
       </Center>
     </Container>
   );
