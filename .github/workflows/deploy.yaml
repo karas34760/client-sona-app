@@ -2,13 +2,11 @@ name: Deploy to VPS
 on:
   push:
     branches:
-      - dev # Change to your main branch or the branch you want to deploy
--
-
+      - dev # Change to your main branch or the branch you want to deploys
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -18,12 +16,13 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
           key: ${{ secrets.VPS_SSH }} # Use SSH keys instead of passwords
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
             # Navigate to your project directory (change this to your project path)
             cd /overkill/client-sona-app
-
+            git pull
             # Build the Docker image from your Dockerfile
             docker build -t karas34760/sona-app:latest .
 
