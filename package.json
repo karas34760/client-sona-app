@@ -9,12 +9,11 @@
     "lint": "next lint",
     "postinstall": "husky install"
   },
-   "dependencies": {
+  "dependencies": {
     "@chakra-ui/next-js": "^2.1.5",
-    "@chakra-ui/react": "^2.8.0",
+    "@chakra-ui/react": "^2.8.1",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@next/font": "13.4.12",
     "@svgr/webpack": "^8.0.1",
     "@types/node": "20.4.4",
     "@types/react": "18.2.15",
@@ -51,5 +50,6 @@
   "engines": {
     "node": ">=16",
     "npm": ">=8"
-  }
+  },
+  "packageManager": "yarn@3.6.3"
 }

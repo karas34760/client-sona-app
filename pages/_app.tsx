@@ -1,19 +1,23 @@
-import DefaultLayout from '@/layouts/DefaultLayout';
-import theme from '@/themes/theme';
 import { ChakraProvider } from '@chakra-ui/react';
 import { AppProps } from 'next/app';
-import 'nprogress/nprogress.css';
+import { Work_Sans } from 'next/font/google';
+import { appWithTranslation } from 'next-i18next';
+
+import DefaultLayout from '@/layouts/DefaultLayout';
+import theme from '@/themes/theme';
+
+const work_sans = Work_Sans({ subsets: ['latin'] });
 
 function App({ Component, pageProps }: AppProps) {
   return (
     <>
-      {/* <style jsx global>
+      <style jsx global>
         {`
           :root {
-            --font-public: ${public_sans.style.fontFamily};
+            --font-work: ${work_sans.style.fontFamily};
           }
         `}
-      </style> */}
+      </style>
 
       <ChakraProvider theme={theme}>
         <DefaultLayout>
@@ -24,4 +28,4 @@ function App({ Component, pageProps }: AppProps) {
   );
 }
 
-export default App;
+export default appWithTranslation(App);
