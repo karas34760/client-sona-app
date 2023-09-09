@@ -20,7 +20,7 @@ const PageNotFound = () => {
       <Center flexDirection="column" py={8} gap={5}>
         <BgNotFound />
         <Text variant="type_title" fontSize="28px">
-          Opps! you’r on the wrong place.
+          Opps! you’r on the wrong place -Karas.
         </Text>
         <Text>{t('404_content')}</Text>
         <Button variant="primary">Back to Home</Button>
