@@ -44,7 +44,7 @@ jobs:
         run: |
           export CURRENT_BRANCH=${GITHUB_REF#refs/heads/}
           export TAG=$([[ $CURRENT_BRANCH == "dev" ]] && echo "latest" || echo $CURRENT_BRANCH)
-          export DOCKERHUB_IMAGE=${{ secrets.DOCKERHUB_USERNAME }}/your-docker-image-name:$TAG
+          export DOCKERHUB_IMAGE=${{ secrets.DOCKERHUB_IMAGE }}
           docker build -t $DOCKERHUB_IMAGE .
           echo "Pushing Image to Docker Hub"
           docker push $DOCKERHUB_IMAGE
@@ -60,7 +60,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.VPS_SSH }} # Use SSH keys instead of password
           script: |
-            DOCKER_NAME=${{secrets.DOCKERHUB_USERNAME}} 
+            DOCKER_NAME=${{ secrets.DOCKERHUB_USERNAME }} 
             DOCKERHUB_IMAGE=${{ secrets.$DOCKERHUB_IMAGE }}
             docker stop $DOCKER_NAME || true
             docker rm $DOCKER_NAME || true
