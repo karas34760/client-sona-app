@@ -13,30 +13,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Docker Buildx (multi-platform builds)
-        uses: docker/setup-buildx-action@v1
-
-      - name: Build Docker Image
-        run: |
-          docker buildx create --use
-          docker buildx inspect default --bootstrap
-          docker buildx build -t karas34760/sona-app:latest -f Dockerfile . --platform linux/amd64,linux/arm64
-        working-directory: ./path/to/your/app
-
       - name: SSH into VPS and deploy
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.VPS_SSH }} # Use SSH keys instead of passwords
-          passphrase: ${{ secrets.SSH_PASSPHRASE }} # Provide your SSH passphrase here
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
-            # Stop and remove the existing Docker container (if any)
-            docker stop sona-app || true
-            docker rm sona-app || true
+            docker build -t karas34760/sona-app:latest -f Dockerfile .
 
             # Pull the latest Docker image from Docker Hub (replace with your image name)
-            docker pull karas34760/sona-app:latest
+            docker run -d -p 3000:3000 karas34760/sona-app:latest
 
             # Run the Docker container
             docker run -d --name sona-app -p 3000:3000 karas34760/sona-app:latest
