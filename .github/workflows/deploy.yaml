@@ -25,7 +25,7 @@ jobs:
             cd overkill/client-sona-app
 
             git pull
-            echo "overkill" > /root/.ssh/id_rsa
+
             echo "${{ secrets.DOCKERHUB_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
             docker build -t karas34760/karas-app:latest -f Dockerfile .

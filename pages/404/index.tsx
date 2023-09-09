@@ -23,7 +23,7 @@ const PageNotFound = () => {
           Opps! you’r on the wrong place.
         </Text>
         <Text>{t('404_content')}</Text>
-        <Button variant="primary">Back to Home</Button>
+        <Button variant="primary">Back to Home Success</Button>
       </Center>
     </Container>
   );
