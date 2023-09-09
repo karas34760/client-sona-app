@@ -3,41 +3,43 @@ name: Build & Publish
 on:
   push:
     branches:
-      - 'dev' # dev
+      - 'dev' # Change this to your branch name
   workflow_dispatch: # Manually run the workflow
 
 jobs:
   next-build:
     if: ${{ github.event_name == 'workflow_dispatch' }} # Run only if triggered manually
-    runs-on: ubuntu-latest # Change to ubuntu-20.04 if required
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v2 # Checkout the code
-      - run: yarn install # Install project dependencies
-      - run: yarn build
+        uses: actions/checkout@v2
+      - name: Install Dependencies and Build
+        run: |
+          yarn install
+          yarn build
         env:
-          NEXT_PUBLIC_FIREBASE_API_KEY: ${{secrets.NEXT_PUBLIC_FIREBASE_API_KEY}}
-      - name: Upload Next build # Upload the artifact
+          NEXT_PUBLIC_FIREBASE_API_KEY: ${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }}
+      - name: Upload Next build
         uses: actions/upload-artifact@v2
         with:
           name: build
           path: |
             .next
             public
-          retention-days: 7 # artifact retention duration, can be up to 30 days
+          retention-days: 7
 
   docker-push:
-    needs: next-build # Job depends on next-build(above) job
-    runs-on: ubuntu-latest # Change to ubuntu-20.04 if required
+    needs: next-build
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Download next build # Download the above uploaded artifact
+      - name: Download next build
         uses: actions/download-artifact@v2
         with:
           name: build
       - name: Login to Docker Hub
-        run: echo "${{ secrets.DOCKERHUB_ACCESS_TOKEN}}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+        run: echo "${{ secrets.DOCKERHUB_ACCESS_TOKEN }}" | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
       - name: Build and Push Docker Images
         run: |
           export CURRENT_BRANCH=${GITHUB_REF#refs/heads/}
@@ -46,17 +48,20 @@ jobs:
           docker build -t $DOCKERHUB_IMAGE .
           echo "Pushing Image to Docker Hub"
           docker push $DOCKERHUB_IMAGE
+
   deploy-to-vps:
-    needs: docker-push # Job depends on docker-push job
-    runs-on: ubuntu-latest # Change to ubuntu-20.04 if required
+    needs: docker-push
+    runs-on: ubuntu-latest
     steps:
       - name: SSH into VPS and deploy
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.VPS_SSH}} # Consider using SSH keys instead
+          key: ${{ secrets.VPS_SSH_PRIVATE_KEY }} # Use SSH keys instead of password
           script: |
+            DOCKER_NAME=${{screts.DOCKER_NAME}} 
+            DOCKERHUB_IMAGE=${{ secrets.$DOCKERHUB_IMAGE }}
             docker stop $DOCKER_NAME || true
             docker rm $DOCKER_NAME || true
             docker pull $DOCKERHUB_IMAGE
