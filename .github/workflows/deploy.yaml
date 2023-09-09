@@ -21,10 +21,18 @@ jobs:
           key: ${{ secrets.VPS_SSH }} # Use SSH keys instead of passwords
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
-            docker build -t karas34760/sona-app:latest -f Dockerfile .
+            # Navigate to your project directory (change this to your project path)
+            cd /overkill/client-sona-app
 
-            # Pull the latest Docker image from Docker Hub (replace with your image name)
-            docker run -d -p 3000:3000 karas34760/sona-app:latest
+            # Build the Docker image from your Dockerfile
+            docker build -t karas34760/sona-app:latest .
 
-            # Run the Docker container
+            # Pull the latest Docker image (if needed, replace with your image name)
+            docker pull karas34760/sona-app:latest
+
+            # Remove any existing Docker container with the same name
+            docker stop sona-app || true
+            docker rm sona-app || true
+
+            # Run the Docker container with the updated image
             docker run -d --name sona-app -p 3000:3000 karas34760/sona-app:latest
