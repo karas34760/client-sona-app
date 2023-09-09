@@ -8,7 +8,7 @@ COPY  package.json yarn.lock* package-lock.json* ./
 COPY .yarn  .yarn 
 #COPY ./packages /app/packages
 
-RUN yarn install
+RUN yarn install --network-timeout 1000000
 
 
 # Rebuild the source code only when needed
