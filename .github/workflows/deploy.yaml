@@ -1,13 +1,14 @@
+name: Debug SSH Key and Passphrase
+  run: |
+    echo "SSH Key: ${{ secrets.VPS_SSH }}"
+    echo "SSH Passphrase: ${{ secrets.SSH_PASSPHRASE }}"
+    
 name: Deploy to VPS
-
 on:
   push:
     branches:
       - dev # Change to your main branch or the branch you want to deploy
-- name: Debug SSH Key and Passphrase
-  run: |
-    echo "SSH Key: ${{ secrets.VPS_SSH }}"
-    echo "SSH Passphrase: ${{ secrets.SSH_PASSPHRASE }}"
+-
 
 jobs:
   deploy:
