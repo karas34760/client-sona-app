@@ -4,12 +4,12 @@ WORKDIR /app
 
 # install dependencies
 # Install dependencies based on the preferred package manager
-COPY  package.json yarn.lock* package-lock.json* ./
+# Install dependencies based on the preferred package manager
+COPY .yarnrc.yml .nvmrc  package.json yarn.lock* package-lock.json* ./
 COPY .yarn  .yarn 
 #COPY ./packages /app/packages
-
-RUN yarn install --network-timeout 1000000
-
+#RUN yarn install --network-timeout 1000000
+RUN yarn install
 
 # Rebuild the source code only when needed
 FROM deps as builder
