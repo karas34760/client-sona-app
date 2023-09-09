@@ -60,9 +60,10 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.VPS_SSH }} # Use SSH keys instead of password
           script: |
-            DOCKER_NAME=${{ secrets.DOCKERHUB_USERNAME }} 
-            DOCKERHUB_IMAGE=${{ secrets.$DOCKERHUB_IMAGE }}
+            DOCKER_NAME=${{ secrets.DOCKERHUB_USERNAME }}
+            DOCKERHUB_IMAGE=${{ secrets.DOCKERHUB_IMAGE }}
+            TAG=$([[ $CURRENT_BRANCH == "dev" ]] && echo "latest" || echo $CURRENT_BRANCH)
             docker stop $DOCKER_NAME || true
             docker rm $DOCKER_NAME || true
-            docker pull $DOCKERHUB_IMAGE
-            docker run -d --name $DOCKER_NAME -p 3000:3000 $DOCKERHUB_IMAGE
+            docker pull $DOCKERHUB_IMAGE:$TAG
+            docker run -d --name $DOCKER_NAME -p 3000:3000 $DOCKERHUB_IMAGE:$TAG
