@@ -12,7 +12,7 @@ RUN yarn install --network-timeout 1000000
 
 
 # Rebuild the source code only when needed
-FROM node:18 AS builder
+FROM deps as builder
 WORKDIR /app
 COPY --from=deps /app/node_modules /app/node_modules
 COPY . .
