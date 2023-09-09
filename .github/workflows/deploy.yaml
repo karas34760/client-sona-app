@@ -4,11 +4,15 @@ on:
   push:
     branches:
       - dev # Change to your main branch or the branch you want to deploy
+- name: Debug SSH Key and Passphrase
+  run: |
+    echo "SSH Key: ${{ secrets.VPS_SSH }}"
+    echo "SSH Passphrase: ${{ secrets.SSH_PASSPHRASE }}"
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
