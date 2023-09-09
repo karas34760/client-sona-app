@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - dev # Change to your main branch or the branch you want to deploy
--
 
 jobs:
   deploy:
