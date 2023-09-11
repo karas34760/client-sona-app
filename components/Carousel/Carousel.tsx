@@ -43,27 +43,28 @@ const Carousel = ({ children, options, styleButton, sxProps }: IProps) => {
 
             nextEl: nextRef.current!,
           }}
-          /*    onInit={swiper => {
+          onInit={swiper => {
             setTimeout(() => {
-              // Override prevEl & nextEl now that refs are defined
-              //  @typescript-eslint/ban-ts-comment
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              // eslint-disable-next-line no-param-reassign
-              swiper.params.navigation.prevEl = prevRef.current;
+              if (swiper.params) {
+                // Override prevEl & nextEl now that refs are defined
 
-              //  @typescript-eslint/ban-ts-comment
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              // @ts-ignore
-              // eslint-disable-next-line no-param-reassign
-              swiper.params.navigation.nextEl = nextRef.current;
+                //  @typescript-eslint/ban-ts-comment
+                // @ts-ignore
+                // eslint-disable-next-line no-param-reassign
 
-              // Re-init navigation
-              swiper.navigation.destroy();
-              swiper.navigation.init();
-              swiper.navigation.update();
+                swiper.params.navigation.prevEl = prevRef.current;
+
+                // @ts-ignore
+                // eslint-disable-next-line no-param-reassign
+                swiper.params.navigation.nextEl = nextRef.current;
+
+                // Re-init navigation
+                swiper.navigation.destroy();
+                swiper.navigation.init();
+                swiper.navigation.update();
+              }
             });
-          }} */
+          }}
           breakpoints={{
             360: {
               slidesPerView: 1.1,

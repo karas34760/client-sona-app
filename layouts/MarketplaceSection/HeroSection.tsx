@@ -1,5 +1,8 @@
-import { Box, Container } from '@chakra-ui/react';
+import { Box, Container, Image } from '@chakra-ui/react';
 import React from 'react';
+import { SwiperSlide } from 'swiper/react';
+
+import Carousel from '@/components/Carousel/Carousel';
 
 const HeroSection = () => {
   const ListTopCollection = [
@@ -42,7 +45,52 @@ const HeroSection = () => {
   ];
   return (
     <Box>
-      <Container maxWidth="container.xl"></Container>
+      <Container maxWidth="container.xl">
+        <Carousel
+          options={{
+            slidesPerView: 1,
+            breakpoints: {
+              360: {
+                slidesPerView: 1,
+                spaceBetween: 10,
+              },
+              630: {
+                slidesPerView: 1,
+              },
+              920: {
+                slidesPerView: 1,
+              },
+
+              1280: {
+                slidesPerView: 1,
+              },
+            },
+          }}
+        >
+          {ListTopCollection.map(item => {
+            return (
+              <SwiperSlide key={item.name}>
+                <Box
+                  height="400px"
+                  position="relative"
+                  overflow="hidden"
+                  borderRadius="lg"
+                >
+                  <Box position="absolute" overflow="hidden">
+                    <Image
+                      src={item.banner_url}
+                      height="full"
+                      width="full"
+                      objectFit={'cover'}
+                      alt=""
+                    />
+                  </Box>
+                </Box>
+              </SwiperSlide>
+            );
+          })}
+        </Carousel>
+      </Container>
     </Box>
   );
 };
