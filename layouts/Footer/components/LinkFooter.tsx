@@ -1,9 +1,9 @@
-import React from 'react';
-import { useTranslation } from 'next-i18next';
-import LinkPrimary from '@/components/Link/LinkPrimary';
-import { LinkContent } from '@/utils/type';
 import { Box, Flex, Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
+import React from 'react';
+
 import LinkSecondary from '@/components/Link/LinkSecondary';
+import { LinkContent } from '@/utils/type';
 interface ListProps {
   label: string;
   items: Array<LinkContent>;

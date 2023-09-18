@@ -38,7 +38,12 @@ const SocialLink = () => {
   return (
     <>
       {LinkSocials.map(item => (
-        <NextLink key={`foo-${item.key}`} as={Link} href={item.link || '#'}>
+        <NextLink
+          key={`foo-${item.key}`}
+          as={Link}
+          href={item.link || '#'}
+          target="_blank"
+        >
           <Icon
             as={item.icon}
             width={6}

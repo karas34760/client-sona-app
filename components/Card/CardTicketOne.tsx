@@ -9,11 +9,19 @@ interface IProps {
   name: string;
   oganization: string;
   time: string;
+  type_events?: Array<string>;
 }
 // Normal type Ticket or Concert
-const CardTicketOne = ({ image_link, name, oganization, time }: IProps) => {
+const CardTicketOne = ({
+  image_link,
+  name,
+  oganization,
+  time,
+  type_events,
+}: IProps) => {
   return (
     <HStack
+      height="100%"
       role="group"
       flexDirection="column"
       gap={0}
@@ -53,21 +61,44 @@ const CardTicketOne = ({ image_link, name, oganization, time }: IProps) => {
           <Icon as={HertIcon} height={4} width={4} color="primary.purple.400" />
         </Center>
       </Box>
-      <Flex flexDirection="column" width="full" bg="white" padding={4}>
+      <Flex flexDirection="column" width="full" bg="white" padding={4} gap={2}>
         <Text
           fontWeight="bold"
           whiteSpace="nowrap"
+          maxWidth="100%"
           textOverflow="ellipsis"
           color="primary.gray.800"
         >
           {name}
         </Text>
-        <Text fontSize="sm" color="primary.gray.800">
-          {oganization}
-        </Text>
-        <Text fontSize="sm" color="primary.gray.500">
-          {time}
-        </Text>
+        <HStack justifyContent="space-between">
+          <Text fontSize="sm" color="primary.gray.800">
+            {oganization}
+          </Text>
+          <Text fontSize="sm" color="primary.gray.500">
+            {time}
+          </Text>
+        </HStack>
+        {type_events && (
+          <HStack gap={1}>
+            {type_events.map((item, index) => (
+              <>
+                <Text
+                  px={2}
+                  py={1}
+                  fontSize="sm"
+                  textTransform="capitalize"
+                  borderRadius="lg"
+                  border="0.063rem solid"
+                  borderColor="primary.gray.400"
+                  key={`type-events ${index} ${oganization}`}
+                >
+                  {item}
+                </Text>
+              </>
+            ))}
+          </HStack>
+        )}
       </Flex>
     </HStack>
   );

@@ -5,7 +5,7 @@ import React from 'react';
 import DiscountTicket from '@/layouts/MarketplaceSection/DiscountTicket';
 import EventsExplore from '@/layouts/MarketplaceSection/EventsExplore';
 import HeroSection from '@/layouts/MarketplaceSection/HeroSection';
-import TopOganize from '@/layouts/MarketplaceSection/TopOganize';
+import LiveAuction from '@/layouts/MarketplaceSection/LiveAuction';
 import UpcomingEvent from '@/layouts/MarketplaceSection/UpcomingEvent';
 export async function getStaticProps({ locale }: { locale: string }) {
   return {
@@ -22,7 +22,7 @@ const index = () => {
         <UpcomingEvent />
         <DiscountTicket />
         <EventsExplore />
-        <TopOganize />
+        <LiveAuction />
       </Box>
     </>
   );
