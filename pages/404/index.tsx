@@ -1,4 +1,5 @@
 import { Center, Text, Container, Button } from '@chakra-ui/react';
+import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
@@ -20,10 +21,12 @@ const PageNotFound = () => {
       <Center flexDirection="column" py={8} gap={5}>
         <BgNotFound />
         <Text variant="type_title" fontSize="28px">
-          Opps! you’r on the wrong place -Karas.
+          Opps! you’r on the wrong place.
         </Text>
         <Text>{t('404_content')}</Text>
-        <Button variant="primary">Back to Home</Button>
+        <Link href="/">
+          <Button variant="primary">Back to Home </Button>
+        </Link>
       </Center>
     </Container>
   );

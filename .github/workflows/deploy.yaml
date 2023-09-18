@@ -1,9 +1,8 @@
 name: Deploy to VPS
-
 on:
   push:
     branches:
-      - main # Change to your main branch or the branch you want to deploy
+      - dev # Change to your main branch or the branch you want to deploy
 
 jobs:
   deploy:
@@ -18,14 +17,23 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.SERVER_PASSWORD }}
           key: ${{ secrets.VPS_SSH }} # Use SSH keys instead of passwords
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
-            # Stop and remove the existing Docker container (if any)
-            docker stop sona-app || true
-            docker rm sona-app || true
 
-            # Pull the latest Docker image from Docker Hub (replace with your image name)
-            docker pull karas34760/sona-app:latest
+            cd overkill/client-sona-app
 
-            # Run the Docker container
-            docker run -d --name sona-app -p 3000:3000 karas34760/sona-app:latest
+            git pull
+
+            echo "${{ secrets.DOCKERHUB_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+
+            docker build -t karas34760/karas-app:latest -f Dockerfile .
+            docker push karas34760/karas-app:latest
+
+
+            docker stop karas-app || true
+            docker rm karas-app || true
+
+            # Run the Docker container with the updated image
+            docker run -d --name karas-app -p 3000:3000 karas34760/karas-app:latest
