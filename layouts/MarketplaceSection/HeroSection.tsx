@@ -103,7 +103,7 @@ const HeroSection = () => {
                           By {item.creator}
                         </Text>
                         <Text color="white">
-                          Total {item.ticket} * {item.average_price}
+                          Total {item.ticket} Tickets * {item.average_price}
                         </Text>
                       </Box>
                       <Box>

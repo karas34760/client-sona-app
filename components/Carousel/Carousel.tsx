@@ -84,6 +84,7 @@ const Carousel = ({ children, options, styleButton, sxProps }: IProps) => {
           style={{
             position: 'relative',
             paddingBottom: '1rem',
+            paddingTop: '1rem',
           }}
           {...options}
         >
@@ -100,7 +101,6 @@ const Carousel = ({ children, options, styleButton, sxProps }: IProps) => {
           position="absolute"
           sx={{
             top: '50%',
-            zIndex: 10,
           }}
           {...sxProps}
         >
@@ -108,6 +108,7 @@ const Carousel = ({ children, options, styleButton, sxProps }: IProps) => {
             ref={prevRef}
             variant="navigation"
             sx={{
+              zIndex: 10,
               left: { md: '-1.25rem', base: '-0.75rem' },
             }}
             {...styleButton}
@@ -118,6 +119,7 @@ const Carousel = ({ children, options, styleButton, sxProps }: IProps) => {
             ref={nextRef}
             variant="navigation"
             sx={{
+              zIndex: 10,
               right: { md: '-1.25rem', base: '-0.75rem' },
             }}
             {...styleButton}
