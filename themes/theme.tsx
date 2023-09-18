@@ -1,7 +1,5 @@
 import {
   ComponentStyleConfig,
-  StyleFunctionProps,
-  SystemStyleObject,
   ThemeConfig,
   extendTheme,
 } from '@chakra-ui/react';
@@ -68,11 +66,16 @@ export const colors = {
 
 const Text: ComponentStyleConfig = {
   variants: {
-    type_title: (props: StyleFunctionProps) => ({
+    type_title: {
       fontSize: { lg: '3rem', base: '2rem' },
       fontWeight: 'bold',
       color: 'primary.purple.500',
-    }),
+    },
+    type_sub_title: {
+      fontWeight: 'bold',
+      color: 'primary.purple.500',
+      fontSize: '28px',
+    },
   },
 };
 const Button: ComponentStyleConfig = {

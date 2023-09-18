@@ -1,5 +1,9 @@
-import { Box, Container } from '@chakra-ui/react';
+import { Box, Button, Container, HStack, Image, Text } from '@chakra-ui/react';
 import React from 'react';
+import { SwiperSlide } from 'swiper/react';
+
+import AvatarTypeOne from '@/components/Avatar/AvatarTypeOne';
+import Carousel from '@/components/Carousel/Carousel';
 
 const HeroSection = () => {
   const ListTopCollection = [
@@ -21,8 +25,7 @@ const HeroSection = () => {
       is_verifiled: false,
       logo_url:
         'https://i.seadn.io/gcs/files/86fd383dd7a42fe696b13b1896767a33.png?auto=format&dpr=1&w=3840',
-      banner_url:
-        'https://i.seadn.io/gcs/files/1fff312ed4c0b0d4bb4b0ae73fd39586.png?auto=format&dpr=1&w=3840',
+      banner_url: '/test/banner/banner_1.jpeg',
       ticket: 300,
       events: 'octorber-london',
       average_price: 0.08,
@@ -42,7 +45,78 @@ const HeroSection = () => {
   ];
   return (
     <Box>
-      <Container maxWidth="container.xl"></Container>
+      <Container maxWidth="container.xl">
+        <Carousel
+          options={{
+            slidesPerView: 1,
+            breakpoints: {
+              360: {
+                slidesPerView: 1,
+                spaceBetween: 10,
+              },
+              630: {
+                slidesPerView: 1,
+              },
+              920: {
+                slidesPerView: 1,
+              },
+
+              1280: {
+                slidesPerView: 1,
+              },
+            },
+          }}
+        >
+          {ListTopCollection.map(item => {
+            return (
+              <SwiperSlide key={item.name}>
+                <Box
+                  height="500px"
+                  position="relative"
+                  overflow="hidden"
+                  borderRadius="lg"
+                >
+                  <Box
+                    position="relative"
+                    overflow="hidden"
+                    width="full"
+                    height="full"
+                  >
+                    <Box position="absolute" height="full" width="full">
+                      <Image
+                        src={item.banner_url}
+                        minWidth="full"
+                        minH="full"
+                        objectFit="cover"
+                        alt=""
+                      />
+                    </Box>
+                  </Box>
+                  <Box position="absolute" bottom="5%" width="full">
+                    <HStack px="24px" justifyContent="space-between">
+                      <Box>
+                        <AvatarTypeOne link={item.logo_url} />
+                        <Text color="white" fontSize="24px" fontWeight="bold">
+                          {item.name}
+                        </Text>
+                        <Text fontWeight="bold" color="white">
+                          By {item.creator}
+                        </Text>
+                        <Text color="white">
+                          Total {item.ticket} Tickets * {item.average_price}
+                        </Text>
+                      </Box>
+                      <Box>
+                        <Button>View Events</Button>
+                      </Box>
+                    </HStack>
+                  </Box>
+                </Box>
+              </SwiperSlide>
+            );
+          })}
+        </Carousel>
+      </Container>
     </Box>
   );
 };

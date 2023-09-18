@@ -1,11 +1,11 @@
-import React, { PropsWithChildren, useEffect } from 'react';
+import { Box } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 import NProgress from 'nprogress';
+import React, { PropsWithChildren, useEffect } from 'react';
 import 'nprogress/nprogress.css';
 
-import { useRouter } from 'next/router';
-import { Box } from '@chakra-ui/react';
-import Header from './Header';
 import Footer from './Footer';
+import Header from './Header';
 import Main from './Main';
 
 const DefaultLayout = ({ children }: PropsWithChildren) => {
