@@ -20,12 +20,13 @@ export async function getStaticProps({ locale }: { locale: string }) {
 const index = () => {
   return (
     <>
-      <Flex pb={6} flexDirection="column" gap={4}>
+      <Flex pb={6} flexDirection="column" gap={6}>
         <HeroSection />
         <UpcomingEvent />
         <DiscountTicket />
-        <EventsExplore />
         <LiveAuction />
+        <EventsExplore />
+
         <TrendingConcert />
         <TrendingFestival />
         <TrendingConference />

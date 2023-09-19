@@ -11,6 +11,9 @@ interface IProps {
 }
 // Normal type Ticket or Concert
 const CardTicketOne = ({ image_link, children }: IProps) => {
+  const handleFavorite = (e: any) => {
+    e.preventDefault();
+  };
   return (
     <>
       <HStack
@@ -64,6 +67,7 @@ const CardTicketOne = ({ image_link, children }: IProps) => {
             py={2}
             bg="white"
             borderRadius="full"
+            onClick={e => handleFavorite(e)}
           >
             <Icon as={HertIcon} height={4} width={4} />
           </Center>

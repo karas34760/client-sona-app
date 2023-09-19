@@ -76,6 +76,16 @@ const Text: ComponentStyleConfig = {
       color: 'primary.purple.500',
       fontSize: '28px',
     },
+    type_categories: {
+      px: 2,
+      py: 1,
+      fontSize: 'sm',
+      textTransform: 'capitalize',
+      borderRadius: 'lg',
+      color: 'primary.gray.600',
+      border: '0.063rem solid',
+      borderColor: 'primary.gray.400',
+    },
   },
 };
 const Button: ComponentStyleConfig = {
@@ -92,6 +102,7 @@ const Button: ComponentStyleConfig = {
       borderColor: 'primary.purple.400',
       color: 'primary.purple.500',
       px: 4,
+      cursor: 'pointer',
       transition: 'all linear .4s',
       _hover: {
         bg: 'primary.purple.500',

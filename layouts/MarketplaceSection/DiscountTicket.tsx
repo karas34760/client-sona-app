@@ -1,4 +1,11 @@
-import { Center, Container, Flex, HStack, Text } from '@chakra-ui/react';
+import {
+  Button,
+  Center,
+  Container,
+  Flex,
+  HStack,
+  Text,
+} from '@chakra-ui/react';
 import Link from 'next/link';
 import React from 'react';
 import { SwiperSlide } from 'swiper/react';
@@ -258,6 +265,9 @@ const DiscountTicket = () => {
           </SwiperSlide>
         ))}
       </Carousel>
+      <Center>
+        <Button variant="primary">View More</Button>
+      </Center>
     </Container>
   );
 };

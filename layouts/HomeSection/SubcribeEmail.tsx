@@ -5,13 +5,12 @@ import {
   Container,
   Flex,
   HStack,
-  Icon,
-  Image,
   Input,
   Text,
 } from '@chakra-ui/react';
 import React from 'react';
 
+import ChakraImage from '@/components/Custom/ChakraImage';
 const SubcribeEmail = () => {
   return (
     <Container maxWidth="container.xl" py={16}>
@@ -25,12 +24,23 @@ const SubcribeEmail = () => {
           gap={8}
           flexWrap={{ md: 'nowrap', base: 'wrap' }}
         >
-          <Image
-            borderRadius="2xl"
-            src="assets/images/sub.png"
+          {/*  <Image
+            alt=""
+              sx={{
+              objectFit: 'cover',
+              borderRadius: '2xl',
+            }} 
+            src="/assets/images/sub.png"
+            height="17.625"
+            width="20.313"
+          /> */}
+          <ChakraImage
+            alt=""
             objectFit="cover"
-            height="17.625rem"
-            width="20.313rem"
+            borderRadius="2xl"
+            src="/assets/images/sub.png"
+            height="282"
+            width="325"
           />
           <Flex flexDirection="column" gap={2.5} px={4}>
             <Text
@@ -60,39 +70,6 @@ const SubcribeEmail = () => {
               </Button>
             </HStack>
           </Flex>
-          {/*   <Box
-            position="relative"
-            right={0}
-            display={{ md: 'inherit', base: 'none' }}
-          >
-            <Icon
-              as={BNBIcon}
-              position="absolute"
-              height={{ lg: '9.625rem', md: '4rem' }}
-              width={{ lg: '9.625rem', md: '4rem' }}
-              transform={{
-                md: 'translate(150%,-30%)',
-                lg: 'translate(30%,-30%)',
-              }}
-            />
-            <Icon
-              as={BTCIcon}
-              position="absolute"
-              height="12.188rem"
-              width="12.188rem"
-              transform={{
-                lg: 'translate(-20%,-120%)',
-                md: 'translate(-40%,-100%)',
-              }}
-            />
-            <Icon
-              as={EtherIcon}
-              position="absolute"
-              height="6rem"
-              width="6rem"
-              transform="translate(80%,100%)"
-            />
-          </Box> */}
         </Center>
       </Box>
     </Container>

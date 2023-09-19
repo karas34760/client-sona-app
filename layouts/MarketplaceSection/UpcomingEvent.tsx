@@ -5,6 +5,7 @@ import { SwiperSlide } from 'swiper/react';
 
 import CardTicketOne from '@/components/Card/CardTicketOne';
 import Carousel from '@/components/Carousel/Carousel';
+import LinkSecondary from '@/components/Link/LinkSecondary';
 // This event just approved
 const UpcomingEvent = () => {
   const Listest = [
@@ -52,7 +53,13 @@ const UpcomingEvent = () => {
     <Container maxWidth="container.xl">
       <HStack justifyContent="space-between">
         <Text variant="type_sub_title">Upcomming Schedule</Text>
-        <Text cursor="pointer">View All</Text>
+        <LinkSecondary
+          link="#"
+          label="View All"
+          sx={{
+            color: 'primary.gray.600',
+          }}
+        />
       </HStack>
       <Carousel>
         {Listest.map((item, index) => (
@@ -86,14 +93,7 @@ const UpcomingEvent = () => {
                     {item.type_events.map((item_sub, index) => (
                       <>
                         <Text
-                          px={2}
-                          py={1}
-                          fontSize="sm"
-                          textTransform="capitalize"
-                          borderRadius="lg"
-                          color="primary.gray.600"
-                          border="0.063rem solid"
-                          borderColor="primary.gray.400"
+                          variant="type_categories"
                           key={`type-events ${index} $}`}
                         >
                           {item_sub}

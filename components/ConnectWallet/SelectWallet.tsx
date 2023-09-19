@@ -1,11 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const SelectWallet = () => {
-  return (
-    <>
-        
-    </>
-  )
-}
+  return <></>;
+};
 
-export default SelectWallet
+export default SelectWallet;
