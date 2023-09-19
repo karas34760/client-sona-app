@@ -7,10 +7,12 @@ import {
   Icon,
   Text,
 } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import OganizeIcon from 'public/assets/icons/art/organize-art.svg';
 const OrganizeSection = () => {
+  const { t } = useTranslation();
   return (
     <Container maxWidth="container.xl" py={16}>
       <HStack
@@ -24,20 +26,10 @@ const OrganizeSection = () => {
         </Box>
 
         <Flex maxWidth="500px" flexDir="column" gap={6}>
-          <Text variant="type_title">For Oganization</Text>
-          <Text>
-            More visibility, greater control, traceable ownership.A
-            next-generation event ticketing platform that lets you engage with
-            your customers and provide a more immersive experience in ways never
-            before possible. You make the rules.
-          </Text>
+          <Text variant="type_title">{t('oganization_title')}</Text>
+          <Text>{t('oganization_content_1')}</Text>
 
-          <Text>
-            tickets act as an exclusive passport for fans by reimagining what it
-            means to be part of a community. Web3 empowers ticket issuers to
-            deliver engaging experiences and increase revenue, all the while
-            driving loyalty and retention.
-          </Text>
+          <Text>{t('oganization_content_2')}</Text>
           <HStack>
             <Button>Create Events</Button>
             <Button>Contact Us</Button>

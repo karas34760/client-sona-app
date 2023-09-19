@@ -28,6 +28,7 @@ export default function Home() {
         <OrganizeSection />
         <FeatureSection />
         <InvestorSection />
+
         <SubcribeEmail />
       </Box>
     </>

@@ -1,11 +1,14 @@
-import { Box } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
 
 import DiscountTicket from '@/layouts/MarketplaceSection/DiscountTicket';
 import EventsExplore from '@/layouts/MarketplaceSection/EventsExplore';
 import HeroSection from '@/layouts/MarketplaceSection/HeroSection';
-import TopOganize from '@/layouts/MarketplaceSection/TopOganize';
+import LiveAuction from '@/layouts/MarketplaceSection/LiveAuction';
+import TrendingConcert from '@/layouts/MarketplaceSection/TrendingConcert';
+import TrendingConference from '@/layouts/MarketplaceSection/TrendingConference';
+import TrendingFestival from '@/layouts/MarketplaceSection/TrendingFestival';
 import UpcomingEvent from '@/layouts/MarketplaceSection/UpcomingEvent';
 export async function getStaticProps({ locale }: { locale: string }) {
   return {
@@ -17,13 +20,17 @@ export async function getStaticProps({ locale }: { locale: string }) {
 const index = () => {
   return (
     <>
-      <Box pb={6}>
+      <Flex pb={6} flexDirection="column" gap={6}>
         <HeroSection />
         <UpcomingEvent />
         <DiscountTicket />
+        <LiveAuction />
         <EventsExplore />
-        <TopOganize />
-      </Box>
+
+        <TrendingConcert />
+        <TrendingFestival />
+        <TrendingConference />
+      </Flex>
     </>
   );
 };
