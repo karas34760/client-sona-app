@@ -1,5 +1,5 @@
 import React from 'react';
-//Recommend Keyword
+//Recommend Keyword su kien dang duoc de xuat
 const Recommend = () => {
   return <div> Recommend</div>;
 };

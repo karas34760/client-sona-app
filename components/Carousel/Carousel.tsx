@@ -1,6 +1,6 @@
 import { Box, BoxProps, Button, ButtonProps, Icon } from '@chakra-ui/react';
 import React, { useRef } from 'react';
-import { Navigation, Mousewheel } from 'swiper';
+import { Navigation, Mousewheel, Grid } from 'swiper';
 import { Swiper } from 'swiper/react';
 // Core modules imports are same as usual
 import { SwiperOptions } from 'swiper/types';
@@ -34,7 +34,7 @@ const Carousel = ({ children, options, styleButton, sxProps }: IProps) => {
         <Swiper
           spaceBetween={20}
           slidesPerView={4}
-          modules={[Navigation, Mousewheel]}
+          modules={[Navigation, Mousewheel, Grid]}
           mousewheel={{
             forceToAxis: true,
           }}
@@ -95,7 +95,7 @@ const Carousel = ({ children, options, styleButton, sxProps }: IProps) => {
           opacity={0}
           visibility="hidden"
           className="btn-carousel"
-          transition="visibility 0.3s , opacity 0.3s ease-in-out"
+          transition="visibility 0.2s , opacity 0.2s ease-in-out"
           justifyContent="space-between"
           width="100%"
           position="absolute"

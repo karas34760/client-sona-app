@@ -5,53 +5,52 @@ import { SwiperSlide } from 'swiper/react';
 
 import CardTicketOne from '@/components/Card/CardTicketOne';
 import Carousel from '@/components/Carousel/Carousel';
-// This event just approved
-const UpcomingEvent = () => {
+const TrendingConference = () => {
   const Listest = [
     {
       name: 'Artic Monkey',
       oganization: 'Mody Center-3',
       time: '15 Steptember 30',
-      image_link: '/test/banner/banner_5.jpeg',
+      image_link: '/test/nft/nft_3_5.jpeg',
       type_events: ['club', 'communicatiy events'],
     },
     {
       name: 'Artic Monkey',
       oganization: 'Mody Center-2',
       time: '15 Steptember 30',
-      image_link: '/test/banner/banner_6.jpeg',
+      image_link: '/test/nft/nft_3_6.jpeg',
       type_events: ['festival', 'communicatiy events'],
     },
     {
       name: 'Artic Monkey',
       oganization: 'Mody Center-1',
       time: '15 Steptember 30',
-      image_link: '/test/banner/banner_7.jpeg',
+      image_link: '/test/nft/nft_3_1.jpeg',
     },
     {
       name: 'Escape56 Feat. Paramida (Love On The Rocks / DE), Leland & Anwar',
       oganization: 'Mody Center',
       time: '2023.7.20 ~ 10.22',
-      image_link: '/test/banner/banner_8.jpeg',
+      image_link: '/test/nft/nft_3_2.jpeg',
       type_events: ['conference '],
     },
     {
       name: 'Artic Monkey',
       oganization: 'Mody Center--',
       time: '15 Steptember 30',
-      image_link: '/test/nft/nft_7.jpeg',
+      image_link: '/test/nft/nft_3_3.jpeg',
     },
     {
       name: 'Artic Monkey',
       oganization: 'Mody Center==',
       time: '2023.7.20 ~ 10.22',
-      image_link: '/test/nft/nft_8.jpeg',
+      image_link: '/test/nft/nft_3_8.jpeg',
     },
   ];
   return (
     <Container maxWidth="container.xl">
       <HStack justifyContent="space-between">
-        <Text variant="type_sub_title">Upcomming Schedule</Text>
+        <Text variant="type_sub_title">Trending Conference</Text>
         <Text cursor="pointer">View All</Text>
       </HStack>
       <Carousel>
@@ -111,4 +110,4 @@ const UpcomingEvent = () => {
   );
 };
 
-export default UpcomingEvent;
+export default TrendingConference;

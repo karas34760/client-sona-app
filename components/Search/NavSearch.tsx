@@ -31,7 +31,7 @@ const NavSearch = () => {
             borderColor: 'primary.purple.500',
           }}
           /*    inlinea="primary.purple.500" */
-          minWidth="25rem"
+          minWidth="500px"
         />
       </InputGroup>
     </>
