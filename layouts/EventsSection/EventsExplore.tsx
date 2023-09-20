@@ -46,12 +46,10 @@ const EventsExplore = () => {
       </Text>
 
       <Tabs colorScheme="purple">
-        <HStack width="full" justifyContent="space-between">
+        <HStack width="full" justifyContent="space-between" flexWrap="wrap">
           <TabList>
             {ListEvents.map(item => (
-              <>
-                <Tab key={item.key}>{item.label}</Tab>
-              </>
+              <Tab key={`event-tab-${item.key}`}>{item.label}</Tab>
             ))}
           </TabList>
           <Select placeholder="Select option" maxWidth="200px">

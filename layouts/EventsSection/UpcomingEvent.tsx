@@ -94,7 +94,7 @@ const UpcomingEvent = () => {
                       <>
                         <Text
                           variant="type_categories"
-                          key={`type-events ${index} $}`}
+                          key={`type-events-sub${index} $${item.name} ${index}}`}
                         >
                           {item_sub}
                         </Text>

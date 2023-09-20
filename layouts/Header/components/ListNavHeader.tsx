@@ -10,16 +10,16 @@ const ListNavHeader = () => {
   const { t } = useTranslation();
   const ListItem: ListProps[] = [
     {
+      label: t('Events'),
+      link: '/events',
+    },
+    {
       label: t('marketplace'),
       link: '/marketplace',
     },
     {
       label: t('discover'),
       link: '/discover',
-    },
-    {
-      label: t('create_events'),
-      link: '/create-events',
     },
   ];
   return (
