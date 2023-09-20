@@ -17,7 +17,7 @@ export async function getStaticProps({ locale }: { locale: string }) {
     },
   };
 }
-const index = () => {
+const Events = () => {
   return (
     <>
       <Flex pb={6} flexDirection="column" gap={6}>
@@ -35,4 +35,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default Events;

@@ -5,10 +5,11 @@ import TimeIcon from 'public/assets/icons/generals/time.svg';
 
 interface TimeProps {
   targetDate: number;
+  text: string;
   sx?: BoxProps;
 }
 
-const TimeReminder = ({ targetDate, sx }: TimeProps) => {
+const TimeReminder = ({ targetDate, sx, text }: TimeProps) => {
   const [days, hours, minutes, seconds] = useCountdown(targetDate);
   return (
     <>
@@ -24,7 +25,7 @@ const TimeReminder = ({ targetDate, sx }: TimeProps) => {
           <Icon as={TimeIcon} h={5} w={5} />
 
           <HStack fontWeight="bold" gap={1} ml={1}>
-            <Text>End in </Text>
+            <Text>{text} </Text>
             {days != 0 && <Text>{days}d</Text>}
             <Text>{hours}h</Text>
             <Text>{minutes}m</Text>
