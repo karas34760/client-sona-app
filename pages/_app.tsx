@@ -5,6 +5,7 @@ import { appWithTranslation } from 'next-i18next';
 import NextAdapterPages from 'next-query-params';
 import { QueryParamProvider } from 'use-query-params';
 
+import { MetamaskProvider } from '@/hooks/useMetaMask';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import theme from '@/themes/theme';
 
@@ -31,9 +32,11 @@ function App({ Component, pageProps }: AppProps) {
           }}
           adapter={Adapter}
         >
-          <DefaultLayout>
-            <Component {...pageProps} />
-          </DefaultLayout>
+          <MetamaskProvider>
+            <DefaultLayout>
+              <Component {...pageProps} />
+            </DefaultLayout>
+          </MetamaskProvider>
         </QueryParamProvider>
       </ChakraProvider>
     </>
