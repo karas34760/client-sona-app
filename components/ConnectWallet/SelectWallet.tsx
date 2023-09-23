@@ -14,10 +14,18 @@ import {
 } from '@chakra-ui/react';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
-import React, { useEffect } from 'react';
+import React, { useCallback } from 'react';
 
-import { useListenMetaMask } from '@/hooks/useListenMetaMask';
-import { useMetaMask } from '@/hooks/useMetaMask';
+import {
+  hooks as coinbaseWallethooks,
+  coinbaseWallet,
+} from '@/utils/connectors/coinbaseWallet';
+import { getName } from '@/utils/connectors/getConnectorName';
+import { hooks as metaMaskhooks, metaMask } from '@/utils/connectors/metaMask';
+import {
+  hooks as walletConnecthooks,
+  walletConnect,
+} from '@/utils/connectors/walletConnect';
 import { WalletProps } from '@/utils/type';
 import CoinBaseIcon from 'public/assets/icons/wallet/coinbase.svg';
 import MetaMaskIcon from 'public/assets/icons/wallet/metamask.svg';
@@ -26,9 +34,10 @@ interface IProps {
   isOpen: boolean;
   onClose: () => void;
 }
+const { useIsActivating: useMMIsActivating } = metaMaskhooks;
+const { useIsActivating: useWCIsActivating } = walletConnecthooks;
+const { useIsActivating: useCBIsActivating } = coinbaseWallethooks;
 const SelectWallet = ({ isOpen, onClose }: IProps) => {
-  const { dispatch } = useMetaMask();
-  const listen = useListenMetaMask();
   const ListWalletSupport: WalletProps[] = [
     {
       label: 'MetaMask',
@@ -50,31 +59,36 @@ const SelectWallet = ({ isOpen, onClose }: IProps) => {
     },
   ];
 
-  useEffect(() => {
-    if (typeof window !== undefined) {
-      // start by checking if window.ethereum is present, indicating a wallet extension
-      const ethereumProviderInjected = typeof window.ethereum !== 'undefined';
-      // this could be other wallets so we can verify if we are dealing with metamask
-      // using the boolean constructor to be explecit and not let this be used as a falsy value (optional)
-      const isMetamaskInstalled =
-        ethereumProviderInjected && Boolean(window.ethereum.isMetaMask);
+  const isMMActivating = useMMIsActivating();
+  const isWCActivating = useWCIsActivating();
+  const isCBActivating = useCBIsActivating();
 
-      const local = window.localStorage.getItem('metamaskState');
+  const activateConnector = useCallback(async (label: string) => {
+    try {
+      switch (label) {
+        case 'MetaMask':
+          await metaMask.activate();
+          window.localStorage.setItem('connectorId', getName(metaMask));
+          break;
 
-      // user was previously connected, start listening to MM
-      if (local) {
-        listen();
+        case 'WalletConnect':
+          await walletConnect.activate();
+          window.localStorage.setItem('connectorId', getName(walletConnect));
+          break;
+
+        case 'Coinbase Wallet':
+          await coinbaseWallet.activate();
+          window.localStorage.setItem('connectorId', getName(coinbaseWallet));
+          break;
+
+        default:
+          break;
       }
-
-      // local could be null if not present in LocalStorage
-      const { wallet, balance } = local
-        ? JSON.parse(local)
-        : // backup if local storage is empty
-          { wallet: null, balance: null };
-
-      dispatch({ type: 'pageLoaded', isMetamaskInstalled, wallet, balance });
+    } catch (error) {
+      console.log('Failed to connect wallet. Please try again.');
     }
   }, []);
+
   const { t } = useTranslation();
   const bgColor = useColorModeValue('white', 'primary.gray.800');
   const borderColor = useColorModeValue('primary.gray.300', 'primary.gray.500');
@@ -125,6 +139,7 @@ const SelectWallet = ({ isOpen, onClose }: IProps) => {
                 gap={4}
                 py={4}
                 px={8}
+                onClick={() => activateConnector(wallet.label)}
                 _hover={{
                   backgroundColor: bgHover,
                 }}
