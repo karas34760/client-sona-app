@@ -3035,7 +3035,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ethersproject/providers@npm:^5, @ethersproject/providers@npm:^5.7.2":
+"@ethersproject/providers@npm:^5, @ethersproject/providers@npm:^5.6.0":
   version: 5.7.2
   resolution: "@ethersproject/providers@npm:5.7.2"
   dependencies:
@@ -4257,7 +4257,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@walletconnect/ethereum-provider@npm:^2.8.6":
+"@walletconnect/ethereum-provider@npm:^2.9.2":
   version: 2.10.1
   resolution: "@walletconnect/ethereum-provider@npm:2.10.1"
   dependencies:
@@ -4406,7 +4406,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@walletconnect/modal@npm:^2.5.9":
+"@walletconnect/modal@npm:^2.6.1":
   version: 2.6.2
   resolution: "@walletconnect/modal@npm:2.6.2"
   dependencies:
@@ -4628,20 +4628,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@web3-react/core@npm:8.2.0":
-  version: 8.2.0
-  resolution: "@web3-react/core@npm:8.2.0"
+"@web3-react/core@npm:8.2.2":
+  version: 8.2.2
+  resolution: "@web3-react/core@npm:8.2.2"
   dependencies:
     "@ethersproject/providers": ^5
-    "@web3-react/store": ^8.2.0
-    "@web3-react/types": ^8.2.0
-    zustand: ^4.3.5
+    "@web3-react/store": ^8.2.2
+    "@web3-react/types": ^8.2.2
+    zustand: 4.4.0
   peerDependencies:
     react: ">=16.8"
   dependenciesMeta:
     "@ethersproject/providers":
       optional: true
-  checksum: c284413dd422fb10bf4f70642342e67629744b2402265d465678d8c519f898f488c0078de0147da700ff11c6ef055c3032c2a0da3159ad57468e60c3eccedea3
+  checksum: 82d37e8e3743e9f0e006e6bd2b3e60f683c3fb9ae3a5356ff92c29f186b661c7dbd05489ead9eec5df0d4b8154e88b1fc0b6d96fc9f63526b9fec557a7366489
   languageName: node
   linkType: hard
 
@@ -4655,17 +4655,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@web3-react/network@npm:8.2.0":
-  version: 8.2.0
-  resolution: "@web3-react/network@npm:8.2.0"
+"@web3-react/network@npm:8.2.2":
+  version: 8.2.2
+  resolution: "@web3-react/network@npm:8.2.2"
   dependencies:
     "@ethersproject/providers": ^5
-    "@web3-react/types": ^8.2.0
-  checksum: 4023f87e827a8e843bb18833e879206a082f5b39c5fd5602c9854650a991a6dc1bafeac0446e16222b5f876bf75fe31f1c8400d870436a677323d56e50597ccb
+    "@web3-react/types": ^8.2.2
+  checksum: 1ab4d0c81e1520bd7abe41127ed03be76d985493e3d8d99e2f2041faed19224e3bb8cc3de3d2656d060938165804b14498819be47d50ccd856f108d1e393a3ee
   languageName: node
   linkType: hard
 
-"@web3-react/store@npm:^8.2.0":
+"@web3-react/store@npm:^8.2.2":
   version: 8.2.2
   resolution: "@web3-react/store@npm:8.2.2"
   dependencies:
@@ -4676,16 +4676,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@web3-react/types@npm:8.2.0":
-  version: 8.2.0
-  resolution: "@web3-react/types@npm:8.2.0"
-  dependencies:
-    zustand: ^4.3.5
-  checksum: 30ce2207346605451951754756273e32facf9b90488cff39f3521e48726d62ac6c945f8fe5f43fb7cf4a84a587c7c903df2ac19f9e8201618c326169f68acf52
-  languageName: node
-  linkType: hard
-
-"@web3-react/types@npm:^8.2.0, @web3-react/types@npm:^8.2.2":
+"@web3-react/types@npm:8.2.2, @web3-react/types@npm:^8.2.0, @web3-react/types@npm:^8.2.2":
   version: 8.2.2
   resolution: "@web3-react/types@npm:8.2.2"
   dependencies:
@@ -4694,25 +4685,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@web3-react/url@npm:8.2.0":
-  version: 8.2.0
-  resolution: "@web3-react/url@npm:8.2.0"
+"@web3-react/url@npm:8.2.2":
+  version: 8.2.2
+  resolution: "@web3-react/url@npm:8.2.2"
   dependencies:
     "@ethersproject/providers": ^5
-    "@web3-react/types": ^8.2.0
-  checksum: 2f072617e62aa73469b7240ee0aa8720faf2408ea8ac8a8ef39ec4ca64cdad5e327261c8e71dd9ec27d5ff33f99ad816c2f6e7be0e4ed378b6c1cfad294d68e7
+    "@web3-react/types": ^8.2.2
+  checksum: 9428d5b9605bdb8d197fbdd3787c2f51700b767103af3a792ab85df36bebb16255165755babf4373761db5e5215b46a369990813b2d57bbda1ae70f7b5fa4e59
   languageName: node
   linkType: hard
 
-"@web3-react/walletconnect-v2@npm:8.3.7":
-  version: 8.3.7
-  resolution: "@web3-react/walletconnect-v2@npm:8.3.7"
+"@web3-react/walletconnect-v2@npm:^8.5.0":
+  version: 8.5.0
+  resolution: "@web3-react/walletconnect-v2@npm:8.5.0"
   dependencies:
-    "@walletconnect/ethereum-provider": ^2.8.6
-    "@walletconnect/modal": ^2.5.9
-    "@web3-react/types": ^8.2.0
+    "@walletconnect/ethereum-provider": ^2.9.2
+    "@walletconnect/modal": ^2.6.1
+    "@web3-react/types": ^8.2.2
     eventemitter3: ^4.0.7
-  checksum: 6fd1d673240147684e99910a8371a6b2bf0f51086ef67783ac09a60f08fef67eaef79b81af987eeb1e5f4142fb3a596ab4d1fa12260f77e63d378d57e4710dca
+  checksum: 310d32dc27578085d4d8acc183d2c51d863606349bebf3e5fef138f5e80f7cedf5e51e754f03eda2c151cfe2e61dc630c0fcc6e0555ef9af2a2edd943cd65dd9
   languageName: node
   linkType: hard
 
@@ -5445,7 +5436,7 @@ __metadata:
     "@coinbase/wallet-sdk": 3.7.1
     "@emotion/react": ^11.11.1
     "@emotion/styled": ^11.11.0
-    "@ethersproject/providers": ^5.7.2
+    "@ethersproject/providers": ^5.6.0
     "@svgr/webpack": ^8.0.1
     "@types/node": 20.4.4
     "@types/nprogress": ^0.2.0
@@ -5456,12 +5447,12 @@ __metadata:
     "@types/redux-thunk": ^2.1.0
     "@walletconnect/ethereum-provider": 2.9.1
     "@web3-react/coinbase-wallet": 8.2.0
-    "@web3-react/core": 8.2.0
+    "@web3-react/core": 8.2.2
     "@web3-react/metamask": 8.2.1
-    "@web3-react/network": 8.2.0
-    "@web3-react/types": 8.2.0
-    "@web3-react/url": 8.2.0
-    "@web3-react/walletconnect-v2": 8.3.7
+    "@web3-react/network": 8.2.2
+    "@web3-react/types": 8.2.2
+    "@web3-react/url": 8.2.2
+    "@web3-react/walletconnect-v2": ^8.5.0
     eslint: 8.45.0
     eslint-config-next: 13.4.12
     eslint-config-prettier: ^8.8.0
@@ -10889,25 +10880,5 @@ __metadata:
     react:
       optional: true
   checksum: 37e69eec1b56677a93712e5aa6d0048b55997379919dc0f78f61181f8a58994a6cae064f816f8101f5b1039008d3c1c9d136432a62e0edeb796807cc84cf45ef
-  languageName: node
-  linkType: hard
-
-"zustand@npm:^4.3.5":
-  version: 4.4.1
-  resolution: "zustand@npm:4.4.1"
-  dependencies:
-    use-sync-external-store: 1.2.0
-  peerDependencies:
-    "@types/react": ">=16.8"
-    immer: ">=9.0"
-    react: ">=16.8"
-  peerDependenciesMeta:
-    "@types/react":
-      optional: true
-    immer:
-      optional: true
-    react:
-      optional: true
-  checksum: 80acd0fbf633782996642802c8692bbb80ae5c80a8dff4c501b88250acd5ccd468fbc6398bdce198475a25e3839c91385b81da921274f33ffb5c2d08c3eab400
   languageName: node
   linkType: hard
