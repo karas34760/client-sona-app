@@ -5,6 +5,7 @@ import { appWithTranslation } from 'next-i18next';
 import NextAdapterPages from 'next-query-params';
 import { QueryParamProvider } from 'use-query-params';
 
+import Web3Provider from '@/components/Custom/Web3Provider';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import theme from '@/themes/theme';
 
@@ -12,6 +13,7 @@ const work_sans = Work_Sans({ subsets: ['latin'] });
 function Adapter(props: any) {
   return <NextAdapterPages {...props} shallow={true} />;
 }
+
 function App({ Component, pageProps }: AppProps) {
   return (
     <>
@@ -31,9 +33,11 @@ function App({ Component, pageProps }: AppProps) {
           }}
           adapter={Adapter}
         >
-          <DefaultLayout>
-            <Component {...pageProps} />
-          </DefaultLayout>
+          <Web3Provider>
+            <DefaultLayout>
+              <Component {...pageProps} />
+            </DefaultLayout>
+          </Web3Provider>
         </QueryParamProvider>
       </ChakraProvider>
     </>

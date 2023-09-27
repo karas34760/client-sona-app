@@ -258,7 +258,7 @@ const DiscountTicket = () => {
                   </>
                 )}
                 {item.time_reminder && (
-                  <TimeReminder targetDate={item.time_reminder} />
+                  <TimeReminder targetDate={item.time_reminder} text="End in" />
                 )}
               </CardTicketOne>
             </Link>

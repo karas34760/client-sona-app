@@ -1,3 +1,5 @@
+import { As } from '@chakra-ui/react';
+
 export interface LinkContent {
   label: string;
   link: string;
@@ -6,4 +8,11 @@ export interface LinkContent {
 export interface TabContent {
   label: string;
   key: string;
+}
+
+export interface WalletProps {
+  label: string;
+  value: string;
+  icon: As;
+  url: string;
 }

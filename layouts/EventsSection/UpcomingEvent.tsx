@@ -6,6 +6,7 @@ import { SwiperSlide } from 'swiper/react';
 import CardTicketOne from '@/components/Card/CardTicketOne';
 import Carousel from '@/components/Carousel/Carousel';
 import LinkSecondary from '@/components/Link/LinkSecondary';
+import TimeReminder from '@/components/Time/TimeReminder';
 // This event just approved
 const UpcomingEvent = () => {
   const Listest = [
@@ -15,6 +16,7 @@ const UpcomingEvent = () => {
       time: '15 Steptember 30',
       image_link: '/test/banner/banner_5.jpeg',
       type_events: ['club', 'communicatiy events'],
+      time_reminder: Date.now() + 2 * 60 * 60 * 1000,
     },
     {
       name: 'Artic Monkey',
@@ -22,12 +24,14 @@ const UpcomingEvent = () => {
       time: '15 Steptember 30',
       image_link: '/test/banner/banner_6.jpeg',
       type_events: ['festival', 'communicatiy events'],
+      time_reminder: Date.now() + 3 * 60 * 60 * 1000,
     },
     {
       name: 'Artic Monkey',
       oganization: 'Mody Center-1',
       time: '15 Steptember 30',
       image_link: '/test/banner/banner_7.jpeg',
+      time_reminder: Date.now() + 3 * 24 * 60 * 60 * 1000,
     },
     {
       name: 'Escape56 Feat. Paramida (Love On The Rocks / DE), Leland & Anwar',
@@ -35,18 +39,21 @@ const UpcomingEvent = () => {
       time: '2023.7.20 ~ 10.22',
       image_link: '/test/banner/banner_8.jpeg',
       type_events: ['conference '],
+      time_reminder: Date.now() + 3 * 24 * 60 * 60 * 1000,
     },
     {
       name: 'Artic Monkey',
       oganization: 'Mody Center--',
       time: '15 Steptember 30',
       image_link: '/test/nft/nft_7.jpeg',
+      time_reminder: Date.now() + 1 * 24 * 60 * 60 * 1000,
     },
     {
       name: 'Artic Monkey',
       oganization: 'Mody Center==',
       time: '2023.7.20 ~ 10.22',
       image_link: '/test/nft/nft_8.jpeg',
+      time_reminder: Date.now() + 2 * 24 * 60 * 60 * 1000,
     },
   ];
   return (
@@ -69,8 +76,14 @@ const UpcomingEvent = () => {
               height: 'auto',
             }}
           >
-            <Link href="#">
+            <Link href="/event/3">
               <CardTicketOne image_link={item.image_link}>
+                {item.time_reminder && (
+                  <TimeReminder
+                    targetDate={item.time_reminder}
+                    text="Open in"
+                  />
+                )}
                 <Text
                   fontWeight="bold"
                   whiteSpace="nowrap"
@@ -94,7 +107,7 @@ const UpcomingEvent = () => {
                       <>
                         <Text
                           variant="type_categories"
-                          key={`type-events ${index} $}`}
+                          key={`type-events-sub${index} $${item.name} ${index}}`}
                         >
                           {item_sub}
                         </Text>

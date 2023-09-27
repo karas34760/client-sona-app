@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
@@ -8,7 +9,12 @@ interface ListProps {
 }
 const ListNavHeader = () => {
   const { t } = useTranslation();
+  const router = useRouter();
   const ListItem: ListProps[] = [
+    {
+      label: t('Events'),
+      link: '/events',
+    },
     {
       label: t('marketplace'),
       link: '/marketplace',
@@ -17,17 +23,17 @@ const ListNavHeader = () => {
       label: t('discover'),
       link: '/discover',
     },
-    {
-      label: t('create_events'),
-      link: '/create-events',
-    },
   ];
   return (
     <>
       {ListItem.map(item => (
         <LinkPrimary
           sx={{
+            fontSize: 'lg',
             fontWeight: 'medium',
+            color: router.asPath.includes(item.link)
+              ? 'primary.purple.500'
+              : 'inherit',
           }}
           key={`head-nav-${item.label}`}
           label={item.label}
