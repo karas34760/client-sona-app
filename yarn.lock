@@ -4100,6 +4100,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/ua-parser-js@npm:^0.7.37":
+  version: 0.7.37
+  resolution: "@types/ua-parser-js@npm:0.7.37"
+  checksum: dde3733d30801d96959c73fd164c5431080f00bfa5b6bec79eff4726349c9832b3dbac5ce07dae29033cb8bb878b459d63ba25a31aee4e64b37272b90d1f1ca9
+  languageName: node
+  linkType: hard
+
 "@types/use-sync-external-store@npm:^0.0.3":
   version: 0.0.3
   resolution: "@types/use-sync-external-store@npm:0.0.3"
@@ -5445,6 +5452,7 @@ __metadata:
     "@types/react-redux": ^7.1.25
     "@types/redux": ^3.6.0
     "@types/redux-thunk": ^2.1.0
+    "@types/ua-parser-js": ^0.7.37
     "@walletconnect/ethereum-provider": 2.9.1
     "@web3-react/coinbase-wallet": 8.2.0
     "@web3-react/core": 8.2.2
@@ -5477,6 +5485,7 @@ __metadata:
     redux-thunk: ^2.4.2
     swiper: ^9.1.1
     typescript: 5.1.6
+    ua-parser-js: ^1.0.36
     use-query-params: ^2.2.1
   languageName: unknown
   linkType: soft
@@ -10340,6 +10349,13 @@ __metadata:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: f53bfe97f7c8b2b6d23cf572750d4e7d1e0c5fff1c36d859d0ec84556a827b8785077bc27676bf7e71fae538e517c3ecc0f37e7f593be913d884805d931bc8be
+  languageName: node
+  linkType: hard
+
+"ua-parser-js@npm:^1.0.36":
+  version: 1.0.36
+  resolution: "ua-parser-js@npm:1.0.36"
+  checksum: 5b2c8a5e3443dfbba7624421805de946457c26ae167cb2275781a2729d1518f7067c9d5c74c3b0acac4b9ff3278cae4eace08ca6eecb63848bc3b2f6a63cc975
   languageName: node
   linkType: hard
 

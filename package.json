@@ -20,6 +20,7 @@
     "@types/node": "20.4.4",
     "@types/react": "18.2.15",
     "@types/react-dom": "18.2.7",
+    "@types/ua-parser-js": "^0.7.37",
     "@walletconnect/ethereum-provider": "2.9.1",
     "@web3-react/coinbase-wallet": "8.2.0",
     "@web3-react/core": "8.2.2",
@@ -47,6 +48,7 @@
     "redux-thunk": "^2.4.2",
     "swiper": "^9.1.1",
     "typescript": "5.1.6",
+    "ua-parser-js": "^1.0.36",
     "use-query-params": "^2.2.1"
   },
   "devDependencies": {

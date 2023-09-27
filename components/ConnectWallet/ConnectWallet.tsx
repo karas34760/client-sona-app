@@ -1,4 +1,11 @@
-import { Text, HStack, Icon, useDisclosure } from '@chakra-ui/react';
+import {
+  Text,
+  HStack,
+  Icon,
+  useDisclosure,
+  Box,
+  Button,
+} from '@chakra-ui/react';
 import { useWeb3React } from '@web3-react/core';
 import React, { useCallback } from 'react';
 
@@ -7,12 +14,12 @@ import SelectWallet from './SelectWallet';
 import { metaMask } from '@/utils/connectors/metaMask';
 import { walletConnect } from '@/utils/connectors/walletConnect';
 import WalletIcon from 'public/assets/icons/generals/wallet.svg';
+
 const ConnectWallet = () => {
   const { account } = useWeb3React();
 
   const disconnect = useCallback(async () => {
     const connector = metaMask || walletConnect;
-
     localStorage.removeItem('connectorId');
     if (connector.deactivate) {
       connector.deactivate();
@@ -50,7 +57,8 @@ const ConnectWallet = () => {
         </>
       ) : (
         <>
-          <button onClick={() => disconnect()}>DisConnect</button>
+          <Box>{account}</Box>
+          <Button onClick={() => disconnect()}>DisConnect</Button>
         </>
       )}
       <SelectWallet isOpen={isOpen} onClose={onClose} />

@@ -86,7 +86,8 @@ const SelectWallet = ({ isOpen, onClose }: IProps) => {
           break;
       }
     } catch (error) {
-      console.log('Failed to connect wallet. Please try again.');
+      // eslint-disable-next-line no-console
+      console.debug('Failed to connect wallet. Please try again.');
     }
   }, []);
 
@@ -140,7 +141,10 @@ const SelectWallet = ({ isOpen, onClose }: IProps) => {
                 gap={4}
                 py={4}
                 px={8}
-                onClick={() => activateConnector(wallet.label)}
+                onClick={() => {
+                  activateConnector(wallet.label);
+                  onClose();
+                }}
                 _hover={{
                   backgroundColor: bgHover,
                 }}
