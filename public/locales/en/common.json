@@ -66,6 +66,10 @@
      "oganization_content_2":"Tickets act as an exclusive passport for fans by reimagining what it means to be part of a community. Web3 empowers ticket issuers to deliver engaging experiences and increase revenue, all the while driving loyalty and retention",
     "===================Connect Wallet":"",
     "connect_your_wallet":"Connect Your Wallet",
-    "connect_wallet_intro":" If you don't have a wallet, you can select a provider and create one now."
-
+    "connect_wallet_intro":" If you don't have a wallet, you can select a provider and create one now.",
+    "================= Event Detail":"",
+    "casting":"Casting",
+    "oganizer":"Oganizer",
+    "about":"About",
+    "ticket_info":"Ticket Information"
 }

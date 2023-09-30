@@ -13,7 +13,7 @@ import React from 'react';
 import EventTabDetail from './EventTabDetail';
 
 import CalendarImage from '@/components/Calendar/CalendarImage';
-import LoveIcon from 'public/assets/icons/generals/heart.svg';
+/* import LoveIcon from 'public/assets/icons/generals/heart.svg'; */
 import LocationIcon from 'public/assets/icons/generals/location.svg';
 import MoreIcon from 'public/assets/icons/generals/more.svg';
 import ShareIcon from 'public/assets/icons/generals/share.svg';
@@ -50,7 +50,7 @@ const EventInfo = () => {
           </VStack>
           <Box flexGrow={1}>
             <HStack justifyContent="right" gap={10}>
-              <Flex
+              {/*   <Flex
                 alignItems="center"
                 gap={2}
                 borderRadius="md"
@@ -61,7 +61,7 @@ const EventInfo = () => {
               >
                 <Icon as={LoveIcon} />
                 <Text fontSize="sm">Follow</Text>
-              </Flex>
+              </Flex> */}
               <Icon as={ShareIcon} cursor="pointer" />
               <Icon as={MoreIcon} cursor="pointer" />
             </HStack>

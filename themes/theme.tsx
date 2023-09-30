@@ -116,6 +116,10 @@ const Button: ComponentStyleConfig = {
         color: 'white',
       },
     },
+    tab: ({ isActive }) => ({
+      fontSize: 'medium',
+      color: isActive ? 'primary.gray.800' : 'primary.gray.400',
+    }),
   },
 };
 export const fonts = {

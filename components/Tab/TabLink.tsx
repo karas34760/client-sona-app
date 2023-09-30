@@ -31,5 +31,5 @@ const TabLink = ({ label, params, isActive }: IProps) => {
     </Text>
   );
 };
-
+// todo Delete
 export default TabLink;

@@ -26,7 +26,7 @@ const CartDrawer = ({ isOpen, onClose }: IProps) => {
       /*  finalFocusRef={btnRef} */
     >
       <DrawerOverlay />
-      <DrawerContent zIndex="popover" my={6} mr={6} borderRadius="16px">
+      <DrawerContent zIndex="popover" my={6} mr={6} borderRadius="1rem">
         <DrawerHeader
           display="flex"
           alignItems="center"
