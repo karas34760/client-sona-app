@@ -1,7 +1,9 @@
+import { Box, Grid, useColorModeValue } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
+import EventBooking from './EventBooking';
 import AboutEvent from './EventTab/AboutEvent';
 import CastingInfo from './EventTab/CastingInfo';
 import Oganizer from './EventTab/Oganizer';
@@ -77,17 +79,39 @@ const EventTabDetail = () => {
       },
     },
   ];
+  const bg = useColorModeValue('white', 'rgb(26, 32, 44)');
   return (
     <>
-      <ListTabItem
-        items={TabItems}
-        py={4}
-        activeKey={(queryKey as string) || 'about'}
-      />
-      {(queryKey === 'about' || !queryKey) && <AboutEvent />}
-      {queryKey === 'casting' && <CastingInfo />}
-      {queryKey === 'ticket_info' && <TicketInformation />}
-      {queryKey === 'oganizer' && <Oganizer />}
+      <Grid gridTemplateColumns="70% 30%" gap={10}>
+        <Box>
+          <ListTabItem
+            items={TabItems}
+            pt={4}
+            position="sticky"
+            top="10%"
+            zIndex="10"
+            bgColor={bg}
+            width="100%"
+            _after={{
+              content: "''",
+              height: '0.125rem',
+              width: '100%',
+              backgroundColor: 'primary.gray.300',
+              position: 'absolute',
+              bottom: '0.05rem',
+              left: 0,
+            }}
+            activeKey={(queryKey as string) || 'about'}
+          />
+          <Box py={4} mr={8}>
+            {(queryKey === 'about' || !queryKey) && <AboutEvent />}
+            {queryKey === 'casting' && <CastingInfo />}
+            {queryKey === 'ticket_info' && <TicketInformation />}
+            {queryKey === 'oganizer' && <Oganizer />}
+          </Box>
+        </Box>
+        <EventBooking />
+      </Grid>
     </>
   );
 };

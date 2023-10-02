@@ -15,18 +15,9 @@ import {
 } from '@chakra-ui/react';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
-import React, { useCallback } from 'react';
+import React from 'react';
+import { useConnect } from 'wagmi';
 
-import {
-  hooks as coinbaseWallethooks,
-  coinbaseWallet,
-} from '@/utils/connectors/coinbaseWallet';
-import { getName } from '@/utils/connectors/getConnectorName';
-import { hooks as metaMaskhooks, metaMask } from '@/utils/connectors/metaMask';
-import {
-  hooks as walletConnecthooks,
-  walletConnect,
-} from '@/utils/connectors/walletConnect';
 import { WalletProps } from '@/utils/type';
 import CoinBaseIcon from 'public/assets/icons/wallet/coinbase.svg';
 import MetaMaskIcon from 'public/assets/icons/wallet/metamask.svg';
@@ -35,9 +26,7 @@ interface IProps {
   isOpen: boolean;
   onClose: () => void;
 }
-const { useIsActivating: useMMIsActivating } = metaMaskhooks;
-const { useIsActivating: useWCIsActivating } = walletConnecthooks;
-const { useIsActivating: useCBIsActivating } = coinbaseWallethooks;
+
 const SelectWallet = ({ isOpen, onClose }: IProps) => {
   const ListWalletSupport: WalletProps[] = [
     {
@@ -60,43 +49,22 @@ const SelectWallet = ({ isOpen, onClose }: IProps) => {
     },
   ];
 
-  const isMMActivating = useMMIsActivating();
-  const isWCActivating = useWCIsActivating();
-  const isCBActivating = useCBIsActivating();
-
-  const activateConnector = useCallback(async (label: string) => {
-    try {
-      switch (label) {
-        case 'MetaMask':
-          await metaMask.activate();
-          window.localStorage.setItem('connectorId', getName(metaMask));
-          break;
-
-        case 'WalletConnect':
-          await walletConnect.activate();
-          window.localStorage.setItem('connectorId', getName(walletConnect));
-          break;
-
-        case 'Coinbase Wallet':
-          await coinbaseWallet.activate();
-          window.localStorage.setItem('connectorId', getName(coinbaseWallet));
-          break;
-
-        default:
-          break;
-      }
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.debug('Failed to connect wallet. Please try again.');
-    }
-  }, []);
-
   const { t } = useTranslation();
   const bgColor = useColorModeValue('white', 'primary.gray.800');
   const borderColor = useColorModeValue('primary.gray.300', 'primary.gray.500');
   const bgHover = useColorModeValue('primary.gray.300', 'primary.gray.500');
+
+  const { connect, connectors, error, isLoading, pendingConnector } =
+    useConnect();
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="xl" isCentered>
+    <Modal
+      isOpen={isOpen}
+      onClose={onClose}
+      size="xl"
+      isCentered
+      trapFocus={false}
+    >
       <ModalOverlay />
       <ModalContent borderRadius="20px" bg={bgColor}>
         <Box
@@ -134,7 +102,7 @@ const SelectWallet = ({ isOpen, onClose }: IProps) => {
             borderBottom="0.063rem solid"
             borderBottomColor={borderColor}
           >
-            {ListWalletSupport.map(wallet => (
+            {ListWalletSupport.map((wallet, index) => (
               <HStack
                 key={wallet.value}
                 cursor="pointer"
@@ -142,8 +110,8 @@ const SelectWallet = ({ isOpen, onClose }: IProps) => {
                 py={4}
                 px={8}
                 onClick={() => {
-                  activateConnector(wallet.label);
                   onClose();
+                  connect({ connector: connectors[index] });
                 }}
                 _hover={{
                   backgroundColor: bgHover,

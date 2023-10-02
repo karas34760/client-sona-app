@@ -95,6 +95,14 @@ const Text: ComponentStyleConfig = {
     },
   },
 };
+const Tooltip: ComponentStyleConfig = {
+  variants: {
+    primary: {
+      bg: 'white',
+      color: 'primary.gray.800',
+    },
+  },
+};
 const Button: ComponentStyleConfig = {
   variants: {
     navigation: {
@@ -118,7 +126,20 @@ const Button: ComponentStyleConfig = {
     },
     tab: ({ isActive }) => ({
       fontSize: 'medium',
-      color: isActive ? 'primary.gray.800' : 'primary.gray.400',
+      fontWeight: 'bold',
+      color: isActive ? 'primary.purple.500' : 'primary.gray.400',
+      _after: {
+        content: "''",
+        height: '3px',
+        width: isActive ? '100%' : 0,
+        backgroundColor: 'primary.purple.400',
+        position: 'absolute',
+        bottom: '-0.2rem',
+        zIndex: 3,
+        right: 0,
+        opacity: isActive ? 1 : 0,
+        transition: '.4s ease-in-out',
+      },
     }),
   },
 };
@@ -142,6 +163,7 @@ const theme = extendTheme({
   components: {
     Text,
     Button,
+    Tooltip,
   },
 });
 

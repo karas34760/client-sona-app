@@ -32,3 +32,16 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+### Import Web3react
+
+    "@web3-react/coinbase-wallet": "8.2.0",
+    "@web3-react/core": "8.2.2",
+    "@web3-react/metamask": "8.2.1",
+    "@web3-react/network": "8.2.2",
+    "@web3-react/types": "8.2.2",
+    "@web3-react/url": "8.2.2",
+    "@web3-react/walletconnect-v2": "^8.5.0",
+    "@walletconnect/ethereum-provider": "2.9.1",
+     "@ethersproject/providers": "^5.6.0",
+         "@coinbase/wallet-sdk": "3.7.1",

@@ -1,41 +1,20 @@
-import {
-  Text,
-  HStack,
-  Icon,
-  useDisclosure,
-  Box,
-  Button,
-} from '@chakra-ui/react';
-import { useWeb3React } from '@web3-react/core';
-import React, { useCallback } from 'react';
+import { Text, HStack, Icon, useDisclosure } from '@chakra-ui/react';
+import React from 'react';
+import { useAccount } from 'wagmi';
 
+import AccountMenu from './AccountMenu';
 import SelectWallet from './SelectWallet';
 
-import { metaMask } from '@/utils/connectors/metaMask';
-import { walletConnect } from '@/utils/connectors/walletConnect';
 import WalletIcon from 'public/assets/icons/generals/wallet.svg';
 
 const ConnectWallet = () => {
-  const { account } = useWeb3React();
+  const { isConnected } = useAccount();
 
-  const disconnect = useCallback(async () => {
-    const connector = metaMask || walletConnect;
-    localStorage.removeItem('connectorId');
-    if (connector.deactivate) {
-      connector.deactivate();
-    } else {
-      connector.resetState();
-    }
-    // @ts-expect-error close can be returned by wallet
-    if (connector && connector.close) {
-      // @ts-expect-error close can be returned by wallet
-      await connector.close();
-    }
-  }, []);
   const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <>
-      {account === undefined ? (
+      {!isConnected ? (
         <>
           <HStack
             bg="gradient.200"
@@ -57,8 +36,7 @@ const ConnectWallet = () => {
         </>
       ) : (
         <>
-          <Box>{account}</Box>
-          <Button onClick={() => disconnect()}>DisConnect</Button>
+          <AccountMenu />
         </>
       )}
       <SelectWallet isOpen={isOpen} onClose={onClose} />
