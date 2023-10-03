@@ -5367,6 +5367,7 @@ __metadata:
     prettier: ^3.0.0
     react: 18.2.0
     react-dom: 18.2.0
+    react-ga4: ^2.1.0
     react-i18next: ^13.0.2
     react-jazzicon: ^1.0.4
     react-redux: ^8.0.5
@@ -9090,6 +9091,13 @@ __metadata:
     "@types/react":
       optional: true
   checksum: 93473a6f0a249487e0f1609ccfe94312ce86265d7bca01f6825c061e15fcc13c78d6adb0555f8d9e7fa1cba3e23958f3ca4d4148c7bea828843c909feb5e10f1
+  languageName: node
+  linkType: hard
+
+"react-ga4@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "react-ga4@npm:2.1.0"
+  checksum: f7fb41141418d4ad14756f1126a1e9958db37d4d84ae6cd798043dc03a390b6dba74d69311af0349f0b9580a43bda8930138194ccc29c4100efe446e2d6eb057
   languageName: node
   linkType: hard
 
