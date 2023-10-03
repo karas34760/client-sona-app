@@ -40,7 +40,7 @@ export default function SEOHead({
       </Head>
       <NextSeo
         title={meta.title}
-        titleTemplate={`${meta.siteName} %s`}
+        titleTemplate={`${meta.siteName} | %s`}
         description={meta.description}
         openGraph={{
           description: meta.description,
