@@ -5,6 +5,7 @@ import { As } from '@chakra-ui/react';
 export interface LinkContent {
   label: string;
   link: string;
+  icon?: As;
 }
 // Tab nav item instead using tab chakra
 export type TabItem = {

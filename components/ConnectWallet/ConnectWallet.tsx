@@ -8,10 +8,12 @@ import SelectWallet from './SelectWallet';
 import WalletIcon from 'public/assets/icons/generals/wallet.svg';
 
 const ConnectWallet = () => {
-  const { isConnected } = useAccount();
+  const { isConnected, isConnecting } = useAccount();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  if (isConnecting) {
+    return <>Connecting to wallet</>;
+  }
   return (
     <>
       {!isConnected ? (
@@ -29,7 +31,7 @@ const ConnectWallet = () => {
               fontWeight="bold"
               display={{ lg: 'inline-block', base: 'none' }}
             >
-              Connect Wallet
+              {isOpen ? `Connecting` : `Connect Wallet`}
             </Text>
             <Icon as={WalletIcon} />
           </HStack>

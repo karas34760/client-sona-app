@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "TARGET_ENV=ticki next dev",
+    "build": "TARGET_ENV=ticki next build",
     "start": "next start",
     "lint": "next lint",
     "postinstall": "husky install"
@@ -28,6 +28,7 @@
     "next": "13.4.12",
     "next-i18next": "^14.0.0",
     "next-query-params": "^4.2.3",
+    "next-seo": "^6.1.0",
     "nprogress": "^0.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",

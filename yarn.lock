@@ -5362,6 +5362,7 @@ __metadata:
     next: 13.4.12
     next-i18next: ^14.0.0
     next-query-params: ^4.2.3
+    next-seo: ^6.1.0
     nprogress: ^0.2.0
     prettier: ^3.0.0
     react: 18.2.0
@@ -8323,6 +8324,17 @@ __metadata:
     react: ^16.8.0 || ^17.0.0 || ^18.0.0
     use-query-params: ^2.0.0
   checksum: 19495b4cac190f8dc3b43e241930e82af7bc2aa88a47fbcf78b5ec654954ddcd14994dff6362734b619d0385ddbaa8309ccc60b6e2f13ea897c2f119f239cc27
+  languageName: node
+  linkType: hard
+
+"next-seo@npm:^6.1.0":
+  version: 6.1.0
+  resolution: "next-seo@npm:6.1.0"
+  peerDependencies:
+    next: ^8.1.1-canary.54 || >=9.0.0
+    react: ">=16.0.0"
+    react-dom: ">=16.0.0"
+  checksum: 5909d34d12dd8ac641d7fa96b6fe562470e1539f582c0a3f2b5e35f16b9b0e402d9f909a84393f80989bd96c034118712a5aecb520e5a45662e02fa23db7b656
   languageName: node
   linkType: hard
 

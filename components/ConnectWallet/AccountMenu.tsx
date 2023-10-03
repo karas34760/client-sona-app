@@ -1,65 +1,41 @@
-import {
-  Button,
-  Flex,
-  Menu,
-  MenuButton,
-  MenuDivider,
-  MenuGroup,
-  MenuItem,
-  MenuList,
-  Text,
-} from '@chakra-ui/react';
+import { Flex, Text, useDisclosure } from '@chakra-ui/react';
 import React from 'react';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
-import { useAccount, useDisconnect, useEnsAvatar, useEnsName } from 'wagmi';
+import { useAccount, useEnsAvatar, useEnsName } from 'wagmi';
 
 import ChakraImage from '../Custom/ChakraImage';
+import ProfileDrawer from '../Profile/ProfileDrawer';
 
 import { shortenAddress } from '@/utils/format/address';
 
 const AccountMenu = () => {
-  const { address, connector, isConnected } = useAccount();
-  const { data: ensAvatar } = useEnsAvatar({ address });
+  const { address } = useAccount();
+
+  const { data: ensAvatar } = useEnsAvatar({ name: address });
   const { data: ensName } = useEnsName({ address });
-  /*  const { connect, connectors, error, isLoading, pendingConnector } =
-    useConnect(); */
-  const { disconnect } = useDisconnect();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
-      {isConnected && connector && (
-        <>
-          <Menu>
-            <MenuButton as={Button}>
-              <Flex gap={1} alignItems="center">
-                {ensAvatar ? (
-                  <ChakraImage src={ensAvatar} alt="ENS Avatar" />
-                ) : (
-                  <Jazzicon
-                    diameter={24}
-                    seed={jsNumberForAddress(
-                      address || '0x1111111111111111111111111111111111111111'
-                    )}
-                  />
-                )}
+      <Flex gap={1} alignItems="center" onClick={onOpen} cursor="pointer">
+        {ensAvatar ? (
+          <ChakraImage
+            src={ensAvatar}
+            alt="ENS Avatar"
+            width={30}
+            height={30}
+          />
+        ) : (
+          <Jazzicon
+            diameter={24}
+            seed={jsNumberForAddress(
+              address || '0x1111111111111111111111111111111111111111'
+            )}
+          />
+        )}
 
-                <Text>{ensName ? `${ensName} ` : shortenAddress(address)}</Text>
-              </Flex>
-            </MenuButton>
-            <MenuList>
-              <MenuGroup>
-                <MenuItem>My Account</MenuItem>
-                <MenuItem>Payments </MenuItem>
-              </MenuGroup>
-              <MenuDivider />
-              <MenuGroup>
-                <MenuItem>Deal</MenuItem>
-                <MenuItem>My Collection</MenuItem>
-              </MenuGroup>
-              <MenuItem onClick={() => disconnect()}>Logout</MenuItem>
-            </MenuList>
-          </Menu>
-        </>
-      )}
+        <Text>{ensName ? `${ensName} ` : shortenAddress(address)}</Text>
+      </Flex>
+      <ProfileDrawer onClose={onClose} isOpen={isOpen} />
     </>
   );
 };
