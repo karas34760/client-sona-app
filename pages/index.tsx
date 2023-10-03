@@ -1,6 +1,7 @@
 import { Box } from '@chakra-ui/react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
+import SEOHead from '@/components/SEO/SEOHead';
 import ArtistSection from '@/layouts/HomeSection/ArtistSection';
 import FeatureSection from '@/layouts/HomeSection/FeatureSection';
 import HeroSection from '@/layouts/HomeSection/HeroSection';
@@ -20,6 +21,7 @@ export async function getStaticProps({ locale }: { locale: string }) {
 export default function Home() {
   return (
     <>
+      <SEOHead siteName="Tickifi" description="Home Events Loading Page" />
       <Box>
         <HeroSection />
         <HowWork />
@@ -28,7 +30,6 @@ export default function Home() {
         <OrganizeSection />
         <FeatureSection />
         <InvestorSection />
-
         <SubcribeEmail />
       </Box>
     </>

@@ -1,13 +1,58 @@
-import { Center, Icon, useColorModeValue } from '@chakra-ui/react';
-import React from 'react';
+import {
+  Drawer,
+  DrawerBody,
+  DrawerContent,
+  DrawerHeader,
+  DrawerOverlay,
+  Flex,
+  Icon,
+  Text,
+} from '@chakra-ui/react';
+import React, { useRef } from 'react';
 
-import ShoppingCart from 'public/assets/icons/generals/shopping-cart.svg';
-const CartDrawer = () => {
-  const bg = useColorModeValue('primary.gray.300', 'dark.100');
+import CloseIcon from 'public/assets/icons/arrow/close.svg';
+import InfoIcon from 'public/assets/icons/generals/info.svg';
+interface IProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+const CartDrawer = ({ isOpen, onClose }: IProps) => {
+  const ref = useRef(null);
+
   return (
-    <Center padding={4} borderRadius="xl" bg={bg} cursor="pointer">
-      <Icon as={ShoppingCart} height={6} width={6} />
-    </Center>
+    <>
+      <Drawer
+        isOpen={isOpen}
+        placement="right"
+        onClose={onClose}
+
+        /*  finalFocusRef={btnRef} */
+      >
+        <DrawerOverlay />
+        <DrawerContent zIndex="popover" my={6} mr={6} borderRadius="1rem">
+          <DrawerHeader
+            display="flex"
+            alignItems="center"
+            width="full"
+            justifyContent="space-between"
+          >
+            <Flex alignItems="center" gap={2}>
+              <Text>Your Cart</Text>
+
+              <Icon
+                as={InfoIcon}
+                height={5}
+                width={5}
+                cursor="pointer"
+                ref={ref}
+              />
+            </Flex>
+            <Icon as={CloseIcon} onClick={onClose} cursor="pointer" />
+          </DrawerHeader>
+          <DrawerBody>dsads</DrawerBody>
+        </DrawerContent>
+      </Drawer>
+    </>
   );
 };
 

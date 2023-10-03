@@ -1,15 +1,22 @@
 /** @type {import('next').NextConfig} */
 const { i18n } = require('./next-i18next.config');
+const envConfig = require('./.env.json');
 const nextConfig = {
     reactStrictMode: true,
     swcMinify: true,
     output: 'standalone',
     i18n,
-    /*     images: {
-            dangerouslyAllowSVG: true,
-            contentDispositionType: 'attachment',
-            contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-        }, */
+    env: {
+        ...envConfig[process.env.TARGET_ENV || 'tickifi'],
+    },
+    images: {
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'ipfs.io',
+            },
+        ],
+    },
     webpack(config) {
         config.module.rules.push({
             test: /\.svg$/i,

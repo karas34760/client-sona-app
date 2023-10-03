@@ -4,10 +4,11 @@ import { Work_Sans } from 'next/font/google';
 import { appWithTranslation } from 'next-i18next';
 import NextAdapterPages from 'next-query-params';
 import { QueryParamProvider } from 'use-query-params';
+import { WagmiConfig } from 'wagmi';
 
-import Web3Provider from '@/components/Custom/Web3Provider';
 import DefaultLayout from '@/layouts/DefaultLayout';
 import theme from '@/themes/theme';
+import { config } from '@/wallet/wagmi/config';
 
 const work_sans = Work_Sans({ subsets: ['latin'] });
 function Adapter(props: any) {
@@ -24,22 +25,21 @@ function App({ Component, pageProps }: AppProps) {
           }
         `}
       </style>
-
-      <ChakraProvider theme={theme}>
-        <QueryParamProvider
-          options={{
-            skipUpdateWhenNoChange: true,
-            updateType: 'replaceIn',
-          }}
-          adapter={Adapter}
-        >
-          <Web3Provider>
+      <WagmiConfig config={config}>
+        <ChakraProvider theme={theme}>
+          <QueryParamProvider
+            options={{
+              skipUpdateWhenNoChange: true,
+              updateType: 'replaceIn',
+            }}
+            adapter={Adapter}
+          >
             <DefaultLayout>
               <Component {...pageProps} />
             </DefaultLayout>
-          </Web3Provider>
-        </QueryParamProvider>
-      </ChakraProvider>
+          </QueryParamProvider>
+        </ChakraProvider>
+      </WagmiConfig>
     </>
   );
 }

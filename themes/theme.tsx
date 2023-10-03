@@ -49,6 +49,13 @@ export const colors = {
       400: '#29E072',
       500: '#0CC857',
     },
+    danger: {
+      100: '#ff6969',
+      200: '#ff5050',
+      300: '#ff3636',
+      400: '#ff1d1d',
+      500: '#eb1212',
+    },
   },
   divide: {
     100: '#EAECF0',
@@ -88,6 +95,14 @@ const Text: ComponentStyleConfig = {
     },
   },
 };
+const Tooltip: ComponentStyleConfig = {
+  variants: {
+    primary: {
+      bg: 'white',
+      color: 'primary.gray.800',
+    },
+  },
+};
 const Button: ComponentStyleConfig = {
   variants: {
     navigation: {
@@ -109,6 +124,23 @@ const Button: ComponentStyleConfig = {
         color: 'white',
       },
     },
+    tab: ({ isActive }) => ({
+      fontSize: 'medium',
+      fontWeight: 'bold',
+      color: isActive ? 'primary.purple.500' : 'primary.gray.400',
+      _after: {
+        content: "''",
+        height: '3px',
+        width: isActive ? '100%' : 0,
+        backgroundColor: 'primary.purple.400',
+        position: 'absolute',
+        bottom: '-0.2rem',
+        zIndex: 3,
+        right: 0,
+        opacity: isActive ? 1 : 0,
+        transition: '.4s ease-in-out',
+      },
+    }),
   },
 };
 export const fonts = {
@@ -131,6 +163,7 @@ const theme = extendTheme({
   components: {
     Text,
     Button,
+    Tooltip,
   },
 });
 
