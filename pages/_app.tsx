@@ -19,7 +19,7 @@ function Adapter(props: any) {
 
 function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
-    initGA(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS || 'G-V396VQR8TD');
+    initGA(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS || 'G-BWWLJY48PD');
   }, []);
   return (
     <>
