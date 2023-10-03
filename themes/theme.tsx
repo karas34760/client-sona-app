@@ -56,6 +56,11 @@ export const colors = {
       400: '#ff1d1d',
       500: '#eb1212',
     },
+    info: {
+      100: '#7CB9E8',
+      200: '#6CB4EE',
+      300: '#007FFF',
+    },
   },
   divide: {
     100: '#EAECF0',

@@ -14,6 +14,7 @@ import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
 import { useAccount, useDisconnect, useEnsAvatar, useEnsName } from 'wagmi';
 
 import ChakraImage from '../Custom/ChakraImage';
+import CopyData from '../Custom/CopyData';
 
 import MiniProfile from './MiniProfile';
 
@@ -31,7 +32,13 @@ const ProfileDrawer = ({ isOpen, onClose }: IProps) => {
   const { disconnect } = useDisconnect();
   return (
     <>
-      <Drawer isOpen={isOpen} placement="right" onClose={onClose} size="sm">
+      <Drawer
+        isOpen={isOpen}
+        placement="right"
+        onClose={onClose}
+        size="sm"
+        trapFocus={false}
+      >
         <DrawerOverlay />
         <DrawerContent zIndex="popover" my={4} mr={4} borderRadius="1rem">
           <Flex flexDirection="column" gap={4} py={5} px={4}>
@@ -51,9 +58,29 @@ const ProfileDrawer = ({ isOpen, onClose }: IProps) => {
                 </Box>
 
                 <Box>
-                  <Text fontWeight="bold">
-                    {ensName ? `${ensName} ` : shortenAddress(address)}
-                  </Text>
+                  <HStack role="group" cursor="pointer">
+                    <Text
+                      fontWeight="bold"
+                      _groupHover={{
+                        color: 'primary.gray.500',
+                      }}
+                    >
+                      {ensName ? `${ensName} ` : shortenAddress(address)}
+                    </Text>
+                    <CopyData
+                      h={4}
+                      w={4}
+                      display="none"
+                      _groupHover={{
+                        display: 'inherit',
+                      }}
+                      aria-label=""
+                      context={
+                        ensName ? `${ensName} ` : shortenAddress(address)
+                      }
+                    />
+                  </HStack>
+
                   <Text fontSize="sm" color="primary.gray.500" cursor="pointer">
                     View Profile
                   </Text>
