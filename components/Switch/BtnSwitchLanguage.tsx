@@ -43,7 +43,7 @@ const BtnSwitchLanguage = () => {
 
             <Portal>
               <MenuList
-                zIndex="sticky"
+                zIndex="popover"
                 padding={0}
                 minWidth="fit-content"
                 overflow="hidden"

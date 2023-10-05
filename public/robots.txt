@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://karas.store/
+
+# Sitemaps
+Sitemap: https://karas.store/sitemap.xml

@@ -32,7 +32,7 @@ const DefaultLayout = ({ children }: PropsWithChildren) => {
       router.events.off('routeChangeError', handleRouteDone);
     };
   }, [router]);
-  const bgImageLink = 'url(assets/bg/bg-type-1.svg)';
+
   return (
     <>
       <Box
@@ -53,10 +53,13 @@ const DefaultLayout = ({ children }: PropsWithChildren) => {
         height="0.1875rem"
         zIndex="banner"
       />
+
       <Box
-        backgroundImage={bgImageLink}
-        /* backgroundRepeat={'repeat'} */
-        /*     overflowX="hidden" */
+      /*  backgroundImage={`url(assets/bg/bg-type-1.svg)`}
+        backgroundSize="cover"
+        backgroundRepeat="no-repeat"
+        backgroundPosition="center"
+        transform="translate3D(0,0,0)" */
       >
         <Header />
         <Main>{children}</Main>

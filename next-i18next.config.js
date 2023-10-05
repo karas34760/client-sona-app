@@ -1,4 +1,4 @@
-const { initReactI18next } = require('react-i18next');
+
 const path = require('path');
 
 module.exports = {

@@ -13,7 +13,7 @@ import React, { useEffect, useState } from 'react';
 
 import ListNavHeader from './components/ListNavHeader';
 
-import CartDrawer from '@/components/Cart/CartDrawer';
+import CartButton from '@/components/Cart/CartButton';
 import ConnectWallet from '@/components/ConnectWallet/ConnectWallet';
 import LogoText from '@/components/Logo/LogoText';
 import Sidebar from '@/components/Modal/Sidebar';
@@ -57,7 +57,7 @@ const Header = () => {
     <>
       <Box
         as="header"
-        zIndex="popover"
+        zIndex="150"
         position="sticky"
         top={0}
         right={0}
@@ -116,7 +116,7 @@ const Header = () => {
               <Box display={{ md: 'none', base: 'block' }}>
                 <NavMobileSearch />
               </Box>
-              <CartDrawer />
+              <CartButton />
             </Flex>
           </HStack>
         </Container>

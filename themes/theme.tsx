@@ -49,6 +49,13 @@ export const colors = {
       400: '#29E072',
       500: '#0CC857',
     },
+    danger: {
+      100: '#ff6969',
+      200: '#ff5050',
+      300: '#ff3636',
+      400: '#ff1d1d',
+      500: '#eb1212',
+    },
   },
   divide: {
     100: '#EAECF0',
@@ -76,6 +83,24 @@ const Text: ComponentStyleConfig = {
       color: 'primary.purple.500',
       fontSize: '28px',
     },
+    type_categories: {
+      px: 2,
+      py: 1,
+      fontSize: 'sm',
+      textTransform: 'capitalize',
+      borderRadius: 'lg',
+      color: 'primary.gray.600',
+      border: '0.063rem solid',
+      borderColor: 'primary.gray.400',
+    },
+  },
+};
+const Tooltip: ComponentStyleConfig = {
+  variants: {
+    primary: {
+      bg: 'white',
+      color: 'primary.gray.800',
+    },
   },
 };
 const Button: ComponentStyleConfig = {
@@ -92,12 +117,30 @@ const Button: ComponentStyleConfig = {
       borderColor: 'primary.purple.400',
       color: 'primary.purple.500',
       px: 4,
+      cursor: 'pointer',
       transition: 'all linear .4s',
       _hover: {
         bg: 'primary.purple.500',
         color: 'white',
       },
     },
+    tab: ({ isActive }) => ({
+      fontSize: 'medium',
+      fontWeight: 'bold',
+      color: isActive ? 'primary.purple.500' : 'primary.gray.400',
+      _after: {
+        content: "''",
+        height: '3px',
+        width: isActive ? '100%' : 0,
+        backgroundColor: 'primary.purple.400',
+        position: 'absolute',
+        bottom: '-0.2rem',
+        zIndex: 3,
+        right: 0,
+        opacity: isActive ? 1 : 0,
+        transition: '.4s ease-in-out',
+      },
+    }),
   },
 };
 export const fonts = {
@@ -120,6 +163,7 @@ const theme = extendTheme({
   components: {
     Text,
     Button,
+    Tooltip,
   },
 });
 

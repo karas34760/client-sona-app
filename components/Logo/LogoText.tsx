@@ -17,6 +17,7 @@ const LogoText = ({ sx, styleText }: IProps) => {
           height={{ md: 12, base: 8 }}
           width={{ md: 12, base: 8 }}
         />
+
         <Text
           fontSize={'28px'}
           fontWeight="bold"
