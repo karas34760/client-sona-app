@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "postinstall": "husky install",
-    "postseo":"next-sitemap"
+    "postseo": "next-sitemap"
   },
   "dependencies": {
     "@chakra-ui/next-js": "^2.1.5",
@@ -19,6 +19,7 @@
     "@svgr/webpack": "^8.0.1",
     "@types/node": "20.4.4",
     "@types/react": "18.2.15",
+    "@types/react-datepicker": "^4.15.1",
     "@types/react-dom": "18.2.7",
     "@types/ua-parser-js": "^0.7.37",
     "eslint": "8.45.0",
@@ -33,6 +34,7 @@
     "next-sitemap": "^4.2.3",
     "nprogress": "^0.2.0",
     "react": "18.2.0",
+    "react-datepicker": "^4.18.0",
     "react-dom": "18.2.0",
     "react-ga4": "^2.1.0",
     "react-i18next": "^13.0.2",
