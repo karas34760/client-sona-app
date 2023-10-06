@@ -34,7 +34,7 @@ const ProfileDrawer = ({ isOpen, onClose }: IProps) => {
         <DrawerContent zIndex="popover" my={4} mr={4} borderRadius="1rem">
           <Flex flexDirection="column" gap={4} py={6} px={6}>
             <Flex alignItems="center" justifyContent="space-between">
-              <AccountAddress />
+              <AccountAddress onClose={onClose} />
               <Button
                 onClick={() => disconnect()}
                 leftIcon={<Icon as={LogoutIcon} />}

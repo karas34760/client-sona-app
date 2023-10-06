@@ -9,8 +9,11 @@ import CopyData from '../Custom/CopyData';
 
 import { shortenAddress } from '@/utils/format/address';
 
+interface IProps {
+  onClose: () => void;
+}
 // Account Address Display Infomration
-const AccountAddress = () => {
+const AccountAddress = ({ onClose }: IProps) => {
   const { address } = useAccount();
 
   const { data: ensAvatar } = useEnsAvatar({ name: address });
@@ -51,8 +54,16 @@ const AccountAddress = () => {
               context={ensName ? `${ensName} ` : shortenAddress(address)}
             />
           </HStack>
-          <Link href={`/account/${address}`}>
-            <Text fontSize="sm" color="primary.gray.500" cursor="pointer">
+          <Link href={`/account/${address}`} onClick={() => onClose()}>
+            <Text
+              fontSize="sm"
+              color="primary.gray.500"
+              cursor="pointer"
+              transition="ease-in-out .3s"
+              _hover={{
+                color: 'primary.purple.500',
+              }}
+            >
               View Profile
             </Text>
           </Link>

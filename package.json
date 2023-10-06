@@ -11,6 +11,7 @@
     "postseo": "next-sitemap"
   },
   "dependencies": {
+    "@chakra-ui/icons": "^2.1.1",
     "@chakra-ui/next-js": "^2.1.5",
     "@chakra-ui/react": "^2.8.1",
     "@emotion/react": "^11.11.1",
@@ -22,6 +23,7 @@
     "@types/react-datepicker": "^4.15.1",
     "@types/react-dom": "18.2.7",
     "@types/ua-parser-js": "^0.7.37",
+    "date-fns": "^2.30.0",
     "eslint": "8.45.0",
     "eslint-config-next": "13.4.12",
     "ethers": "^6.7.1",

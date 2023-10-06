@@ -7,8 +7,6 @@ import { useEffect } from 'react';
 import { QueryParamProvider } from 'use-query-params';
 import { WagmiConfig } from 'wagmi';
 
-import '../themes/style/index.css';
-
 import DefaultLayout from '@/layouts/DefaultLayout';
 import theme from '@/themes/theme';
 import { initGA } from '@/utils/analysis';
