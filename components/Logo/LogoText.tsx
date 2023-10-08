@@ -1,5 +1,4 @@
 import { HStack, Icon, StackProps, Text, TextProps } from '@chakra-ui/react';
-import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import LogoIcon from 'public/logo/logo.svg';
@@ -8,7 +7,6 @@ interface IProps {
   styleText?: TextProps;
 }
 const LogoText = ({ sx, styleText }: IProps) => {
-  const { t } = useTranslation();
   return (
     <>
       <HStack gap={4} width="inherit" {...sx}>
@@ -25,7 +23,7 @@ const LogoText = ({ sx, styleText }: IProps) => {
           userSelect="none"
           {...styleText}
         >
-          {t('name_website')}
+          Tickifi
         </Text>
       </HStack>
     </>
