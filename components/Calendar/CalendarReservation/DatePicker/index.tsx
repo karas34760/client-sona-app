@@ -1,40 +1,22 @@
 /* eslint-disable no-unused-vars */
-import {
-  CalendarIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-} from '@chakra-ui/icons';
+
 import {
   IconButton,
-  Input,
-  InputGroup,
-  InputRightElement,
-  Stack,
   StyleObjectOrFn,
   Text,
   useTheme,
   css as chakraCSS,
+  HStack,
+  useColorModeValue,
+  Icon,
 } from '@chakra-ui/react';
 import { ClassNames } from '@emotion/react';
 import React, { FC, useCallback, useMemo } from 'react';
 import 'react-datepicker/dist/react-datepicker.css';
 import ReactDatePicker from 'react-datepicker';
 
-// eslint-disable-next-line react/display-name
-/* const CustomInput = forwardRef<any, any>((props, ref) => {
-  return (
-    <InputGroup>
-      <Input {...props} ref={ref} />
-      <InputRightElement
-        userSelect="none"
-        pointerEvents="none"
-        // eslint-disable-next-line react/no-children-prop
-        children={<CalendarIcon />}
-      />
-    </InputGroup>
-  );
-});
- */
+import ArrowIcon from 'public/assets/icons/arrow/down.svg';
+
 const CustomHeader = ({
   date,
   decreaseMonth,
@@ -43,8 +25,19 @@ const CustomHeader = ({
   nextMonthButtonDisabled,
 }: any) => {
   return (
-    <Stack pb={1} isInline alignItems="center" textAlign="left" pl={4} pr={2}>
-      <Text color="gray.700" flex={1} fontSize="sm" fontWeight="medium">
+    <HStack pb={1} alignItems="center" textAlign="center" pl={4} pr={2}>
+      <IconButton
+        borderRadius="full"
+        size="sm"
+        variant="ghost"
+        aria-label="Previous Month"
+        icon={
+          <Icon height={5} width={5} as={ArrowIcon} transform="rotate(90deg)" />
+        }
+        onClick={decreaseMonth}
+        disabled={prevMonthButtonDisabled}
+      />
+      <Text color="gray.700" flex={1} fontSize="sm" fontWeight="bold">
         {new Intl.DateTimeFormat('en-AU', {
           year: 'numeric',
           month: 'long',
@@ -54,32 +47,31 @@ const CustomHeader = ({
         borderRadius="full"
         size="sm"
         variant="ghost"
-        aria-label="Previous Month"
-        icon={<ChevronLeftIcon fontSize="14px" />}
-        onClick={decreaseMonth}
-        disabled={prevMonthButtonDisabled}
-      />
-      <IconButton
-        borderRadius="full"
-        size="sm"
-        variant="ghost"
         aria-label="Next Month"
-        icon={<ChevronRightIcon fontSize="14px" />}
+        icon={
+          <Icon
+            as={ArrowIcon}
+            height={5}
+            width={5}
+            transform="rotate(-90deg)"
+          />
+        }
         onClick={increaseMonth}
         disabled={nextMonthButtonDisabled}
       />
-    </Stack>
+    </HStack>
   );
 };
 
 function useDatePickerStyles() {
   const theme = useTheme();
+  const bgReactWrapper = useColorModeValue('white', 'inherit');
+  const colorDay = useColorModeValue('primary.gray.700', 'white');
   return useMemo(() => {
     const defaultStyles: StyleObjectOrFn = {
-      bg: 'white',
-      border: '1px solid',
-      borderColor: 'gray.100',
-      boxShadow: 'sm',
+      backgroundColor: `${bgReactWrapper}!important`,
+
+      border: 'none',
 
       '& .react-datepicker': {
         '&__header': {
@@ -95,17 +87,21 @@ function useDatePickerStyles() {
         '&__day-name': {
           color: 'gray.400',
           fontWeight: 'medium',
-          w: 7,
+
+          width: 8,
         },
-        '&__day--weekend': {
-          color: 'secondary.danger.200!important',
-        },
+
         '&__day': {
-          lineHeight: '28px',
-          color: 'gray.700',
-          w: 7,
-          h: 7,
+          lineHeight: '32px',
+          fontSize: 'lg',
+          fontWeight: 'bold',
+          color: colorDay,
+          w: 8,
+          h: 8,
           borderRadius: 'full',
+        },
+        '&__week .react-datepicker__day:nth-child(1)': {
+          color: 'secondary.danger.200',
         },
         '&__day:not(.react-datepicker__day--selected, .react-datepicker__day--keyboard-selected):hover':
           {
@@ -118,12 +114,12 @@ function useDatePickerStyles() {
         },
         '&__day--selected, &__day--keyboard-selected': {
           bg: 'primary.purple.500',
-          color: 'white',
+          color: 'white!important',
         },
       },
     };
     return chakraCSS(defaultStyles)(theme);
-  }, [theme]);
+  }, [bgReactWrapper, theme]);
 }
 
 export interface DatePickerProps {
@@ -135,14 +131,14 @@ export const DatePicker: FC<DatePickerProps> = ({ value, onChange }) => {
   const styles = useDatePickerStyles();
 
   const render = useCallback(
-    ({ css }) => {
+    ({ css }: any) => {
       return (
         <ReactDatePicker
           dateFormat="dd MMMM, yyy"
           showPopperArrow={false}
           inline
           wrapperClassName="karas_react_date_picker"
-          popperClassName={css({ marginTop: '4px!important' })}
+          /* popperClassName={css({ marginTop: '4px!important' })} */
           calendarClassName={css(styles)}
           selected={value}
           onChange={date =>
@@ -152,6 +148,7 @@ export const DatePicker: FC<DatePickerProps> = ({ value, onChange }) => {
         />
       );
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [styles, value]
   );
 

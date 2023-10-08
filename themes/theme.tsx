@@ -68,6 +68,11 @@ export const colors = {
   ...backgrounds,
 };
 
+export const shadows = {
+  shadow: {
+    100: '0px 4px 8px 0px rgba(134, 106, 250, 0.40)',
+  },
+};
 /* const styles = {
   global: (props: StyleFunctionProps) => ({
     body: {
@@ -163,6 +168,7 @@ export const breakpoints = {
 const theme = extendTheme({
   fonts,
   colors,
+  shadows,
   breakpoints,
   config,
   components: {

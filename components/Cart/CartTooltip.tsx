@@ -15,7 +15,7 @@ const CartTooltip = () => {
     <>
       <Popover
         trigger="hover"
-        arrowShadowColor="red!important"
+        arrowShadowColor="white"
         arrowPadding={4}
         arrowSize={12}
       >
@@ -42,7 +42,7 @@ const CartTooltip = () => {
           px={4}
           textAlign="center"
         >
-          <PopoverArrow />
+          <PopoverArrow bg="white" />
           <Text color="primary.gray.800" fontSize="sm">
             Items in your cart are not guaranteed at purchase.
             <Text

@@ -1,11 +1,11 @@
-import { Box } from '@chakra-ui/react';
+import { Box, Image } from '@chakra-ui/react';
 import React from 'react';
 
 const AboutEvent = () => {
   return (
     <>
-      <Box height="800px">
-        {/*    //Test */}
+      <Box>
+        {/*    //Test  this for Personal Information */}
         <Box fontSize="2xl" fontWeight="bold">
           Performance time information
         </Box>
@@ -43,6 +43,32 @@ const AboutEvent = () => {
         <Box>
           * There will be one performance on Friday, October 20th at 7:30.
         </Box>
+      </Box>
+      <Box>
+        <Box fontSize="2xl" fontWeight="bold" textTransform="capitalize">
+          announcement
+        </Box>
+        <Box>We Provide the new t... .Stadiums to</Box>
+        <Image
+          src="/test/banner/banner_1.jpeg"
+          width={{ md: '800px', sm: 'full' }}
+          borderRadius="lg"
+          alt="Banner Image"
+        />
+        <Image
+          mt={2}
+          src="/test/banner/banner_2.jpeg"
+          width={{ md: '800px', sm: 'full' }}
+          borderRadius="lg"
+          alt="Banner Image"
+        />
+        <Image
+          mt={2}
+          src="/test/banner/banner_3.jpeg"
+          width={{ md: '800px', sm: 'full' }}
+          borderRadius="lg"
+          alt="Banner Image"
+        />
       </Box>
     </>
   );
