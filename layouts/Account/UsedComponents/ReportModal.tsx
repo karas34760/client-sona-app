@@ -76,12 +76,11 @@ const ReportModal = () => {
             </HStack>
             <Text fontWeight="bold">I think this account is...</Text>
             <Select
-              focusBorderColor="primary.gray.300"
+              focusBorderColor="primary.gray.500"
               options={ListReport}
               placeholder="Select a Reason"
               size="lg"
               components={CustomOption}
-              variant="primary_select"
             />
           </ModalBody>
           <Button width="100%" bg="secondary.info.300" color="white">

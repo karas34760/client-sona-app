@@ -36,7 +36,7 @@ const ListItemSetting = () => {
     },
     {
       label: 'setting',
-      link: '/tickets',
+      link: '/account/setting',
       icon: SettingIcon,
     },
     {
@@ -53,11 +53,13 @@ const ListItemSetting = () => {
           {List1.map(item => (
             <Link key={`item ${item.label}`} href={item.link}>
               <HStack
+                gap={2}
+                fontWeight="bold"
                 _hover={{
                   color: 'primary.purple.500',
                 }}
               >
-                <Icon as={item.icon} height={5} width={5} />
+                <Icon as={item.icon} height={6} width={6} />
                 <Text>{t(item.label)}</Text>
               </HStack>
             </Link>
@@ -67,11 +69,13 @@ const ListItemSetting = () => {
           {List2.map(item => (
             <Link key={`item ${item.label}`} href={item.link}>
               <HStack
+                gap={2}
+                fontWeight="bold"
                 _hover={{
                   color: 'primary.purple.500',
                 }}
               >
-                <Icon as={item.icon} height={5} width={5} />
+                <Icon as={item.icon} height={6} width={6} />
                 <Text>{t(item.label)}</Text>
               </HStack>
             </Link>

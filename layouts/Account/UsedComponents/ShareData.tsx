@@ -7,6 +7,7 @@ import {
   Tooltip,
   Text,
   HStack,
+  As,
 } from '@chakra-ui/react';
 import Link from 'next/link';
 import React from 'react';
@@ -16,9 +17,10 @@ import TwitterIcon from 'public/assets/icons/socials/twitter.svg';
 import WebIcon from 'public/logo/logo.svg';
 interface IProps {
   link: string;
+  icon?: As;
 }
 
-const ShareData = ({ link }: IProps) => {
+const ShareData = ({ link, icon }: IProps) => {
   return (
     <>
       <Popover variant="primary">
@@ -39,7 +41,7 @@ const ShareData = ({ link }: IProps) => {
             <Box display="inline-block">
               <Icon
                 position="relative"
-                as={ShareIcon}
+                as={icon || ShareIcon}
                 aria-label="Tickifi Share Icon"
                 height={6}
                 width={6}

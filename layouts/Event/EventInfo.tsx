@@ -50,6 +50,7 @@ const EventInfo = () => {
           </VStack>
           <Box flexGrow={1}>
             <HStack justifyContent="right" gap={10}>
+              {/*    <ShareData icon={ShareIcon} /> */}
               <Icon as={ShareIcon} cursor="pointer" />
               <Icon as={MoreIcon} cursor="pointer" />
             </HStack>

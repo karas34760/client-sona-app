@@ -37,6 +37,7 @@ const EventBooking = () => {
           gap={6}
         >
           <Flex
+            py={6}
             flexDirection="column"
             width="full"
             border="0.063rem solid"
