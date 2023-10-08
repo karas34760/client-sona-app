@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-
 import {
   IconButton,
   StyleObjectOrFn,
@@ -119,6 +118,7 @@ function useDatePickerStyles() {
       },
     };
     return chakraCSS(defaultStyles)(theme);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bgReactWrapper, theme]);
 }
 
