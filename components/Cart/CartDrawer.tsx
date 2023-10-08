@@ -1,18 +1,17 @@
 import {
+  CloseButton,
   Drawer,
   DrawerBody,
   DrawerContent,
   DrawerHeader,
   DrawerOverlay,
   Flex,
-  Icon,
   Text,
 } from '@chakra-ui/react';
 import React from 'react';
 
 import CartTooltip from './CartTooltip';
 
-import CloseIcon from 'public/assets/icons/arrow/close.svg';
 interface IProps {
   isOpen: boolean;
   onClose: () => void;
@@ -38,7 +37,7 @@ const CartDrawer = ({ isOpen, onClose }: IProps) => {
               <Text>Your Cart</Text>
               <CartTooltip />
             </Flex>
-            <Icon as={CloseIcon} onClick={onClose} cursor="pointer" />
+            <CloseButton onClick={onClose} />
           </DrawerHeader>
           <DrawerBody>dsads</DrawerBody>
         </DrawerContent>

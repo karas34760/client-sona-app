@@ -7,22 +7,32 @@ import {
   PopoverArrow,
   As,
   IconProps,
+  PopoverProps,
 } from '@chakra-ui/react';
 import React from 'react';
 
 interface IProps {
   icon: As;
   children: React.ReactNode;
+  pop_style?: PopoverProps;
   icon_style?: IconProps;
 }
-const CustomToolTip = ({ icon, children, icon_style, ...rest }: IProps) => {
+const CustomToolTip = ({
+  icon,
+  children,
+  pop_style,
+  icon_style,
+  ...rest
+}: IProps) => {
   return (
     <>
       <Popover
+        variant="primary"
         trigger="hover"
         arrowShadowColor="white"
         arrowPadding={4}
         arrowSize={12}
+        {...pop_style}
       >
         <PopoverTrigger>
           <IconButton
@@ -42,20 +52,7 @@ const CustomToolTip = ({ icon, children, icon_style, ...rest }: IProps) => {
           />
         </PopoverTrigger>
 
-        <PopoverContent
-          fontWeight="bold"
-          bg="white"
-          overflowWrap="break-word"
-          maxWidth="200px"
-          boxShadow="rgba(0, 0, 0, 0.2) 0px 6px 32px"
-          bgColor="rgb(255, 255, 255)"
-          border="none"
-          borderRadius="lg"
-          py={2}
-          px={4}
-          textAlign="center"
-          {...rest}
-        >
+        <PopoverContent {...rest}>
           <PopoverArrow bg="white" />
           {children}
         </PopoverContent>

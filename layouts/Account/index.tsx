@@ -1,6 +1,9 @@
 import { Box, Container, HStack, Text } from '@chakra-ui/react';
 
-import SettingProfileImage from './Setting/SettingProfileImage';
+import MoreData from './UsedComponents/MoreData';
+import SettingProfileImage from './UsedComponents/SettingProfileImage';
+
+import ShareData from '@/layouts/Account/UsedComponents/ShareData';
 
 const AccountPage = () => {
   /*   const { data: ensAvatar } = useEnsAvatar({ name: address });
@@ -30,7 +33,10 @@ const AccountPage = () => {
                 <Text color="primary.gray.600">Joined September 2023</Text>
               </HStack>
             </Box>
-            <Box>Share</Box>
+            <HStack gap={8}>
+              <ShareData link="/" />
+              <MoreData />
+            </HStack>
           </HStack>
         </Container>
       </Box>
