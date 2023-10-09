@@ -14,6 +14,7 @@ const LogoText = ({ sx, styleText }: IProps) => {
           as={LogoIcon}
           height={{ md: 12, base: 8 }}
           width={{ md: 12, base: 8 }}
+          aria-label="icon logo tickifi"
         />
 
         <Text

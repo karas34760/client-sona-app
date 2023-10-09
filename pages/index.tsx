@@ -21,7 +21,11 @@ export async function getStaticProps({ locale }: { locale: string }) {
 export default function Home() {
   return (
     <>
-      <SEOHead siteName="Tickifi" description="Home Events Loading Page" />
+      <SEOHead
+        siteName="Tickifi"
+        description="Home Events Loading Page"
+        title="Fair Play Ticket Decentralize Application Blockcahin "
+      />
       <Box>
         <HeroSection />
         <HowWork />

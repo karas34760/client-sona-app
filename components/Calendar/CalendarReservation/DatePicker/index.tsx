@@ -140,7 +140,6 @@ export const DatePicker: FC<DatePickerProps> = ({ value, onChange }) => {
           wrapperClassName="karas_react_date_picker"
           /* popperClassName={css({ marginTop: '4px!important' })} */
           calendarClassName={css(styles)}
-          selected={value}
           onChange={date =>
             Array.isArray(date) ? onChange(date[0]) : onChange(date)
           }

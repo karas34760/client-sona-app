@@ -1,10 +1,7 @@
-import { Box, Button, Flex, HStack, Text, VStack } from '@chakra-ui/react';
-import React, { useState } from 'react';
-
-import { DatePicker } from '@/components/Calendar/CalendarReservation/DatePicker';
+import { Box, Button, Flex, HStack, Text } from '@chakra-ui/react';
+import React from 'react';
 
 const EventBooking = () => {
-  const [startDate, setStartDate] = useState(new Date());
   const currentSeat = [
     {
       label: 'Vip seat',
@@ -45,15 +42,6 @@ const EventBooking = () => {
             boxShadow="shadow.100"
             borderRadius="xl"
           >
-            <Text p={4} fontSize="lg" fontWeight="bold">
-              Booking Date
-            </Text>
-            <VStack>
-              <DatePicker
-                value={startDate}
-                onChange={(date: any) => setStartDate(date)}
-              />
-            </VStack>
             <Flex
               flexDirection="column"
               gap={2}
