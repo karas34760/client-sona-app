@@ -10,6 +10,9 @@ const nextConfig = {
         ...envConfig[process.env.TARGET_ENV || 'tickifi'],
     },
     images: {
+        /*      dangerouslyAllowSVG: true,
+             contentDispositionType: 'attachment',
+             contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;", */
         remotePatterns: [
             {
                 protocol: 'https',

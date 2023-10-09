@@ -56,6 +56,11 @@ export const colors = {
       400: '#ff1d1d',
       500: '#eb1212',
     },
+    info: {
+      100: '#7CB9E8',
+      200: '#6CB4EE',
+      300: '#007FFF',
+    },
   },
   divide: {
     100: '#EAECF0',
@@ -63,6 +68,12 @@ export const colors = {
   ...backgrounds,
 };
 
+export const shadows = {
+  shadow: {
+    100: '0px 4px 8px 0px rgba(134, 106, 250, 0.40)',
+    200: '0px 6px 32px rgba(0, 0, 0, 0.2)',
+  },
+};
 /* const styles = {
   global: (props: StyleFunctionProps) => ({
     body: {
@@ -143,6 +154,24 @@ const Button: ComponentStyleConfig = {
     }),
   },
 };
+const Popover: ComponentStyleConfig = {
+  variants: {
+    primary: {
+      content: {
+        fontWeight: 'bold',
+        bg: 'white',
+        overflowWrap: 'break-word',
+        maxWidth: '12.5rem',
+        boxShadow: 'shadow.200',
+        border: 'none',
+        borderRadius: 'lg',
+        py: 4,
+        px: 4,
+        textAlign: 'center',
+      },
+    },
+  },
+};
 export const fonts = {
   body: `'Work Sans', sans-serif`,
   /*   body: `'Inter',sans-serif`, */
@@ -155,15 +184,25 @@ export const breakpoints = {
   xl: '80em', // ~1280px
   '2xl': '96em', // ~1536px
 };
+
+const Select: ComponentStyleConfig = {
+  variants: {
+    primary: {},
+  },
+};
+
 const theme = extendTheme({
   fonts,
   colors,
+  shadows,
   breakpoints,
   config,
   components: {
     Text,
     Button,
     Tooltip,
+    Popover,
+    Select,
   },
 });
 

@@ -35,12 +35,13 @@ export default function SEOHead({
     <>
       <Head>
         <link rel="icon" href={favicon || defaultSiteData.favicon} />
+        <link rel="icon" type="image/png" href={'/favicon.ico'} />
         <meta property="twitter:image" content={meta.image} />
         <meta property="twitter:description" content={meta.description} />
       </Head>
       <NextSeo
         title={meta.title}
-        titleTemplate={`${meta.siteName} %s`}
+        titleTemplate={`%s | ${meta.siteName}`}
         description={meta.description}
         openGraph={{
           description: meta.description,

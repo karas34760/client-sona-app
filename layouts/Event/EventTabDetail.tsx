@@ -82,13 +82,13 @@ const EventTabDetail = () => {
   const bg = useColorModeValue('white', 'rgb(26, 32, 44)');
   return (
     <>
-      <Grid gridTemplateColumns="70% 30%" gap={10}>
+      <Grid gridTemplateColumns={{ lg: '70% 30%', md: '1fr 1fr' }} gap={10}>
         <Box>
           <ListTabItem
             items={TabItems}
             pt={4}
             position="sticky"
-            top="10%"
+            top="104px"
             zIndex="10"
             bgColor={bg}
             width="100%"
@@ -102,8 +102,9 @@ const EventTabDetail = () => {
               left: 0,
             }}
             activeKey={(queryKey as string) || 'about'}
+            flexWrap="wrap"
           />
-          <Box py={4} mr={8}>
+          <Box py={4} mr={{ md: 8, base: 0 }}>
             {(queryKey === 'about' || !queryKey) && <AboutEvent />}
             {queryKey === 'casting' && <CastingInfo />}
             {queryKey === 'ticket_info' && <TicketInformation />}
