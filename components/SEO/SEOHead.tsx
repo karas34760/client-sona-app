@@ -35,7 +35,7 @@ export default function SEOHead({
     <>
       <Head>
         <link rel="icon" href={favicon || defaultSiteData.favicon} />
-        <link rel="icon" type="image/png" href={'/favicon.ico'} />
+        <link rel="apple-touch-icon" type="image/png" href="/favicon.ico" />
         <meta property="twitter:image" content={meta.image} />
         <meta property="twitter:description" content={meta.description} />
       </Head>

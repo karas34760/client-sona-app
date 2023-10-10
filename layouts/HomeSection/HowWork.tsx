@@ -7,8 +7,8 @@ import {
   Text,
   keyframes,
 } from '@chakra-ui/react';
-import React from 'react';
 import { useTranslation } from 'next-i18next';
+import React from 'react';
 
 import BgRectangle from 'public/assets/bg/bg-rectangle-work.svg';
 const slid = keyframes`
