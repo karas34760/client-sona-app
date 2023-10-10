@@ -1,5 +1,6 @@
 import { Box, Container, HStack, Text } from '@chakra-ui/react';
 
+import AccountProfileTab from './AccountTab';
 import MoreData from './UsedComponents/MoreData';
 import SettingProfileImage from './UsedComponents/SettingProfileImage';
 
@@ -38,6 +39,7 @@ const AccountPage = () => {
               <MoreData />
             </HStack>
           </HStack>
+          <AccountProfileTab />
         </Container>
       </Box>
     </>

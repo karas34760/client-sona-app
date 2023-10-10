@@ -152,6 +152,11 @@ const Button: ComponentStyleConfig = {
         transition: '.4s ease-in-out',
       },
     }),
+    tab_2: ({ isActive }) => ({
+      fontSize: 'medium',
+      fontWeight: 'bold',
+      color: isActive ? 'primary.purple.500' : 'primary.gray.400',
+    }),
   },
 };
 const Popover: ComponentStyleConfig = {

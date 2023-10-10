@@ -76,5 +76,12 @@
     "casting":"Casting",
     "oganizer":"Oganizer",
     "about":"About",
-    "ticket_info":"Ticket Information"
+    "ticket_info":"Ticket Information",
+    "==============Profile Detail":"",
+    "collected":"Collected",
+    "deal":"Deal",
+    "favorited":"Favorited",
+    "activity":"Activity",
+    "created":"Created"
+
 }

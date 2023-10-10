@@ -22,7 +22,15 @@ const EventBooking = () => {
       quantity: 10,
     },
   ];
-
+  const attributes = [
+    { key: 'Location', value: 'Ben Thanh Ward, District 1, HCMC' },
+    { key: 'Date', value: 'Saturday, 21 October 2023' },
+    { key: 'Viewing Age', value: 'Over 8 ages' },
+    {
+      key: 'Performance',
+      value: '75 minutues (10 minutes intermission)',
+    },
+  ];
   return (
     <>
       <Box height="full" width="full">
@@ -42,6 +50,19 @@ const EventBooking = () => {
             boxShadow="shadow.100"
             borderRadius="xl"
           >
+            <Flex flexDirection="column" padding={5} pt={2} gap={6}>
+              <Text fontSize="lg" fontWeight="bold" textAlign="center">
+                Overview
+              </Text>
+              {attributes.map(item => (
+                <HStack gap={2} key={item.key} justifyContent="space-between">
+                  <Text fontWeight="bold">{item.key}</Text>
+                  <Text textAlign="right" fontSize="sm">
+                    {item.value}
+                  </Text>
+                </HStack>
+              ))}
+            </Flex>
             <Flex
               flexDirection="column"
               gap={2}
