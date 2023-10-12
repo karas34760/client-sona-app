@@ -1,7 +1,9 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
 
-import Setting from '@/layouts/Account/Setting';
+import SEOHead from '@/components/SEO/SEOHead';
+import AccountSettingPage from '@/layouts/AccountSetting';
+
 export async function getServerSideProps({ locale }: { locale: string }) {
   return {
     props: {
@@ -13,7 +15,11 @@ export async function getServerSideProps({ locale }: { locale: string }) {
 const AccountSetting = () => {
   return (
     <>
-      <Setting />
+      <SEOHead
+        title="Profile Detail"
+        description="2023-2024 Alan Walker THE 1ST WORLD Festival [AREA 52] in HO CHI MINH"
+      />
+      <AccountSettingPage />
     </>
   );
 };

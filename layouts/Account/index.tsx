@@ -7,7 +7,7 @@ import SettingProfileImage from './UsedComponents/SettingProfileImage';
 
 import ShareData from '@/layouts/Account/UsedComponents/ShareData';
 import SettingIcon from 'public/assets/icons/generals/setting.svg';
-const AccountPage = () => {
+const AccountDetailPage = () => {
   /*   const { data: ensAvatar } = useEnsAvatar({ name: address });
   const { data: ensName } = useEnsName({ address }); */
   return (
@@ -16,7 +16,11 @@ const AccountPage = () => {
         <SettingProfileImage />
 
         <Container maxWidth="container.xl" my={12}>
-          <HStack justifyContent="space-between" alignItems="flex-start">
+          <HStack
+            justifyContent="space-between"
+            alignItems="flex-start"
+            flexWrap="wrap"
+          >
             <Box>
               <Text fontSize="2xl" fontWeight="bold">
                 Karas Developer
@@ -50,4 +54,4 @@ const AccountPage = () => {
   );
 };
 
-export default AccountPage;
+export default AccountDetailPage;

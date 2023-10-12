@@ -51,7 +51,7 @@ const ShareData = ({ link, icon }: IProps) => {
           </PopoverTrigger>
         </Tooltip>
 
-        <PopoverContent width="fit-content" maxWidth="100%">
+        <PopoverContent width="fit-content" maxWidth="100%" zIndex="popover">
           <HStack
             gap={3}
             padding={4}

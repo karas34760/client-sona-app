@@ -171,6 +171,7 @@ const Popover: ComponentStyleConfig = {
         borderRadius: 'lg',
         py: 4,
         px: 4,
+
         textAlign: 'center',
       },
     },

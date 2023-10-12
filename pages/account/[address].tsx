@@ -3,7 +3,7 @@ import React from 'react';
 import { useAccount, useEnsName } from 'wagmi';
 
 import SEOHead from '@/components/SEO/SEOHead';
-import AccountPage from '@/layouts/Account';
+import AccountDetailPage from '@/layouts/Account';
 export async function getServerSideProps({ locale }: { locale: string }) {
   return {
     props: {
@@ -29,7 +29,7 @@ const AccountDetail = () => {
         />
       )}
 
-      <AccountPage />
+      <AccountDetailPage />
     </>
   );
 };

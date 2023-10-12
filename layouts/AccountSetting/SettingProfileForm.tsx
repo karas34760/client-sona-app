@@ -11,7 +11,8 @@ import {
 } from '@chakra-ui/react';
 import CompassIcon from 'public/assets/line/compass.svg';
 
-import SettingProfileImage from '../UsedComponents/SettingProfileImage';
+import SettingProfileImage from '../Account/UsedComponents/SettingProfileImage';
+
 const SettingProfileForm = () => {
   return (
     <>
