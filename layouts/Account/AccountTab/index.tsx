@@ -117,7 +117,7 @@ const AccountProfileTab = () => {
         top="104px"
         zIndex="10"
         width="100%"
-        activeKey={(queryKey as string) || 'about'}
+        activeKey={(queryKey as string) || 'collected'}
         flexWrap="wrap"
       />
       <Box padding={2}>

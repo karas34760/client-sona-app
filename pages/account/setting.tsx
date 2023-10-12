@@ -1,5 +1,7 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
+
+import Setting from '@/layouts/Account/Setting';
 export async function getServerSideProps({ locale }: { locale: string }) {
   return {
     props: {
@@ -7,8 +9,13 @@ export async function getServerSideProps({ locale }: { locale: string }) {
     },
   };
 }
+// This is Setting page for profile
 const AccountSetting = () => {
-  return <div>AccountSetting</div>;
+  return (
+    <>
+      <Setting />
+    </>
+  );
 };
 
 export default AccountSetting;

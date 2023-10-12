@@ -165,7 +165,6 @@ const Popover: ComponentStyleConfig = {
       content: {
         fontWeight: 'bold',
         bg: 'white',
-        overflowWrap: 'break-word',
         maxWidth: '12.5rem',
         boxShadow: 'shadow.200',
         border: 'none',

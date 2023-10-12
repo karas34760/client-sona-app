@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   CloseButton,
   ComponentWithAs,
@@ -45,49 +46,64 @@ const ReportModal = () => {
 
   return (
     <>
-      <HStack onClick={onOpen}>
-        <Icon
-          as={FlagIcon}
-          height={5}
-          width={5}
-          aria-label="Tickifi Report Icon"
-        />
-        <Text fontSize="sm">Report Account</Text>
-      </HStack>
-
-      <Modal isOpen={isOpen} onClose={onClose} size="lg">
-        <ModalOverlay />
-        <ModalContent display="flex" flexDirection="column" gap={20} bg="none">
-          <ModalBody
-            pt={6}
-            pb={12}
-            bg="white"
-            borderRadius="xl"
+      <Box>
+        <HStack
+          padding={4}
+          onClick={onOpen}
+          width="full"
+          height="full"
+          cursor="pointer"
+          _hover={{
+            color: 'primary.gray.600',
+          }}
+        >
+          <Icon
+            as={FlagIcon}
+            height={5}
+            width={5}
+            aria-label="Tickifi Report Icon"
+          />
+          <Text fontSize="sm">Report Account</Text>
+        </HStack>
+        <Modal isOpen={isOpen} onClose={onClose} size="lg">
+          <ModalOverlay />
+          <ModalContent
             display="flex"
             flexDirection="column"
-            gap={4}
-            textColor="primary.gray.800"
+            gap={20}
+            bg="none"
           >
-            <HStack justifyContent="space-between">
-              <Text fontWeight="bold" fontSize="2xl">
-                Report this account
-              </Text>
-              <CloseButton onClick={onClose} />
-            </HStack>
-            <Text fontWeight="bold">I think this account is...</Text>
-            <Select
-              focusBorderColor="primary.gray.500"
-              options={ListReport}
-              placeholder="Select a Reason"
-              size="lg"
-              components={CustomOption}
-            />
-          </ModalBody>
-          <Button width="100%" bg="secondary.info.300" color="white">
-            Report
-          </Button>
-        </ModalContent>
-      </Modal>
+            <ModalBody
+              pt={6}
+              pb={12}
+              bg="white"
+              borderRadius="xl"
+              display="flex"
+              flexDirection="column"
+              gap={4}
+              textColor="primary.gray.800"
+            >
+              <HStack justifyContent="space-between">
+                <Text fontWeight="bold" fontSize="2xl">
+                  Report this account
+                </Text>
+                <CloseButton onClick={onClose} />
+              </HStack>
+              <Text fontWeight="bold">I think this account is...</Text>
+              <Select
+                focusBorderColor="primary.gray.500"
+                options={ListReport}
+                placeholder="Select a Reason"
+                size="lg"
+                components={CustomOption}
+              />
+            </ModalBody>
+            <Button width="100%" bg="secondary.info.300" color="white">
+              Report
+            </Button>
+          </ModalContent>
+        </Modal>
+      </Box>
     </>
   );
 };

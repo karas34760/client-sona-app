@@ -43,8 +43,8 @@ const ShareData = ({ link, icon }: IProps) => {
                 position="relative"
                 as={icon || ShareIcon}
                 aria-label="Tickifi Share Icon"
-                height={6}
-                width={6}
+                height={5}
+                width={5}
                 cursor="pointer"
               />
             </Box>
