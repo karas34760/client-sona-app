@@ -13,7 +13,7 @@ const SettingProfileImage = () => {
             opacity={0}
             transition="opacity 0.3s ease-in-out"
             _groupHover={{
-              opacity: 0.5,
+              opacity: 1,
             }}
             position="absolute"
             zIndex={3}
@@ -63,7 +63,7 @@ const SettingProfileImage = () => {
               opacity={0}
               transition="opacity 0.3s ease-in-out"
               _groupHover={{
-                opacity: 0.5,
+                opacity: 1,
               }}
               position="absolute"
               zIndex={3}

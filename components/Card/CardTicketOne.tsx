@@ -21,7 +21,7 @@ const CardTicketOne = ({ image_link, children }: IProps) => {
   const handleFavorite = (e: any) => {
     e.preventDefault();
   };
-  const bgCard = useColorModeValue('white', 'dark.100');
+  const bgCard = useColorModeValue('white', ' dark.200');
   return (
     <>
       <HStack

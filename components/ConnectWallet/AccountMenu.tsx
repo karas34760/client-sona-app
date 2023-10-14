@@ -33,7 +33,13 @@ const AccountMenu = () => {
           />
         )}
 
-        <Text>{ensName ? `${ensName} ` : shortenAddress(address)}</Text>
+        <Text
+          _hover={{
+            color: 'primary.gray.500',
+          }}
+        >
+          {ensName ? `${ensName} ` : shortenAddress(address)}
+        </Text>
       </Flex>
       <ProfileDrawer onClose={onClose} isOpen={isOpen} />
     </>

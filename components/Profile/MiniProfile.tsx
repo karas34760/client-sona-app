@@ -7,7 +7,7 @@ import TicketTab from './MiniTab/TicketTab';
 
 const MiniProfile = () => {
   return (
-    <Tabs variant="enclosed">
+    <Tabs variant="enclosed" height="500px">
       <TabList>
         <Tab>Ticket</Tab>
         <Tab>Pool</Tab>

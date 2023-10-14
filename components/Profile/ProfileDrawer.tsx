@@ -6,6 +6,7 @@ import {
   Flex,
   Button,
   Icon,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import React from 'react';
 import { useDisconnect } from 'wagmi';
@@ -21,6 +22,7 @@ interface IProps {
 }
 const ProfileDrawer = ({ isOpen, onClose }: IProps) => {
   const { disconnect } = useDisconnect();
+  const bgDrawer = useColorModeValue('white', 'body.100');
   return (
     <>
       <Drawer
@@ -31,7 +33,13 @@ const ProfileDrawer = ({ isOpen, onClose }: IProps) => {
         trapFocus={false}
       >
         <DrawerOverlay />
-        <DrawerContent zIndex="popover" my={4} mr={4} borderRadius="1rem">
+        <DrawerContent
+          zIndex="popover"
+          my={{ md: 4, base: 0 }}
+          mr={{ md: 4, base: 0 }}
+          borderRadius="1rem"
+          bg={bgDrawer}
+        >
           <Flex flexDirection="column" gap={4} py={6} px={6}>
             <Flex alignItems="center" justifyContent="space-between">
               <AccountAddress onClose={onClose} />
@@ -48,6 +56,8 @@ const ProfileDrawer = ({ isOpen, onClose }: IProps) => {
             <ListItemSetting onClose={onClose} />
           </Flex>
           <MiniProfile />
+
+          <Button onClick={onClose}>Close </Button>
         </DrawerContent>
       </Drawer>
     </>

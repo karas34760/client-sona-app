@@ -5,7 +5,7 @@ import AccountSettingTab from './AccountSettingTab';
 const AccountSettingPage = () => {
   return (
     <>
-      <Container maxWidth="container.xl" py={4}>
+      <Container maxWidth="container.xl" my={8}>
         <AccountSettingTab />
       </Container>
     </>

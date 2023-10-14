@@ -6,7 +6,6 @@ import AccountMenu from './AccountMenu';
 import SelectWallet from './SelectWallet';
 
 import WalletIcon from 'public/assets/icons/generals/wallet.svg';
-
 const ConnectWallet = () => {
   const { isConnected, isConnecting } = useAccount();
 

@@ -17,7 +17,7 @@ const TabButton = ({ title, isActive, icon, params, sx }: IProps) => {
     <Button
       isActive={isActive}
       variant="tab"
-      leftIcon={icon ? <Icon boxSize="1rem" as={icon} /> : undefined}
+      leftIcon={icon ? <Icon as={icon} height={5} width={5} /> : undefined}
       key={title}
       onClick={() => {
         setQuery(params);
