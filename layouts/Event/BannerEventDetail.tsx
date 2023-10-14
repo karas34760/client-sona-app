@@ -7,7 +7,7 @@ const BannerEventDetail = () => {
   return (
     <Box width="full">
       <Box
-        height="560px"
+        height={{ lg: '560px', base: '300px' }}
         width="full"
         bgImage={test_link}
         bgSize="cover"

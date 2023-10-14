@@ -99,16 +99,16 @@ const Text: ComponentStyleConfig = {
       color: 'primary.purple.500',
       fontSize: '28px',
     },
-    type_categories: {
+    type_categories: (props: StyleFunctionProps) => ({
       px: 2,
       py: 1,
       fontSize: 'sm',
       textTransform: 'capitalize',
       borderRadius: 'lg',
-      color: 'primary.gray.600',
+      color: mode('primary.gray.600', 'white')(props),
       border: '0.063rem solid',
       borderColor: 'primary.gray.400',
-    },
+    }),
   },
 };
 const Tooltip: ComponentStyleConfig = {
