@@ -1,11 +1,13 @@
-import { Box, HStack } from '@chakra-ui/react';
+import { Container } from '@chakra-ui/react';
+
+import AccountSettingTab from './AccountSettingTab';
 
 const AccountSettingPage = () => {
   return (
     <>
-      <Box>
-        <HStack></HStack>
-      </Box>
+      <Container maxWidth="container.xl" py={4}>
+        <AccountSettingTab />
+      </Container>
     </>
   );
 };

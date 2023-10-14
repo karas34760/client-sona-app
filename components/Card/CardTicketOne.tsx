@@ -1,4 +1,11 @@
-import { Center, Flex, HStack, Icon, Image } from '@chakra-ui/react';
+import {
+  Center,
+  Flex,
+  HStack,
+  Icon,
+  Image,
+  useColorModeValue,
+} from '@chakra-ui/react';
 import React from 'react';
 
 import { colors } from '@/themes/theme';
@@ -14,6 +21,7 @@ const CardTicketOne = ({ image_link, children }: IProps) => {
   const handleFavorite = (e: any) => {
     e.preventDefault();
   };
+  const bgCard = useColorModeValue('white', 'dark.100');
   return (
     <>
       <HStack
@@ -23,7 +31,7 @@ const CardTicketOne = ({ image_link, children }: IProps) => {
         gap={0}
         borderRadius="xl"
         overflow="hidden"
-        bg="white"
+        bg={bgCard}
         transition="box-shadow 0.25s ease-in-out 0s, transform 0.25s ease 0s"
         _hover={{
           transform: 'translateY(-10px)',

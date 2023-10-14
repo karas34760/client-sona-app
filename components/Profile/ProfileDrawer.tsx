@@ -45,7 +45,7 @@ const ProfileDrawer = ({ isOpen, onClose }: IProps) => {
             <Text fontSize="3xl" fontWeight="bold">
               $0.00
             </Text>
-            <ListItemSetting />
+            <ListItemSetting onClose={onClose} />
           </Flex>
           <MiniProfile />
         </DrawerContent>

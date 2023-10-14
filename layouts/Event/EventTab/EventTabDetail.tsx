@@ -3,11 +3,12 @@ import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
-import EventBooking from './EventBooking';
-import AboutEvent from './EventTab/AboutEvent';
-import CastingInfo from './EventTab/CastingInfo';
-import Oganizer from './EventTab/Oganizer';
-import TicketInformation from './EventTab/TicketInformation';
+import EventBooking from '../EventBooking';
+
+import AboutEvent from './AboutEvent';
+import CastingInfo from './CastingInfo';
+import Oganizer from './Oganizer';
+import TicketInformation from './TicketInformation';
 
 import ListTabItem from '@/components/Tab/ListTabItem';
 import TabButton from '@/components/Tab/TabButton';

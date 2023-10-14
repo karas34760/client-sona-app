@@ -10,7 +10,10 @@ import HelpIcon from 'public/assets/icons/generals/info.svg';
 import PaymentIcon from 'public/assets/icons/generals/payment.svg';
 import SettingIcon from 'public/assets/icons/generals/setting.svg';
 import WalletIcon from 'public/assets/icons/generals/wallet.svg';
-const ListItemSetting = () => {
+interface IProps {
+  onClose: () => void;
+}
+const ListItemSetting = ({ onClose }: IProps) => {
   const List1: LinkContent[] = [
     {
       label: 'create_events',
@@ -51,7 +54,11 @@ const ListItemSetting = () => {
       <Flex gap={2} justifyContent="space-between" flexWrap="wrap">
         <Flex flexDirection="column" gap={4}>
           {List1.map(item => (
-            <Link key={`item ${item.label}`} href={item.link}>
+            <Link
+              key={`item ${item.label}`}
+              href={item.link}
+              onClick={() => onClose()}
+            >
               <HStack
                 gap={2}
                 fontWeight="bold"
@@ -67,7 +74,11 @@ const ListItemSetting = () => {
         </Flex>
         <Flex flexDirection="column" gap={4}>
           {List2.map(item => (
-            <Link key={`item ${item.label}`} href={item.link}>
+            <Link
+              key={`item ${item.label}`}
+              href={item.link}
+              onClick={() => onClose()}
+            >
               <HStack
                 gap={2}
                 fontWeight="bold"

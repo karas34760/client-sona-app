@@ -1,9 +1,10 @@
 import {
   ComponentStyleConfig,
+  StyleFunctionProps,
   ThemeConfig,
   extendTheme,
 } from '@chakra-ui/react';
-
+import { mode } from '@chakra-ui/theme-tools';
 const config: ThemeConfig = {
   initialColorMode: 'light',
   useSystemColorMode: false,
@@ -177,6 +178,24 @@ const Popover: ComponentStyleConfig = {
     },
   },
 };
+
+const Input: ComponentStyleConfig = {
+  variants: {
+    settingProfile: (props: StyleFunctionProps) => ({
+      field: {
+        bg: mode('primary.gray.300', 'primary.gray.600')(props),
+        color: mode('primary.gray.700', 'white'),
+        border: '0.063rem solid',
+        borderColor: mode('primary.gray.400', 'primary.purple.500'),
+
+        borderRadius: 'xl',
+        _placeholder: {
+          color: 'primary.gray.400',
+        },
+      },
+    }),
+  },
+};
 export const fonts = {
   body: `'Work Sans', sans-serif`,
   /*   body: `'Inter',sans-serif`, */
@@ -208,6 +227,7 @@ const theme = extendTheme({
     Tooltip,
     Popover,
     Select,
+    Input,
   },
 });
 

@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 
-import EventTabDetail from './EventTabDetail';
+import EventTabDetail from './EventTab/EventTabDetail';
 
 import CalendarImage from '@/components/Calendar/CalendarImage';
 /* import LoveIcon from 'public/assets/icons/generals/heart.svg'; */
