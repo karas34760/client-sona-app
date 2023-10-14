@@ -1,15 +1,18 @@
-import { Box, Grid, Text } from '@chakra-ui/react';
+import { Box, Grid } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
-import SettingAccount from './SettingAccount';
+import SettingNotification from './SettingNotification';
+import SettingOffer from './SettingOffer';
+import SettingOrganize from './SettingOrganize';
 import SettingProfile from './SettingProfile';
 
 import ListTabItem from '@/components/Tab/ListTabItem';
 import TabButton from '@/components/Tab/TabButton';
 import { TabItem } from '@/utils/type';
 import BellIcon from 'public/assets/icons/generals/bell.svg';
+import OfferIcon from 'public/assets/icons/generals/offer.svg';
 import ProfileIcon from 'public/assets/icons/generals/profile.svg';
 
 const AccountSettingTab = () => {
@@ -37,8 +40,8 @@ const AccountSettingTab = () => {
       },
     },
     {
-      key: 'account',
-      title: t('account'),
+      key: 'organize',
+      title: t('organize'),
       component: (title, isActive) => {
         return (
           <TabButton
@@ -49,15 +52,15 @@ const AccountSettingTab = () => {
             isActive={isActive}
             title={title}
             params={{
-              tab: 'account',
+              tab: 'organize',
             }}
           />
         );
       },
     },
     {
-      key: 'notification',
-      title: t('notification'),
+      key: 'notifications',
+      title: t('notifications'),
       component: (title, isActive) => {
         return (
           <TabButton
@@ -68,7 +71,7 @@ const AccountSettingTab = () => {
             isActive={isActive}
             title={title}
             params={{
-              tab: 'notification',
+              tab: 'notifications',
             }}
           />
         );
@@ -83,7 +86,7 @@ const AccountSettingTab = () => {
             sx={{
               variant: { lg: 'tab_profile', base: 'tab' },
             }}
-            icon={BellIcon}
+            icon={OfferIcon}
             isActive={isActive}
             title={title}
             params={{
@@ -98,9 +101,6 @@ const AccountSettingTab = () => {
     <>
       <Grid gridTemplateColumns={{ lg: '25% 75%', md: '1fr 1fr' }}>
         <Box overflowX={{ lg: 'unset', base: 'scroll' }}>
-          <Text fontSize="lg" fontWeight="bold" color="primary.gray.400">
-            Settings
-          </Text>
           <ListTabItem
             items={TabItems}
             pt={4}
@@ -116,7 +116,9 @@ const AccountSettingTab = () => {
         <Box>
           {(queryKey === 'profile' || !queryKey) && <SettingProfile />}
 
-          {queryKey === 'account' && <SettingAccount />}
+          {queryKey === 'account' && <SettingOrganize />}
+          {queryKey === 'notifications' && <SettingNotification />}
+          {queryKey === 'offer' && <SettingOffer />}
         </Box>
       </Grid>
     </>

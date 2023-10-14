@@ -162,14 +162,16 @@ const Button: ComponentStyleConfig = {
       fontWeight: 'bold',
       color: isActive ? 'primary.purple.500' : 'primary.gray.400',
     }),
-    tab_profile: ({ isActive }) => ({
+    tab_profile: (props: StyleFunctionProps) => ({
       fontWeight: 'bold',
       display: 'flex',
       width: 'full',
       alignItems: 'center',
-      color: isActive ? 'primary.purple.500' : 'primary.gray.700',
+      color: props.isActive
+        ? 'primary.purple.500'
+        : mode('primary.gray.700', 'white')(props),
       _hover: {
-        color: isActive ? 'primary.purple.500' : 'primary.gray.500',
+        color: props.isActive ? 'primary.purple.500' : 'primary.gray.500',
       },
     }),
   },
@@ -200,9 +202,9 @@ const Input: ComponentStyleConfig = {
         bg: mode('primary.gray.300', 'primary.gray.600')(props),
         color: mode('primary.gray.700', 'white')(props),
         border: '0.063rem solid',
-        borderColor: mode('primary.gray.400', 'primary.purple.500')(props),
+        borderColor: mode('primary.gray.400', 'primary.gray.500')(props),
 
-        borderRadius: 'xl',
+        borderRadius: 'lg',
         _placeholder: {
           color: 'primary.gray.400',
         },

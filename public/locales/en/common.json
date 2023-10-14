@@ -84,9 +84,10 @@
     "activity":"Activity",
     "created":"Created",
     "===========Setting Profile":"",
-    "notification":"Notification",
+    "notifications":"Notifications",
     "profile":"Profile",
     "account":"Account",
+    "organize":"Organize",
     "offers":"Offers",
     "account_support":"Account Support"
 

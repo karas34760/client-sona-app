@@ -17,7 +17,7 @@ const ListItemSetting = ({ onClose }: IProps) => {
   const List1: LinkContent[] = [
     {
       label: 'create_events',
-      link: '/event/new',
+      link: `/account/create_events`,
       icon: CreateIcon,
     },
     {
@@ -34,7 +34,7 @@ const ListItemSetting = ({ onClose }: IProps) => {
   const List2: LinkContent[] = [
     {
       label: 'watch_list',
-      link: '/event/new',
+      link: `/account/create_events`,
       icon: EyeIcon,
     },
     {

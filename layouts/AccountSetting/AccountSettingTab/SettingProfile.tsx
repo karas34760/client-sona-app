@@ -58,21 +58,27 @@ const SettingProfile = () => {
             </HStack>
           </Box>
           <FormControl gap={2}>
-            <FormLabel fontWeight="medium">Website</FormLabel>
+            <FormLabel fontWeight="bold">Website</FormLabel>
             <Input
               placeholder="https://youwbsite.com"
               variant="settingProfile"
             />
           </FormControl>
           <FormControl gap={2}>
-            <FormLabel fontWeight="medium">Twitter</FormLabel>
+            <FormLabel fontWeight="bold">X (Twitter)</FormLabel>
             <Input
               placeholder="https://twitter.com/your_twitter"
               variant="settingProfile"
             />
           </FormControl>
           <FormControl gap={2}>
-            <FormLabel fontWeight="medium">Email</FormLabel>
+            <FormLabel>
+              <Text fontWeight="bold">Email</Text>
+              <Text fontSize="sm" color="primary.gray.500">
+                Your email for marketplace notifications
+              </Text>
+            </FormLabel>
+
             <Input
               type="email"
               placeholder="Enter email"
