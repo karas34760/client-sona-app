@@ -23,8 +23,8 @@ export default function Home() {
     <>
       <SEOHead
         siteName="Tickifi"
-        description="Tickifi Solution Fair Play Ticket Decentralize Application Blockchain"
-        title="Tickifi Solution Fair Play Ticket Decentralize Application Blockchain "
+        description="Tickifi | Solution Fair Play Ticket Decentralize Application Blockchain"
+        title="Tickifi | Solution Fair Play Ticket Decentralize Application Blockchain "
       />
       <Box>
         <HeroSection />

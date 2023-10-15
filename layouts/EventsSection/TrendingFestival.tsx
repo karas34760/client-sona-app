@@ -75,14 +75,11 @@ const TrendingFestival = () => {
                   whiteSpace="nowrap"
                   overflow="hidden"
                   textOverflow="ellipsis"
-                  color="primary.gray.800"
                 >
                   {item.name}
                 </Text>
                 <HStack justifyContent="space-between">
-                  <Text fontSize="sm" color="primary.gray.800">
-                    {item.oganization}
-                  </Text>
+                  <Text fontSize="sm">{item.oganization}</Text>
                   <Text fontSize="sm" color="primary.gray.500">
                     {item.time}
                   </Text>
@@ -92,14 +89,7 @@ const TrendingFestival = () => {
                     {item.type_events.map((item_sub, index) => (
                       <>
                         <Text
-                          px={2}
-                          py={1}
-                          fontSize="sm"
-                          textTransform="capitalize"
-                          borderRadius="lg"
-                          color="primary.gray.600"
-                          border="0.063rem solid"
-                          borderColor="primary.gray.400"
+                          variant="type_categories"
                           key={`type-events ${index} $}`}
                         >
                           {item_sub}

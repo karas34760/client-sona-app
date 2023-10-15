@@ -6,6 +6,7 @@ import {
   HStack,
   useColorModeValue,
   Text,
+  DrawerCloseButton,
 } from '@chakra-ui/react';
 import React from 'react';
 
@@ -24,6 +25,7 @@ const Sidebar = ({ onClose, isOpen }: IProps) => {
       <DrawerOverlay />
       <DrawerContent bg={bg}>
         <DrawerBody mt="100px">
+          <DrawerCloseButton />
           <HStack justifyContent="space-between">
             <Text>Switch Color</Text>
             <BtnSwitchColor />

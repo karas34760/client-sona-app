@@ -82,6 +82,13 @@
     "deal":"Deal",
     "favorited":"Favorited",
     "activity":"Activity",
-    "created":"Created"
+    "created":"Created",
+    "===========Setting Profile":"",
+    "notifications":"Notifications",
+    "profile":"Profile",
+    "account":"Account",
+    "organizer":"Organizer",
+    "offers":"Offers",
+    "account_support":"Account Support"
 
 }

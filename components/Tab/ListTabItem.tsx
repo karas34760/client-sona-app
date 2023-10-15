@@ -12,7 +12,7 @@ const ListTabItem = ({ activeKey, items, ...rest }: Props & StackProps) => {
       <HStack {...rest}>
         {items.map(({ component, key, title }) => {
           return (
-            <Box display={'inline-block'} pr={3} pb={1} key={key}>
+            <Box display="inline-block" key={key}>
               {component(title, key === activeKey)}
             </Box>
           );

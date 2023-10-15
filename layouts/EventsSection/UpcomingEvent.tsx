@@ -1,4 +1,4 @@
-import { Container, HStack, Text } from '@chakra-ui/react';
+import { Container, HStack, Text, useColorModeValue } from '@chakra-ui/react';
 import Link from 'next/link';
 import React from 'react';
 import { SwiperSlide } from 'swiper/react';
@@ -56,6 +56,7 @@ const UpcomingEvent = () => {
       time_reminder: Date.now() + 2 * 24 * 60 * 60 * 1000,
     },
   ];
+  const text_color1 = useColorModeValue('"primary.gray.800"', 'white');
   return (
     <Container maxWidth="container.xl">
       <HStack justifyContent="space-between">
@@ -89,14 +90,12 @@ const UpcomingEvent = () => {
                   whiteSpace="nowrap"
                   overflow="hidden"
                   textOverflow="ellipsis"
-                  color="primary.gray.800"
+                  color={text_color1}
                 >
                   {item.name}
                 </Text>
                 <HStack justifyContent="space-between">
-                  <Text fontSize="sm" color="primary.gray.800">
-                    {item.oganization}
-                  </Text>
+                  <Text fontSize="sm">{item.oganization}</Text>
                   <Text fontSize="sm" color="primary.gray.500">
                     {item.time}
                   </Text>

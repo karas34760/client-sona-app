@@ -1,9 +1,10 @@
 import {
   ComponentStyleConfig,
+  StyleFunctionProps,
   ThemeConfig,
   extendTheme,
 } from '@chakra-ui/react';
-
+import { mode } from '@chakra-ui/theme-tools';
 const config: ThemeConfig = {
   initialColorMode: 'light',
   useSystemColorMode: false,
@@ -65,6 +66,9 @@ export const colors = {
   divide: {
     100: '#EAECF0',
   },
+  body: {
+    100: '#1A202C',
+  },
   ...backgrounds,
 };
 
@@ -74,13 +78,14 @@ export const shadows = {
     200: '0px 6px 32px rgba(0, 0, 0, 0.2)',
   },
 };
-/* const styles = {
+const styles = {
+  // eslint-disable-next-line no-unused-vars
   global: (props: StyleFunctionProps) => ({
     body: {
-      overflowX: 'hidden',
+      /*  bg: mode('white', 'dark.100'), */
     },
   }),
-}; */
+};
 
 const Text: ComponentStyleConfig = {
   variants: {
@@ -94,16 +99,16 @@ const Text: ComponentStyleConfig = {
       color: 'primary.purple.500',
       fontSize: '28px',
     },
-    type_categories: {
+    type_categories: (props: StyleFunctionProps) => ({
       px: 2,
       py: 1,
       fontSize: 'sm',
       textTransform: 'capitalize',
       borderRadius: 'lg',
-      color: 'primary.gray.600',
+      color: mode('primary.gray.600', 'white')(props),
       border: '0.063rem solid',
       borderColor: 'primary.gray.400',
-    },
+    }),
   },
 };
 const Tooltip: ComponentStyleConfig = {
@@ -145,7 +150,7 @@ const Button: ComponentStyleConfig = {
         width: isActive ? '100%' : 0,
         backgroundColor: 'primary.purple.400',
         position: 'absolute',
-        bottom: '-0.2rem',
+        bottom: '-0.05rem',
         zIndex: 3,
         right: 0,
         opacity: isActive ? 1 : 0,
@@ -157,6 +162,18 @@ const Button: ComponentStyleConfig = {
       fontWeight: 'bold',
       color: isActive ? 'primary.purple.500' : 'primary.gray.400',
     }),
+    tab_profile: (props: StyleFunctionProps) => ({
+      fontWeight: 'bold',
+      display: 'flex',
+      width: 'full',
+      alignItems: 'center',
+      color: props.isActive
+        ? 'primary.purple.500'
+        : mode('primary.gray.700', 'white')(props),
+      _hover: {
+        color: props.isActive ? 'primary.purple.500' : 'primary.gray.500',
+      },
+    }),
   },
 };
 const Popover: ComponentStyleConfig = {
@@ -165,16 +182,34 @@ const Popover: ComponentStyleConfig = {
       content: {
         fontWeight: 'bold',
         bg: 'white',
-        overflowWrap: 'break-word',
         maxWidth: '12.5rem',
         boxShadow: 'shadow.200',
         border: 'none',
         borderRadius: 'lg',
         py: 4,
         px: 4,
+
         textAlign: 'center',
       },
     },
+  },
+};
+
+const Input: ComponentStyleConfig = {
+  variants: {
+    settingProfile: (props: StyleFunctionProps) => ({
+      field: {
+        bg: mode('primary.gray.300', 'primary.gray.600')(props),
+        color: mode('primary.gray.700', 'white')(props),
+        border: '0.063rem solid',
+        borderColor: mode('primary.gray.400', 'primary.gray.500')(props),
+
+        borderRadius: 'lg',
+        _placeholder: {
+          color: 'primary.gray.400',
+        },
+      },
+    }),
   },
 };
 export const fonts = {
@@ -202,12 +237,14 @@ const theme = extendTheme({
   shadows,
   breakpoints,
   config,
+  styles,
   components: {
     Text,
     Button,
     Tooltip,
     Popover,
     Select,
+    Input,
   },
 });
 

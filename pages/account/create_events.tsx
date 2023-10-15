@@ -1,9 +1,8 @@
+import { Box } from '@chakra-ui/react';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
 
 import SEOHead from '@/components/SEO/SEOHead';
-import AccountSettingPage from '@/layouts/AccountSetting';
-
 export async function getServerSideProps({ locale }: { locale: string }) {
   return {
     props: {
@@ -11,17 +10,16 @@ export async function getServerSideProps({ locale }: { locale: string }) {
     },
   };
 }
-// This is Setting page for profile
-const AccountSetting = () => {
+const CreateEvent = () => {
   return (
     <>
       <SEOHead
-        title="Profile Detail"
-        description="2023-2024 Alan Walker THE 1ST WORLD Festival [AREA 52] in HO CHI MINH"
+        title="Create New Events"
+        description="Tickifi Provide The Solutions can create new events"
       />
-      <AccountSettingPage />
+      <Box>Creatwe</Box>
     </>
   );
 };
 
-export default AccountSetting;
+export default CreateEvent;

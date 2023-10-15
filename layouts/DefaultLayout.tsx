@@ -55,7 +55,7 @@ const DefaultLayout = ({ children }: PropsWithChildren) => {
       />
 
       <Box
-      /*  backgroundImage={`url(assets/bg/bg-type-1.svg)`}
+      /*   backgroundImage={`url(assets/bg/bg-type-1.svg)`}
         backgroundSize="cover"
         backgroundRepeat="no-repeat"
         backgroundPosition="center"

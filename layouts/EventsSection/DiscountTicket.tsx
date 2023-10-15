@@ -220,14 +220,11 @@ const DiscountTicket = () => {
                   whiteSpace="nowrap"
                   overflow="hidden"
                   textOverflow="ellipsis"
-                  color="primary.gray.800"
                 >
                   {item.name}
                 </Text>
                 <HStack justifyContent="space-between">
-                  <Text fontSize="sm" color="primary.gray.800">
-                    {item.oganization}
-                  </Text>
+                  <Text fontSize="sm">{item.oganization}</Text>
                   <Text fontSize="sm" color="primary.gray.500">
                     {item.time}
                   </Text>

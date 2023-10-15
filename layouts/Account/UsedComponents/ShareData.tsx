@@ -43,15 +43,15 @@ const ShareData = ({ link, icon }: IProps) => {
                 position="relative"
                 as={icon || ShareIcon}
                 aria-label="Tickifi Share Icon"
-                height={6}
-                width={6}
+                height={5}
+                width={5}
                 cursor="pointer"
               />
             </Box>
           </PopoverTrigger>
         </Tooltip>
 
-        <PopoverContent width="fit-content" maxWidth="100%">
+        <PopoverContent width="fit-content" maxWidth="100%" zIndex="popover">
           <HStack
             gap={3}
             padding={4}
