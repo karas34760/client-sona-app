@@ -1,4 +1,4 @@
-import { Button, ButtonProps, Icon } from '@chakra-ui/react';
+import { Button, ButtonProps, Icon, IconProps } from '@chakra-ui/react';
 import { NumberParam, StringParam, useQueryParams } from 'use-query-params';
 interface IProps {
   title: string;
@@ -6,8 +6,16 @@ interface IProps {
   icon?: any;
   params: any;
   sx?: ButtonProps;
+  iconStyle?: IconProps;
 }
-const TabButton = ({ title, isActive, icon, params, sx }: IProps) => {
+const TabButton = ({
+  title,
+  isActive,
+  icon,
+  params,
+  sx,
+  iconStyle,
+}: IProps) => {
   // eslint-disable-next-line no-unused-vars
   const [query, setQuery] = useQueryParams({
     tab: StringParam,
@@ -17,7 +25,11 @@ const TabButton = ({ title, isActive, icon, params, sx }: IProps) => {
     <Button
       isActive={isActive}
       variant="tab"
-      leftIcon={icon ? <Icon as={icon} height={5} width={5} /> : undefined}
+      leftIcon={
+        icon ? (
+          <Icon as={icon} height={5} width={5} {...iconStyle} />
+        ) : undefined
+      }
       key={title}
       onClick={() => {
         setQuery(params);

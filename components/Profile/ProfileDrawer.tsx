@@ -39,6 +39,7 @@ const ProfileDrawer = ({ isOpen, onClose }: IProps) => {
           mr={{ md: 4, base: 0 }}
           borderRadius="1rem"
           bg={bgDrawer}
+          overflow="hidden"
         >
           <Flex flexDirection="column" gap={4} py={6} px={6}>
             <Flex alignItems="center" justifyContent="space-between">
@@ -57,7 +58,9 @@ const ProfileDrawer = ({ isOpen, onClose }: IProps) => {
           </Flex>
           <MiniProfile />
 
-          <Button onClick={onClose}>Close </Button>
+          <Button borderRadius="none" onClick={onClose}>
+            Close
+          </Button>
         </DrawerContent>
       </Drawer>
     </>

@@ -40,7 +40,7 @@ const SettingProfile = () => {
                   },
                 }}
               />
-              <Text fontSize="lg" fontWeight="medium">
+              <Text fontSize="lg" fontWeight="bold">
                 Social Connections
               </Text>
             </HStack>

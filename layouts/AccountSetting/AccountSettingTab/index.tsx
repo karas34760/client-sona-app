@@ -13,8 +13,8 @@ import TabButton from '@/components/Tab/TabButton';
 import { TabItem } from '@/utils/type';
 import BellIcon from 'public/assets/icons/generals/bell.svg';
 import OfferIcon from 'public/assets/icons/generals/offer.svg';
+import OrganizerIcon from 'public/assets/icons/generals/organizer.svg';
 import ProfileIcon from 'public/assets/icons/generals/profile.svg';
-
 const AccountSettingTab = () => {
   const { t } = useTranslation();
   const router = useRouter();
@@ -29,6 +29,11 @@ const AccountSettingTab = () => {
             sx={{
               variant: { lg: 'tab_profile', base: 'tab' },
             }}
+            iconStyle={{
+              height: { md: 6, base: 5 },
+              width: { md: 6, base: 5 },
+              mr: { md: 4, base: 1 },
+            }}
             icon={ProfileIcon}
             isActive={isActive}
             title={title}
@@ -40,19 +45,24 @@ const AccountSettingTab = () => {
       },
     },
     {
-      key: 'organize',
-      title: t('organize'),
+      key: 'organizer',
+      title: t('organizer'),
       component: (title, isActive) => {
         return (
           <TabButton
             sx={{
               variant: { lg: 'tab_profile', base: 'tab' },
             }}
-            icon={ProfileIcon}
+            iconStyle={{
+              height: { md: 6, base: 5 },
+              width: { md: 6, base: 5 },
+              mr: { md: 4, base: 1 },
+            }}
+            icon={OrganizerIcon}
             isActive={isActive}
             title={title}
             params={{
-              tab: 'organize',
+              tab: 'organizer',
             }}
           />
         );
@@ -66,6 +76,11 @@ const AccountSettingTab = () => {
           <TabButton
             sx={{
               variant: { lg: 'tab_profile', base: 'tab' },
+            }}
+            iconStyle={{
+              height: { md: 6, base: 5 },
+              width: { md: 6, base: 5 },
+              mr: { md: 4, base: 1 },
             }}
             icon={BellIcon}
             isActive={isActive}
@@ -85,6 +100,11 @@ const AccountSettingTab = () => {
           <TabButton
             sx={{
               variant: { lg: 'tab_profile', base: 'tab' },
+            }}
+            iconStyle={{
+              height: { md: 6, base: 5 },
+              width: { md: 6, base: 5 },
+              mr: { md: 4, base: 1 },
             }}
             icon={OfferIcon}
             isActive={isActive}
@@ -116,7 +136,7 @@ const AccountSettingTab = () => {
         <Box>
           {(queryKey === 'profile' || !queryKey) && <SettingProfile />}
 
-          {queryKey === 'account' && <SettingOrganize />}
+          {queryKey === 'organizer' && <SettingOrganize />}
           {queryKey === 'notifications' && <SettingNotification />}
           {queryKey === 'offer' && <SettingOffer />}
         </Box>
