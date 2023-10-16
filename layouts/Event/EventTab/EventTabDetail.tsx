@@ -89,7 +89,7 @@ const EventTabDetail = () => {
             items={TabItems}
             pt={4}
             position="sticky"
-            top="104px"
+            top="90px"
             zIndex="10"
             bgColor={bg}
             width="100%"
