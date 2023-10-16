@@ -51,3 +51,13 @@ export function shortenAddress(
   if (!parsed) return '';
   return ellipseAddressAdd0x(parsed, charsStart, charsEnd);
 }
+
+// format ens
+export function formatENS(name: string): string {
+  const parts = name.split('.');
+  const last = parts.pop();
+  if (parts.join('.').length > 24) {
+    return `${parts.join('.').substring(0, 24)}...`;
+  }
+  return `${parts.join('.')}.${last}`;
+}
