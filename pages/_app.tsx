@@ -21,6 +21,7 @@ function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
     initGA(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS || 'G-BWWLJY48PD');
   }, []);
+
   return (
     <>
       <style jsx global>
@@ -31,9 +32,9 @@ function App({ Component, pageProps }: AppProps) {
         `}
       </style>
 
-      <WagmiConfig config={config}>
-        <ConnectKitProvider theme="auto" mode="light" debugMode>
-          <ChakraProvider theme={theme}>
+      <ChakraProvider theme={theme}>
+        <WagmiConfig config={config}>
+          <ConnectKitProvider mode="light" debugMode>
             <QueryParamProvider
               options={{
                 skipUpdateWhenNoChange: true,
@@ -45,9 +46,9 @@ function App({ Component, pageProps }: AppProps) {
                 <Component {...pageProps} />
               </DefaultLayout>
             </QueryParamProvider>
-          </ChakraProvider>
-        </ConnectKitProvider>
-      </WagmiConfig>
+          </ConnectKitProvider>
+        </WagmiConfig>
+      </ChakraProvider>
     </>
   );
 }

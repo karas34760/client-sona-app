@@ -38,7 +38,11 @@ const ConnectWallet = () => {
                     fontWeight="bold"
                     display={{ lg: 'inline-block', base: 'none' }}
                   >
-                    {isConnected ? address : ' Connect Wallet'}
+                    {isConnecting ? (
+                      <>Connecting</>
+                    ) : (
+                      <>{isConnected ? address : ' Connect Wallet'}</>
+                    )}
                   </Text>
                   <Icon as={WalletIcon} />
                 </HStack>

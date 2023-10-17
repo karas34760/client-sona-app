@@ -6,8 +6,8 @@ const NavMobileSearch = () => {
   const bg = useColorModeValue('primary.gray.200', 'dark.100');
   return (
     <>
-      <Center padding={4} borderRadius="xl" bg={bg}>
-        <Icon as={SearchIcon} height={6} width={6} />
+      <Center padding={3} borderRadius="xl" bg={bg}>
+        <Icon as={SearchIcon} height={5} width={5} />
       </Center>
     </>
   );

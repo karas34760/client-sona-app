@@ -7,9 +7,10 @@ import {
   Button,
   Flex,
 } from '@chakra-ui/react';
+import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
-import Image from 'next/image';
 const HeroSection = () => {
   const bg = useColorModeValue(
     'gradient.300',
@@ -37,7 +38,10 @@ const HeroSection = () => {
               of scalping.
             </Text>
             <Flex gap={6}>
-              <Button variant="primary">Expore Now</Button>
+              <Link href="/events">
+                <Button variant="primary">Expore Now</Button>
+              </Link>
+
               <Button variant="solid">Buy Ticket</Button>
             </Flex>
           </Flex>

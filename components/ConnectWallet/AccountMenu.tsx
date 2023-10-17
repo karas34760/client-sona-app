@@ -21,12 +21,12 @@ const AccountMenu = () => {
           <ChakraImage
             src={ensAvatar}
             alt="ENS Avatar"
-            width={30}
-            height={30}
+            width={{ md: 30, base: 48 }}
+            height={{ md: 30, base: 48 }}
           />
         ) : (
           <Jazzicon
-            diameter={24}
+            diameter={32}
             seed={jsNumberForAddress(
               address || '0x1111111111111111111111111111111111111111'
             )}
@@ -34,6 +34,7 @@ const AccountMenu = () => {
         )}
 
         <Text
+          display={{ md: 'inline-block', base: 'none' }}
           _hover={{
             color: 'primary.gray.500',
           }}
