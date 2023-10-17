@@ -9,23 +9,23 @@ import {
   HStack,
   Button,
 } from '@chakra-ui/react';
-import CompassIcon from 'public/assets/line/compass.svg';
+import Link from 'next/link';
 
-import SettingProfileImage from '../UsedComponents/SettingProfileImage';
-const SettingProfileForm = () => {
+import SettingProfileImage from '@/layouts/Account/UsedComponents/SettingProfileImage';
+import CompassIcon from 'public/assets/icons/generals/website.svg';
+
+const SettingProfile = () => {
   return (
     <>
       <Box width="full">
-        <Box position="relative" minH="12.5rem">
-          <SettingProfileImage />
-        </Box>
+        <SettingProfileImage />
         <Flex pt={10} flexDirection="column" gap={6}>
           <FormControl gap={2}>
-            <FormLabel fontWeight="medium">Display name</FormLabel>
-            <Input placeholder="Alex Pham" variant="settingProfile" />
+            <FormLabel fontWeight="bold">Display name</FormLabel>
+            <Input placeholder="Karas " variant="settingProfile" />
           </FormControl>
           <FormControl gap={2}>
-            <FormLabel fontWeight="medium">Description/Bio</FormLabel>
+            <FormLabel fontWeight="bold">Description/Bio</FormLabel>
             <Input variant="settingProfile" />
           </FormControl>
           <Box>
@@ -40,33 +40,45 @@ const SettingProfileForm = () => {
                   },
                 }}
               />
-              <Text fontSize="lg" fontWeight="medium">
+              <Text fontSize="lg" fontWeight="bold">
                 Social Connections
               </Text>
             </HStack>
             <HStack fontSize="sm">
-              <Text color="shader.a.500">
+              <Text color="primary.gray.600">
                 Connection to verify your account
               </Text>
-              <Text color="primary.a.500">more infos</Text>
+              <Text
+                color="secondary.info.300"
+                textTransform="capitalize"
+                fontWeight="bold"
+              >
+                <Link href="#">more infos</Link>
+              </Text>
             </HStack>
           </Box>
           <FormControl gap={2}>
-            <FormLabel fontWeight="medium">Website</FormLabel>
+            <FormLabel fontWeight="bold">Website</FormLabel>
             <Input
-              placeholder="Https://youwbsite.com"
+              placeholder="https://youwbsite.com"
               variant="settingProfile"
             />
           </FormControl>
           <FormControl gap={2}>
-            <FormLabel fontWeight="medium">Twitter</FormLabel>
+            <FormLabel fontWeight="bold">X (Twitter)</FormLabel>
             <Input
               placeholder="https://twitter.com/your_twitter"
               variant="settingProfile"
             />
           </FormControl>
           <FormControl gap={2}>
-            <FormLabel fontWeight="medium">Email</FormLabel>
+            <FormLabel>
+              <Text fontWeight="bold">Email</Text>
+              <Text fontSize="sm" color="primary.gray.500">
+                Your email for marketplace notifications
+              </Text>
+            </FormLabel>
+
             <Input
               type="email"
               placeholder="Enter email"
@@ -87,4 +99,4 @@ const SettingProfileForm = () => {
   );
 };
 
-export default SettingProfileForm;
+export default SettingProfile;

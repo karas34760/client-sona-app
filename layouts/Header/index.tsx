@@ -13,7 +13,6 @@ import React, { useEffect, useState } from 'react';
 
 import ListNavHeader from './components/ListNavHeader';
 
-import CartButton from '@/components/Cart/CartButton';
 import ConnectWallet from '@/components/ConnectWallet/ConnectWallet';
 import LogoText from '@/components/Logo/LogoText';
 import Sidebar from '@/components/Modal/Sidebar';
@@ -110,13 +109,11 @@ const Header = () => {
                 <BtnSwitchLanguage />
                 <BtnSwitchColor />
               </Box>
-              <Box display={{ md: 'block', base: 'none' }}>
-                <ConnectWallet />
-              </Box>
+              <ConnectWallet />
               <Box display={{ md: 'none', base: 'block' }}>
                 <NavMobileSearch />
               </Box>
-              <CartButton />
+              {/*  <CartButton /> */}
             </Flex>
           </HStack>
         </Container>

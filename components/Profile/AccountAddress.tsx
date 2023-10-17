@@ -54,7 +54,7 @@ const AccountAddress = ({ onClose }: IProps) => {
               context={ensName ? `${ensName} ` : shortenAddress(address)}
             />
           </HStack>
-          <Link href={`/account/${address}`} onClick={() => onClose()}>
+          <Link href={`/account`} onClick={() => onClose()}>
             <Text
               fontSize="sm"
               color="primary.gray.500"

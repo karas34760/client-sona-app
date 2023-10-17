@@ -28,6 +28,7 @@ export const config = createConfig({
         projectId:
           process.env.WALLETCONNECT_PROJECT_ID ||
           '45ef6b3bd25f3ca92fb81b0ab7a93a0d',
+        showQrModal: false,
       },
     }),
     new CoinbaseWalletConnector({

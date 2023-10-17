@@ -1,8 +1,17 @@
-import { Box, Flex, HStack, Icon, Image, Text } from '@chakra-ui/react';
+import {
+  Box,
+  Flex,
+  HStack,
+  Image,
+  Text,
+  useColorModeValue,
+} from '@chakra-ui/react';
 import React from 'react';
 
-import VerifyIcon from 'public/assets/icons/generals/verify.svg';
+import VerifySymbol from '@/components/Logo/VerifyIcon';
+
 const Oganizer = () => {
+  const colorText = useColorModeValue(';color="primary.gray.600', 'white');
   return (
     <>
       <Box>
@@ -18,15 +27,10 @@ const Oganizer = () => {
           </Box>
           <Box>
             <Flex alignItems="center" gap={2}>
-              <Text color="primary.gray.600" fontSize="xl" fontWeight="bold">
+              <Text color={colorText} fontSize="xl" fontWeight="bold">
                 Midnight Society Founders Access Pass
               </Text>
-              <Icon
-                as={VerifyIcon}
-                color="secondary.info.300"
-                height={6}
-                width={6}
-              />
+              <VerifySymbol />
             </Flex>
             <Text textOverflow="clip" mt={2} noOfLines={2}>
               This limited series of Midnight Society Access Passes grants the

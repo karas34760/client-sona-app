@@ -15,7 +15,7 @@ WORKDIR /app
 COPY --from=deps /app/node_modules /app/node_modules
 COPY . .
 
-
+RUN yarn postseo
 RUN yarn build
 
 # Production image, copy all the files and run next
