@@ -12,7 +12,11 @@ const ConnectWallet = () => {
 
   return (
     <>
-      {!isConnected ? (
+      {isConnected ? (
+        <>
+          <AccountMenu />
+        </>
+      ) : (
         <>
           <ConnectKitButton.Custom>
             {({
@@ -39,7 +43,7 @@ const ConnectWallet = () => {
                     display={{ lg: 'inline-block', base: 'none' }}
                   >
                     {isConnecting ? (
-                      <>Connecting</>
+                      <>Connecting...</>
                     ) : (
                       <>{isConnected ? address : ' Connect Wallet'}</>
                     )}
@@ -49,10 +53,6 @@ const ConnectWallet = () => {
               );
             }}
           </ConnectKitButton.Custom>
-        </>
-      ) : (
-        <>
-          <AccountMenu />
         </>
       )}
     </>

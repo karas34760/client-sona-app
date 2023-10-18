@@ -230,6 +230,22 @@ const Select: ComponentStyleConfig = {
     primary: {},
   },
 };
+const Switch: ComponentStyleConfig = {
+  variants: {
+    primary: {
+      /* container:{
+
+      }, */
+      thumb: {},
+      track: {
+        bg: 'primary.gray.300',
+        _checked: {
+          bg: 'primary.purple.500',
+        },
+      },
+    },
+  },
+};
 
 const theme = extendTheme({
   fonts,
@@ -245,6 +261,7 @@ const theme = extendTheme({
     Popover,
     Select,
     Input,
+    Switch,
   },
 });
 
