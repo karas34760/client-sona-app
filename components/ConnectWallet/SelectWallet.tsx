@@ -16,8 +16,10 @@ import {
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
-import { useConnect } from 'wagmi';
+import { useAccount, useConnect, useNetwork, useSignMessage } from 'wagmi';
 
+import client from '@/graphql/client';
+import { useConnectWalletMutation } from '@/graphql/generates';
 import { WalletProps } from '@/utils/type';
 import CoinBaseIcon from 'public/assets/icons/wallet/coinbase.svg';
 import MetaMaskIcon from 'public/assets/icons/wallet/metamask.svg';
@@ -54,9 +56,17 @@ const SelectWallet = ({ isOpen, onClose }: IProps) => {
   const borderColor = useColorModeValue('primary.gray.300', 'primary.gray.500');
   const bgHover = useColorModeValue('primary.gray.300', 'primary.gray.500');
 
-  const { connect, connectors, error, isLoading, pendingConnector } =
-    useConnect();
-
+  const { connect, connectors } = useConnect();
+  const { address } = useAccount();
+  const { chain } = useNetwork();
+  const { signMessageAsync } = useSignMessage();
+  const {} = useConnectWalletMutation(client);
+  const handleSignIn = async () => {
+    const message = 'So this is what use want during this';
+    const signature = await signMessageAsync({
+      message,
+    });
+  };
   return (
     <Modal
       isOpen={isOpen}
@@ -110,8 +120,8 @@ const SelectWallet = ({ isOpen, onClose }: IProps) => {
                 py={4}
                 px={8}
                 onClick={() => {
-                  onClose();
                   connect({ connector: connectors[index] });
+                  handleSignIn();
                 }}
                 _hover={{
                   backgroundColor: bgHover,
