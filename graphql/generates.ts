@@ -1,5 +1,5 @@
 import { GraphQLClient } from 'graphql-request';
-import { RequestInit } from 'graphql-request/dist/types.dom';
+import { RequestInit } from 'graphql-request/src/types.dom';
 import { useQuery, useMutation, UseQueryOptions, UseMutationOptions } from '@tanstack/react-query';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -52,6 +52,11 @@ export type Mutation = {
 export type MutationConnectWalletArgs = {
   address: Scalars['String'];
   signature: Scalars['String'];
+};
+
+
+export type MutationRefreshAccessTokenArgs = {
+  address: Scalars['String'];
 };
 
 

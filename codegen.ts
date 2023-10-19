@@ -23,6 +23,7 @@ const config: CodegenConfig = {
       },
     },
   },
-  watch: true,
+
+  /* watch: true, */
 };
 export default config;

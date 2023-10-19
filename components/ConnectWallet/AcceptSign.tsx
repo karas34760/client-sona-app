@@ -1,7 +1,7 @@
 import React from 'react';
 
 const AcceptSign = () => {
-  return (<></>;)
+  return <></>;
 };
 
 export default AcceptSign;
