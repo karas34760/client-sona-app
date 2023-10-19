@@ -1,15 +1,28 @@
 import { Box, Button, Container, HStack, Icon, Text } from '@chakra-ui/react';
-import Link from 'next/link';
+import { useAccount, useSignMessage } from 'wagmi';
 
 import AccountProfileTab from './AccountTab';
 import MoreData from './UsedComponents/MoreData';
 import SettingProfileImage from './UsedComponents/SettingProfileImage';
 
+import client from '@/graphql/client';
+import { useSearchConnectMsgMutation } from '@/graphql/generates';
 import ShareData from '@/layouts/Account/UsedComponents/ShareData';
 import SettingIcon from 'public/assets/icons/generals/setting.svg';
 const AccountDetailPage = () => {
-  /*   const { data: ensAvatar } = useEnsAvatar({ name: address });
-  const { data: ensName } = useEnsName({ address }); */
+  const { address } = useAccount();
+  const { signMessageAsync } = useSignMessage();
+
+  const handleAccept = async () => {
+    const data = await useSearchConnectMsgMutation.fetcher(client, {
+      address: JSON.stringify(address),
+    })();
+    const signature = await signMessageAsync({
+      message: 'Ewqewq',
+    });
+    console.log(data, signature);
+  };
+
   return (
     <>
       <Box padding={0}>
@@ -39,9 +52,15 @@ const AccountDetailPage = () => {
                 <Text color="primary.gray.600">Joined September 2023</Text>
               </HStack>
             </Box>
-            <HStack gap={8}>
+            <HStack
+              gap={8}
+              onClick={() => {
+                handleAccept();
+              }}
+            >
               <Button fontSize="sm" leftIcon={<Icon as={SettingIcon} />}>
-                <Link href="/account/setting"> Edit Profile</Link>
+                {/*  <Link href="/account/setting"> Edit Profile</Link> */}
+                Edit Profile
               </Button>
               <ShareData link="/" />
               <MoreData />

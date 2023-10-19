@@ -4,8 +4,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
 
 import SEOHead from '@/components/SEO/SEOHead';
-import EventInfo from '@/layouts/Event/EventInfo';
-
+import TicketDetailPage from '@/layouts/Ticket';
 export const getServerSideProps: GetServerSideProps = async ({
   locale,
   req,
@@ -21,17 +20,16 @@ export const getServerSideProps: GetServerSideProps = async ({
     },
   };
 };
-const EventDetail = () => {
+const TicketDetail = () => {
   return (
     <>
       <SEOHead
-        title="Festival Alan Walker in HO CHI MINH "
-        description="2023-2024 Alan Walker THE 1ST WORLD Festival [AREA 52] in HO CHI MINH"
+        title="Ticket Detail"
+        description="Ticket Detail | Tickifi NFT Place"
       />
-
-      <EventInfo />
+      <TicketDetailPage />
     </>
   );
 };
 
-export default EventDetail;
+export default TicketDetail;

@@ -4,8 +4,6 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
 
 import SEOHead from '@/components/SEO/SEOHead';
-import EventInfo from '@/layouts/Event/EventInfo';
-
 export const getServerSideProps: GetServerSideProps = async ({
   locale,
   req,
@@ -21,17 +19,16 @@ export const getServerSideProps: GetServerSideProps = async ({
     },
   };
 };
-const EventDetail = () => {
+/// Discover Page will use for filter already Page exist
+const Discover = () => {
   return (
     <>
       <SEOHead
-        title="Festival Alan Walker in HO CHI MINH "
-        description="2023-2024 Alan Walker THE 1ST WORLD Festival [AREA 52] in HO CHI MINH"
+        title="Tickifi | Discover Ticket"
+        description="Tickifi Discover sort all the valid ticket follow requirement of system"
       />
-
-      <EventInfo />
     </>
   );
 };
 
-export default EventDetail;
+export default Discover;

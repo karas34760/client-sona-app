@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { gql } from 'graphql-request';
 
 const getHello = gql`
@@ -6,8 +7,11 @@ const getHello = gql`
   }
 `;
 
-const ConnectWallet = gql`
-  mutation ConnectWallet($address: String!, $signature: String!) {
-    connectWallet(address: $address, signature: $signature)
+const SearchConnectMsg = gql`
+  mutation SearchConnectMsg($address: String!) {
+    searchConnectMsg(address: $address) {
+      message
+      nonce
+    }
   }
 `;

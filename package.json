@@ -62,7 +62,8 @@
     "typescript": "5.1.6",
     "use-query-params": "^2.2.1",
     "viem": "^1.14.0",
-    "wagmi": "^1.4.2"
+    "wagmi": "^1.4.2",
+    "web3": "^4.2.0"
   },
   "devDependencies": {
     "@parcel/watcher": "^2.3.0",

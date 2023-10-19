@@ -23,9 +23,28 @@ export type Scalars = {
   Float: number;
 };
 
+export type ConnectMsgType = {
+  __typename?: 'ConnectMsgType';
+  message: Scalars['String'];
+  nonce: Scalars['String'];
+};
+
+export type JwtAccessTokenType = {
+  __typename?: 'JWTAccessTokenType';
+  accessToken: Scalars['String'];
+};
+
+export type JwtType = {
+  __typename?: 'JWTType';
+  accessToken: Scalars['String'];
+  refreshToken: Scalars['String'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
-  connectWallet: Scalars['String'];
+  connectWallet: JwtType;
+  refreshAccessToken: JwtAccessTokenType;
+  searchConnectMsg: ConnectMsgType;
   sendEmailVerification: Scalars['String'];
 };
 
@@ -36,14 +55,37 @@ export type MutationConnectWalletArgs = {
 };
 
 
+export type MutationSearchConnectMsgArgs = {
+  address: Scalars['String'];
+};
+
+
 export type MutationSendEmailVerificationArgs = {
+  address: Scalars['String'];
   email: Scalars['String'];
 };
 
 export type Query = {
   __typename?: 'Query';
-  checkJWT: Scalars['Boolean'];
+  checkAccessToken: Scalars['Boolean'];
+  checkRefreshToken: Scalars['Boolean'];
   getHello: Scalars['String'];
+  searchAccountByAddress: TkfAccount;
+};
+
+
+export type QuerySearchAccountByAddressArgs = {
+  address: Scalars['String'];
+};
+
+export type TkfAccount = {
+  __typename?: 'TKFAccount';
+  address: Scalars['String'];
+  email?: Maybe<Scalars['String']>;
+  firstActive?: Maybe<Scalars['Float']>;
+  isBanned: Scalars['Boolean'];
+  isOrganizer: Scalars['Boolean'];
+  verifiedAt?: Maybe<Scalars['Float']>;
 };
 
 export type GetHelloQueryVariables = Exact<{ [key: string]: never; }>;
@@ -51,13 +93,12 @@ export type GetHelloQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetHelloQuery = { __typename?: 'Query', getHello: string };
 
-export type ConnectWalletMutationVariables = Exact<{
+export type SearchConnectMsgMutationVariables = Exact<{
   address: Scalars['String'];
-  signature: Scalars['String'];
 }>;
 
 
-export type ConnectWalletMutation = { __typename?: 'Mutation', connectWallet: string };
+export type SearchConnectMsgMutation = { __typename?: 'Mutation', searchConnectMsg: { __typename?: 'ConnectMsgType', message: string, nonce: string } };
 
 
 export const GetHelloDocument = `
@@ -84,22 +125,25 @@ useGetHelloQuery.getKey = (variables?: GetHelloQueryVariables) => variables === 
 ;
 
 useGetHelloQuery.fetcher = (client: GraphQLClient, variables?: GetHelloQueryVariables, headers?: RequestInit['headers']) => fetcher<GetHelloQuery, GetHelloQueryVariables>(client, GetHelloDocument, variables, headers);
-export const ConnectWalletDocument = `
-    mutation ConnectWallet($address: String!, $signature: String!) {
-  connectWallet(address: $address, signature: $signature)
+export const SearchConnectMsgDocument = `
+    mutation SearchConnectMsg($address: String!) {
+  searchConnectMsg(address: $address) {
+    message
+    nonce
+  }
 }
     `;
-export const useConnectWalletMutation = <
+export const useSearchConnectMsgMutation = <
       TError = unknown,
       TContext = unknown
     >(
       client: GraphQLClient,
-      options?: UseMutationOptions<ConnectWalletMutation, TError, ConnectWalletMutationVariables, TContext>,
+      options?: UseMutationOptions<SearchConnectMsgMutation, TError, SearchConnectMsgMutationVariables, TContext>,
       headers?: RequestInit['headers']
     ) =>
-    useMutation<ConnectWalletMutation, TError, ConnectWalletMutationVariables, TContext>(
-      ['ConnectWallet'],
-      (variables?: ConnectWalletMutationVariables) => fetcher<ConnectWalletMutation, ConnectWalletMutationVariables>(client, ConnectWalletDocument, variables, headers)(),
+    useMutation<SearchConnectMsgMutation, TError, SearchConnectMsgMutationVariables, TContext>(
+      ['SearchConnectMsg'],
+      (variables?: SearchConnectMsgMutationVariables) => fetcher<SearchConnectMsgMutation, SearchConnectMsgMutationVariables>(client, SearchConnectMsgDocument, variables, headers)(),
       options
     );
-useConnectWalletMutation.fetcher = (client: GraphQLClient, variables: ConnectWalletMutationVariables, headers?: RequestInit['headers']) => fetcher<ConnectWalletMutation, ConnectWalletMutationVariables>(client, ConnectWalletDocument, variables, headers);
+useSearchConnectMsgMutation.fetcher = (client: GraphQLClient, variables: SearchConnectMsgMutationVariables, headers?: RequestInit['headers']) => fetcher<SearchConnectMsgMutation, SearchConnectMsgMutationVariables>(client, SearchConnectMsgDocument, variables, headers);
