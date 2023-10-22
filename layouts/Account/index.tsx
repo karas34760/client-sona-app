@@ -1,27 +1,37 @@
+/* eslint-disable no-use-before-define */
 import { Box, Button, Container, HStack, Icon, Text } from '@chakra-ui/react';
-import { useAccount, useSignMessage } from 'wagmi';
+import Link from 'next/link';
+import { useAccount } from 'wagmi';
 
 import AccountProfileTab from './AccountTab';
 import MoreData from './UsedComponents/MoreData';
 import SettingProfileImage from './UsedComponents/SettingProfileImage';
 
-import client from '@/graphql/client';
-import { useSearchConnectMsgMutation } from '@/graphql/generates';
 import ShareData from '@/layouts/Account/UsedComponents/ShareData';
+import { shortenAddress } from '@/utils/format/address';
 import SettingIcon from 'public/assets/icons/generals/setting.svg';
+
 const AccountDetailPage = () => {
   const { address } = useAccount();
-  const { signMessageAsync } = useSignMessage();
+  /* const handleAccept = async () => {
+    if (address) {
+      const data = await useSearchConnectMsgMutation.fetcher(client, {
+        address: address?.toString(),
+      })();
+      try {
+        // @ts-ignore because web3 is defined here.
+        const signature = await web3.eth.personal.sign(
+          data.searchConnectMsg.message,
+          address,
+          '' // MetaMask will ignore the password argument here
+        );
 
-  const handleAccept = async () => {
-    const data = await useSearchConnectMsgMutation.fetcher(client, {
-      address: JSON.stringify(address),
-    })();
-    const signature = await signMessageAsync({
-      message: 'Ewqewq',
-    });
-    console.log(data, signature);
-  };
+        console.log(signature);
+      } catch (err) {
+        throw new Error('You need to sign the message to be able to log in.');
+      }
+    }
+  }; */
 
   return (
     <>
@@ -39,28 +49,25 @@ const AccountDetailPage = () => {
                 Karas Developer
               </Text>
               <HStack>
+                <Text>Address:</Text>
                 <Text
-                  color="primary.gray.500"
+                  color="primary.gray.700"
                   cursor="pointer"
                   fontWeight="bold"
                   _hover={{
                     opacity: '0.5',
                   }}
                 >
-                  0x1C83...32c5
+                  {shortenAddress(address, 15)}
                 </Text>
-                <Text color="primary.gray.600">Joined September 2023</Text>
               </HStack>
+              <Text fontSize="sm" color="primary.gray.600">
+                Joined September 2023
+              </Text>
             </Box>
-            <HStack
-              gap={8}
-              onClick={() => {
-                handleAccept();
-              }}
-            >
+            <HStack gap={8}>
               <Button fontSize="sm" leftIcon={<Icon as={SettingIcon} />}>
-                {/*  <Link href="/account/setting"> Edit Profile</Link> */}
-                Edit Profile
+                <Link href="/account/setting">Edit Profile</Link>
               </Button>
               <ShareData link="/" />
               <MoreData />

@@ -157,11 +157,11 @@ const Button: ComponentStyleConfig = {
         transition: '.4s ease-in-out',
       },
     }),
-    tab_2: ({ isActive }) => ({
+    /*  tab_2: ({ isActive }) => ({
       fontSize: 'medium',
       fontWeight: 'bold',
       color: isActive ? 'primary.purple.500' : 'primary.gray.400',
-    }),
+    }), */
     tab_profile: (props: StyleFunctionProps) => ({
       fontWeight: 'bold',
       display: 'flex',

@@ -89,6 +89,9 @@
     "account":"Account",
     "organizer":"Organizer",
     "offers":"Offers",
-    "account_support":"Account Support"
+    "account_support":"Account Support",
+    "overview":"Overview",
+    "share":"Share",
+    "refresh":"Refresh"
 
 }
