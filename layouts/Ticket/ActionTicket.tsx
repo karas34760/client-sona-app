@@ -10,7 +10,7 @@ const ActionTicket = () => {
   const colorText = useColorModeValue('primary.gray.500', 'white');
   return (
     <HStack justifyContent="space-between">
-      <HStack gap={8}>
+      <HStack gap={8} flexWrap="wrap">
         <Flex
           alignItems="center"
           gap={3}

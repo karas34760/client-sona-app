@@ -19,3 +19,8 @@ pnpm dev
 ### Document
 
 ### Library Used
+
+Your cert will expire on 2024-01-20. To obtain a new or tweaked
+version of this certificate in the future, simply run certbot again
+with the "certonly" option. To non-interactively renew _all_ of
+your certificates, run "certbot renew"

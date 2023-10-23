@@ -23,7 +23,7 @@ const TicketDetailPage = () => {
           <Box>
             <Image
               src="/test/nft/nft_8.jpeg"
-              height="500px"
+              height={{ md: '500px', sm: 'auto' }}
               width="auto"
               alt=""
               borderRadius="xl"
