@@ -58,18 +58,7 @@ const ProfileDrawer = ({ isOpen, onClose }: IProps) => {
           </Flex>
           <MiniProfile />
 
-          <Button
-            variant="primary"
-            width="full"
-            py={6}
-            borderRadius="none"
-            border="none"
-            borderTop="0.063rem solid"
-            borderColor="primary.purple.500"
-            onClick={onClose}
-            position="absolute"
-            bottom={0}
-          >
+          <Button variant="draw_close" onClick={onClose}>
             Close
           </Button>
         </DrawerContent>

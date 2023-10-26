@@ -85,8 +85,8 @@ const Carousel = ({ children, options, styleButton, sxProps }: IProps) => {
             position: 'relative',
             paddingBottom: '1rem',
             paddingTop: '1rem',
-            /*   paddingLeft: '0.6rem',
-            paddingRight: '0.6rem', */
+            paddingLeft: '0.6rem',
+            paddingRight: '0.6rem',
           }}
           {...options}
         >

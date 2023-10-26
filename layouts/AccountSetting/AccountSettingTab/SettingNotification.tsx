@@ -69,7 +69,11 @@ const SettingNotification = () => {
               </Text>
               <Text fontSize="sm">{item.description}</Text>
             </FormLabel>
-            <Switch id={item.id} defaultChecked={item.isChecked} />
+            <Switch
+              variant="primary"
+              id={item.id}
+              defaultChecked={item.isChecked}
+            />
           </FormControl>
         ))}
       </Flex>

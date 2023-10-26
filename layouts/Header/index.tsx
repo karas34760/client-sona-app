@@ -101,6 +101,7 @@ const Header = () => {
             </Flex>
             <Flex alignItems="center" gap={{ base: 4, md: 6 }}>
               <Box
+                height="full"
                 display={{ lg: 'flex', base: 'none' }}
                 gap={6}
                 alignItems="center"

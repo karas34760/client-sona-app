@@ -12,7 +12,7 @@ import {
 import React from 'react';
 
 import { TabContent } from '@/utils/type';
-// su kien theo the loai
+// su kien dang live theo the loai
 const EventsExplore = () => {
   const ListEvents: TabContent[] = [
     {
@@ -39,7 +39,7 @@ const EventsExplore = () => {
 
   return (
     <Container maxWidth="container.xl">
-      <Text variant="type_sub_title">Events</Text>
+      <Text variant="type_sub_title">Live Events</Text>
       <Text mb={5}>
         Lorem ipsum dolor sit amet consectetur. Iaculis vestibulum purus
         facilisi ultrices sed faucibus proin cum ut.

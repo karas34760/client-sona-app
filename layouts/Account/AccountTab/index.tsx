@@ -28,9 +28,6 @@ const AccountProfileTab = () => {
             params={{
               tab: 'collected',
             }}
-            sx={{
-              variant: 'tab_2',
-            }}
           />
         );
       },
@@ -45,9 +42,6 @@ const AccountProfileTab = () => {
             title={title}
             params={{
               tab: 'deal',
-            }}
-            sx={{
-              variant: 'tab_2',
             }}
           />
         );
@@ -64,9 +58,6 @@ const AccountProfileTab = () => {
             params={{
               tab: 'favorited',
             }}
-            sx={{
-              variant: 'tab_2',
-            }}
           />
         );
       },
@@ -82,9 +73,6 @@ const AccountProfileTab = () => {
             params={{
               tab: 'activity',
             }}
-            sx={{
-              variant: 'tab_2',
-            }}
           />
         );
       },
@@ -99,9 +87,6 @@ const AccountProfileTab = () => {
             title={title}
             params={{
               tab: 'created',
-            }}
-            sx={{
-              variant: 'tab_2',
             }}
           />
         );

@@ -157,11 +157,11 @@ const Button: ComponentStyleConfig = {
         transition: '.4s ease-in-out',
       },
     }),
-    tab_2: ({ isActive }) => ({
+    /*  tab_2: ({ isActive }) => ({
       fontSize: 'medium',
       fontWeight: 'bold',
       color: isActive ? 'primary.purple.500' : 'primary.gray.400',
-    }),
+    }), */
     tab_profile: (props: StyleFunctionProps) => ({
       fontWeight: 'bold',
       display: 'flex',
@@ -173,6 +173,22 @@ const Button: ComponentStyleConfig = {
       _hover: {
         color: props.isActive ? 'primary.purple.500' : 'primary.gray.500',
       },
+    }),
+    draw_close: (props: StyleFunctionProps) => ({
+      width: 'full',
+      py: 6,
+      _hover: {
+        bg: 'primary.purple.500',
+        color: 'white',
+      },
+      borderRadius: 'none',
+      border: 'none',
+      borderTop: '0.063rem solid',
+      color: mode('primary.gray.700', 'white')(props),
+      borderColor: 'primary.purple.500',
+      position: 'absolute',
+      left: 0,
+      bottom: 0,
     }),
   },
 };
@@ -230,6 +246,22 @@ const Select: ComponentStyleConfig = {
     primary: {},
   },
 };
+const Switch: ComponentStyleConfig = {
+  variants: {
+    primary: {
+      /* container:{
+
+      }, */
+      thumb: {},
+      track: {
+        bg: 'primary.gray.300',
+        _checked: {
+          bg: 'primary.purple.500',
+        },
+      },
+    },
+  },
+};
 
 const theme = extendTheme({
   fonts,
@@ -245,6 +277,7 @@ const theme = extendTheme({
     Popover,
     Select,
     Input,
+    Switch,
   },
 });
 

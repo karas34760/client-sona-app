@@ -65,7 +65,8 @@ const UpcomingEvent = () => {
           link="#"
           label="View All"
           sx={{
-            color: 'primary.gray.600',
+            fontWeight: 'bold',
+            color: 'primary.purple.300',
           }}
         />
       </HStack>

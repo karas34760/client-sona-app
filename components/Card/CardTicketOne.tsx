@@ -13,7 +13,6 @@ import { convertHex } from '@/utils/utils';
 import HertIcon from 'public/assets/icons/generals/heart.svg';
 interface IProps {
   image_link: string;
-
   children?: React.ReactNode;
 }
 // Normal type Ticket or Concert

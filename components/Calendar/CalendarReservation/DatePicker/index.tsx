@@ -143,7 +143,7 @@ export const DatePicker: FC<DatePickerProps> = ({ value, onChange }) => {
           onChange={date =>
             Array.isArray(date) ? onChange(date[0]) : onChange(date)
           }
-          renderCustomHeader={CustomHeader}
+          /*   renderCustomHeader={CustomHeader} */
         />
       );
     },

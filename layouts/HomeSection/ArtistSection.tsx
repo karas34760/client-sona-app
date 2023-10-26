@@ -1,11 +1,14 @@
 import { Container, VStack, Text, Box, Image } from '@chakra-ui/react';
-import React from 'react';
 import { useTranslation } from 'next-i18next';
-import Carousel from '@/components/Carousel/Carousel';
+import React from 'react';
+import { Autoplay, Mousewheel, Navigation } from 'swiper';
 import { SwiperSlide } from 'swiper/react';
+
+import Carousel from '@/components/Carousel/Carousel';
 import 'swiper/css';
 import 'swiper/css/navigation';
-
+import 'swiper/css/mousewheel';
+import 'swiper/css/bundle';
 const ArtistSection = () => {
   const { t } = useTranslation();
   const ListArtist = [
@@ -16,6 +19,28 @@ const ArtistSection = () => {
     {
       image:
         'https://media.vov.vn/sites/default/files/styles/large/public/2023-06/fzhnvbpagaalfdq.jpg',
+    },
+    {
+      image: 'https://yh.io/assets/graphics/artists-block-02.png',
+    },
+    {
+      image:
+        'https://demo.lunartheme.com/stevecadey/wp-content/uploads/2016/07/gallery1-960x615.jpg',
+    },
+    {
+      image:
+        'https://demo.lunartheme.com/stevecadey/wp-content/uploads/2016/07/gallery1-960x615.jpg',
+    },
+    {
+      image: 'https://yh.io/assets/graphics/artists-block-02.png',
+    },
+    {
+      image:
+        'https://demo.lunartheme.com/stevecadey/wp-content/uploads/2016/07/gallery1-960x615.jpg',
+    },
+    {
+      image:
+        'https://demo.lunartheme.com/stevecadey/wp-content/uploads/2016/07/gallery1-960x615.jpg',
     },
     {
       image: 'https://yh.io/assets/graphics/artists-block-02.png',
@@ -41,7 +66,15 @@ const ArtistSection = () => {
         </Text>
         <Text fontSize="lg">{t('artist_section_content')}</Text>
       </VStack>
-      <Carousel styleButton={{ display: 'none' }}>
+      <Carousel
+        styleButton={{ display: 'none' }}
+        options={{
+          modules: [Autoplay, Navigation, Mousewheel],
+          autoplay: {
+            delay: 2500,
+          },
+        }}
+      >
         {ListArtist.map((item, index) => (
           <SwiperSlide key={index}>
             <Box height="250px">

@@ -1,4 +1,9 @@
 import { ChakraProvider } from '@chakra-ui/react';
+import {
+  Hydrate,
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query';
 import { ConnectKitProvider } from 'connectkit';
 import { AppProps } from 'next/app';
 import { Work_Sans } from 'next/font/google';
@@ -21,7 +26,16 @@ function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
     initGA(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS || 'G-BWWLJY48PD');
   }, []);
-
+  const queryClient = new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+        retry: false,
+        staleTime: 60000,
+        cacheTime: 60000,
+      },
+    },
+  });
   return (
     <>
       <style jsx global>
@@ -35,17 +49,21 @@ function App({ Component, pageProps }: AppProps) {
       <ChakraProvider theme={theme}>
         <WagmiConfig config={config}>
           <ConnectKitProvider mode="light" debugMode>
-            <QueryParamProvider
-              options={{
-                skipUpdateWhenNoChange: true,
-                updateType: 'replaceIn',
-              }}
-              adapter={Adapter}
-            >
-              <DefaultLayout>
-                <Component {...pageProps} />
-              </DefaultLayout>
-            </QueryParamProvider>
+            <QueryClientProvider client={queryClient}>
+              <QueryParamProvider
+                options={{
+                  skipUpdateWhenNoChange: true,
+                  updateType: 'replaceIn',
+                }}
+                adapter={Adapter}
+              >
+                <Hydrate state={pageProps.dehydratedState}>
+                  <DefaultLayout>
+                    <Component {...pageProps} />
+                  </DefaultLayout>
+                </Hydrate>
+              </QueryParamProvider>
+            </QueryClientProvider>
           </ConnectKitProvider>
         </WagmiConfig>
       </ChakraProvider>
