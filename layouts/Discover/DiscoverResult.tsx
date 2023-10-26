@@ -95,11 +95,11 @@ const DiscoverResult = () => {
   const rowCount = Math.ceil(Listest.length / colCount);
 
   const cellCache = new CellMeasurerCache({
-    defaultHeight: 350, // Default cell height
+    defaultHeight: 300, // Default cell height
     defaultWidth: 300, // Default cell width
 
-    /*     fixedWidth: true,
-    fixedHeight: true, */
+    fixedWidth: true,
+    fixedHeight: true,
   });
   const cellRenderer = ({ columnIndex, key, rowIndex, style, parent }: any) => {
     const index = rowIndex * colCount + columnIndex;
@@ -153,11 +153,11 @@ const DiscoverResult = () => {
             columnCount={colCount}
             height={height}
             rowCount={rowCount}
-            /* rowHeight={cellCache.rowHeight} */
-            rowHeight={300}
-            columnWidth={300}
+            rowHeight={cellCache.rowHeight}
+            columnWidth={cellCache.columnWidth}
             width={width}
             cellRenderer={cellRenderer}
+            /*  style={{ overflow: 'hidden' }} */ // Hide default scrollbar
           />
         )}
       </AutoSizer>
