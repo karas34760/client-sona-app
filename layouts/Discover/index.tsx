@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react';
+import { Container } from '@chakra-ui/react';
 import React from 'react';
 
 import DiscoverHead from './DiscoverHead';
@@ -6,9 +6,9 @@ import DiscoverHead from './DiscoverHead';
 const DiscoverPage = () => {
   return (
     <>
-      <Box py={8}>
+      <Container maxWidth="container.xl" py={8}>
         <DiscoverHead />
-      </Box>
+      </Container>
     </>
   );
 };

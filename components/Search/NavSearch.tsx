@@ -16,7 +16,7 @@ const NavSearch = () => {
     <>
       <InputGroup>
         <InputLeftElement>
-          <Icon as={SearchIcon} h={6} w={6} color="primary.purple.500" />
+          <Icon as={SearchIcon} h={6} w={6} />
         </InputLeftElement>
         <Input
           background={bgInput}

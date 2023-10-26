@@ -30,7 +30,7 @@ const ListNavHeader = () => {
         <LinkPrimary
           sx={{
             fontSize: 'lg',
-            fontWeight: 'medium',
+            fontWeight: 'bold',
             color: router.asPath.includes(item.link)
               ? 'primary.purple.500'
               : 'inherit',
