@@ -26,7 +26,7 @@ const StatusFilter = () => {
     },
   ];
   const [currentValue, setCurrentValue] = useState(optionStatus[0]);
-  const { isOpen, onToggle } = useDisclosure();
+  const { isOpen, onToggle } = useDisclosure({ defaultIsOpen: true });
   return (
     <>
       <Flex
@@ -51,7 +51,7 @@ const StatusFilter = () => {
         </HStack>
 
         <Collapse in={isOpen} animateOpacity>
-          <HStack gap={4}>
+          <HStack gap={4} flexWrap="wrap">
             {optionStatus.map(item => (
               <Box
                 px={4}

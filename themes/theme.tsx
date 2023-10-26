@@ -174,6 +174,22 @@ const Button: ComponentStyleConfig = {
         color: props.isActive ? 'primary.purple.500' : 'primary.gray.500',
       },
     }),
+    draw_close: (props: StyleFunctionProps) => ({
+      width: 'full',
+      py: 6,
+      _hover: {
+        bg: 'primary.purple.500',
+        color: 'white',
+      },
+      borderRadius: 'none',
+      border: 'none',
+      borderTop: '0.063rem solid',
+      color: mode('primary.gray.700', 'white')(props),
+      borderColor: 'primary.purple.500',
+      position: 'absolute',
+      left: 0,
+      bottom: 0,
+    }),
   },
 };
 const Popover: ComponentStyleConfig = {

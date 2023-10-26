@@ -29,19 +29,7 @@ const Sidebar = ({ onClose, isOpen }: IProps) => {
             <Text>Switch Color</Text>
             <BtnSwitchColor />
           </HStack>
-          <Button
-            variant="primary"
-            width="full"
-            py={6}
-            borderRadius="none"
-            border="none"
-            borderTop="0.063rem solid"
-            borderColor="primary.purple.500"
-            onClick={onClose}
-            position="absolute"
-            left={0}
-            bottom={0}
-          >
+          <Button variant="draw_close" onClick={onClose}>
             Close
           </Button>
         </DrawerBody>
