@@ -64,7 +64,7 @@
     "use-query-params": "^2.2.1",
     "viem": "^1.14.0",
     "wagmi": "^1.4.2",
-    "web3": "^4.2.0"
+    "web3": "^1.7.4"
   },
   "devDependencies": {
     "@parcel/watcher": "^2.3.0",

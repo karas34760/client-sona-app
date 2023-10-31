@@ -5,11 +5,11 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 First, run the development server:
 
 ```bash
-npm run dev
-# or
+yarn
+```
+
+```bash
 yarn dev
-# or
-pnpm dev
 ```
 
 ### Deploy Host : https://karas.store/
@@ -24,3 +24,7 @@ Your cert will expire on 2024-01-20. To obtain a new or tweaked
 version of this certificate in the future, simply run certbot again
 with the "certonly" option. To non-interactively renew _all_ of
 your certificates, run "certbot renew"
+
+### Document About Web3js
+
+1.

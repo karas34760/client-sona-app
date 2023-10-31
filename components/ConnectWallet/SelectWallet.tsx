@@ -16,7 +16,7 @@ import {
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
-import { useAccount, useConnect, useNetwork, useSignMessage } from 'wagmi';
+import { useConnect } from 'wagmi';
 
 import { WalletProps } from '@/utils/type';
 import CoinBaseIcon from 'public/assets/icons/wallet/coinbase.svg';
@@ -55,9 +55,6 @@ const SelectWallet = ({ isOpen, onClose }: IProps) => {
   const bgHover = useColorModeValue('primary.gray.300', 'primary.gray.500');
 
   const { connect, connectors } = useConnect();
-  const { address } = useAccount();
-  const { chain } = useNetwork();
-  const { signMessageAsync } = useSignMessage();
 
   return (
     <Modal
@@ -113,7 +110,6 @@ const SelectWallet = ({ isOpen, onClose }: IProps) => {
                 px={8}
                 onClick={() => {
                   connect({ connector: connectors[index] });
-                  onClose();
                 }}
                 _hover={{
                   backgroundColor: bgHover,

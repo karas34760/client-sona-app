@@ -3,15 +3,19 @@ import { Text, HStack, Icon, useDisclosure } from '@chakra-ui/react';
 import { ConnectKitButton } from 'connectkit';
 import React from 'react';
 import { useAccount } from 'wagmi';
+import Web3 from 'web3';
 
 import AccountMenu from './AccountMenu';
 import SelectWallet from './SelectWallet';
 
+import client from '@/graphql/client';
+import { useSearchConnectMsgMutation } from '@/graphql/generates';
 import WalletIcon from 'public/assets/icons/generals/wallet.svg';
 const ConnectWallet = () => {
-  const { isConnected } = useAccount();
-
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const { address, isConnected } = useAccount();
+
   return (
     <>
       {isConnected ? (
@@ -20,7 +24,7 @@ const ConnectWallet = () => {
         </>
       ) : (
         <>
-          <ConnectKitButton.Custom>
+          {/*   <ConnectKitButton.Custom>
             {({
               isConnected,
               isConnecting,
@@ -54,8 +58,8 @@ const ConnectWallet = () => {
                 </HStack>
               );
             }}
-          </ConnectKitButton.Custom>
-          {/*   <HStack
+          </ConnectKitButton.Custom> */}
+          <HStack
             bg="gradient.200"
             color="white"
             borderRadius="3xl"
@@ -71,11 +75,11 @@ const ConnectWallet = () => {
               {isOpen ? `Connecting` : `Connect Wallet`}
             </Text>
             <Icon as={WalletIcon} />
-          </HStack> */}
+          </HStack>
         </>
       )}
 
-      {/*    <SelectWallet isOpen={isOpen} onClose={onClose} /> */}
+      <SelectWallet isOpen={isOpen} onClose={onClose} />
     </>
   );
 };
