@@ -1,12 +1,13 @@
-import { createConfig, configureChains, mainnet } from 'wagmi';
+import { polygonMumbai } from 'viem/chains';
+import { createConfig, configureChains } from 'wagmi';
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet';
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask';
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect';
 import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from 'wagmi/providers/public';
 
-const { chains, publicClient, webSocketPublicClient } = configureChains(
-  [mainnet],
+const { chains, publicClient } = configureChains(
+  [polygonMumbai],
   [
     alchemyProvider({
       apiKey:
@@ -39,7 +40,6 @@ export const config = createConfig({
     }),
   ],
   publicClient,
-  webSocketPublicClient,
 });
 
 // Pass config to React Context Provider

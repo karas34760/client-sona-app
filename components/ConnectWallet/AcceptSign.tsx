@@ -1,14 +1,10 @@
 import React from 'react';
-import { useAccount, useDisconnect } from 'wagmi';
-import Web3 from 'web3';
-
-import client from '@/graphql/client';
-import { useSearchConnectMsgMutation } from '@/graphql/generates';
+import { useAccount } from 'wagmi';
 
 const AcceptSign = () => {
-  const { address, isConnected, isConnecting } = useAccount();
-  const { disconnect } = useDisconnect();
-  const handleAccept = async () => {
+  useAccount();
+
+  /*  const handleAccept = async () => {
     const web3 = new Web3(window.ethereum);
     if (address) {
       const data = await useSearchConnectMsgMutation.fetcher(client, {
@@ -27,7 +23,7 @@ const AcceptSign = () => {
         throw new Error('You need to sign the message to be able to log in.');
       }
     }
-  };
+  }; */
   return <></>;
 };
 

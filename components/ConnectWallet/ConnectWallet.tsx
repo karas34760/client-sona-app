@@ -24,7 +24,7 @@ const ConnectWallet = () => {
         </>
       ) : (
         <>
-          {/*   <ConnectKitButton.Custom>
+          {/*  <ConnectKitButton.Custom>
             {({
               isConnected,
               isConnecting,

@@ -16,7 +16,7 @@ import {
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
-import { useConnect } from 'wagmi';
+import { useAccount, useConnect } from 'wagmi';
 
 import { WalletProps } from '@/utils/type';
 import CoinBaseIcon from 'public/assets/icons/wallet/coinbase.svg';
@@ -56,6 +56,7 @@ const SelectWallet = ({ isOpen, onClose }: IProps) => {
 
   const { connect, connectors } = useConnect();
 
+  const { address } = useAccount();
   return (
     <Modal
       isOpen={isOpen}
@@ -108,8 +109,13 @@ const SelectWallet = ({ isOpen, onClose }: IProps) => {
                 gap={4}
                 py={4}
                 px={8}
-                onClick={() => {
-                  connect({ connector: connectors[index] });
+                onClick={async () => {
+                  try {
+                    await connect({ connector: connectors[index] });
+                    onClose();
+                  } catch (error) {
+                    // Handle the error gracefully, e.g., display an error message to the user.
+                  }
                 }}
                 _hover={{
                   backgroundColor: bgHover,
