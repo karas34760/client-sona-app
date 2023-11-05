@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-use-before-define */
 import { Box, Button, Container, HStack, Icon, Text } from '@chakra-ui/react';
 import Link from 'next/link';
@@ -17,9 +18,9 @@ import SettingIcon from 'public/assets/icons/generals/setting.svg';
 const AccountDetailPage = () => {
   const { address } = useAccount();
 
-  const handleAccept = async () => {
+  /*   const handleAccept = async () => {
     const web3 = new Web3(window.ethereum);
-    console.log(':wadc');
+
     if (address) {
       const data = await useSearchConnectMsgMutation.fetcher(client, {
         address: address?.toString(),
@@ -35,13 +36,12 @@ const AccountDetailPage = () => {
         throw new Error('You need to sign the message to be able to log in.');
       }
     }
-  };
+  }; */
 
   return (
     <>
       <Box padding={0}>
         <SettingProfileImage />
-        <Box onClick={handleAccept}>On cliasd</Box>
         <Container maxWidth="container.xl" my={12}>
           <HStack
             justifyContent="space-between"
