@@ -17,7 +17,10 @@ import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 import { useAccount, useConnect } from 'wagmi';
+import Web3 from 'web3';
 
+import client from '@/graphql/client';
+import { useSearchConnectMsgMutation } from '@/graphql/generates';
 import { WalletProps } from '@/utils/type';
 import CoinBaseIcon from 'public/assets/icons/wallet/coinbase.svg';
 import MetaMaskIcon from 'public/assets/icons/wallet/metamask.svg';
@@ -26,7 +29,6 @@ interface IProps {
   isOpen: boolean;
   onClose: () => void;
 }
-
 const SelectWallet = ({ isOpen, onClose }: IProps) => {
   const ListWalletSupport: WalletProps[] = [
     {
@@ -57,6 +59,25 @@ const SelectWallet = ({ isOpen, onClose }: IProps) => {
   const { connect, connectors } = useConnect();
 
   const { address } = useAccount();
+  const handleAccept = async () => {
+    const web3 = new Web3(window.ethereum);
+    if (address) {
+      const data = await useSearchConnectMsgMutation.fetcher(client, {
+        address: address?.toString(),
+      })();
+      try {
+        // @ts-ignore because web3 is defined here.
+        const signature = await web3.eth.personal.sign(
+          data.searchConnectMsg.message,
+          address,
+          ''
+        );
+        console.log(signature);
+      } catch (err) {
+        throw new Error('You need to sign the message to be able to log in.');
+      }
+    }
+  };
   return (
     <Modal
       isOpen={isOpen}
@@ -112,9 +133,10 @@ const SelectWallet = ({ isOpen, onClose }: IProps) => {
                 onClick={async () => {
                   try {
                     await connect({ connector: connectors[index] });
+                    await handleAccept();
                     onClose();
                   } catch (error) {
-                    // Handle the error gracefully, e.g., display an error message to the user.
+                    console.log('Error From Select Wallet', error);
                   }
                 }}
                 _hover={{
