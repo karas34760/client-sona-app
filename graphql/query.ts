@@ -9,3 +9,12 @@ const SearchConnectMsg = gql`
     }
   }
 `;
+
+const ConnectWallet = gql`
+  mutation ConnectWallet($address: String!, $signature: String!) {
+    connectWallet(address: $address, signature: $signature) {
+      accessToken
+      refreshToken
+    }
+  }
+`;

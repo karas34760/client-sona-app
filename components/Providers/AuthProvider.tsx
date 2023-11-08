@@ -1,7 +1,5 @@
 /* eslint-disable no-unused-vars */
 import { useToast } from '@chakra-ui/react';
-import Cookies from 'js-cookie';
-import { useRouter } from 'next/router';
 import { FC, PropsWithChildren, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useAccount, useConnect, useDisconnect } from 'wagmi';
@@ -32,7 +30,6 @@ const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
           address,
           '' // MetaMask will ignore the password argument here
         );
-        console.log(signature);
       } catch (err) {
         disconnect();
         toast({
