@@ -10,13 +10,18 @@ import { Work_Sans } from 'next/font/google';
 import { appWithTranslation } from 'next-i18next';
 import NextAdapterPages from 'next-query-params';
 import { useEffect } from 'react';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import { QueryParamProvider } from 'use-query-params';
 import { WagmiConfig } from 'wagmi';
 
+import AuthProvider from '@/components/Providers/AuthProvider';
 import DefaultLayout from '@/layouts/DefaultLayout';
+import { persistor, store } from '@/redux/store';
 import theme from '@/themes/theme';
 import { initGA } from '@/utils/analysis';
 import { config } from '@/wallet/wagmi/config';
+
 const work_sans = Work_Sans({ subsets: ['latin'] });
 function Adapter(props: any) {
   return <NextAdapterPages {...props} shallow={true} />;
@@ -49,21 +54,27 @@ function App({ Component, pageProps }: AppProps) {
       <ChakraProvider theme={theme}>
         <WagmiConfig config={config}>
           <ConnectKitProvider mode="light" debugMode>
-            <QueryClientProvider client={queryClient}>
-              <QueryParamProvider
-                options={{
-                  skipUpdateWhenNoChange: true,
-                  updateType: 'replaceIn',
-                }}
-                adapter={Adapter}
-              >
-                <Hydrate state={pageProps.dehydratedState}>
-                  <DefaultLayout>
-                    <Component {...pageProps} />
-                  </DefaultLayout>
-                </Hydrate>
-              </QueryParamProvider>
-            </QueryClientProvider>
+            <Provider store={store}>
+              <PersistGate loading={null} persistor={persistor}>
+                <AuthProvider>
+                  <QueryClientProvider client={queryClient}>
+                    <QueryParamProvider
+                      options={{
+                        skipUpdateWhenNoChange: true,
+                        updateType: 'replaceIn',
+                      }}
+                      adapter={Adapter}
+                    >
+                      <Hydrate state={pageProps.dehydratedState}>
+                        <DefaultLayout>
+                          <Component {...pageProps} />
+                        </DefaultLayout>
+                      </Hydrate>
+                    </QueryParamProvider>
+                  </QueryClientProvider>
+                </AuthProvider>
+              </PersistGate>
+            </Provider>
           </ConnectKitProvider>
         </WagmiConfig>
       </ChakraProvider>
