@@ -14,6 +14,7 @@
     "postseo": "next-sitemap"
   },
   "dependencies": {
+    "@apollo/client": "^3.8.7",
     "@chakra-ui/next-js": "^2.1.5",
     "@chakra-ui/react": "^2.8.1",
     "@emotion/react": "^11.11.1",
