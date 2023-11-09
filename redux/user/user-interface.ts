@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 export interface IUser {
   address: string;
   /*   email: string;
@@ -10,6 +11,10 @@ export interface IInitialState {
 }
 
 export interface ITokens {
-  access_token: string;
-  refresh_token: string;
+  accessToken: string;
+  refreshToken: string;
+}
+
+export interface IAccessToken {
+  accessToken: string;
 }

@@ -6,9 +6,13 @@ import { useAccount, useConnect, useDisconnect } from 'wagmi';
 import Web3 from 'web3';
 
 import client from '@/graphql/client';
-import { useSearchConnectMsgMutation } from '@/graphql/generates';
+import {
+  useConnectWalletMutation,
+  useSearchConnectMsgMutation,
+} from '@/graphql/generates';
 import { useAuth } from '@/hooks/useAuth';
-import { EnumTokens, getAccessToken } from '@/redux/user/user-helper';
+import { saveTokensStorage } from '@/redux/user/user-helper';
+import { ITokens } from '@/redux/user/user-interface';
 import { setUser } from '@/redux/user/user-slice';
 
 const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
@@ -23,13 +27,23 @@ const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
       const data = await useSearchConnectMsgMutation.fetcher(client, {
         address: address?.toString(),
       })();
+
       try {
         // @ts-ignore because web3 is defined here.
         const signature = await web3.eth.personal.sign(
           data.searchConnectMsg.message,
           address,
-          '' // MetaMask will ignore the password argument here
+          ''
         );
+        const res = await useConnectWalletMutation.fetcher(client, {
+          address,
+          signature,
+        })();
+        const data_token: ITokens = {
+          accessToken: res.connectWallet.accessToken,
+          refreshToken: res.connectWallet.refreshToken,
+        };
+        await saveTokensStorage(data_token);
       } catch (err) {
         disconnect();
         toast({
@@ -45,7 +59,7 @@ const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (address != user && !isConnecting) {
+    if (address != user && address != null) {
       dispatch(setUser(address));
       handleAccept();
       console.log('Run E', user);

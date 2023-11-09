@@ -1,6 +1,6 @@
 import { GraphQLClient } from 'graphql-request';
-import { RequestInit } from 'graphql-request/src/types.dom';
-import { useQuery, useMutation, UseQueryOptions, UseMutationOptions } from '@tanstack/react-query';
+import { RequestInit } from 'graphql-request/dist/types.dom';
+import { useMutation, UseMutationOptions } from '@tanstack/react-query';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -23,10 +23,62 @@ export type Scalars = {
   Float: number;
 };
 
+export type AdminEventFilter = {
+  address?: InputMaybe<Scalars['String']>;
+  eventId?: InputMaybe<Scalars['Float']>;
+  name?: InputMaybe<Scalars['String']>;
+  organizer?: InputMaybe<Scalars['String']>;
+};
+
+export type AdminEventOrderBy = {
+  /** Timestamp of deadline for selling tickets. */
+  DeadlineForSell?: InputMaybe<Sort>;
+  /** Timestamp of event eding. */
+  EndTime?: InputMaybe<Sort>;
+  /** Timestamp of event starting. */
+  StartTime?: InputMaybe<Sort>;
+  /** Timestamp of selling tickets. */
+  TimeForSell?: InputMaybe<Sort>;
+  /** Timestamp of event creation */
+  createdTime?: InputMaybe<Sort>;
+  /** Timestamp of event submition */
+  submitedTime?: InputMaybe<Sort>;
+};
+
 export type ConnectMsgType = {
   __typename?: 'ConnectMsgType';
   message: Scalars['String'];
   nonce: Scalars['String'];
+};
+
+export type EventFilter = {
+  address?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  organizer?: InputMaybe<Scalars['String']>;
+};
+
+export type EventOrderBy = {
+  /** Timestamp of deadline for selling tickets. */
+  DeadlineForSell?: InputMaybe<Sort>;
+  /** Timestamp of event eding. */
+  EndTime?: InputMaybe<Sort>;
+  /** Timestamp of event starting. */
+  StartTime?: InputMaybe<Sort>;
+  /** Timestamp of selling tickets. */
+  TimeForSell?: InputMaybe<Sort>;
+  /** Timestamp of event creation */
+  createdTime?: InputMaybe<Sort>;
+};
+
+export type EventPagination = {
+  __typename?: 'EventPagination';
+  currentPage: Scalars['Int'];
+  hasNext: Scalars['Boolean'];
+  hasPrevious: Scalars['Boolean'];
+  items: Array<TkfEventType>;
+  pages: Scalars['Int'];
+  size: Scalars['Int'];
+  total: Scalars['Int'];
 };
 
 export type JwtAccessTokenType = {
@@ -42,10 +94,29 @@ export type JwtType = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  check: Scalars['String'];
+  connectOwnerWallet: JwtType;
   connectWallet: JwtType;
+  createBuyTickets: TransactionDataAbi;
+  createEvent: Scalars['String'];
   refreshAccessToken: JwtAccessTokenType;
+  rejectEvent: Scalars['String'];
   searchConnectMsg: ConnectMsgType;
   sendEmailVerification: Scalars['String'];
+  submitNewEvent: Scalars['String'];
+  submitSignedTransaction: Scalars['String'];
+  verifyEmail: Scalars['String'];
+};
+
+
+export type MutationCheckArgs = {
+  msg: Scalars['String'];
+};
+
+
+export type MutationConnectOwnerWalletArgs = {
+  address: Scalars['String'];
+  signature: Scalars['String'];
 };
 
 
@@ -55,8 +126,26 @@ export type MutationConnectWalletArgs = {
 };
 
 
+export type MutationCreateBuyTicketsArgs = {
+  amounts: Array<Scalars['Int']>;
+  buyer: Scalars['String'];
+  eventAddress: Scalars['String'];
+  tiers: Array<Scalars['Int']>;
+};
+
+
+export type MutationCreateEventArgs = {
+  eventId: Scalars['Int'];
+};
+
+
 export type MutationRefreshAccessTokenArgs = {
   address: Scalars['String'];
+};
+
+
+export type MutationRejectEventArgs = {
+  eventId: Scalars['Int'];
 };
 
 
@@ -70,18 +159,87 @@ export type MutationSendEmailVerificationArgs = {
   email: Scalars['String'];
 };
 
+
+export type MutationSubmitNewEventArgs = {
+  DeadlineForSell: Scalars['Float'];
+  EndTime: Scalars['Float'];
+  StartTime: Scalars['Float'];
+  TimeForSell: Scalars['Float'];
+  description: Scalars['String'];
+  image: Scalars['String'];
+  location: Scalars['String'];
+  name: Scalars['String'];
+  organizer: Scalars['String'];
+  tickets: Array<NewTicketType>;
+  uri: Scalars['String'];
+};
+
+
+export type MutationSubmitSignedTransactionArgs = {
+  rawTransaction: Scalars['String'];
+};
+
+
+export type MutationVerifyEmailArgs = {
+  code: Scalars['String'];
+  email: Scalars['String'];
+};
+
+export type NewTicketType = {
+  amount: Scalars['Int'];
+  /** Ticket image from ipfs. */
+  asset: Scalars['String'];
+  description: Scalars['String'];
+  name: Scalars['String'];
+  price: Scalars['Float'];
+  tier: Scalars['Int'];
+  /** ticket uri from ipfs. */
+  uri: Scalars['String'];
+};
+
 export type Query = {
   __typename?: 'Query';
   checkAccessToken: Scalars['Boolean'];
   checkRefreshToken: Scalars['Boolean'];
   getHello: Scalars['String'];
   searchAccountByAddress: TkfAccount;
+  searchEvents: EventPagination;
+  searchEventsNotApprove: EventPagination;
+  searchTickets: Array<TkfTicketType>;
 };
 
 
 export type QuerySearchAccountByAddressArgs = {
   address: Scalars['String'];
 };
+
+
+export type QuerySearchEventsArgs = {
+  filter?: InputMaybe<EventFilter>;
+  orderBy?: InputMaybe<EventOrderBy>;
+  page?: InputMaybe<Scalars['Int']>;
+  size?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QuerySearchEventsNotApproveArgs = {
+  filter?: InputMaybe<AdminEventFilter>;
+  orderBy?: InputMaybe<AdminEventOrderBy>;
+  page?: InputMaybe<Scalars['Int']>;
+  size?: InputMaybe<Scalars['Int']>;
+};
+
+
+export type QuerySearchTicketsArgs = {
+  eventAddress?: InputMaybe<Scalars['String']>;
+  eventId?: InputMaybe<Scalars['Int']>;
+  tier?: InputMaybe<Scalars['Float']>;
+};
+
+export enum Sort {
+  Asc = 'asc',
+  Desc = 'desc'
+}
 
 export type TkfAccount = {
   __typename?: 'TKFAccount';
@@ -93,10 +251,55 @@ export type TkfAccount = {
   verifiedAt?: Maybe<Scalars['Float']>;
 };
 
-export type GetHelloQueryVariables = Exact<{ [key: string]: never; }>;
+export type TkfEventType = {
+  __typename?: 'TKFEventType';
+  /** Timestamp of deadline for selling tickets. */
+  DeadlineForSell: Scalars['Float'];
+  /** Timestamp of event eding. */
+  EndTime: Scalars['Float'];
+  /** Timestamp of event starting. */
+  StartTime: Scalars['Float'];
+  /** Timestamp of selling tickets. */
+  TimeForSell: Scalars['Float'];
+  address?: Maybe<Scalars['String']>;
+  /** Timestamp of event creation */
+  createdTime?: Maybe<Scalars['Float']>;
+  /** Transaction hash of event creation. */
+  createdTx?: Maybe<Scalars['String']>;
+  description: Scalars['String'];
+  eventId: Scalars['Int'];
+  /** image uri of event from ipfs */
+  image: Scalars['String'];
+  /** location of event. */
+  location: Scalars['String'];
+  name: Scalars['String'];
+  organizer: Scalars['String'];
+  /** Timestamp of event submition. */
+  submitedTime: Scalars['Float'];
+  /** All ticket tiers */
+  tickets: Array<Scalars['Int']>;
+  /** event uri from ipfs */
+  uri: Scalars['String'];
+};
 
+export type TkfTicketType = {
+  __typename?: 'TKFTicketType';
+  amount: Scalars['Float'];
+  asset: Scalars['String'];
+  description: Scalars['String'];
+  eventAddress: Scalars['String'];
+  eventId: Scalars['Int'];
+  name: Scalars['String'];
+  price: Scalars['Float'];
+  remaining: Scalars['Float'];
+  tier: Scalars['Float'];
+  uri: Scalars['String'];
+};
 
-export type GetHelloQuery = { __typename?: 'Query', getHello: string };
+export type TransactionDataAbi = {
+  __typename?: 'TransactionDataABI';
+  abi: Scalars['String'];
+};
 
 export type SearchConnectMsgMutationVariables = Exact<{
   address: Scalars['String'];
@@ -105,31 +308,23 @@ export type SearchConnectMsgMutationVariables = Exact<{
 
 export type SearchConnectMsgMutation = { __typename?: 'Mutation', searchConnectMsg: { __typename?: 'ConnectMsgType', message: string, nonce: string } };
 
+export type ConnectWalletMutationVariables = Exact<{
+  address: Scalars['String'];
+  signature: Scalars['String'];
+}>;
 
-export const GetHelloDocument = `
-    query GetHello {
-  getHello
-}
-    `;
-export const useGetHelloQuery = <
-      TData = GetHelloQuery,
-      TError = unknown
-    >(
-      client: GraphQLClient,
-      variables?: GetHelloQueryVariables,
-      options?: UseQueryOptions<GetHelloQuery, TError, TData>,
-      headers?: RequestInit['headers']
-    ) =>
-    useQuery<GetHelloQuery, TError, TData>(
-      variables === undefined ? ['GetHello'] : ['GetHello', variables],
-      fetcher<GetHelloQuery, GetHelloQueryVariables>(client, GetHelloDocument, variables, headers),
-      options
-    );
 
-useGetHelloQuery.getKey = (variables?: GetHelloQueryVariables) => variables === undefined ? ['GetHello'] : ['GetHello', variables];
-;
+export type ConnectWalletMutation = { __typename?: 'Mutation', connectWallet: { __typename?: 'JWTType', accessToken: string, refreshToken: string } };
 
-useGetHelloQuery.fetcher = (client: GraphQLClient, variables?: GetHelloQueryVariables, headers?: RequestInit['headers']) => fetcher<GetHelloQuery, GetHelloQueryVariables>(client, GetHelloDocument, variables, headers);
+export type ConnectOwnerWalletMutationVariables = Exact<{
+  address: Scalars['String'];
+  signature: Scalars['String'];
+}>;
+
+
+export type ConnectOwnerWalletMutation = { __typename?: 'Mutation', connectOwnerWallet: { __typename?: 'JWTType', accessToken: string, refreshToken: string } };
+
+
 export const SearchConnectMsgDocument = `
     mutation SearchConnectMsg($address: String!) {
   searchConnectMsg(address: $address) {
@@ -152,3 +347,47 @@ export const useSearchConnectMsgMutation = <
       options
     );
 useSearchConnectMsgMutation.fetcher = (client: GraphQLClient, variables: SearchConnectMsgMutationVariables, headers?: RequestInit['headers']) => fetcher<SearchConnectMsgMutation, SearchConnectMsgMutationVariables>(client, SearchConnectMsgDocument, variables, headers);
+export const ConnectWalletDocument = `
+    mutation ConnectWallet($address: String!, $signature: String!) {
+  connectWallet(address: $address, signature: $signature) {
+    accessToken
+    refreshToken
+  }
+}
+    `;
+export const useConnectWalletMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(
+      client: GraphQLClient,
+      options?: UseMutationOptions<ConnectWalletMutation, TError, ConnectWalletMutationVariables, TContext>,
+      headers?: RequestInit['headers']
+    ) =>
+    useMutation<ConnectWalletMutation, TError, ConnectWalletMutationVariables, TContext>(
+      ['ConnectWallet'],
+      (variables?: ConnectWalletMutationVariables) => fetcher<ConnectWalletMutation, ConnectWalletMutationVariables>(client, ConnectWalletDocument, variables, headers)(),
+      options
+    );
+useConnectWalletMutation.fetcher = (client: GraphQLClient, variables: ConnectWalletMutationVariables, headers?: RequestInit['headers']) => fetcher<ConnectWalletMutation, ConnectWalletMutationVariables>(client, ConnectWalletDocument, variables, headers);
+export const ConnectOwnerWalletDocument = `
+    mutation ConnectOwnerWallet($address: String!, $signature: String!) {
+  connectOwnerWallet(address: $address, signature: $signature) {
+    accessToken
+    refreshToken
+  }
+}
+    `;
+export const useConnectOwnerWalletMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(
+      client: GraphQLClient,
+      options?: UseMutationOptions<ConnectOwnerWalletMutation, TError, ConnectOwnerWalletMutationVariables, TContext>,
+      headers?: RequestInit['headers']
+    ) =>
+    useMutation<ConnectOwnerWalletMutation, TError, ConnectOwnerWalletMutationVariables, TContext>(
+      ['ConnectOwnerWallet'],
+      (variables?: ConnectOwnerWalletMutationVariables) => fetcher<ConnectOwnerWalletMutation, ConnectOwnerWalletMutationVariables>(client, ConnectOwnerWalletDocument, variables, headers)(),
+      options
+    );
+useConnectOwnerWalletMutation.fetcher = (client: GraphQLClient, variables: ConnectOwnerWalletMutationVariables, headers?: RequestInit['headers']) => fetcher<ConnectOwnerWalletMutation, ConnectOwnerWalletMutationVariables>(client, ConnectOwnerWalletDocument, variables, headers);
