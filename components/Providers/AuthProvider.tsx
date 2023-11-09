@@ -11,7 +11,7 @@ import {
   useSearchConnectMsgMutation,
 } from '@/graphql/generates';
 import { useAuth } from '@/hooks/useAuth';
-import { saveTokensStorage } from '@/redux/user/user-helper';
+import { saveTokensStorage, saveUserToStorage } from '@/redux/user/user-helper';
 import { ITokens } from '@/redux/user/user-interface';
 import { setUser } from '@/redux/user/user-slice';
 
@@ -61,8 +61,8 @@ const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
   useEffect(() => {
     if (address != user && address != null) {
       dispatch(setUser(address));
+      saveUserToStorage(address);
       handleAccept();
-      console.log('Run E', user);
     }
   }, [address]);
 

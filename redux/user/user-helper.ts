@@ -25,7 +25,7 @@ export const removeFromStorage = () => {
 };
 
 // Save Data User
-export const saveUserToStorage = (data: ITokens) => {
+export const saveUserToStorage = (data: any) => {
   localStorage.setItem('user', JSON.stringify(data));
 };
 
