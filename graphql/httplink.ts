@@ -9,7 +9,7 @@ import { setContext } from '@apollo/client/link/context';
 import { getAccessToken } from '@/redux/user/user-helper';
 
 const httpLink = createHttpLink({
-  uri: 'http://213.136.83.74:3030/graphql',
+  uri: (process.env.REACT_APP_API || 'http://213.136.83.74:3030') + `/graphql`,
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -94,6 +94,8 @@ function returnTokenDependingOnOperation(operation: GraphQLRequest) {
     throw err;
   }
 }; */
+
+// Setting cache and header link
 export const client = new ApolloClient({
   link: authLink.concat(httpLink),
   cache: new InMemoryCache(),

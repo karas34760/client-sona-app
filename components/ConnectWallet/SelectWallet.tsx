@@ -10,18 +10,14 @@ import {
   ModalContent,
   ModalFooter,
   ModalOverlay,
-  Spinner,
   Text,
   useColorModeValue,
 } from '@chakra-ui/react';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
-import React, { useEffect, useState } from 'react';
-import { useAccount, useConnect } from 'wagmi';
-import Web3 from 'web3';
+import React from 'react';
+import { useConnect } from 'wagmi';
 
-import client from '@/graphql/client';
-import { useSearchConnectMsgMutation } from '@/graphql/generates';
 import { WalletProps } from '@/utils/type';
 import CoinBaseIcon from 'public/assets/icons/wallet/coinbase.svg';
 import MetaMaskIcon from 'public/assets/icons/wallet/metamask.svg';
@@ -58,35 +54,6 @@ const SelectWallet = ({ isOpen, onClose }: IProps) => {
   const bgHover = useColorModeValue('primary.gray.300', 'primary.gray.500');
 
   const { connect, connectors } = useConnect();
-
-  const { address } = useAccount();
-  const [verifyLoading, setVerifyLoading] = useState(false);
-
-  const handleAccept = async () => {
-    const web3 = new Web3(window.ethereum);
-    if (address) {
-      const data = await useSearchConnectMsgMutation.fetcher(client, {
-        address: address?.toString(),
-      })();
-      try {
-        // @ts-ignore because web3 is defined here.
-        const signature = await web3.eth.personal.sign(
-          data.searchConnectMsg.message,
-          address,
-          ''
-        );
-        console.log(signature);
-      } catch (err) {
-        throw new Error('You need to sign the message to be able to log in.');
-      }
-    }
-  };
-  useEffect(() => {
-    if (address) {
-      handleAccept();
-      setVerifyLoading(false);
-    }
-  }, [address]);
 
   return (
     <>
@@ -144,7 +111,7 @@ const SelectWallet = ({ isOpen, onClose }: IProps) => {
                   onClick={async () => {
                     try {
                       await connect({ connector: connectors[index] });
-                      setVerifyLoading(true);
+
                       onClose();
                     } catch (error) {
                       console.log('Error From Select Wallet', error);
@@ -174,23 +141,6 @@ const SelectWallet = ({ isOpen, onClose }: IProps) => {
               Close
             </Text>
           </ModalFooter>
-        </ModalContent>
-      </Modal>
-      <Modal
-        onClose={() => {}}
-        isOpen={verifyLoading}
-        closeOnOverlayClick={false}
-      >
-        <ModalOverlay />
-        <ModalContent>
-          <Spinner
-            thickness="4px"
-            speed="0.65s"
-            emptyColor="gray.200"
-            color="blue.500"
-            size="xl"
-          />
-          <Text>We Are Verify Your Account</Text>
         </ModalContent>
       </Modal>
     </>

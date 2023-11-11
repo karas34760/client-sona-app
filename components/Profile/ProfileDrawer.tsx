@@ -9,12 +9,14 @@ import {
   useColorModeValue,
 } from '@chakra-ui/react';
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useDisconnect } from 'wagmi';
 
 import AccountAddress from './AccountAddress';
 import ListItemSetting from './ListItemSetting';
 import MiniProfile from './MiniProfile';
 
+import { setUser } from '@/redux/user/user-slice';
 import LogoutIcon from 'public/assets/icons/arrow/logout.svg';
 interface IProps {
   isOpen: boolean;
@@ -22,6 +24,7 @@ interface IProps {
 }
 const ProfileDrawer = ({ isOpen, onClose }: IProps) => {
   const { disconnect } = useDisconnect();
+  const dispatch = useDispatch();
   const bgDrawer = useColorModeValue('white', 'body.100');
   return (
     <>
@@ -45,7 +48,10 @@ const ProfileDrawer = ({ isOpen, onClose }: IProps) => {
             <Flex alignItems="center" justifyContent="space-between">
               <AccountAddress onClose={onClose} />
               <Button
-                onClick={() => disconnect()}
+                onClick={() => {
+                  disconnect();
+                  dispatch(setUser(null));
+                }}
                 leftIcon={<Icon as={LogoutIcon} />}
               >
                 Disconnect
