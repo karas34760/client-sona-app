@@ -1,13 +1,25 @@
 import {
   ApolloClient,
+  ApolloLink,
   createHttpLink,
+  FetchResult,
   GraphQLRequest,
   InMemoryCache,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import { onError } from '@apollo/client/link/error';
+import { Observable } from '@apollo/client/utilities';
+import { GraphQLError } from 'graphql';
+import Cookies from 'js-cookie';
 
-import { getAccessToken } from '@/redux/user/user-helper';
+import { REFRESH_ACCESS_TOKEN } from './query';
 
+import {
+  EnumTokens,
+  getAccessToken,
+  getRefreshToken,
+  removeFromStorage,
+} from '@/redux/user/user-helper';
 const httpLink = createHttpLink({
   uri: (process.env.REACT_APP_API || 'http://213.136.83.74:3030') + `/graphql`,
 });
@@ -25,29 +37,29 @@ const authLink = setContext((_, { headers }) => {
 });
 
 function isRefreshRequest(operation: GraphQLRequest) {
-  return operation.operationName === 'checkRefreshToken';
+  return operation.operationName === 'refreshAccessToken';
 }
-// Returns accesstoken if opoeration is not a refresh token request
+
 // eslint-disable-next-line no-unused-vars
 function returnTokenDependingOnOperation(operation: GraphQLRequest) {
-  if (isRefreshRequest(operation))
-    return localStorage.getItem('refreshToken') || '';
-  else return localStorage.getItem('accessToken') || '';
+  if (isRefreshRequest(operation)) return getRefreshToken();
+  else return getAccessToken();
 }
-/* const errorLink = onError(
+const errorLink = onError(
   ({ graphQLErrors, networkError, operation, forward }) => {
     if (graphQLErrors) {
       for (let err of graphQLErrors) {
         switch (err.extensions.code) {
           case 'UNAUTHENTICATED':
             // ignore 401 error for a refresh request
-            if (operation.operationName === 'refreshToken') return;
+            if (operation.operationName === 'refreshAccessToken') return;
 
             const observable = new Observable<FetchResult<Record<string, any>>>(
               observer => {
                 // used an annonymous function for using an async function
                 (async () => {
                   try {
+                    // eslint-disable-next-line no-use-before-define
                     const accessToken = await refreshToken();
 
                     if (!accessToken) {
@@ -76,27 +88,33 @@ function returnTokenDependingOnOperation(operation: GraphQLRequest) {
 
     if (networkError) console.log(`[Network error]: ${networkError}`);
   }
-); */
+);
 
-/* const refreshToken = async () => {
+const refreshToken = async () => {
   try {
+    // eslint-disable-next-line no-use-before-define
     const refreshResolverResponse = await client.mutate<{
-      refreshToken: AccessToken;
+      accessToken: string;
     }>({
-      mutation: REFRESH_TOKEN,
+      mutation: REFRESH_ACCESS_TOKEN,
     });
 
-    const accessToken = refreshResolverResponse.data?.refreshToken.accessToken;
-    localStorage.setItem('accessToken', accessToken || '');
-    return accessToken;
+    const accessToken = refreshResolverResponse.data?.accessToken;
+    if (accessToken) {
+      Cookies.set(EnumTokens.ACCESSTOKEN, accessToken);
+      return accessToken;
+    } else {
+      removeFromStorage();
+      return;
+    }
   } catch (err) {
-    localStorage.clear();
+    removeFromStorage();
     throw err;
   }
-}; */
+};
 
 // Setting cache and header link
 export const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: ApolloLink.from([errorLink, authLink, httpLink]),
   cache: new InMemoryCache(),
 });

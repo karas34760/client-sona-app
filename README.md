@@ -25,6 +25,10 @@ version of this certificate in the future, simply run certbot again
 with the "certonly" option. To non-interactively renew _all_ of
 your certificates, run "certbot renew"
 
+### Note:
+
+1. Uppercase Query Graphql to implem easy management
+
 ### Document About Web3js
 
 1.

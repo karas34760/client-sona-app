@@ -16,6 +16,7 @@ import AccountAddress from './AccountAddress';
 import ListItemSetting from './ListItemSetting';
 import MiniProfile from './MiniProfile';
 
+import { removeFromStorage } from '@/redux/user/user-helper';
 import { setUser } from '@/redux/user/user-slice';
 import LogoutIcon from 'public/assets/icons/arrow/logout.svg';
 interface IProps {
@@ -51,6 +52,7 @@ const ProfileDrawer = ({ isOpen, onClose }: IProps) => {
                 onClick={() => {
                   disconnect();
                   dispatch(setUser(null));
+                  removeFromStorage();
                 }}
                 leftIcon={<Icon as={LogoutIcon} />}
               >

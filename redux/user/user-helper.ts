@@ -8,6 +8,10 @@ export const getAccessToken = () => {
   const accessToken = Cookies.get(EnumTokens.ACCESSTOKEN);
   return accessToken || null;
 };
+export const getRefreshToken = () => {
+  const refreshToken = Cookies.get(EnumTokens.REFRESHTOKEN);
+  return refreshToken || null;
+};
 
 export const getUserFromStorage = () => {
   return JSON.parse(localStorage.getItem('user') || '{}');

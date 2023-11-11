@@ -1,6 +1,5 @@
 import { ApolloProvider } from '@apollo/client';
 import { ChakraProvider } from '@chakra-ui/react';
-import { Hydrate } from '@tanstack/react-query';
 import { ConnectKitProvider } from 'connectkit';
 import { AppProps } from 'next/app';
 import { Work_Sans } from 'next/font/google';
@@ -44,11 +43,9 @@ function App({ Component, pageProps }: AppProps) {
               <Provider store={store}>
                 <PersistGate loading={null} persistor={persistor}>
                   <AuthProvider>
-                    <Hydrate state={pageProps.dehydratedState}>
-                      <DefaultLayout>
-                        <Component {...pageProps} />
-                      </DefaultLayout>
-                    </Hydrate>
+                    <DefaultLayout>
+                      <Component {...pageProps} />
+                    </DefaultLayout>
                   </AuthProvider>
                 </PersistGate>
               </Provider>

@@ -1,12 +1,22 @@
 /* eslint-disable no-unused-vars */
-import { useToast } from '@chakra-ui/react';
-import { FC, PropsWithChildren, useEffect } from 'react';
+import {
+  Box,
+  Modal,
+  ModalCloseButton,
+  ModalContent,
+  ModalOverlay,
+  Text,
+  VStack,
+  useToast,
+} from '@chakra-ui/react';
+import { FC, PropsWithChildren, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useAccount, useDisconnect } from 'wagmi';
 import Web3 from 'web3';
 
+import LoadingVerify from '@/animations/Loading/LoadingVerify';
 import { client } from '@/graphql/httplink';
-import { ConnectWallet, SearchConnectMsg } from '@/graphql/query';
+import { CONNECT_WALLET, SEARCH_CONNECT_MSG } from '@/graphql/query';
 import { useAuth } from '@/hooks/useAuth';
 import { saveTokensStorage, saveUserToStorage } from '@/redux/user/user-helper';
 import { ITokens } from '@/redux/user/user-interface';
@@ -14,7 +24,7 @@ import { setUser } from '@/redux/user/user-slice';
 
 const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
   const { user } = useAuth();
-  const { address, isReconnecting, isConnecting } = useAccount();
+  const { address } = useAccount();
   const { disconnect } = useDisconnect();
   const dispatch = useDispatch();
   const toast = useToast();
@@ -23,7 +33,7 @@ const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
     const web3 = new Web3(window.ethereum);
     if (address) {
       const res_message = await client.mutate({
-        mutation: SearchConnectMsg,
+        mutation: SEARCH_CONNECT_MSG,
         variables: {
           address: address?.toString(),
         },
@@ -37,7 +47,7 @@ const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
           ''
         );
         const res = await client.mutate({
-          mutation: ConnectWallet,
+          mutation: CONNECT_WALLET,
           variables: {
             address,
             signature,
@@ -63,14 +73,40 @@ const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
     }
   };
 
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    if (address != user && address != null) {
-      dispatch(setUser(address));
-      saveUserToStorage(address);
-      handleAccept();
-    }
+    const currentCheck = async () => {
+      if (address != user && address != null) {
+        setLoading(true);
+        dispatch(setUser(address));
+        saveUserToStorage(address);
+        await handleAccept();
+        setLoading(false);
+      }
+    };
+    currentCheck();
   }, [address]);
+  return (
+    <>
+      {children}
 
-  return <>{children}</>;
+      <Modal
+        isOpen={loading}
+        onClose={() => {
+          disconnect();
+          setLoading(false);
+        }}
+      >
+        <ModalOverlay />
+        <ModalContent margin="auto">
+          <ModalCloseButton />
+          <VStack padding={6}>
+            <LoadingVerify />
+            <Text variant="type_sub_title">We are verify Now</Text>
+          </VStack>
+        </ModalContent>
+      </Modal>
+    </>
+  );
 };
 export default AuthProvider;
