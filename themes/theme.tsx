@@ -157,11 +157,7 @@ const Button: ComponentStyleConfig = {
         transition: '.4s ease-in-out',
       },
     }),
-    /*  tab_2: ({ isActive }) => ({
-      fontSize: 'medium',
-      fontWeight: 'bold',
-      color: isActive ? 'primary.purple.500' : 'primary.gray.400',
-    }), */
+
     tab_profile: (props: StyleFunctionProps) => ({
       fontWeight: 'bold',
       display: 'flex',
@@ -228,6 +224,23 @@ const Input: ComponentStyleConfig = {
     }),
   },
 };
+const Form: ComponentStyleConfig = {
+  variants: {
+    create_form: {
+      container: {
+        _focusWithin: {},
+        'input:not(:placeholder-shown) + label, .chakra-select__wrapper + label, textarea:not(:placeholder-shown) ~ label':
+          {},
+        label: {
+          color: 'primary.gray.800',
+          fontSize: 'sm',
+          fontWeight: 'bold',
+        },
+      },
+    },
+  },
+  parts: [],
+};
 export const fonts = {
   body: `'Work Sans', sans-serif`,
   /*   body: `'Inter',sans-serif`, */
@@ -276,6 +289,7 @@ const theme = extendTheme({
     Tooltip,
     Popover,
     Select,
+    Form,
     Input,
     Switch,
   },

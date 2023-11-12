@@ -17,6 +17,7 @@ import { REFRESH_ACCESS_TOKEN } from './query';
 import {
   EnumTokens,
   getAccessToken,
+  getItemFromLocal,
   getRefreshToken,
   removeFromStorage,
 } from '@/redux/user/user-helper';
@@ -92,11 +93,15 @@ const errorLink = onError(
 
 const refreshToken = async () => {
   try {
+    const currentUser = getItemFromLocal('user');
     // eslint-disable-next-line no-use-before-define
     const refreshResolverResponse = await client.mutate<{
       accessToken: string;
     }>({
       mutation: REFRESH_ACCESS_TOKEN,
+      variables: {
+        address: currentUser,
+      },
     });
 
     const accessToken = refreshResolverResponse.data?.accessToken;

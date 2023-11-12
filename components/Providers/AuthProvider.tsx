@@ -73,7 +73,7 @@ const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
     }
   };
 
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     const currentCheck = async () => {
       if (address != user && address != null) {

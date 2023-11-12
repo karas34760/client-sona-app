@@ -30,11 +30,99 @@ export const CONNECT_WALLET = gql`
     }
   }
 `;
-export const CONNECT_OWNER_WALLET = gql`
-  mutation ConnectOwnerWallet($address: String!, $signature: String!) {
-    connectOwnerWallet(address: $address, signature: $signature) {
-      accessToken
-      refreshToken
+
+export const SUBMIT_NEW_EVENT = gql`
+  mutation SubmitNewEvent(
+    $organizer: String!
+    $name: String!
+    $description: String!
+    $image: String!
+    $location: String!
+    $uri: String!
+    $tickets: [NewTicketType!]!
+    $timeForSell: Float!
+    $deadlineForSell: Float!
+    $startTime: Float!
+    $endTime: Float!
+  ) {
+    submitNewEvent(
+      organizer: $organizer
+      name: $name
+      description: $description
+      image: $image
+      location: $location
+      uri: $uri
+      tickets: $tickets
+      TimeForSell: $timeForSell
+      DeadlineForSell: $deadlineForSell
+      StartTime: $startTime
+      EndTime: $endTime
+    )
+  }
+`;
+
+export const SEARCH_EVENTS = gql`
+  query SearchEvents(
+    $page: Int
+    $size: Int
+    $filter: EventFilter
+    $orderBy: EventOrderBy
+  ) {
+    searchEvents(page: $page, size: $size, filter: $filter, orderBy: $orderBy) {
+      currentPage
+      hasNext
+      hasPrevious
+      pages
+      size
+      total
+      items {
+        eventId
+        address
+        organizer
+        name
+        description
+        image
+        location
+        uri
+        tickets
+        TimeForSell
+        DeadlineForSell
+        StartTime
+        EndTime
+        submitedTime
+        createdTime
+        createdTx
+      }
+    }
+  }
+`;
+
+const SEARCH_ACCOUNT_BY_ADDRESS = gql`
+  query SearchAccountByAddress($address: String!) {
+    searchAccountByAddress(address: $address) {
+      address
+      email
+      isOrganizer
+      isBanned
+      firstActive
+      verifiedAt
+    }
+  }
+`;
+
+const SEARCH_TICKETS = gql`
+  query SearchTickets($eventId: Int, $eventAddress: String, $tier: Float) {
+    searchTickets(eventId: $eventId, eventAddress: $eventAddress, tier: $tier) {
+      eventId
+      eventAddress
+      tier
+      amount
+      remaining
+      price
+      name
+      description
+      asset
+      uri
     }
   }
 `;
