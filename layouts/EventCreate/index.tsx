@@ -7,9 +7,9 @@ import {
   Text,
   useSteps,
 } from '@chakra-ui/react';
-import React from 'react';
+import React, { useState } from 'react';
 
-import StepAddTicket from './components/StepAddTicket';
+import StepAddTicket, { ITicketType } from './components/StepAddTicket';
 import StepEventBasic from './components/StepEventBasic';
 import StepEventDescription from './components/StepEventDescription';
 import StepEventLocation from './components/StepEventLocation';
@@ -17,6 +17,7 @@ import StepEventPhoto from './components/StepEventPhoto';
 import StepFollow from './components/StepFollow';
 import StepOrganize from './components/StepOrganize';
 
+import { useAuth } from '@/hooks/useAuth';
 import AddIcon from '@/public/assets/icons/generals/add-user.svg';
 import InfoIcon from '@/public/assets/icons/generals/info.svg';
 import TicketIcon from '@/public/assets/icons/generals/tickets.svg';
@@ -28,7 +29,36 @@ interface StepProps {
   element?: any;
   children?: any;
 }
+interface IForm {
+  organizer: string; // organizer  address
+  name: string;
+  description: string;
+  image: string;
+  location: string;
+  uri: string;
+  tickets: ITicketType[];
+  TimeForSell: number;
+  DeadlineForSell: number;
+  StartTime: number;
+  EndTime: number;
+}
 const EventCreatePage = () => {
+  // Setting initial state
+  const { user } = useAuth();
+  const [form, setForm] = useState<IForm>({
+    organizer: user || '',
+    name: '',
+    description: '',
+    image: '',
+    location: '',
+    uri: '',
+    tickets: [],
+    TimeForSell: 0,
+    DeadlineForSell: 0,
+    StartTime: 0,
+    EndTime: 0,
+  });
+
   const steps: StepProps[] = [
     {
       title: 'Oganize Details',
@@ -120,6 +150,11 @@ const EventCreatePage = () => {
                     onClick={() => goToNext()}
                   >
                     Next Step
+                  </Button>
+                )}
+                {activeStep == 6 && (
+                  <Button width="full" variant="primary">
+                    Submit Noew
                   </Button>
                 )}
               </Flex>

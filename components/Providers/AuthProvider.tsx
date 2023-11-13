@@ -9,6 +9,7 @@ import {
   VStack,
   useToast,
 } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 import { FC, PropsWithChildren, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useAccount, useDisconnect } from 'wagmi';
@@ -18,7 +19,11 @@ import LoadingVerify from '@/animations/Loading/LoadingVerify';
 import { client } from '@/graphql/httplink';
 import { CONNECT_WALLET, SEARCH_CONNECT_MSG } from '@/graphql/query';
 import { useAuth } from '@/hooks/useAuth';
-import { saveTokensStorage, saveUserToStorage } from '@/redux/user/user-helper';
+import {
+  getAccessToken,
+  saveTokensStorage,
+  saveUserToStorage,
+} from '@/redux/user/user-helper';
 import { ITokens } from '@/redux/user/user-interface';
 import { setUser } from '@/redux/user/user-slice';
 
@@ -86,6 +91,21 @@ const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
     };
     currentCheck();
   }, [address]);
+  const router = useRouter();
+  useEffect(() => {
+    const checkAuth = async () => {
+      const public_path = ['/account'];
+      const accessToken = getAccessToken();
+      if (
+        !accessToken &&
+        public_path.some(path => router.asPath.includes(path))
+      ) {
+        router.push('/auth');
+        await disconnect();
+      }
+    };
+    checkAuth();
+  }, []);
   return (
     <>
       {children}
