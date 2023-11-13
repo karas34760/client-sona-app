@@ -5,7 +5,6 @@ import {
   HStack,
   Icon,
   Input,
-  Select,
   Text,
 } from '@chakra-ui/react';
 import React from 'react';
@@ -61,24 +60,12 @@ const StepEventBasic = () => {
             <FormLabel>Event Start</FormLabel>
             <Flex gap={2} alignItems="center">
               <Input size="md" type="datetime-local" />
-              <Text>AT</Text>
-              <Select>
-                <option value="option1">12:00 PM</option>
-                <option value="option2">Option 2</option>
-                <option value="option3">Option 3</option>
-              </Select>
             </Flex>
           </FormControl>
           <FormControl variant="create_form">
             <FormLabel>Event End</FormLabel>
             <Flex gap={2} alignItems="center">
               <Input size="md" type="datetime-local" />
-              <Text>AT</Text>
-              <Select>
-                <option value="option1">1:00 AM</option>
-                <option value="option2">Option 2</option>
-                <option value="option3">Option 3</option>
-              </Select>
             </Flex>
           </FormControl>
         </HStack>

@@ -42,22 +42,22 @@ const EventCreatePage = () => {
       children: [
         {
           title: 'Basic',
-          id: 1,
+          id_child: 1,
           element: <StepEventBasic />,
         },
         {
           title: 'Location',
-          id: 2,
+          id_child: 2,
           element: <StepEventLocation />,
         },
         {
           title: 'Description',
-          id: 3,
+          id_child: 3,
           element: <StepEventDescription />,
         },
         {
           title: 'Photos',
-          id: 4,
+          id_child: 4,
           element: <StepEventPhoto />,
         },
       ],
@@ -72,6 +72,7 @@ const EventCreatePage = () => {
   const { activeStep, goToNext, goToPrevious } = useSteps({
     index: 0,
   });
+
   return (
     <>
       <Box width="full" bg="primary.gray.100" py={8}>
@@ -84,20 +85,23 @@ const EventCreatePage = () => {
               <StepFollow steps={steps} activeStep={activeStep} />
             </Box>
             <Box bg="white" padding={12} flexGrow={1} minH="500px">
-              {React.Children.toArray(
-                steps.map(item => {
-                  if (!item.children) {
-                    return item.id === activeStep ? item.element : null;
-                  } else {
-                    // If the item has children, map over them and include them in the array
-                    return React.Children.toArray(
-                      item.children.map((child: any) =>
-                        child.id === activeStep ? child.element : null
-                      )
-                    );
-                  }
-                })
-              )}
+              <Box mb={6}>
+                {React.Children.toArray(
+                  steps.map(item => {
+                    if (!item.children) {
+                      return item.id === activeStep ? item.element : null;
+                    } else {
+                      // If the item has children, map over them and include them in the array
+                      return React.Children.toArray(
+                        item.children.map((child: any) =>
+                          child.id_child === activeStep ? child.element : null
+                        )
+                      );
+                    }
+                  })
+                )}
+              </Box>
+
               <Flex gap={3}>
                 {activeStep != 0 && (
                   <Button

@@ -21,7 +21,7 @@ const StepOrganize = () => {
       <Flex flexDirection="column" gap={3} py={6}>
         <FormControl isRequired variant="create_form">
           <FormLabel>Oganize Name</FormLabel>
-          <Input placeholder="First name" />
+          <Input placeholder="Organize name" />
         </FormControl>
         <FormControl variant="create_form">
           <FormLabel>Country</FormLabel>

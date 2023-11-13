@@ -18,7 +18,7 @@ import { persistor, store } from '@/redux/store';
 import theme from '@/themes/theme';
 import { initGA } from '@/utils/analysis';
 import { config } from '@/wallet/wagmi/config';
-
+import '../themes/style/index.css';
 const work_sans = Work_Sans({ subsets: ['latin'] });
 function Adapter(props: any) {
   return <NextAdapterPages {...props} shallow={true} />;

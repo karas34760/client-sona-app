@@ -24,11 +24,17 @@ const StepFollow = ({ activeStep, steps }: StepValidateProps) => {
   return (
     <>
       <Stepper index={activeStep} orientation="vertical" gap={8}>
-        {steps.map((item, index) => {
+        {steps.map(item => {
           if (!item.children) {
             return (
-              <Step key={index}>
-                <HStack>
+              <Step key={item.id}>
+                <HStack
+                  color={
+                    activeStep == item.id
+                      ? 'primary.purple.500'
+                      : 'shader.a.900'
+                  }
+                >
                   <Icon as={item.icon} height={6} width={6} />
                   <Text fontWeight="bold">{item.title}</Text>
                 </HStack>
@@ -37,7 +43,13 @@ const StepFollow = ({ activeStep, steps }: StepValidateProps) => {
           } else {
             return (
               <>
-                <HStack>
+                <HStack
+                  color={
+                    activeStep >= 1 && activeStep <= 4
+                      ? 'primary.purple.500'
+                      : 'shader.a.900'
+                  }
+                >
                   <Icon as={item.icon} height={6} width={6} />
                   <Text fontWeight="bold">{item.title}</Text>
                 </HStack>
@@ -45,13 +57,15 @@ const StepFollow = ({ activeStep, steps }: StepValidateProps) => {
                   <Flex flexDirection="column" minH="250px" pl={6}>
                     {React.Children.toArray(
                       item.children.map((child: any) => (
-                        <Step key={child.id}>
+                        <Step key={child.id_child}>
                           <StepIndicator>
                             <StepStatus
-                              complete={child.id === activeStep && <StepIcon />}
-                              active={child.id === activeStep && <StepNumber />}
+                              complete={
+                                child.id_child == activeStep && <StepIcon />
+                              }
+                              active={child.id_child == activeStep}
                               incomplete={
-                                child.id === activeStep && <StepNumber />
+                                child.id_child == activeStep && <StepNumber />
                               }
                             />
                           </StepIndicator>
