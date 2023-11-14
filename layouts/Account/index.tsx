@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-use-before-define */
 import { Box, Button, Container, HStack, Icon, Text } from '@chakra-ui/react';
 import Link from 'next/link';
@@ -13,31 +14,11 @@ import SettingIcon from 'public/assets/icons/generals/setting.svg';
 
 const AccountDetailPage = () => {
   const { address } = useAccount();
-  /* const handleAccept = async () => {
-    if (address) {
-      const data = await useSearchConnectMsgMutation.fetcher(client, {
-        address: address?.toString(),
-      })();
-      try {
-        // @ts-ignore because web3 is defined here.
-        const signature = await web3.eth.personal.sign(
-          data.searchConnectMsg.message,
-          address,
-          '' // MetaMask will ignore the password argument here
-        );
-
-        console.log(signature);
-      } catch (err) {
-        throw new Error('You need to sign the message to be able to log in.');
-      }
-    }
-  }; */
 
   return (
     <>
       <Box padding={0}>
         <SettingProfileImage />
-
         <Container maxWidth="container.xl" my={12}>
           <HStack
             justifyContent="space-between"

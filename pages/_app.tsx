@@ -1,22 +1,24 @@
+import { ApolloProvider } from '@apollo/client';
 import { ChakraProvider } from '@chakra-ui/react';
-import {
-  Hydrate,
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query';
 import { ConnectKitProvider } from 'connectkit';
 import { AppProps } from 'next/app';
 import { Work_Sans } from 'next/font/google';
 import { appWithTranslation } from 'next-i18next';
 import NextAdapterPages from 'next-query-params';
 import { useEffect } from 'react';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import { QueryParamProvider } from 'use-query-params';
 import { WagmiConfig } from 'wagmi';
 
+import AuthProvider from '@/components/Providers/AuthProvider';
+import { client } from '@/graphql/httplink';
 import DefaultLayout from '@/layouts/DefaultLayout';
+import { persistor, store } from '@/redux/store';
 import theme from '@/themes/theme';
 import { initGA } from '@/utils/analysis';
 import { config } from '@/wallet/wagmi/config';
+import '../themes/style/index.css';
 const work_sans = Work_Sans({ subsets: ['latin'] });
 function Adapter(props: any) {
   return <NextAdapterPages {...props} shallow={true} />;
@@ -26,16 +28,7 @@ function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
     initGA(process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS || 'G-BWWLJY48PD');
   }, []);
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        refetchOnWindowFocus: false,
-        retry: false,
-        staleTime: 60000,
-        cacheTime: 60000,
-      },
-    },
-  });
+
   return (
     <>
       <style jsx global>
@@ -45,28 +38,31 @@ function App({ Component, pageProps }: AppProps) {
           }
         `}
       </style>
-
-      <ChakraProvider theme={theme}>
-        <WagmiConfig config={config}>
-          <ConnectKitProvider mode="light" debugMode>
-            <QueryClientProvider client={queryClient}>
-              <QueryParamProvider
-                options={{
-                  skipUpdateWhenNoChange: true,
-                  updateType: 'replaceIn',
-                }}
-                adapter={Adapter}
-              >
-                <Hydrate state={pageProps.dehydratedState}>
-                  <DefaultLayout>
-                    <Component {...pageProps} />
-                  </DefaultLayout>
-                </Hydrate>
-              </QueryParamProvider>
-            </QueryClientProvider>
-          </ConnectKitProvider>
-        </WagmiConfig>
-      </ChakraProvider>
+      <ApolloProvider client={client}>
+        <ChakraProvider theme={theme}>
+          <WagmiConfig config={config}>
+            <ConnectKitProvider mode="light" debugMode>
+              <Provider store={store}>
+                <PersistGate loading={null} persistor={persistor}>
+                  <QueryParamProvider
+                    options={{
+                      skipUpdateWhenNoChange: true,
+                      updateType: 'replaceIn',
+                    }}
+                    adapter={Adapter}
+                  >
+                    <AuthProvider>
+                      <DefaultLayout>
+                        <Component {...pageProps} />
+                      </DefaultLayout>
+                    </AuthProvider>
+                  </QueryParamProvider>
+                </PersistGate>
+              </Provider>
+            </ConnectKitProvider>
+          </WagmiConfig>
+        </ChakraProvider>
+      </ApolloProvider>
     </>
   );
 }
