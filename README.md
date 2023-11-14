@@ -2,12 +2,12 @@
 
 ## Getting Started
 
-First, run the development server:
+1.First, run the development server:
 
 ```bash
 yarn
 ```
-
+2. Add file .env
 ```bash
 yarn dev
 ```
