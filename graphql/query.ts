@@ -126,3 +126,15 @@ const SEARCH_TICKETS = gql`
     }
   }
 `;
+
+export const SEND_EMAIL_VERIFY = gql`
+  mutation SendEmailVerification($email: String!, $address: String!) {
+    sendEmailVerification(email: $email, address: $address)
+  }
+`;
+
+export const VEIRYF_EMAIL = gql`
+  mutation VerifyEmail($email: String!, $code: String!) {
+    verifyEmail(email: $email, code: $code)
+  }
+`;

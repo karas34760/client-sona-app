@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Text, HStack, Icon, useDisclosure, useToast } from '@chakra-ui/react';
+import { Text, HStack, Icon } from '@chakra-ui/react';
 import { ConnectKitButton } from 'connectkit';
 import React from 'react';
 import { useAccount } from 'wagmi';
@@ -8,9 +8,7 @@ import AccountMenu from './AccountMenu';
 
 import WalletIcon from 'public/assets/icons/generals/wallet.svg';
 const ConnectWallet = () => {
-  const { address, isConnected, isConnecting } = useAccount();
-
-  const toast = useToast();
+  const { isConnected } = useAccount();
 
   return (
     <>
