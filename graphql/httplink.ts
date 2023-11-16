@@ -22,7 +22,7 @@ import {
   removeFromStorage,
 } from '@/redux/user/user-helper';
 const httpLink = createHttpLink({
-  uri: (process.env.REACT_APP_API || 'http://213.136.83.74:3030') + `/graphql`,
+  uri: (process.env.REACT_API || 'http://213.136.83.74:3030') + `/graphql`,
 });
 
 const authLink = setContext((_, { headers }) => {
