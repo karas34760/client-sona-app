@@ -100,12 +100,12 @@ const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
         !accessToken &&
         public_path.some(path => router.asPath.includes(path))
       ) {
-        router.push('/auth');
+        router.push('/');
         await disconnect();
       }
     };
     checkAuth();
-  }, []);
+  }, [address, router.pathname]);
   return (
     <>
       {children}

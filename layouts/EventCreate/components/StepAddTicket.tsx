@@ -15,8 +15,16 @@ export interface ITicketType {
 }
 const StepAddTicket = () => {
   const { onClose, onOpen, isOpen } = useDisclosure();
-  const [listTicket, setListTicket] = useState([]);
-
+  const [listTicket, setListTicket] = useState<ITicketType[]>([]);
+  const deleteEvent = (index: any) => {
+    const updatedList = listTicket.filter((item, i) => i !== index);
+    setListTicket(updatedList);
+  };
+  const addTicket = (newTicket: ITicketType) => {
+    // Use the spread operator to create a new array with the new ticket
+    const updatedList = [...listTicket, newTicket];
+    setListTicket(updatedList);
+  };
   return (
     <>
       <Button onClick={onOpen}>Add Ticket</Button>

@@ -1,4 +1,5 @@
 import {
+  Button,
   Flex,
   FormControl,
   FormLabel,
@@ -12,7 +13,23 @@ import React from 'react';
 import LockIcon from '@/public/assets/icons/generals/lock.svg';
 import GloablIcon from '@/public/assets/icons/generals/website.svg';
 // Step Basic Event Info
-const StepEventBasic = () => {
+export interface IEventDetailData {
+  name: string;
+  description: string;
+  StartTime: number;
+  EndTime: number;
+}
+interface IProps {
+  // eslint-disable-next-line no-unused-vars
+  handleEventBasic: (event: IEventDetailData) => void;
+  goToPrevious: () => void;
+  goToNext: () => void;
+}
+const StepEventBasic = ({
+  handleEventBasic,
+  goToNext,
+  goToPrevious,
+}: IProps) => {
   return (
     <>
       <Flex flexDirection="column" gap={3} py={6}>
@@ -69,6 +86,14 @@ const StepEventBasic = () => {
             </Flex>
           </FormControl>
         </HStack>
+        <Flex gap={3}>
+          <Button width="full" variant="primary" onClick={() => goToPrevious()}>
+            Previous Step
+          </Button>
+          <Button width="full" variant="primary" onClick={() => goToNext()}>
+            Next Step
+          </Button>
+        </Flex>
       </Flex>
     </>
   );

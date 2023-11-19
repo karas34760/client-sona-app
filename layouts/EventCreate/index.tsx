@@ -1,22 +1,14 @@
 /* eslint-disable no-unused-vars */
-import {
-  Box,
-  Button,
-  Container,
-  Flex,
-  HStack,
-  Text,
-  useSteps,
-} from '@chakra-ui/react';
+import { Box, Container, HStack, Text, useSteps } from '@chakra-ui/react';
 import React, { useState } from 'react';
 
 import StepAddTicket, { ITicketType } from './components/StepAddTicket';
-import StepEventBasic from './components/StepEventBasic';
+import StepEventBasic, { IEventDetailData } from './components/StepEventBasic';
 import StepEventDescription from './components/StepEventDescription';
 import StepEventLocation from './components/StepEventLocation';
 import StepEventPhoto from './components/StepEventPhoto';
 import StepFollow from './components/StepFollow';
-import StepOrganize from './components/StepOrganize';
+import StepOrganize, { IOrganizeData } from './components/StepOrganize';
 
 import { useAuth } from '@/hooks/useAuth';
 import AddIcon from '@/public/assets/icons/generals/add-user.svg';
@@ -46,6 +38,9 @@ interface IForm {
 const EventCreatePage = () => {
   // Setting initial state
   const { user } = useAuth();
+  const { activeStep, goToNext, goToPrevious } = useSteps({
+    index: 0,
+  });
   const [form, setForm] = useState<IForm>({
     organizer: user || '',
     name: '',
@@ -59,13 +54,32 @@ const EventCreatePage = () => {
     StartTime: 0,
     EndTime: 0,
   });
-
+  console.log('Form', form);
+  const handleRegisterOrganize = (organize_info: IOrganizeData) => {
+    setForm(prev => ({
+      ...prev,
+      organizer: organize_info.organizer,
+    }));
+  };
+  const handleEventBasic = (event_info: IEventDetailData) => {
+    setForm(prev => ({
+      ...prev,
+      name: event_info.name,
+      StartTime: event_info.StartTime,
+      EndTime: event_info.EndTime,
+    }));
+  };
   const steps: StepProps[] = [
     {
       title: 'Oganize Details',
       icon: AddIcon,
       id: 0,
-      element: <StepOrganize />,
+      element: (
+        <StepOrganize
+          handleRegisterOrganize={handleRegisterOrganize}
+          goToNext={goToNext}
+        />
+      ),
     },
     {
       title: 'Add Event Details',
@@ -74,7 +88,13 @@ const EventCreatePage = () => {
         {
           title: 'Basic',
           id_child: 1,
-          element: <StepEventBasic />,
+          element: (
+            <StepEventBasic
+              handleEventBasic={handleEventBasic}
+              goToNext={goToNext}
+              goToPrevious={goToPrevious}
+            />
+          ),
         },
         {
           title: 'Location',
@@ -100,9 +120,6 @@ const EventCreatePage = () => {
       element: <StepAddTicket />,
     },
   ];
-  const { activeStep, goToNext, goToPrevious } = useSteps({
-    index: 0,
-  });
 
   return (
     <>
@@ -122,7 +139,6 @@ const EventCreatePage = () => {
                     if (!item.children) {
                       return item.id === activeStep ? item.element : null;
                     } else {
-                      // If the item has children, map over them and include them in the array
                       return React.Children.toArray(
                         item.children.map((child: any) =>
                           child.id_child === activeStep ? child.element : null
@@ -133,7 +149,7 @@ const EventCreatePage = () => {
                 )}
               </Box>
 
-              <Flex gap={3}>
+              {/*    <Flex gap={3}>
                 {activeStep != 0 && (
                   <Button
                     width="full"
@@ -155,10 +171,10 @@ const EventCreatePage = () => {
                 )}
                 {activeStep == 6 && (
                   <Button width="full" variant="primary">
-                    Submit Noew
+                    Submit Now
                   </Button>
                 )}
-              </Flex>
+              </Flex> */}
             </Box>
           </HStack>
         </Container>
