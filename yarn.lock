@@ -3283,6 +3283,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ipld/dag-cbor@npm:^8.0.0":
+  version: 8.0.1
+  resolution: "@ipld/dag-cbor@npm:8.0.1"
+  dependencies:
+    cborg: ^1.6.0
+    multiformats: ^11.0.0
+  checksum: 5fb0f60d56f9cf62b87899e440a17e39fbe0eacbd5a2e656c5017b76f8c9153b11f8ca7880df4618492e570df9228aa4c76eaf822209fe87e4b88c4cdcda81f1
+  languageName: node
+  linkType: hard
+
 "@ipld/dag-cbor@npm:^9.0.0":
   version: 9.0.6
   resolution: "@ipld/dag-cbor@npm:9.0.6"
@@ -3300,6 +3310,25 @@ __metadata:
     cborg: ^4.0.0
     multiformats: ^12.0.1
   checksum: b619ec7ed5506f80acd5ed0f6fddf8d9a7d67b72efb4f0f1d467e3bc432f268f075970f2f839dff8310f0f7265d0e3eff28129550c799a1e9cfe82b76f5132bb
+  languageName: node
+  linkType: hard
+
+"@ipld/dag-json@npm:^9.0.0":
+  version: 9.1.1
+  resolution: "@ipld/dag-json@npm:9.1.1"
+  dependencies:
+    cborg: ^1.5.4
+    multiformats: ^11.0.0
+  checksum: 12e8bef9ed297b62574a6e7768751511d187ff771f40eb5cc26fd24aad308bb0fe99111980ad1f9440bc8caa2ee307881da0393ebafec9326290177fa20c7476
+  languageName: node
+  linkType: hard
+
+"@ipld/dag-pb@npm:^3.0.0":
+  version: 3.0.2
+  resolution: "@ipld/dag-pb@npm:3.0.2"
+  dependencies:
+    multiformats: ^11.0.0
+  checksum: fd4ceec6896c89b9cceb925d883e761fa8e9e85fa95c4ab9fd4db32514e774c18fa05ba4e87a0c2adf4cf5405c8423b438eae06748524e9c088079bfb8652e91
   languageName: node
   linkType: hard
 
@@ -3405,6 +3434,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@libp2p/interface-keychain@npm:^1.0.3":
+  version: 1.0.8
+  resolution: "@libp2p/interface-keychain@npm:1.0.8"
+  dependencies:
+    multiformats: ^10.0.0
+  checksum: 0bbe2f712e9468298fa771c07c28fc964b608751c40f693c901827aa0e699ffb26304f0b66a08f0273c42b316787fa09ffa02ffe4307f6392bfb2430addf8452
+  languageName: node
+  linkType: hard
+
 "@libp2p/interface-keychain@npm:^2.0.0":
   version: 2.0.5
   resolution: "@libp2p/interface-keychain@npm:2.0.5"
@@ -3419,6 +3457,15 @@ __metadata:
   version: 1.0.8
   resolution: "@libp2p/interface-keys@npm:1.0.8"
   checksum: 08c2976b3436b6e4e6159d1c817bb9e41af41d159cb94afaa8c63cf0fbf8842b0e5ca758d6c38453a59d8e4e87cec3117e3c574d316b94fed8db842a77f6efb0
+  languageName: node
+  linkType: hard
+
+"@libp2p/interface-peer-id@npm:^1.0.0, @libp2p/interface-peer-id@npm:^1.0.4":
+  version: 1.1.2
+  resolution: "@libp2p/interface-peer-id@npm:1.1.2"
+  dependencies:
+    multiformats: ^10.0.0
+  checksum: 6f332fbacc2934c255877a021e5ef52cf1dec72dd51eb0899ca34a54ca1c1b5d7c160c5b3f8fa23a8e53551ef84028d7f6acde34171d0c91a300642a9cb5d06c
   languageName: node
   linkType: hard
 
@@ -3477,7 +3524,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@libp2p/logger@npm:^2.0.5":
+"@libp2p/logger@npm:^2.0.0, @libp2p/logger@npm:^2.0.5":
   version: 2.1.1
   resolution: "@libp2p/logger@npm:2.1.1"
   dependencies:
@@ -3487,6 +3534,18 @@ __metadata:
     interface-datastore: ^8.2.0
     multiformats: ^11.0.2
   checksum: 2176be1b4539c974d62f193bc8053eb4b7854875da2ca7a9456b4fb1443a7e0714ea76b4233e414f270e60d06f64ac7e99e4b5a2a7e95830bf5a67c62f9f5e14
+  languageName: node
+  linkType: hard
+
+"@libp2p/peer-id@npm:^1.1.10":
+  version: 1.1.18
+  resolution: "@libp2p/peer-id@npm:1.1.18"
+  dependencies:
+    "@libp2p/interface-peer-id": ^1.0.0
+    err-code: ^3.0.1
+    multiformats: ^10.0.0
+    uint8arrays: ^4.0.2
+  checksum: b2a4f92b4f2ec77ee58151ef7ef912f94e9f5cd80d035b8947c1c970e51519b5dd1f7c2808e6df07384eeedc149a121d50345ff840ec2de4765a49e4faa43a31
   languageName: node
   linkType: hard
 
@@ -3645,7 +3704,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@multiformats/multiaddr@npm:^11.1.5":
+"@multiformats/multiaddr@npm:^11.0.0, @multiformats/multiaddr@npm:^11.1.5":
   version: 11.6.1
   resolution: "@multiformats/multiaddr@npm:11.6.1"
   dependencies:
@@ -6584,6 +6643,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"cborg@npm:^1.5.4, cborg@npm:^1.6.0":
+  version: 1.10.2
+  resolution: "cborg@npm:1.10.2"
+  bin:
+    cborg: cli.js
+  checksum: 7743a8f125046ac27fb371c4ea18af54fbe853f7210f1ffacc6504a79566480c39d52ac4fbc1a5b5155e27b13c3b58955dc29db1bf20c4d651549d55fec2fa7f
+  languageName: node
+  linkType: hard
+
 "cborg@npm:^4.0.0":
   version: 4.0.5
   resolution: "cborg@npm:4.0.5"
@@ -6773,7 +6841,7 @@ __metadata:
     graphql-request: ^5.1.0
     husky: ^8.0.3
     i18next: ^23.2.11
-    ipfs-http-client: ^60.0.1
+    ipfs-http-client: ^59.0.0
     js-cookie: ^3.0.5
     kubo-rpc-client: ^3.0.1
     lint-staged: ^13.2.3
@@ -7251,6 +7319,16 @@ __metadata:
     es5-ext: ^0.10.50
     type: ^1.0.1
   checksum: 49ca0639c7b822db670de93d4fbce44b4aa072cd848c76292c9978a8cd0fff1028763020ff4b0f147bd77bfe29b4c7f82e0f71ade76b2a06100543cdfd948d19
+  languageName: node
+  linkType: hard
+
+"dag-jose@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "dag-jose@npm:3.0.1"
+  dependencies:
+    "@ipld/dag-cbor": ^8.0.0
+    multiformats: ^10.0.1
+  checksum: 5df23b3e90f78b6311068a3266b166ea592f280918b8e5c07528f94ae37df7afbd5d09d1ad5f0b271e4f084ac7b2fc56f9d886aea1ab8efc85602469afd12a62
   languageName: node
   linkType: hard
 
@@ -9838,6 +9916,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ipfs-core-types@npm:^0.13.0":
+  version: 0.13.0
+  resolution: "ipfs-core-types@npm:0.13.0"
+  dependencies:
+    "@ipld/dag-pb": ^3.0.0
+    "@libp2p/interface-keychain": ^1.0.3
+    "@libp2p/interface-peer-id": ^1.0.4
+    "@libp2p/interface-peer-info": ^1.0.2
+    "@libp2p/interface-pubsub": ^3.0.0
+    "@multiformats/multiaddr": ^11.0.0
+    "@types/node": ^18.0.0
+    interface-datastore: ^7.0.0
+    ipfs-unixfs: ^8.0.0
+    multiformats: ^10.0.0
+  checksum: 86e6421abe233d83e5cb8aff040246db035744abe2a96ae88caa0a43769e9e10a4eae7fb5cb1fb6b49e3cbb58aa9025b447d7ce250776a851efaaab0e68414be
+  languageName: node
+  linkType: hard
+
 "ipfs-core-types@npm:^0.14.1":
   version: 0.14.1
   resolution: "ipfs-core-types@npm:0.14.1"
@@ -9856,7 +9952,35 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ipfs-core-utils@npm:^0.18.0, ipfs-core-utils@npm:^0.18.1":
+"ipfs-core-utils@npm:^0.17.0":
+  version: 0.17.0
+  resolution: "ipfs-core-utils@npm:0.17.0"
+  dependencies:
+    "@libp2p/logger": ^2.0.0
+    "@multiformats/multiaddr": ^11.0.0
+    "@multiformats/multiaddr-to-uri": ^9.0.1
+    any-signal: ^3.0.0
+    blob-to-it: ^2.0.0
+    browser-readablestream-to-it: ^2.0.0
+    err-code: ^3.0.1
+    ipfs-core-types: ^0.13.0
+    ipfs-unixfs: ^8.0.0
+    ipfs-utils: ^9.0.6
+    it-all: ^2.0.0
+    it-map: ^2.0.0
+    it-peekable: ^2.0.0
+    it-to-stream: ^1.0.0
+    merge-options: ^3.0.4
+    multiformats: ^10.0.0
+    nanoid: ^4.0.0
+    parse-duration: ^1.0.0
+    timeout-abort-controller: ^3.0.0
+    uint8arrays: ^4.0.2
+  checksum: 01360173080292a1c7bfea7913db3c55aeb5b5c776535e4e1ac1e7760554cf8c6094d6b549538ff450d91297236cedac7e70581d09cdcb6d7cce0806659aaede
+  languageName: node
+  linkType: hard
+
+"ipfs-core-utils@npm:^0.18.0":
   version: 0.18.1
   resolution: "ipfs-core-utils@npm:0.18.1"
   dependencies:
@@ -9884,30 +10008,40 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ipfs-http-client@npm:^60.0.1":
-  version: 60.0.1
-  resolution: "ipfs-http-client@npm:60.0.1"
+"ipfs-http-client@npm:^59.0.0":
+  version: 59.0.0
+  resolution: "ipfs-http-client@npm:59.0.0"
   dependencies:
-    "@ipld/dag-cbor": ^9.0.0
-    "@ipld/dag-json": ^10.0.0
-    "@ipld/dag-pb": ^4.0.0
-    "@libp2p/logger": ^2.0.5
-    "@libp2p/peer-id": ^2.0.0
-    "@multiformats/multiaddr": ^11.1.5
+    "@ipld/dag-cbor": ^8.0.0
+    "@ipld/dag-json": ^9.0.0
+    "@ipld/dag-pb": ^3.0.0
+    "@libp2p/logger": ^2.0.0
+    "@libp2p/peer-id": ^1.1.10
+    "@multiformats/multiaddr": ^11.0.0
     any-signal: ^3.0.0
-    dag-jose: ^4.0.0
+    dag-jose: ^3.0.1
     err-code: ^3.0.1
-    ipfs-core-types: ^0.14.1
-    ipfs-core-utils: ^0.18.1
-    ipfs-utils: ^9.0.13
+    ipfs-core-types: ^0.13.0
+    ipfs-core-utils: ^0.17.0
+    ipfs-utils: ^9.0.6
     it-first: ^2.0.0
     it-last: ^2.0.0
     merge-options: ^3.0.4
-    multiformats: ^11.0.0
+    multiformats: ^10.0.0
     parse-duration: ^1.0.0
     stream-to-it: ^0.2.2
     uint8arrays: ^4.0.2
-  checksum: 14c2bf2b7c401a3d5b3d3b935942475549e0a792953d485afc69a746c4be1e367ea4a0bc3f65f7de39d8d280c2777866b4e6b98c8d91e68dbdb2c235b98295b7
+  checksum: 6c7343ca1d75f82565176c783643ba2e108846aa5bbf40ab904071bc34a1261878d451bc9eb6803950e35c5d5f2f1b0536637722625dd4e82ac222cd4294acf4
+  languageName: node
+  linkType: hard
+
+"ipfs-unixfs@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "ipfs-unixfs@npm:8.0.0"
+  dependencies:
+    err-code: ^3.0.1
+    protobufjs: ^7.0.0
+  checksum: 681d54714960c82644ef9da810c298761f70fd890a2b4cbf67e481ab76a9935477d27022c538815bc40bcd42936f728cdce650dd8446dc19662f45d5e584e001
   languageName: node
   linkType: hard
 
@@ -9921,7 +10055,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ipfs-utils@npm:^9.0.13, ipfs-utils@npm:^9.0.7":
+"ipfs-utils@npm:^9.0.13, ipfs-utils@npm:^9.0.6, ipfs-utils@npm:^9.0.7":
   version: 9.0.14
   resolution: "ipfs-utils@npm:9.0.14"
   dependencies:
@@ -11416,6 +11550,13 @@ __metadata:
     buffer: ^5.6.0
     varint: ^5.0.0
   checksum: e6a2916fa76c023b1c90b32ae74f8a781cf0727f71660b245a5ed1db46add6f2ce1586bee5713b16caf0a724e81bfe0678d89910c20d3bb5fd9649dacb2be79e
+  languageName: node
+  linkType: hard
+
+"multiformats@npm:^10.0.0, multiformats@npm:^10.0.1":
+  version: 10.0.3
+  resolution: "multiformats@npm:10.0.3"
+  checksum: 9551f25142e8ba711bbbee3d4155c5fa3f487e390e6b2e9816f3077853e469e7523da58570372dd2bc8cdfa0fd8f4d378faa18df224847832c9c31f9ecdf40c0
   languageName: node
   linkType: hard
 

@@ -7,10 +7,13 @@ import {
   HStack,
   Text,
   useSteps,
+  useToast,
 } from '@chakra-ui/react';
+import { create } from 'ipfs-http-client';
 import React, { useState } from 'react';
 
 import StepAddTicket, { ITicketType } from './components/StepAddTicket';
+import StepComplete from './components/StepComplete';
 import StepEventBasic from './components/StepEventBasic';
 import StepEventDescription from './components/StepEventDescription';
 import StepEventLocation from './components/StepEventLocation';
@@ -49,6 +52,10 @@ interface IForm {
 const EventCreatePage = () => {
   // Setting initial state
   const { user } = useAuth();
+  const toast = useToast({
+    position: 'top-right',
+    isClosable: true,
+  });
   const { activeStep, goToNext, goToPrevious } = useSteps({
     index: 0,
   });
@@ -140,10 +147,42 @@ const EventCreatePage = () => {
         <StepAddTicket tickets={form.tickets} updateFields={updateFields} />
       ),
     },
+    {
+      title: 'Complete Create',
+      icon: TicketIcon,
+      id: 6,
+      element: <StepComplete />,
+    },
   ];
 
   const handleSubmit = async () => {
     // First submit IPFS
+    if (form.image) {
+      const projectId = process.env.NEXT_PUBLIC_PROJECT_KEY;
+      const projectKey = process.env.NEXT_PUBLIC_SECRET_KEY;
+      const auth =
+        'Basic ' + Buffer.from(projectId + ':' + projectKey).toString('base64');
+      // Create connection to IPFS using infura
+      const client = create({
+        host: 'ipfs.infura.io',
+        port: 5001,
+        protocol: 'https',
+        headers: {
+          authorization: auth,
+        },
+      });
+      const fileAdded = await client.add(form.image);
+      console.log('File Add', fileAdded);
+      const imgUrl = `https://karas.infura-ipfs.io/ipfs/` + fileAdded.path;
+      const metadata = {
+        name: 'name',
+        description: 'description',
+        image: imgUrl,
+      };
+      const metadataAdded = await client.add(JSON.stringify(metadata));
+      console.log('Now Meta', metadataAdded);
+    }
+
     // create events
     const response = await client.mutate({
       mutation: SUBMIT_NEW_EVENT,
@@ -162,9 +201,8 @@ const EventCreatePage = () => {
         mortageTx: form.mortageTx,
       },
     });
-    console.log('Now Submit Event', response);
   };
-  console.log('Form', Date.parse(form.StartTime.toString()));
+  console.log('Form', form);
   return (
     <>
       <Box width="full" bg="primary.gray.100" py={8}>

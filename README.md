@@ -7,7 +7,9 @@
 ```bash
 yarn
 ```
+
 2. Add file .env
+
 ```bash
 yarn dev
 ```
@@ -31,4 +33,6 @@ your certificates, run "certbot renew"
 
 ### Document About Web3js
 
-1. Connect and sign 
+1. Connect and sign
+
+### Upload image to IPFS
