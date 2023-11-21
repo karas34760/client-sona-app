@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Box } from '@chakra-ui/react';
 import DOMPurify from 'dompurify';
 import { convertToHTML } from 'draft-convert';
@@ -15,13 +16,16 @@ const Editor = dynamic<EditorProps>(
   { ssr: false }
 );
 
-const TextEditor = () => {
+interface IProps {
+  convertedContent: string | null;
+  setConvertedContent: (content: string) => void;
+}
+const TextEditor = ({ convertedContent, setConvertedContent }: IProps) => {
   /*   const _contentState = ContentState.createFromText('Sample content state');
      const raw = convertToRaw(_contentState);  */
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
-  const [convertedContent, setConvertedContent] = useState<string | null>(null);
 
   useEffect(() => {
     let html = convertToHTML(editorState.getCurrentContent());
@@ -41,7 +45,7 @@ const TextEditor = () => {
         editorClassName="editor-class"
         toolbarClassName="toolbar-class"
       />
-      <Box dangerouslySetInnerHTML={createMarkup(convertedContent)}></Box>
+      {/*  <Box dangerouslySetInnerHTML={createMarkup(convertedContent)}></Box> */}
     </>
   );
 };

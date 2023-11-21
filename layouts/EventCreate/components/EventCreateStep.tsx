@@ -8,13 +8,25 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 
-const EventCreateStep = () => {
+import { ITicketType } from './StepAddTicket';
+interface IProps {
+  currentTicket: ITicketType;
+  // eslint-disable-next-line no-unused-vars
+  setCurrentTicket: (tick: ITicketType) => void;
+}
+const EventCreateStep = ({ currentTicket, setCurrentTicket }: IProps) => {
   return (
     <>
       <Flex flexDirection="column" gap={3}>
         <FormControl variant="create_form">
           <FormLabel>Ticket Name</FormLabel>
-          <Input placeholder="Enter Ticket Name" />
+          <Input
+            placeholder="Enter Ticket Name"
+            value={currentTicket.name}
+            onChange={e =>
+              setCurrentTicket({ ...currentTicket, name: e.target.value })
+            }
+          />
         </FormControl>
         <HStack gap={6}>
           <FormControl variant="create_form">

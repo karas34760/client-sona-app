@@ -44,6 +44,7 @@ export const SUBMIT_NEW_EVENT = gql`
     $deadlineForSell: Float!
     $startTime: Float!
     $endTime: Float!
+    $mortageTx: String!
   ) {
     submitNewEvent(
       organizer: $organizer
@@ -57,6 +58,7 @@ export const SUBMIT_NEW_EVENT = gql`
       DeadlineForSell: $deadlineForSell
       StartTime: $startTime
       EndTime: $endTime
+      mortageTx: $mortageTx
     )
   }
 `;

@@ -1,5 +1,4 @@
 import {
-  Button,
   Flex,
   FormControl,
   FormLabel,
@@ -15,27 +14,30 @@ import GloablIcon from '@/public/assets/icons/generals/website.svg';
 // Step Basic Event Info
 export interface IEventDetailData {
   name: string;
-  description: string;
-  StartTime: number;
-  EndTime: number;
+
+  StartTime: string;
+  EndTime: string;
+  TimeForSell: string;
+  DeadlineForSell: string;
 }
 interface IProps {
   // eslint-disable-next-line no-unused-vars
-  handleEventBasic: (event: IEventDetailData) => void;
-  goToPrevious: () => void;
-  goToNext: () => void;
+  event_data: IEventDetailData;
+  // eslint-disable-next-line no-unused-vars
+  updateFields: (fields: Partial<IEventDetailData>) => void;
 }
-const StepEventBasic = ({
-  handleEventBasic,
-  goToNext,
-  goToPrevious,
-}: IProps) => {
+const StepEventBasic = ({ event_data, updateFields }: IProps) => {
   return (
     <>
       <Flex flexDirection="column" gap={3} py={6}>
         <FormControl isRequired variant="create_form">
           <FormLabel>Event Name</FormLabel>
-          <Input placeholder="First name" />
+          <Input
+            placeholder="Event name"
+            id="name"
+            value={event_data.name}
+            onChange={e => updateFields({ name: e.target.value })}
+          />
         </FormControl>
         <FormControl isRequired variant="create_form">
           <FormLabel>Event Display Name</FormLabel>
@@ -76,24 +78,56 @@ const StepEventBasic = ({
           <FormControl variant="create_form">
             <FormLabel>Event Start</FormLabel>
             <Flex gap={2} alignItems="center">
-              <Input size="md" type="datetime-local" />
+              <Input
+                size="md"
+                type="datetime-local"
+                id="StartTime"
+                value={event_data.StartTime}
+                onChange={e => updateFields({ StartTime: e.target.value })}
+              />
             </Flex>
           </FormControl>
           <FormControl variant="create_form">
             <FormLabel>Event End</FormLabel>
             <Flex gap={2} alignItems="center">
-              <Input size="md" type="datetime-local" />
+              <Input
+                size="md"
+                type="datetime-local"
+                id="EndTime"
+                value={event_data.EndTime}
+                onChange={e => updateFields({ EndTime: e.target.value })}
+              />
             </Flex>
           </FormControl>
         </HStack>
-        <Flex gap={3}>
-          <Button width="full" variant="primary" onClick={() => goToPrevious()}>
-            Previous Step
-          </Button>
-          <Button width="full" variant="primary" onClick={() => goToNext()}>
-            Next Step
-          </Button>
-        </Flex>
+        <HStack gap={5}>
+          <FormControl variant="create_form">
+            <FormLabel>Time For Sale</FormLabel>
+            <Flex gap={2} alignItems="center">
+              <Input
+                size="md"
+                type="datetime-local"
+                id="TimeForSell"
+                value={event_data.TimeForSell}
+                onChange={e => updateFields({ TimeForSell: e.target.value })}
+              />
+            </Flex>
+          </FormControl>
+          <FormControl variant="create_form">
+            <FormLabel>Deadline for Sale</FormLabel>
+            <Flex gap={2} alignItems="center">
+              <Input
+                size="md"
+                type="datetime-local"
+                id="DeadlineForSell"
+                value={event_data.DeadlineForSell}
+                onChange={e =>
+                  updateFields({ DeadlineForSell: e.target.value })
+                }
+              />
+            </Flex>
+          </FormControl>
+        </HStack>
       </Flex>
     </>
   );

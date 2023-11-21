@@ -6773,6 +6773,7 @@ __metadata:
     graphql-request: ^5.1.0
     husky: ^8.0.3
     i18next: ^23.2.11
+    ipfs-http-client: ^60.0.1
     js-cookie: ^3.0.5
     kubo-rpc-client: ^3.0.1
     lint-staged: ^13.2.3
@@ -9855,7 +9856,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ipfs-core-utils@npm:^0.18.0":
+"ipfs-core-utils@npm:^0.18.0, ipfs-core-utils@npm:^0.18.1":
   version: 0.18.1
   resolution: "ipfs-core-utils@npm:0.18.1"
   dependencies:
@@ -9880,6 +9881,33 @@ __metadata:
     timeout-abort-controller: ^3.0.0
     uint8arrays: ^4.0.2
   checksum: 70414e3c4416be46735216feb87f539b7a35727d6390555e81cbe2ea42eec23a7e9d3583ef16e31b980403e8c212c57baa0f882c862380c794005e7ceb7c22bd
+  languageName: node
+  linkType: hard
+
+"ipfs-http-client@npm:^60.0.1":
+  version: 60.0.1
+  resolution: "ipfs-http-client@npm:60.0.1"
+  dependencies:
+    "@ipld/dag-cbor": ^9.0.0
+    "@ipld/dag-json": ^10.0.0
+    "@ipld/dag-pb": ^4.0.0
+    "@libp2p/logger": ^2.0.5
+    "@libp2p/peer-id": ^2.0.0
+    "@multiformats/multiaddr": ^11.1.5
+    any-signal: ^3.0.0
+    dag-jose: ^4.0.0
+    err-code: ^3.0.1
+    ipfs-core-types: ^0.14.1
+    ipfs-core-utils: ^0.18.1
+    ipfs-utils: ^9.0.13
+    it-first: ^2.0.0
+    it-last: ^2.0.0
+    merge-options: ^3.0.4
+    multiformats: ^11.0.0
+    parse-duration: ^1.0.0
+    stream-to-it: ^0.2.2
+    uint8arrays: ^4.0.2
+  checksum: 14c2bf2b7c401a3d5b3d3b935942475549e0a792953d485afc69a746c4be1e367ea4a0bc3f65f7de39d8d280c2777866b4e6b98c8d91e68dbdb2c235b98295b7
   languageName: node
   linkType: hard
 

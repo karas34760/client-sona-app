@@ -1,15 +1,25 @@
 /* eslint-disable no-unused-vars */
-import { Box, Container, HStack, Text, useSteps } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Container,
+  Flex,
+  HStack,
+  Text,
+  useSteps,
+} from '@chakra-ui/react';
 import React, { useState } from 'react';
 
 import StepAddTicket, { ITicketType } from './components/StepAddTicket';
-import StepEventBasic, { IEventDetailData } from './components/StepEventBasic';
+import StepEventBasic from './components/StepEventBasic';
 import StepEventDescription from './components/StepEventDescription';
 import StepEventLocation from './components/StepEventLocation';
 import StepEventPhoto from './components/StepEventPhoto';
 import StepFollow from './components/StepFollow';
-import StepOrganize, { IOrganizeData } from './components/StepOrganize';
+import StepOrganize from './components/StepOrganize';
 
+import { client } from '@/graphql/httplink';
+import { SUBMIT_NEW_EVENT } from '@/graphql/query';
 import { useAuth } from '@/hooks/useAuth';
 import AddIcon from '@/public/assets/icons/generals/add-user.svg';
 import InfoIcon from '@/public/assets/icons/generals/info.svg';
@@ -26,14 +36,15 @@ interface IForm {
   organizer: string; // organizer  address
   name: string;
   description: string;
-  image: string;
+  image: File | undefined; // when send need to reformat
   location: string;
   uri: string;
   tickets: ITicketType[];
-  TimeForSell: number;
-  DeadlineForSell: number;
-  StartTime: number;
-  EndTime: number;
+  TimeForSell: number | string;
+  DeadlineForSell: number | string;
+  StartTime: number | string;
+  EndTime: number | string;
+  mortageTx: string;
 }
 const EventCreatePage = () => {
   // Setting initial state
@@ -45,7 +56,7 @@ const EventCreatePage = () => {
     organizer: user || '',
     name: '',
     description: '',
-    image: '',
+    image: undefined,
     location: '',
     uri: '',
     tickets: [],
@@ -53,22 +64,13 @@ const EventCreatePage = () => {
     DeadlineForSell: 0,
     StartTime: 0,
     EndTime: 0,
+    mortageTx: '',
   });
-  console.log('Form', form);
-  const handleRegisterOrganize = (organize_info: IOrganizeData) => {
-    setForm(prev => ({
-      ...prev,
-      organizer: organize_info.organizer,
-    }));
-  };
-  const handleEventBasic = (event_info: IEventDetailData) => {
-    setForm(prev => ({
-      ...prev,
-      name: event_info.name,
-      StartTime: event_info.StartTime,
-      EndTime: event_info.EndTime,
-    }));
-  };
+  function updateFields(fields: Partial<IForm>) {
+    setForm(prev => {
+      return { ...prev, ...fields };
+    });
+  }
   const steps: StepProps[] = [
     {
       title: 'Oganize Details',
@@ -76,8 +78,8 @@ const EventCreatePage = () => {
       id: 0,
       element: (
         <StepOrganize
-          handleRegisterOrganize={handleRegisterOrganize}
-          goToNext={goToNext}
+          organize_data={{ organizer: form.organizer }}
+          updateFields={updateFields}
         />
       ),
     },
@@ -90,26 +92,43 @@ const EventCreatePage = () => {
           id_child: 1,
           element: (
             <StepEventBasic
-              handleEventBasic={handleEventBasic}
-              goToNext={goToNext}
-              goToPrevious={goToPrevious}
+              event_data={{
+                name: form.name,
+                StartTime: form.StartTime.toString(),
+                EndTime: form.EndTime.toString(),
+                DeadlineForSell: form.DeadlineForSell.toString(),
+                TimeForSell: form.TimeForSell.toString(),
+              }}
+              updateFields={updateFields}
             />
           ),
         },
         {
           title: 'Location',
           id_child: 2,
-          element: <StepEventLocation />,
+          element: (
+            <StepEventLocation
+              location_data={{ location: form.location }}
+              updateFields={updateFields}
+            />
+          ),
         },
         {
           title: 'Description',
           id_child: 3,
-          element: <StepEventDescription />,
+          element: (
+            <StepEventDescription
+              updateFields={updateFields}
+              description={form.description}
+            />
+          ),
         },
         {
           title: 'Photos',
           id_child: 4,
-          element: <StepEventPhoto />,
+          element: (
+            <StepEventPhoto image={form.image} updateFields={updateFields} />
+          ),
         },
       ],
     },
@@ -117,10 +136,35 @@ const EventCreatePage = () => {
       title: 'Ticket Details',
       icon: TicketIcon,
       id: 5,
-      element: <StepAddTicket />,
+      element: (
+        <StepAddTicket tickets={form.tickets} updateFields={updateFields} />
+      ),
     },
   ];
 
+  const handleSubmit = async () => {
+    // First submit IPFS
+    // create events
+    const response = await client.mutate({
+      mutation: SUBMIT_NEW_EVENT,
+      variables: {
+        organizer: form.organizer,
+        name: form.name,
+        description: form.description,
+        image: '',
+        location: form.location,
+        uri: '',
+        tickets: form.tickets,
+        timeForSell: Date.parse(form.TimeForSell.toString()),
+        deadlineForSell: Date.parse(form.DeadlineForSell.toString()),
+        startTime: Date.parse(form.StartTime.toString()),
+        endTime: Date.parse(form.EndTime.toString()),
+        mortageTx: form.mortageTx,
+      },
+    });
+    console.log('Now Submit Event', response);
+  };
+  console.log('Form', Date.parse(form.StartTime.toString()));
   return (
     <>
       <Box width="full" bg="primary.gray.100" py={8}>
@@ -133,7 +177,7 @@ const EventCreatePage = () => {
               <StepFollow steps={steps} activeStep={activeStep} />
             </Box>
             <Box bg="white" padding={12} flexGrow={1} minH="500px">
-              <Box mb={6}>
+              <Box mb={6} height="full">
                 {React.Children.toArray(
                   steps.map(item => {
                     if (!item.children) {
@@ -149,7 +193,7 @@ const EventCreatePage = () => {
                 )}
               </Box>
 
-              {/*    <Flex gap={3}>
+              <Flex gap={3}>
                 {activeStep != 0 && (
                   <Button
                     width="full"
@@ -164,17 +208,23 @@ const EventCreatePage = () => {
                   <Button
                     width="full"
                     variant="primary"
+                    type="submit"
                     onClick={() => goToNext()}
                   >
                     Next Step
                   </Button>
                 )}
                 {activeStep == 6 && (
-                  <Button width="full" variant="primary">
+                  <Button
+                    width="full"
+                    variant="primary"
+                    type="submit"
+                    onClick={handleSubmit}
+                  >
                     Submit Now
                   </Button>
                 )}
-              </Flex> */}
+              </Flex>
             </Box>
           </HStack>
         </Container>
