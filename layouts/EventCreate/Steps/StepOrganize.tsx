@@ -3,6 +3,7 @@ import {
   FormControl,
   FormLabel,
   HStack,
+  Icon,
   Input,
   Radio,
   RadioGroup,
@@ -11,6 +12,7 @@ import {
 } from '@chakra-ui/react';
 import React from 'react';
 
+import InfoIcon from '@/public/assets/icons/generals/info.svg';
 import { countries } from '@/utils/country';
 // Organize Information Detail
 export interface IOrganizeData {
@@ -25,10 +27,13 @@ interface IProps {
 const StepOrganize = ({ organize_data, updateFields }: IProps) => {
   return (
     <>
-      <Text>
-        Before you start, Knowing your information will help us customize report
-        in sales
-      </Text>
+      <HStack gap={2}>
+        <Icon as={InfoIcon} />
+        <Text color="primary.gray.500">
+          Before you start, Knowing your information will help us customize
+          report in sales
+        </Text>
+      </HStack>
 
       <Flex flexDirection="column" gap={3} py={6}>
         <FormControl isRequired variant="create_form">

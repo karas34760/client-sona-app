@@ -12,22 +12,24 @@ import {
 import { create } from 'ipfs-http-client';
 import React, { useState } from 'react';
 
-import StepAddTicket, { ITicketType } from './components/StepAddTicket';
-import StepComplete from './components/StepComplete';
-import StepEventBasic from './components/StepEventBasic';
-import StepEventDescription from './components/StepEventDescription';
-import StepEventLocation from './components/StepEventLocation';
-import StepEventPhoto from './components/StepEventPhoto';
-import StepFollow from './components/StepFollow';
-import StepOrganize from './components/StepOrganize';
+import StepAddTicket, { ITicketType } from './Steps/StepAddTicket';
+import StepComplete from './Steps/StepComplete';
+import StepEventBasic from './Steps/StepEventBasic';
+import StepEventDescription from './Steps/StepEventDescription';
+import StepEventLocation from './Steps/StepEventLocation';
+import StepEventPhoto from './Steps/StepEventPhoto';
+import StepFollow from './Steps/StepFollow';
+import StepOrganize from './Steps/StepOrganize';
+import StepSingerCreate from './Steps/StepSingerCreate';
 
 import { client } from '@/graphql/httplink';
 import { SUBMIT_NEW_EVENT } from '@/graphql/query';
 import { useAuth } from '@/hooks/useAuth';
 import AddIcon from '@/public/assets/icons/generals/add-user.svg';
+import CompleteIcon from '@/public/assets/icons/generals/complete.svg';
 import InfoIcon from '@/public/assets/icons/generals/info.svg';
+import PerfomanceIcon from '@/public/assets/icons/generals/micro.svg';
 import TicketIcon from '@/public/assets/icons/generals/tickets.svg';
-
 interface StepProps {
   title: string;
   icon?: any;
@@ -56,6 +58,7 @@ const EventCreatePage = () => {
     position: 'top-right',
     isClosable: true,
   });
+  const [isOpenNew, setIsOpenNew] = useState(false);
   const { activeStep, goToNext, goToPrevious } = useSteps({
     index: 0,
   });
@@ -91,7 +94,7 @@ const EventCreatePage = () => {
       ),
     },
     {
-      title: 'Add Event Details',
+      title: ' Event Details',
       icon: InfoIcon,
       children: [
         {
@@ -144,18 +147,29 @@ const EventCreatePage = () => {
       icon: TicketIcon,
       id: 5,
       element: (
-        <StepAddTicket tickets={form.tickets} updateFields={updateFields} />
+        <StepAddTicket
+          tickets={form.tickets}
+          updateFields={updateFields}
+          setIsOpenNew={setIsOpenNew}
+        />
       ),
     },
     {
-      title: 'Complete Create',
-      icon: TicketIcon,
+      title: 'Singers',
+      icon: PerfomanceIcon,
       id: 6,
+      element: <StepSingerCreate />,
+    },
+    {
+      title: 'Complete Create',
+      icon: CompleteIcon,
+      id: 7,
       element: <StepComplete />,
     },
   ];
 
   const handleSubmit = async () => {
+    let imgUrl = '';
     // First submit IPFS
     if (form.image) {
       const projectId = process.env.NEXT_PUBLIC_PROJECT_KEY;
@@ -172,15 +186,14 @@ const EventCreatePage = () => {
         },
       });
       const fileAdded = await client.add(form.image);
-      console.log('File Add', fileAdded);
-      const imgUrl = `https://karas.infura-ipfs.io/ipfs/` + fileAdded.path;
+
+      imgUrl = `https://karas.infura-ipfs.io/ipfs/` + fileAdded.path;
       const metadata = {
         name: 'name',
         description: 'description',
         image: imgUrl,
       };
       const metadataAdded = await client.add(JSON.stringify(metadata));
-      console.log('Now Meta', metadataAdded);
     }
 
     // create events
@@ -190,7 +203,7 @@ const EventCreatePage = () => {
         organizer: form.organizer,
         name: form.name,
         description: form.description,
-        image: '',
+        image: imgUrl,
         location: form.location,
         uri: '',
         tickets: form.tickets,
@@ -232,7 +245,7 @@ const EventCreatePage = () => {
               </Box>
 
               <Flex gap={3}>
-                {activeStep != 0 && (
+                {activeStep != 0 && !isOpenNew && (
                   <Button
                     width="full"
                     variant="primary"
@@ -242,7 +255,7 @@ const EventCreatePage = () => {
                   </Button>
                 )}
 
-                {activeStep <= 5 && (
+                {activeStep <= 6 && !isOpenNew && (
                   <Button
                     width="full"
                     variant="primary"
@@ -252,7 +265,7 @@ const EventCreatePage = () => {
                     Next Step
                   </Button>
                 )}
-                {activeStep == 6 && (
+                {activeStep == 7 && !isOpenNew && (
                   <Button
                     width="full"
                     variant="primary"
