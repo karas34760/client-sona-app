@@ -71,7 +71,7 @@ const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
           title: 'Verify Failed',
           description: 'We need you sign to verify account',
           status: 'error',
-          duration: 9000,
+          duration: 4000,
           isClosable: true,
         });
       }
@@ -81,12 +81,21 @@ const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     const currentCheck = async () => {
+      const accessToken = getAccessToken();
+
       if (address != user && address != null) {
         setLoading(true);
         dispatch(setUser(address));
         saveUserToStorage(address);
         await handleAccept();
         setLoading(false);
+        return;
+      }
+      if (!accessToken && address != null) {
+        setLoading(true);
+        await handleAccept();
+        setLoading(false);
+        return;
       }
     };
     currentCheck();
