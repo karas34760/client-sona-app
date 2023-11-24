@@ -1,3 +1,4 @@
+import { useQuery } from '@apollo/client';
 import {
   Box,
   Flex,
@@ -8,13 +9,56 @@ import {
   Icon,
   HStack,
   Button,
+  useDisclosure,
+  useToast,
 } from '@chakra-ui/react';
 import Link from 'next/link';
+import { useState } from 'react';
+import * as yup from 'yup';
 
+import VerifyCodeModal from '@/components/Modal/VerifyCodeModal';
+import { client } from '@/graphql/httplink';
+import { SEARCH_ACCOUNT_BY_ADDRESS, SEND_EMAIL_VERIFY } from '@/graphql/query';
+import { useAuth } from '@/hooks/useAuth';
 import SettingProfileImage from '@/layouts/Account/UsedComponents/SettingProfileImage';
 import CompassIcon from 'public/assets/icons/generals/website.svg';
-
 const SettingProfile = () => {
+  const { user } = useAuth();
+  const { loading, data, refetch } = useQuery(SEARCH_ACCOUNT_BY_ADDRESS, {
+    variables: {
+      address: user,
+    },
+  });
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [currentEmail, setCurrentEmail] = useState('');
+  // Use yubobject to verify
+  const yupObject = yup.object().shape({
+    email: yup.string().required().email(),
+  });
+  const toast = useToast({
+    position: 'top-right',
+  });
+  const handleSendEmail = async () => {
+    yupObject
+      .validate({ email: currentEmail })
+      .then(async () => {
+        await client.mutate({
+          mutation: SEND_EMAIL_VERIFY,
+          variables: {
+            email: currentEmail,
+          },
+        });
+        onOpen();
+      })
+      .catch(function (err) {
+        toast({
+          title: `${err}`,
+          status: 'error',
+          duration: 9000,
+          isClosable: true,
+        });
+      });
+  };
   return (
     <>
       <Box width="full">
@@ -75,15 +119,28 @@ const SettingProfile = () => {
             <FormLabel>
               <Text fontWeight="bold">Email</Text>
               <Text fontSize="sm" color="primary.gray.500">
-                Your email for marketplace notifications
+                Your email for use advance function
               </Text>
             </FormLabel>
 
-            <Input
-              type="email"
-              placeholder="Enter email"
-              variant="settingProfile"
-            />
+            <HStack>
+              <Input
+                type="email"
+                placeholder="Enter email"
+                variant="settingProfile"
+                value={data && data.email ? data.email : currentEmail}
+                onChange={e => setCurrentEmail(e.target.value)}
+              />
+              {data && !data.email && !loading && (
+                <Button
+                  onClick={async () => {
+                    await handleSendEmail();
+                  }}
+                >
+                  Verify Email
+                </Button>
+              )}
+            </HStack>
           </FormControl>
           <Button
             variant="primary"
@@ -93,6 +150,14 @@ const SettingProfile = () => {
           >
             Save
           </Button>
+          <VerifyCodeModal
+            isOpen={isOpen}
+            onClose={() => {
+              onClose();
+              refetch();
+            }}
+            email={currentEmail}
+          />
         </Flex>
       </Box>
     </>

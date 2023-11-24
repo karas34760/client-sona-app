@@ -99,7 +99,7 @@ export const SEARCH_EVENTS = gql`
   }
 `;
 
-const SEARCH_ACCOUNT_BY_ADDRESS = gql`
+export const SEARCH_ACCOUNT_BY_ADDRESS = gql`
   query SearchAccountByAddress($address: String!) {
     searchAccountByAddress(address: $address) {
       address
@@ -130,8 +130,8 @@ const SEARCH_TICKETS = gql`
 `;
 
 export const SEND_EMAIL_VERIFY = gql`
-  mutation SendEmailVerification($email: String!, $address: String!) {
-    sendEmailVerification(email: $email, address: $address)
+  mutation SendEmailVerification($email: String!) {
+    sendEmailVerification(email: $email)
   }
 `;
 

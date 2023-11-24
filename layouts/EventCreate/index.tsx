@@ -50,6 +50,7 @@ interface IForm {
   StartTime: number | string;
   EndTime: number | string;
   mortageTx: string;
+  license: string;
 }
 const EventCreatePage = () => {
   // Setting initial state
@@ -75,6 +76,7 @@ const EventCreatePage = () => {
     StartTime: 0,
     EndTime: 0,
     mortageTx: '',
+    license: '',
   });
   function updateFields(fields: Partial<IForm>) {
     setForm(prev => {
@@ -164,7 +166,13 @@ const EventCreatePage = () => {
       title: 'Complete Create',
       icon: CompleteIcon,
       id: 7,
-      element: <StepComplete />,
+      element: (
+        <StepComplete
+          mortageTx={form.mortageTx}
+          updateFields={updateFields}
+          license={form.license}
+        />
+      ),
     },
   ];
 
@@ -212,6 +220,7 @@ const EventCreatePage = () => {
         startTime: Date.parse(form.StartTime.toString()),
         endTime: Date.parse(form.EndTime.toString()),
         mortageTx: form.mortageTx,
+        license: form.license,
       },
     });
   };

@@ -6,10 +6,16 @@ import InfoIcon from '@/public/assets/icons/generals/info.svg';
 interface IProps {
   background: File | undefined;
   size: '1920px X 1080px';
+  label?: string;
   // eslint-disable-next-line no-unused-vars
   setBackground: (fields: Partial<{ image: File | undefined }>) => void;
 }
-const ImageUpload = ({ background, setBackground, size }: IProps) => {
+const ImageUpload = ({
+  background,
+  setBackground,
+  size,
+  label = 'Cover Image for Laptop View',
+}: IProps) => {
   const handleUpload = (file: FileList | null) => {
     if (background) URL.revokeObjectURL(background as never);
 
@@ -74,7 +80,7 @@ const ImageUpload = ({ background, setBackground, size }: IProps) => {
 
             <HStack width="full" justifyContent="center">
               <Icon as={InfoIcon} />
-              <Text fontWeight="bold">Cover Image for Laptop View</Text>
+              <Text fontWeight="bold">{label}</Text>
             </HStack>
 
             <Text fontSize="sm" color="primary.gray.500">

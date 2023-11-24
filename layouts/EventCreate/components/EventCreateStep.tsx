@@ -125,6 +125,7 @@ const EventCreateStep = ({
         <ImageUpload
           background={currentTicket.asset}
           size={'1920px X 1080px'}
+          label="Cover Ticket Image"
           setBackground={fields =>
             setCurrentTicket({
               ...currentTicket,
