@@ -6,7 +6,6 @@ import {
   Flex,
   HStack,
   Text,
-  useColorMode,
   useColorModeValue,
   useSteps,
   useToast,
@@ -22,7 +21,7 @@ import StepEventLocation from './Steps/StepEventLocation';
 import StepEventPhoto from './Steps/StepEventPhoto';
 import StepFollow from './Steps/StepFollow';
 import StepOrganize from './Steps/StepOrganize';
-import StepSingerCreate from './Steps/StepSingerCreate';
+import StepSingerCreate, { ISignerType } from './Steps/StepSingerCreate';
 
 import { client } from '@/graphql/httplink';
 import { SUBMIT_NEW_EVENT } from '@/graphql/query';
@@ -47,6 +46,7 @@ interface IForm {
   location: string;
   uri: string;
   tickets: ITicketType[];
+  singers: ISignerType[];
   TimeForSell: number | string;
   DeadlineForSell: number | string;
   StartTime: number | string;
@@ -73,6 +73,7 @@ const EventCreatePage = () => {
     location: '',
     uri: '',
     tickets: [],
+    singers: [],
     TimeForSell: 0,
     DeadlineForSell: 0,
     StartTime: 0,
@@ -162,7 +163,13 @@ const EventCreatePage = () => {
       title: 'Singers',
       icon: PerfomanceIcon,
       id: 6,
-      element: <StepSingerCreate />,
+      element: (
+        <StepSingerCreate
+          singers={form.singers}
+          updateFields={updateFields}
+          setIsOpenNew={setIsOpenNew}
+        />
+      ),
     },
     {
       title: 'Complete Create',

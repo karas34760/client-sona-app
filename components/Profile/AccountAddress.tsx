@@ -51,7 +51,7 @@ const AccountAddress = ({ onClose }: IProps) => {
                 display: 'inherit',
               }}
               aria-label=""
-              context={ensName ? `${ensName} ` : shortenAddress(address)}
+              context={address || 'Error Address'}
             />
           </HStack>
           <Link href={`/account`} onClick={() => onClose()}>

@@ -37,7 +37,7 @@ const StepAddTicket = ({ tickets, updateFields, setIsOpenNew }: IProps) => {
   const { onClose, onOpen, isOpen } = useDisclosure();
   const [listTicket, setListTicket] = useState<ITicketType[]>(tickets);
   const [currentTicket, setCurrentTicket] = useState<ITicketType>(initialValue);
-  console.log('Now Current Ticket', currentTicket);
+
   const deleteEvent = (index: any) => {
     const updatedList = listTicket.filter((item, i) => i !== index);
     setListTicket(updatedList);
