@@ -226,18 +226,18 @@ const Input: ComponentStyleConfig = {
 };
 const Form: ComponentStyleConfig = {
   variants: {
-    create_form: {
+    create_form: props => ({
       container: {
         _focusWithin: {},
         'input:not(:placeholder-shown) + label, .chakra-select__wrapper + label, textarea:not(:placeholder-shown) ~ label':
           {},
         label: {
-          color: 'primary.gray.800',
+          color: mode('primary.gray.800', 'white')(props),
           fontSize: 'sm',
           fontWeight: 'bold',
         },
       },
-    },
+    }),
   },
   parts: [],
 };

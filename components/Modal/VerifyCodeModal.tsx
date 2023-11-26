@@ -37,12 +37,12 @@ const VerifyCodeModal = ({ isOpen, onClose, email }: IProps) => {
       },
     });
     console.log('Now Response', response);
-    if (response.data.status == 200) {
+    if (response.data.verifyEmail) {
       toast({
         title: 'Verify  Success.',
         description: 'Your email is verify sucess',
         status: 'error',
-        duration: 9000,
+        duration: 5000,
         isClosable: true,
       });
     } else {
@@ -50,7 +50,7 @@ const VerifyCodeModal = ({ isOpen, onClose, email }: IProps) => {
         title: 'Verify  error occurred.',
         description: 'Unable to verify your code ',
         status: 'error',
-        duration: 9000,
+        duration: 5000,
         isClosable: true,
       });
     }

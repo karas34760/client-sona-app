@@ -78,7 +78,11 @@ const ImageUpload = ({
               />
             </Box>
 
-            <HStack width="full" justifyContent="center">
+            <HStack
+              width="full"
+              justifyContent="center"
+              color="primary.gray.800"
+            >
               <Icon as={InfoIcon} />
               <Text fontWeight="bold">{label}</Text>
             </HStack>

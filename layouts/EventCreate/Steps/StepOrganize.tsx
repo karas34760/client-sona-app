@@ -9,6 +9,7 @@ import {
   RadioGroup,
   Select,
   Text,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import React from 'react';
 
@@ -25,6 +26,7 @@ interface IProps {
   updateFields: (fields: Partial<IOrganizeData>) => void;
 }
 const StepOrganize = ({ organize_data, updateFields }: IProps) => {
+  const colorTxt = useColorModeValue('primary.gray.800', 'white');
   return (
     <>
       <HStack gap={2}>
@@ -56,7 +58,7 @@ const StepOrganize = ({ organize_data, updateFields }: IProps) => {
         </FormControl>
         <Flex justifyContent="space-between" alignItems="center">
           <FormControl>
-            <FormLabel fontSize="sm" fontWeight="bold" color="primary.gray.800">
+            <FormLabel fontSize="sm" fontWeight="bold" color={colorTxt}>
               GST Register Status
             </FormLabel>
             <RadioGroup defaultValue="register">

@@ -6,6 +6,8 @@ import {
   Flex,
   HStack,
   Text,
+  useColorMode,
+  useColorModeValue,
   useSteps,
   useToast,
 } from '@chakra-ui/react';
@@ -225,18 +227,29 @@ const EventCreatePage = () => {
     });
   };
   console.log('Form', form);
+  const bgCard = useColorModeValue('white', 'dark.200');
+  const bgContent = useColorModeValue('primary.gray.100', 'dark.100');
   return (
     <>
-      <Box width="full" bg="primary.gray.100" py={8}>
+      <Box width="full" bg={bgContent} py={8}>
         <Text textAlign="center" variant="type_sub_title" mb={6}>
           Lets Create Your Events
         </Text>
         <Container maxWidth="container.xl">
-          <HStack justifyContent="space-between" alignItems="flex-start">
+          <HStack
+            justifyContent="space-between"
+            alignItems="flex-start"
+            flexWrap={{ md: 'nowrap', base: 'wrap' }}
+          >
             <Box width="300px" height="full">
               <StepFollow steps={steps} activeStep={activeStep} />
             </Box>
-            <Box bg="white" padding={12} flexGrow={1} minH="500px">
+            <Box
+              bg={bgCard}
+              padding={{ lg: 12, md: 8, base: 6 }}
+              flexGrow={1}
+              minH="500px"
+            >
               <Box mb={6} height="full">
                 {React.Children.toArray(
                   steps.map(item => {

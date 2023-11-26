@@ -10,7 +10,7 @@ interface IProps {
 }
 const StepEventPhoto = ({ image, updateFields }: IProps) => {
   return (
-    <VStack gap={8} width="full">
+    <VStack gap={8} width="full" minH="400px">
       <ImageUpload
         background={image}
         setBackground={updateFields}

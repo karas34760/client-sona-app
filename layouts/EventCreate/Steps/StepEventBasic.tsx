@@ -34,7 +34,7 @@ const StepEventBasic = ({ event_data, updateFields }: IProps) => {
           <Input placeholder="First name" />
         </FormControl>
 
-        <HStack gap={5}>
+        <HStack gap={5} flexWrap={{ md: 'nowrap', base: 'wrap' }}>
           <FormControl variant="create_form">
             <FormLabel>Event Start</FormLabel>
             <Flex gap={2} alignItems="center">
@@ -60,7 +60,7 @@ const StepEventBasic = ({ event_data, updateFields }: IProps) => {
             </Flex>
           </FormControl>
         </HStack>
-        <HStack gap={5}>
+        <HStack gap={5} flexWrap={{ md: 'nowrap', base: 'wrap' }}>
           <FormControl variant="create_form">
             <FormLabel>Time For Sale</FormLabel>
             <Flex gap={2} alignItems="center">
