@@ -61,9 +61,11 @@ const SignerCreateStep = ({
         </FormControl>
         <HStack>
           <RadioGroup
+            flexGrow={1}
             defaultValue={currentSinger.sex}
             onChange={e => setCurrentSinger({ ...currentSinger, sex: e })}
           >
+            <FormLabel>Gender</FormLabel>
             <HStack spacing={5} direction="row">
               <Radio colorScheme="red" value="male">
                 Male
@@ -72,8 +74,8 @@ const SignerCreateStep = ({
                 Female
               </Radio>
             </HStack>
-          </RadioGroup>{' '}
-          <FormControl variant="create_form">
+          </RadioGroup>
+          <FormControl variant="create_form" width="fit-content">
             <FormLabel>Age</FormLabel>
             <Input
               placeholder="Enter Singer Name"

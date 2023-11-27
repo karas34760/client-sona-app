@@ -1,6 +1,8 @@
 import { Flex, FormControl, FormLabel, HStack, Input } from '@chakra-ui/react';
 import React from 'react';
 
+import { ONE_DAY, calculateMinEndTime } from '@/utils/format/date';
+
 // Step Basic Event Info
 export interface IEventDetailData {
   name: string;
@@ -35,7 +37,7 @@ const StepEventBasic = ({ event_data, updateFields }: IProps) => {
         </FormControl>
 
         <HStack gap={5} flexWrap={{ md: 'nowrap', base: 'wrap' }}>
-          <FormControl variant="create_form">
+          <FormControl variant="create_form" isRequired>
             <FormLabel>Event Start</FormLabel>
             <Flex gap={2} alignItems="center">
               <Input
@@ -44,10 +46,11 @@ const StepEventBasic = ({ event_data, updateFields }: IProps) => {
                 id="StartTime"
                 value={event_data.StartTime}
                 onChange={e => updateFields({ StartTime: e.target.value })}
+                min={new Date().toISOString().split('.')[0]}
               />
             </Flex>
           </FormControl>
-          <FormControl variant="create_form">
+          <FormControl variant="create_form" isRequired>
             <FormLabel>Event End</FormLabel>
             <Flex gap={2} alignItems="center">
               <Input
@@ -56,12 +59,13 @@ const StepEventBasic = ({ event_data, updateFields }: IProps) => {
                 id="EndTime"
                 value={event_data.EndTime}
                 onChange={e => updateFields({ EndTime: e.target.value })}
+                min={calculateMinEndTime(event_data.StartTime, ONE_DAY)}
               />
             </Flex>
           </FormControl>
         </HStack>
         <HStack gap={5} flexWrap={{ md: 'nowrap', base: 'wrap' }}>
-          <FormControl variant="create_form">
+          <FormControl variant="create_form" isRequired>
             <FormLabel>Time For Sale</FormLabel>
             <Flex gap={2} alignItems="center">
               <Input
@@ -70,10 +74,11 @@ const StepEventBasic = ({ event_data, updateFields }: IProps) => {
                 id="TimeForSell"
                 value={event_data.TimeForSell}
                 onChange={e => updateFields({ TimeForSell: e.target.value })}
+                min={event_data.EndTime}
               />
             </Flex>
           </FormControl>
-          <FormControl variant="create_form">
+          <FormControl variant="create_form" isRequired>
             <FormLabel>Deadline for Sale</FormLabel>
             <Flex gap={2} alignItems="center">
               <Input
@@ -84,6 +89,7 @@ const StepEventBasic = ({ event_data, updateFields }: IProps) => {
                 onChange={e =>
                   updateFields({ DeadlineForSell: e.target.value })
                 }
+                min={calculateMinEndTime(event_data.TimeForSell, ONE_DAY)}
               />
             </Flex>
           </FormControl>

@@ -203,14 +203,15 @@ const EventCreatePage = () => {
         },
       });
       const fileAdded = await client.add(form.image);
-
       imgUrl = `https://karas.infura-ipfs.io/ipfs/` + fileAdded.path;
       const metadata = {
         name: 'name',
         description: 'description',
         image: imgUrl,
+        attributes: [...form.singers],
       };
       const metadataAdded = await client.add(JSON.stringify(metadata));
+      console.log('Meta Data Addeed', metadataAdded);
     }
 
     // create events
@@ -223,7 +224,7 @@ const EventCreatePage = () => {
         image: imgUrl,
         location: form.location,
         uri: '',
-        tickets: form.tickets,
+        tickets: [...form.tickets],
         timeForSell: Date.parse(form.TimeForSell.toString()),
         deadlineForSell: Date.parse(form.DeadlineForSell.toString()),
         startTime: Date.parse(form.StartTime.toString()),

@@ -61,7 +61,6 @@ const EventCreateStep = ({
           <FormControl variant="create_form">
             <FormLabel>Ticket Tier</FormLabel>
             <Input
-              type="number"
               placeholder="Enter Ticket Tier Ex:1 ,2 "
               value={currentTicket.tier}
               onChange={e =>

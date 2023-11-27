@@ -50,6 +50,7 @@ const StepAddTicket = ({ tickets, updateFields, setIsOpenNew }: IProps) => {
   useEffect(() => {
     updateFields({ tickets: listTicket });
   }, [listTicket]);
+  console.log('List TIcket', listTicket);
   return (
     <>
       {!isOpen && (
@@ -81,9 +82,7 @@ const StepAddTicket = ({ tickets, updateFields, setIsOpenNew }: IProps) => {
             setIsOpenNew(false);
             setCurrentTicket(initialValue);
           }}
-          onSaveData={() => {
-            addTicket;
-          }}
+          onSaveData={addTicket}
           currentTicket={currentTicket}
           setCurrentTicket={setCurrentTicket}
         />

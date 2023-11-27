@@ -2,7 +2,7 @@
 import { Box } from '@chakra-ui/react';
 import DOMPurify from 'dompurify';
 import { convertToHTML } from 'draft-convert';
-import { EditorState } from 'draft-js';
+import { ContentState, EditorState, convertFromHTML } from 'draft-js';
 import dynamic from 'next/dynamic';
 import React, { ComponentType, useEffect, useState } from 'react';
 import { EditorProps } from 'react-draft-wysiwyg';
@@ -23,10 +23,15 @@ interface IProps {
 const TextEditor = ({ convertedContent, setConvertedContent }: IProps) => {
   /*   const _contentState = ContentState.createFromText('Sample content state');
      const raw = convertToRaw(_contentState);  */
-  const [editorState, setEditorState] = useState(() =>
-    EditorState.createEmpty()
-  );
+  const [editorState, setEditorState] = useState(() => {
+    const blocksFromHTML = convertFromHTML(convertedContent || '');
+    const contentState = ContentState.createFromBlockArray(
+      blocksFromHTML.contentBlocks,
+      blocksFromHTML.entityMap
+    );
 
+    return EditorState.createWithContent(contentState);
+  });
   useEffect(() => {
     let html = convertToHTML(editorState.getCurrentContent());
     setConvertedContent(html);

@@ -24,7 +24,7 @@ const StepSingerCreate = ({ singers, updateFields, setIsOpenNew }: IProps) => {
   const { onClose, onOpen, isOpen } = useDisclosure();
   const [listSingers, setListSingers] = useState<ISignerType[]>(singers);
   const [currentSinger, setCurrentSinger] = useState<ISignerType>(initialValue);
-  const addTicket = (newTicket: ISignerType) => {
+  const addSinger = (newTicket: ISignerType) => {
     // Use the spread operator to create a new array with the new ticket
     const updatedList = [...listSingers, newTicket];
     setListSingers(updatedList);
@@ -57,9 +57,7 @@ const StepSingerCreate = ({ singers, updateFields, setIsOpenNew }: IProps) => {
             setIsOpenNew(false);
             setCurrentSinger(initialValue);
           }}
-          onSaveData={() => {
-            addTicket;
-          }}
+          onSaveData={addSinger}
           currentSinger={currentSinger}
           setCurrentSinger={setCurrentSinger}
         />
