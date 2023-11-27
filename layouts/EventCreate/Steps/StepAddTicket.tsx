@@ -12,8 +12,6 @@ export interface ITicketType {
   price: number;
   tier: number;
   uri: string;
-  minBooking: number; // Min Per Booking
-  maxBooking: number; // Max Per Booking
 }
 interface IProps {
   tickets: ITicketType[];
@@ -38,7 +36,7 @@ const StepAddTicket = ({ tickets, updateFields, setIsOpenNew }: IProps) => {
   const [listTicket, setListTicket] = useState<ITicketType[]>(tickets);
   const [currentTicket, setCurrentTicket] = useState<ITicketType>(initialValue);
 
-  const deleteEvent = (index: any) => {
+  const deleteTicket = (index: any) => {
     const updatedList = listTicket.filter((item, i) => i !== index);
     setListTicket(updatedList);
   };
@@ -55,6 +53,7 @@ const StepAddTicket = ({ tickets, updateFields, setIsOpenNew }: IProps) => {
     <>
       {!isOpen && (
         <Button
+          mb={6}
           onClick={() => {
             onOpen();
             setIsOpenNew(true);
@@ -72,6 +71,7 @@ const StepAddTicket = ({ tickets, updateFields, setIsOpenNew }: IProps) => {
               amount={item.amount}
               price={item.price}
               tier={item.tier}
+              deleteTicket={() => deleteTicket(index)}
             />
           </>
         ))}

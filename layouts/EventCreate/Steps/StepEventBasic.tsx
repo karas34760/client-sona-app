@@ -74,7 +74,8 @@ const StepEventBasic = ({ event_data, updateFields }: IProps) => {
                 id="TimeForSell"
                 value={event_data.TimeForSell}
                 onChange={e => updateFields({ TimeForSell: e.target.value })}
-                min={event_data.EndTime}
+                min={new Date().toISOString().split('.')[0]}
+                max={event_data.StartTime}
               />
             </Flex>
           </FormControl>
@@ -89,7 +90,8 @@ const StepEventBasic = ({ event_data, updateFields }: IProps) => {
                 onChange={e =>
                   updateFields({ DeadlineForSell: e.target.value })
                 }
-                min={calculateMinEndTime(event_data.TimeForSell, ONE_DAY)}
+                max={event_data.EndTime}
+                min={event_data.StartTime}
               />
             </Flex>
           </FormControl>

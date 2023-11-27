@@ -8,6 +8,7 @@ import {
   Icon,
   Input,
   Textarea,
+  useToast,
 } from '@chakra-ui/react';
 import React from 'react';
 
@@ -30,6 +31,7 @@ const EventCreateStep = ({
   onClose,
   onSaveData,
 }: IProps) => {
+  const toast = useToast();
   return (
     <>
       <Flex justifyContent="flex-end">
@@ -136,6 +138,16 @@ const EventCreateStep = ({
           width="full"
           leftIcon={<Icon as={SaveIcon} />}
           onClick={() => {
+            if (!currentTicket.asset) {
+              toast({
+                title: 'You Need to import Background Ticket',
+                description: "We're need image of each ticket",
+                status: 'error',
+                duration: 3000,
+                isClosable: true,
+              });
+              return;
+            }
             onSaveData(currentTicket);
             onClose();
           }}
