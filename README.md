@@ -36,3 +36,5 @@ your certificates, run "certbot renew"
 1. Connect and sign
 
 ### Upload image to IPFS
+
+### Setup Meta
