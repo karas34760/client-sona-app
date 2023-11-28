@@ -53,7 +53,7 @@ const StepComplete = ({
       <Box overflow="hidden">
         <Text width="full" textOverflow="ellipsis">
           Now it time to finish , we need you send 5k $ to this organize USDT by
-          address:
+          address
         </Text>
 
         <Text fontSize={{ md: 'lg', base: 'md' }} fontWeight="bold">

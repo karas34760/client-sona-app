@@ -38,3 +38,7 @@ your certificates, run "certbot renew"
 ### Upload image to IPFS
 
 ### Setup Meta
+
+### Fee:
+
+5000\*1e18

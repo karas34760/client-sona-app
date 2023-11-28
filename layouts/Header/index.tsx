@@ -14,6 +14,7 @@ import React, { useEffect, useState } from 'react';
 import ListNavHeader from './components/ListNavHeader';
 
 import ConnectWallet from '@/components/ConnectWallet/ConnectWallet';
+import FaucetButton from '@/components/Custom/FaucetButton';
 import LogoText from '@/components/Logo/LogoText';
 import Sidebar from '@/components/Modal/Sidebar';
 import NavMobileSearch from '@/components/Search/NavMobileSearch';
@@ -110,6 +111,7 @@ const Header = () => {
                 <BtnSwitchLanguage />
                 <BtnSwitchColor />
               </Box>
+              <FaucetButton />
               <ConnectWallet />
               <Box display={{ md: 'none', base: 'block' }}>
                 <NavMobileSearch />

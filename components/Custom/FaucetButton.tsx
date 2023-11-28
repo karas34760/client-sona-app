@@ -13,11 +13,8 @@ import LoadingVerify from '@/animations/Loading/LoadingVerify';
 import { useAuth } from '@/hooks/useAuth';
 import { usdToWei } from '@/utils/format/money';
 import { CONTRACT_ABI } from '@/utils/utils';
-interface IProp {
-  // eslint-disable-next-line no-unused-vars
-  setTxHash: (hash: string) => void;
-}
-const SendMoneyContract = ({ setTxHash }: IProp) => {
+
+const FaucetButton = () => {
   const { user } = useAuth();
   const web3 = new Web3(window.ethereum);
   const [isLoading, setIsLoading] = useState(false);
@@ -28,34 +25,31 @@ const SendMoneyContract = ({ setTxHash }: IProp) => {
       JSON.parse(CONTRACT_ABI),
       contractAddress
     );
-    const targetAddress = '0x06E3b4Fbc959fD7C800D92CDb865BE077cC86302';
     try {
       //todo remove
       const fixedAmountUSD = usdToWei(5000); // 5000$ fee
-      const receipt = await contract.methods
-        .transfer(targetAddress, fixedAmountUSD)
-        .send({
-          from: user,
-        });
-      console.log('Recep', receipt);
-      setTxHash(receipt.transactionHash);
+      await contract.methods.mint(user, fixedAmountUSD).send({
+        from: user,
+      });
+
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
+      console.log(error);
     }
   };
 
   return (
     <>
       <Button variant="primary" onClick={handleSend}>
-        Pay to Event
+        Faucet
       </Button>
       <Modal isOpen={isLoading} onClose={() => {}}>
         <ModalOverlay />
         <ModalContent margin="auto">
           <VStack padding={6}>
             <LoadingVerify />
-            <Text>Your Payment are Verify in blockchain...</Text>
+            <Text>Your are GET USDT NOW...</Text>
           </VStack>
         </ModalContent>
       </Modal>
@@ -63,4 +57,4 @@ const SendMoneyContract = ({ setTxHash }: IProp) => {
   );
 };
 
-export default SendMoneyContract;
+export default FaucetButton;
