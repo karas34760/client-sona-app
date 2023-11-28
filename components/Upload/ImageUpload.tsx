@@ -1,8 +1,17 @@
-import { HStack, Icon, Input, Box, Text, Image } from '@chakra-ui/react';
+import {
+  HStack,
+  Icon,
+  Input,
+  Box,
+  Text,
+  Image,
+  Button,
+} from '@chakra-ui/react';
 import React from 'react';
 
 import PlusIcon from '@/public/assets/icons/arrow/plus.svg';
 import InfoIcon from '@/public/assets/icons/generals/info.svg';
+import TrashIcon from '@/public/assets/icons/generals/trash.svg';
 interface IProps {
   background: File | undefined;
   size: '1920px X 1080px';
@@ -37,9 +46,13 @@ const ImageUpload = ({
             alt=""
             objectFit="cover"
           />
-          <Box cursor="pointer" onClick={handleRemove}>
+          <Button
+            leftIcon={<Icon as={TrashIcon} />}
+            cursor="pointer"
+            onClick={handleRemove}
+          >
             Remove
-          </Box>
+          </Button>
         </>
       ) : (
         <>

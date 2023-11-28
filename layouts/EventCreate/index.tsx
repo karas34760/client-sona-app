@@ -1,11 +1,14 @@
-/* eslint-disable no-unused-vars */
+/* eslint-disable no-use-before-define */
+
 import {
   Box,
-  Button,
   Container,
-  Flex,
   HStack,
+  Modal,
+  ModalContent,
+  ModalOverlay,
   Text,
+  VStack,
   useColorModeValue,
   useSteps,
   useToast,
@@ -23,6 +26,7 @@ import StepFollow from './Steps/StepFollow';
 import StepOrganize from './Steps/StepOrganize';
 import StepSingerCreate, { ISignerType } from './Steps/StepSingerCreate';
 
+import LoadingVerify from '@/animations/Loading/LoadingVerify';
 import { client } from '@/graphql/httplink';
 import { SUBMIT_NEW_EVENT } from '@/graphql/query';
 import { useAuth } from '@/hooks/useAuth';
@@ -57,12 +61,8 @@ interface IForm {
 const EventCreatePage = () => {
   // Setting initial state
   const { user } = useAuth();
-  const toast = useToast({
-    position: 'top-right',
-    isClosable: true,
-  });
-  const [isOpenNew, setIsOpenNew] = useState(false);
-  const { activeStep, goToNext, goToPrevious } = useSteps({
+  const toast = useToast();
+  const { activeStep, goToNext, goToPrevious, setActiveStep } = useSteps({
     index: 0,
   });
   const [form, setForm] = useState<IForm>({
@@ -86,6 +86,137 @@ const EventCreatePage = () => {
       return { ...prev, ...fields };
     });
   }
+  const [isSubmiting, setIsSubmitting] = useState(false);
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    let imgUrl = '';
+
+    // First submit IPFS
+    if (form.image) {
+      const projectId = process.env.NEXT_PUBLIC_PROJECT_KEY;
+      const projectKey = process.env.NEXT_PUBLIC_SECRET_KEY;
+      const auth =
+        'Basic ' + Buffer.from(projectId + ':' + projectKey).toString('base64');
+      // Create connection to IPFS using infura
+      const client = create({
+        host: 'ipfs.infura.io',
+        port: 5001,
+        protocol: 'https',
+        headers: {
+          authorization: auth,
+        },
+      });
+      const fileAdded = await client.add(form.image);
+      imgUrl =
+        `${process.env.IPFS_SUBDOMAI || 'https://karas.infura-ipfs.io/ipfs/'}` +
+        fileAdded.path;
+      const metadata = {
+        name: form.name,
+        description: 'Event Description',
+        image: imgUrl,
+        attributes: [...form.singers],
+      };
+      const metadataAdded = await client.add(JSON.stringify(metadata));
+      console.log('Meta Data Addeed', metadataAdded);
+    }
+    const listTicket = [];
+    if (form.tickets) {
+      const projectId = process.env.NEXT_PUBLIC_PROJECT_KEY;
+      const projectKey = process.env.NEXT_PUBLIC_SECRET_KEY;
+      const auth =
+        'Basic ' + Buffer.from(projectId + ':' + projectKey).toString('base64');
+      // Create connection to IPFS using infura
+      const client = create({
+        host: 'ipfs.infura.io',
+        port: 5001,
+        protocol: 'https',
+        headers: {
+          authorization: auth,
+        },
+      });
+      for (const ticket of form.tickets) {
+        if (ticket.asset) {
+          const fileAdded = await client.add(ticket.asset);
+          imgUrl =
+            `${
+              process.env.IPFS_SUBDOMAI || 'https://karas.infura-ipfs.io/ipfs/'
+            }` + fileAdded.path;
+          const metadata = {
+            name: ticket.name,
+            description: ticket.description,
+            image: imgUrl,
+          };
+          await client.add(JSON.stringify(metadata));
+
+          listTicket.push({
+            name: ticket.name,
+            description: ticket.description,
+            asset: imgUrl,
+            price: ticket.price,
+            uri: ticket.uri,
+            amount: ticket.amount,
+            tier: ticket.tier,
+          });
+        }
+      }
+    }
+    // create events
+    try {
+      await client.mutate({
+        mutation: SUBMIT_NEW_EVENT,
+        variables: {
+          organizer: form.organizer,
+          name: form.name,
+          description: form.description,
+          image: imgUrl,
+          location: form.location,
+          uri: '',
+          tickets: listTicket,
+          timeForSell: Date.parse(form.TimeForSell.toString()),
+          deadlineForSell: Date.parse(form.DeadlineForSell.toString()),
+          startTime: Date.parse(form.StartTime.toString()),
+          endTime: Date.parse(form.EndTime.toString()),
+          mortageTx: form.mortageTx,
+          license: form.license,
+        },
+      });
+      setIsSubmitting(false);
+
+      toast({
+        title: 'Event created.',
+        description: "We've created your Event for you.",
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+      });
+      setForm({
+        organizer: user || '',
+        name: '',
+        description: '',
+        image: undefined,
+        location: '',
+        uri: '',
+        tickets: [],
+        singers: [],
+        TimeForSell: 0,
+        DeadlineForSell: 0,
+        StartTime: 0,
+        EndTime: 0,
+        mortageTx: '',
+        license: '',
+      });
+      setActiveStep(0);
+    } catch (error) {
+      setIsSubmitting(false);
+      toast({
+        title: 'Event created Error',
+        description: `Something wrong: ${error}`,
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+  };
   const steps: StepProps[] = [
     {
       title: 'Oganize Details',
@@ -95,6 +226,7 @@ const EventCreatePage = () => {
         <StepOrganize
           organize_data={{ organizer: form.organizer }}
           updateFields={updateFields}
+          goToNext={goToNext}
         />
       ),
     },
@@ -115,6 +247,8 @@ const EventCreatePage = () => {
                 TimeForSell: form.TimeForSell.toString(),
               }}
               updateFields={updateFields}
+              goToPrevious={goToPrevious}
+              goToNext={goToNext}
             />
           ),
         },
@@ -125,6 +259,8 @@ const EventCreatePage = () => {
             <StepEventLocation
               location_data={{ location: form.location }}
               updateFields={updateFields}
+              goToNext={goToNext}
+              goToPrevious={goToPrevious}
             />
           ),
         },
@@ -133,6 +269,8 @@ const EventCreatePage = () => {
           id_child: 3,
           element: (
             <StepEventDescription
+              goToPrevious={goToPrevious}
+              goToNext={goToNext}
               updateFields={updateFields}
               description={form.description}
             />
@@ -142,7 +280,12 @@ const EventCreatePage = () => {
           title: 'Photos',
           id_child: 4,
           element: (
-            <StepEventPhoto image={form.image} updateFields={updateFields} />
+            <StepEventPhoto
+              image={form.image}
+              updateFields={updateFields}
+              goToNext={goToNext}
+              goToPrevious={goToPrevious}
+            />
           ),
         },
       ],
@@ -153,9 +296,10 @@ const EventCreatePage = () => {
       id: 5,
       element: (
         <StepAddTicket
+          goToNext={goToNext}
+          goToPrevious={goToPrevious}
           tickets={form.tickets}
           updateFields={updateFields}
-          setIsOpenNew={setIsOpenNew}
         />
       ),
     },
@@ -167,7 +311,8 @@ const EventCreatePage = () => {
         <StepSingerCreate
           singers={form.singers}
           updateFields={updateFields}
-          setIsOpenNew={setIsOpenNew}
+          goToNext={goToNext}
+          goToPrevious={goToPrevious}
         />
       ),
     },
@@ -180,63 +325,16 @@ const EventCreatePage = () => {
           mortageTx={form.mortageTx}
           updateFields={updateFields}
           license={form.license}
+          goToPrevious={goToPrevious}
+          handleSubmit={handleSubmit}
         />
       ),
     },
   ];
 
-  const handleSubmit = async () => {
-    let imgUrl = '';
-    // First submit IPFS
-    if (form.image) {
-      const projectId = process.env.NEXT_PUBLIC_PROJECT_KEY;
-      const projectKey = process.env.NEXT_PUBLIC_SECRET_KEY;
-      const auth =
-        'Basic ' + Buffer.from(projectId + ':' + projectKey).toString('base64');
-      // Create connection to IPFS using infura
-      const client = create({
-        host: 'ipfs.infura.io',
-        port: 5001,
-        protocol: 'https',
-        headers: {
-          authorization: auth,
-        },
-      });
-      const fileAdded = await client.add(form.image);
-      imgUrl = `https://karas.infura-ipfs.io/ipfs/` + fileAdded.path;
-      const metadata = {
-        name: 'name',
-        description: 'description',
-        image: imgUrl,
-        attributes: [...form.singers],
-      };
-      const metadataAdded = await client.add(JSON.stringify(metadata));
-      console.log('Meta Data Addeed', metadataAdded);
-    }
-
-    // create events
-    const response = await client.mutate({
-      mutation: SUBMIT_NEW_EVENT,
-      variables: {
-        organizer: form.organizer,
-        name: form.name,
-        description: form.description,
-        image: imgUrl,
-        location: form.location,
-        uri: '',
-        tickets: [...form.tickets],
-        timeForSell: Date.parse(form.TimeForSell.toString()),
-        deadlineForSell: Date.parse(form.DeadlineForSell.toString()),
-        startTime: Date.parse(form.StartTime.toString()),
-        endTime: Date.parse(form.EndTime.toString()),
-        mortageTx: form.mortageTx,
-        license: form.license,
-      },
-    });
-  };
-  console.log('Form', form);
   const bgCard = useColorModeValue('white', 'dark.200');
   const bgContent = useColorModeValue('primary.gray.100', 'dark.100');
+  console.log('My Form', form);
   return (
     <>
       <Box width="full" bg={bgContent} py={8}>
@@ -273,43 +371,22 @@ const EventCreatePage = () => {
                   })
                 )}
               </Box>
-
-              <Flex gap={3}>
-                {activeStep != 0 && !isOpenNew && (
-                  <Button
-                    width="full"
-                    variant="primary"
-                    onClick={() => goToPrevious()}
-                  >
-                    Previous Step
-                  </Button>
-                )}
-
-                {activeStep <= 6 && !isOpenNew && (
-                  <Button
-                    width="full"
-                    variant="primary"
-                    type="submit"
-                    onClick={() => goToNext()}
-                  >
-                    Next Step
-                  </Button>
-                )}
-                {activeStep == 7 && !isOpenNew && (
-                  <Button
-                    width="full"
-                    variant="primary"
-                    type="submit"
-                    onClick={handleSubmit}
-                  >
-                    Submit Now
-                  </Button>
-                )}
-              </Flex>
             </Box>
           </HStack>
         </Container>
       </Box>
+
+      <Modal isOpen={isSubmiting} onClose={() => {}}>
+        <ModalOverlay />
+        <ModalContent margin="auto">
+          <VStack padding={6}>
+            <LoadingVerify />
+            <Text variant="type_sub_title">
+              We are Creating Event Now Wait Minutes
+            </Text>
+          </VStack>
+        </ModalContent>
+      </Modal>
     </>
   );
 };

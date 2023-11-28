@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Box, Button, useDisclosure } from '@chakra-ui/react';
+import { Button, Flex, useDisclosure, useToast } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 
 import CardCreatedTicket from '../components/CardCreatedTicket';
@@ -16,7 +16,9 @@ export interface ITicketType {
 interface IProps {
   tickets: ITicketType[];
   updateFields: (fields: Partial<{ tickets: ITicketType[] }>) => void;
-  setIsOpenNew: (data: boolean) => void;
+
+  goToPrevious: () => void;
+  goToNext: () => void;
 }
 // Manage By initial Value
 const initialValue = {
@@ -31,7 +33,13 @@ const initialValue = {
   maxBooking: 0,
 };
 
-const StepAddTicket = ({ tickets, updateFields, setIsOpenNew }: IProps) => {
+const StepAddTicket = ({
+  tickets,
+  updateFields,
+
+  goToNext,
+  goToPrevious,
+}: IProps) => {
   const { onClose, onOpen, isOpen } = useDisclosure();
   const [listTicket, setListTicket] = useState<ITicketType[]>(tickets);
   const [currentTicket, setCurrentTicket] = useState<ITicketType>(initialValue);
@@ -49,6 +57,7 @@ const StepAddTicket = ({ tickets, updateFields, setIsOpenNew }: IProps) => {
     updateFields({ tickets: listTicket });
   }, [listTicket]);
   console.log('List TIcket', listTicket);
+  const toast = useToast();
   return (
     <>
       {!isOpen && (
@@ -56,7 +65,6 @@ const StepAddTicket = ({ tickets, updateFields, setIsOpenNew }: IProps) => {
           mb={6}
           onClick={() => {
             onOpen();
-            setIsOpenNew(true);
           }}
         >
           Add Ticket
@@ -79,13 +87,38 @@ const StepAddTicket = ({ tickets, updateFields, setIsOpenNew }: IProps) => {
         <EventCreateStep
           onClose={() => {
             onClose();
-            setIsOpenNew(false);
+
             setCurrentTicket(initialValue);
           }}
           onSaveData={addTicket}
           currentTicket={currentTicket}
-          setCurrentTicket={setCurrentTicket}
         />
+      )}
+      {!isOpen && (
+        <Flex gap={3}>
+          <Button width="full" variant="primary" onClick={() => goToPrevious()}>
+            Previous Step
+          </Button>
+          <Button
+            width="full"
+            variant="primary"
+            onClick={() => {
+              if (!listTicket.length) {
+                toast({
+                  title: 'You Need to import Ticket Your Event',
+                  description: 'It is neccesary',
+                  status: 'error',
+                  duration: 3000,
+                  isClosable: true,
+                });
+                return;
+              }
+              goToNext();
+            }}
+          >
+            Next Step
+          </Button>
+        </Flex>
       )}
     </>
   );

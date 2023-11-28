@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Box, Button, Container, useDisclosure } from '@chakra-ui/react';
+import { Box, Button, Container, Flex, useDisclosure } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 
 import SignerCreateStep from '../components/SignerCreateStep';
@@ -12,7 +12,8 @@ export interface ISignerType {
 interface IProps {
   singers: ISignerType[];
   updateFields: (fields: Partial<{ singers: ISignerType[] }>) => void;
-  setIsOpenNew: (data: boolean) => void;
+  goToPrevious: () => void;
+  goToNext: () => void;
 }
 const initialValue = {
   name: '',
@@ -20,7 +21,12 @@ const initialValue = {
   sex: 'male',
   asset: undefined,
 };
-const StepSingerCreate = ({ singers, updateFields, setIsOpenNew }: IProps) => {
+const StepSingerCreate = ({
+  singers,
+  updateFields,
+  goToNext,
+  goToPrevious,
+}: IProps) => {
   const { onClose, onOpen, isOpen } = useDisclosure();
   const [listSingers, setListSingers] = useState<ISignerType[]>(singers);
   const [currentSinger, setCurrentSinger] = useState<ISignerType>(initialValue);
@@ -38,7 +44,6 @@ const StepSingerCreate = ({ singers, updateFields, setIsOpenNew }: IProps) => {
         <Button
           onClick={() => {
             onOpen();
-            setIsOpenNew(true);
           }}
         >
           Add Singer
@@ -54,13 +59,30 @@ const StepSingerCreate = ({ singers, updateFields, setIsOpenNew }: IProps) => {
         <SignerCreateStep
           onClose={() => {
             onClose();
-            setIsOpenNew(false);
+
             setCurrentSinger(initialValue);
           }}
           onSaveData={addSinger}
           currentSinger={currentSinger}
           setCurrentSinger={setCurrentSinger}
         />
+      )}
+
+      {!isOpen && (
+        <Flex gap={3}>
+          <Button width="full" variant="primary" onClick={() => goToPrevious()}>
+            Previous Step
+          </Button>
+          <Button
+            width="full"
+            variant="primary"
+            onClick={() => {
+              goToNext();
+            }}
+          >
+            Next Step
+          </Button>
+        </Flex>
       )}
     </>
   );

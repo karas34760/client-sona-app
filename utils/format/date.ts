@@ -57,5 +57,10 @@ export const ONE_DAY = 24 * 60 * 60 * 1000; // follow milisecond
 export function calculateMinEndTime(startTime: string, hour: number) {
   const startDateTime = new Date(startTime);
   const minEndTime = new Date(startDateTime.getTime() + hour); // hour in milili second
-  return minEndTime.toISOString().split('.')[0];
+  return minEndTime.toISOString().slice(0, 16);
 }
+export const formatDateTimeLocal = (dateString: string) => {
+  const date = new Date(dateString);
+  const formattedDate = date.toISOString().slice(0, 16);
+  return formattedDate;
+};

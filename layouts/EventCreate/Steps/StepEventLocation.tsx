@@ -8,6 +8,7 @@ import {
   Input,
   Flex,
   Text,
+  Button,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 export interface ILocationData {
@@ -17,8 +18,15 @@ interface IProps {
   location_data: ILocationData;
   // eslint-disable-next-line no-unused-vars
   updateFields: (fields: Partial<ILocationData>) => void;
+  goToPrevious: () => void;
+  goToNext: () => void;
 }
-const StepEventLocation = ({ location_data, updateFields }: IProps) => {
+const StepEventLocation = ({
+  location_data,
+  updateFields,
+  goToNext,
+  goToPrevious,
+}: IProps) => {
   const [valueLocation, setValueLocation] = useState('physical');
   return (
     <>
@@ -66,6 +74,14 @@ const StepEventLocation = ({ location_data, updateFields }: IProps) => {
             />
           </FormControl>
         </Box>
+      </Flex>
+      <Flex gap={3}>
+        <Button width="full" variant="primary" onClick={() => goToPrevious()}>
+          Previous Step
+        </Button>
+        <Button width="full" variant="primary" onClick={() => goToNext()}>
+          Next Step
+        </Button>
       </Flex>
     </>
   );
