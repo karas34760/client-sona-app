@@ -12,7 +12,7 @@ import Web3 from 'web3';
 import LoadingVerify from '@/animations/Loading/LoadingVerify';
 import { useAuth } from '@/hooks/useAuth';
 import { usdToWei } from '@/utils/format/money';
-import { CONTRACT_ABI } from '@/utils/utils';
+import { CONTRACT_ABI, CONTRACT_ADDRESS } from '@/utils/utils';
 
 const FaucetButton = () => {
   const { user } = useAuth();
@@ -20,10 +20,10 @@ const FaucetButton = () => {
   const [isLoading, setIsLoading] = useState(false);
   const handleSend = async () => {
     setIsLoading(true);
-    const contractAddress = '0x4A90D5aE01F03B650cdc8D3A94358F364D98d096';
+
     const contract = new web3.eth.Contract(
       JSON.parse(CONTRACT_ABI),
-      contractAddress
+      CONTRACT_ADDRESS
     );
     try {
       //todo remove

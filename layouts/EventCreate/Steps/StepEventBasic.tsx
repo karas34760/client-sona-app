@@ -141,6 +141,7 @@ const StepEventBasic = ({
                   value={formik.values.DeadlineForSell}
                   onChange={formik.handleChange}
                   min={formik.values.TimeForSell}
+                  max={formik.values.StartTime}
                 />
               </Flex>
             </FormControl>
