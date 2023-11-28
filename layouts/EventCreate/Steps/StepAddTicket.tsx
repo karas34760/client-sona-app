@@ -60,66 +60,80 @@ const StepAddTicket = ({
   const toast = useToast();
   return (
     <>
-      {!isOpen && (
-        <Button
-          mb={6}
-          onClick={() => {
-            onOpen();
-          }}
-        >
-          Add Ticket
-        </Button>
-      )}
-      {!isOpen &&
-        listTicket.map((item, index) => (
-          <>
-            <CardCreatedTicket
-              key={`${index}-tickets-create`}
-              name={item.name}
-              amount={item.amount}
-              price={item.price}
-              tier={item.tier}
-              deleteTicket={() => deleteTicket(index)}
-            />
-          </>
-        ))}
-      {isOpen && (
-        <EventCreateStep
-          onClose={() => {
-            onClose();
-
-            setCurrentTicket(initialValue);
-          }}
-          onSaveData={addTicket}
-          currentTicket={currentTicket}
-        />
-      )}
-      {!isOpen && (
-        <Flex gap={3}>
-          <Button width="full" variant="primary" onClick={() => goToPrevious()}>
-            Previous Step
-          </Button>
+      <Flex flexDirection="column" gap={6}>
+        {!isOpen && !listTicket.length && (
           <Button
-            width="full"
-            variant="primary"
             onClick={() => {
-              if (!listTicket.length) {
-                toast({
-                  title: 'You Need to import Ticket Your Event',
-                  description: 'It is neccesary',
-                  status: 'error',
-                  duration: 3000,
-                  isClosable: true,
-                });
-                return;
-              }
-              goToNext();
+              onOpen();
             }}
           >
-            Next Step
+            Add Ticket
           </Button>
-        </Flex>
-      )}
+        )}
+        {!isOpen &&
+          listTicket.map((item, index) => (
+            <>
+              <CardCreatedTicket
+                key={`${index}-tickets-create`}
+                name={item.name}
+                amount={item.amount}
+                price={item.price}
+                tier={item.tier}
+                deleteTicket={() => deleteTicket(index)}
+              />
+            </>
+          ))}
+        {!isOpen && listTicket.length && (
+          <Button
+            onClick={() => {
+              onOpen();
+            }}
+          >
+            Add Another Ticket
+          </Button>
+        )}
+        {!isOpen && (
+          <Flex gap={3}>
+            <Button
+              width="full"
+              variant="primary"
+              onClick={() => goToPrevious()}
+            >
+              Previous Step
+            </Button>
+            <Button
+              width="full"
+              variant="primary"
+              onClick={() => {
+                if (!listTicket.length) {
+                  toast({
+                    title: 'You Need to import Ticket Your Event',
+                    description: 'It is neccesary',
+                    status: 'error',
+                    duration: 3000,
+                    isClosable: true,
+                  });
+                  return;
+                }
+                goToNext();
+              }}
+            >
+              Next Step
+            </Button>
+          </Flex>
+        )}
+        {isOpen && (
+          <EventCreateStep
+            onClose={() => {
+              onClose();
+
+              setCurrentTicket(initialValue);
+            }}
+            onSaveData={addTicket}
+            currentTicket={currentTicket}
+          />
+        )}
+      </Flex>
     </>
   );
 };

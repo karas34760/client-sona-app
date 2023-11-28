@@ -87,7 +87,11 @@ const StepOrganize = ({ organize_data, updateFields, goToNext }: IProps) => {
               ))}
             </Select>
           </FormControl>
-          <Flex justifyContent="space-between" alignItems="center">
+          <Flex
+            justifyContent="space-between"
+            alignItems="center"
+            flexWrap={{ md: 'nowrap', base: 'wrap' }}
+          >
             <FormControl>
               <FormLabel fontSize="sm" fontWeight="bold" color={colorTxt}>
                 GST Register Status
