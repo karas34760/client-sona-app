@@ -7,10 +7,12 @@ import {
   Text,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import Web3 from 'web3';
 
 import LoadingVerify from '@/animations/Loading/LoadingVerify';
 import { useAuth } from '@/hooks/useAuth';
+import { setUserLoading } from '@/redux/user/user-slice';
 import { usdToWei } from '@/utils/format/money';
 import { CONTRACT_ABI, CONTRACT_ADDRESS } from '@/utils/utils';
 
@@ -18,9 +20,10 @@ const FaucetButton = () => {
   const { user } = useAuth();
   const web3 = new Web3(window.ethereum);
   const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
   const handleSend = async () => {
     setIsLoading(true);
-
+    dispatch(setUserLoading(true));
     const contract = new web3.eth.Contract(
       JSON.parse(CONTRACT_ABI),
       CONTRACT_ADDRESS
@@ -33,6 +36,7 @@ const FaucetButton = () => {
       });
 
       setIsLoading(false);
+      dispatch(setUserLoading(false));
     } catch (error) {
       setIsLoading(false);
       console.log(error);

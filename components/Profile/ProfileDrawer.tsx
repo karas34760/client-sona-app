@@ -32,14 +32,14 @@ const ProfileDrawer = ({ isOpen, onClose }: IProps) => {
   const dispatch = useDispatch();
   const bgDrawer = useColorModeValue('white', 'body.100');
   const web3 = new Web3(window.ethereum);
-  const { user } = useAuth();
+  const { user, isLoading } = useAuth();
   const [currentBalance, setCurrentBalance] = useState<string>('0.000');
   const getBalance = async () => {
     const contract = new web3.eth.Contract(
       JSON.parse(CONTRACT_ABI),
       CONTRACT_ADDRESS
     );
-    console.log(user);
+
     const balance = await contract.methods.balanceOf(user).call();
 
     setCurrentBalance(weiToUSD(balance, 1));
@@ -48,7 +48,7 @@ const ProfileDrawer = ({ isOpen, onClose }: IProps) => {
     if (user) {
       getBalance();
     }
-  }, [user]);
+  }, [user, isLoading]);
   return (
     <>
       <Drawer

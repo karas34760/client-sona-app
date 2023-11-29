@@ -27,7 +27,7 @@ const StepEventDescription = ({
 }: IProps) => {
   const formik = useFormik({
     initialValues: {
-      description: description || '',
+      description: description,
     },
     onSubmit: async values => {
       updateFields({ description: values.description });
@@ -35,7 +35,15 @@ const StepEventDescription = ({
     },
     validateOnChange: true,
     validationSchema: Yup.object({
-      description: Yup.string().required('Event Name cannot be empty'),
+      description: Yup.string()
+        .test('no-empty-p-tags', 'Event Name cannot be empty', value => {
+          // Remove HTML tags from the input value
+          const textWithoutTags = value!!.replace(/<[^>]*>/g, '');
+
+          // Check if the resulting text is not empty
+          return textWithoutTags.trim() !== '';
+        })
+        .required('Event Name cannot be empty'),
       /* .min(200, 'Event Name need to valid min is 200'), */
     }),
   });

@@ -71,6 +71,7 @@ const StepAddTicket = ({
           </Button>
         )}
         {!isOpen &&
+          listTicket.length != 0 &&
           listTicket.map((item, index) => (
             <>
               <CardCreatedTicket
@@ -83,7 +84,7 @@ const StepAddTicket = ({
               />
             </>
           ))}
-        {!isOpen && listTicket.length && (
+        {!isOpen && listTicket.length != 0 && (
           <Button
             onClick={() => {
               onOpen();
