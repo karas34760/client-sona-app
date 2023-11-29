@@ -45,8 +45,10 @@ const ProfileDrawer = ({ isOpen, onClose }: IProps) => {
     setCurrentBalance(weiToUSD(balance, 1));
   };
   useEffect(() => {
-    getBalance();
-  }, []);
+    if (user) {
+      getBalance();
+    }
+  }, [user]);
   return (
     <>
       <Drawer

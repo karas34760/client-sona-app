@@ -9,7 +9,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import { useFormik } from 'formik';
-import React from 'react';
+import React, { useEffect } from 'react';
 import * as Yup from 'yup';
 
 import SendMoneyContract from '@/components/Modal/SendMoneyContract';
@@ -37,8 +37,7 @@ const StepComplete = ({
       mortageTx: mortageTx,
       license: license,
     },
-    onSubmit: async values => {
-      updateFields({ mortageTx: values.mortageTx, license: values.license });
+    onSubmit: async () => {
       handleSubmit();
     },
     validationSchema: Yup.object({
@@ -47,7 +46,13 @@ const StepComplete = ({
     }),
     validateOnChange: true,
   });
-
+  useEffect(() => {
+    updateFields({
+      mortageTx: formik.values.mortageTx,
+      license: formik.values.license,
+    });
+  }, [formik.values.mortageTx]);
+  console.log('Now values Step Last', formik.values.mortageTx);
   return (
     <>
       <Box overflow="hidden">
