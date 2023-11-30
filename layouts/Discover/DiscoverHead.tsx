@@ -42,7 +42,7 @@ const DiscoverHead = () => {
               position="sticky"
               top="104px"
               height="fit-content"
-              minW={{ md: '400px' }}
+              w={{ md: '300px' }}
               border="0.063rem solid"
               /*   boxShadow="shadow.200" */
               borderColor="primary.gray.300"

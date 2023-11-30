@@ -96,6 +96,7 @@ const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
         setLoading(false);
         return;
       }
+      setLoading(false);
     };
     currentCheck();
   }, [address]);

@@ -112,8 +112,8 @@ const Header = () => {
                 <ListNavHeader />
                 <BtnSwitchLanguage />
                 <BtnSwitchColor />
+                {user && <FaucetButton />}
               </Box>
-              {user && <FaucetButton />}
 
               <ConnectWallet />
               <Box display={{ md: 'none', base: 'block' }}>

@@ -91,7 +91,7 @@ const DiscoverResult = () => {
       image_link: '/test/nft/nft_30.jpeg',
     },
   ];
-  const colCount = 4;
+  const colCount = 3;
   const rowCount = Math.ceil(Listest.length / colCount);
 
   const cellCache = new CellMeasurerCache({
