@@ -3,15 +3,17 @@ import {
   CloseButton,
   Flex,
   FormControl,
+  FormErrorMessage,
   FormLabel,
   HStack,
   Icon,
   Input,
   Textarea,
-  useToast,
+  Text,
 } from '@chakra-ui/react';
 import { useFormik } from 'formik';
 import React from 'react';
+import * as Yup from 'yup';
 
 import { ITicketType } from '../Steps/StepAddTicket';
 
@@ -26,7 +28,15 @@ interface IProps {
 }
 
 const EventCreateStep = ({ currentTicket, onClose, onSaveData }: IProps) => {
-  const toast = useToast();
+  const validationSchema = Yup.object().shape({
+    amount: Yup.number()
+      .required('Amount is required')
+      .min(1, 'Amount must be greater than 0'),
+    asset: Yup.mixed().required('Image Ticket is required'),
+    tier: Yup.string()
+      .required('Tier is required')
+      .min(1, 'Tier must not be empty'),
+  });
   const formik = useFormik({
     initialValues: {
       amount: currentTicket.amount,
@@ -35,23 +45,13 @@ const EventCreateStep = ({ currentTicket, onClose, onSaveData }: IProps) => {
       description: currentTicket.description,
       price: currentTicket.price,
       tier: currentTicket.tier,
-      uri: currentTicket.uri,
     },
     onSubmit: async values => {
-      if (!values.asset) {
-        toast({
-          title: 'You Need to import Background Ticket',
-          description: "We're need image of each ticket",
-          status: 'error',
-          duration: 3000,
-          isClosable: true,
-        });
-        return;
-      }
-      console.log('Now Value', values);
       onSaveData(values);
       onClose();
     },
+    validateOnChange: true,
+    validationSchema: validationSchema,
   });
   return (
     <>
@@ -80,7 +80,11 @@ const EventCreateStep = ({ currentTicket, onClose, onSaveData }: IProps) => {
             />
           </FormControl>
           <HStack gap={6}>
-            <FormControl variant="create_form" isRequired>
+            <FormControl
+              variant="create_form"
+              isRequired
+              isInvalid={!!(formik.touched.tier && formik.errors.tier)}
+            >
               <FormLabel>Ticket Tier</FormLabel>
               <Input
                 placeholder="Enter Ticket Tier Ex:1 ,2 "
@@ -94,8 +98,17 @@ const EventCreateStep = ({ currentTicket, onClose, onSaveData }: IProps) => {
                   })
                 }
               />
+              {formik.touched.tier && formik.errors.tier && (
+                <FormErrorMessage>
+                  <Text> {formik.errors.tier}</Text>
+                </FormErrorMessage>
+              )}
             </FormControl>
-            <FormControl variant="create_form" isRequired>
+            <FormControl
+              variant="create_form"
+              isRequired
+              isInvalid={!!(formik.touched.amount && formik.errors.amount)}
+            >
               <FormLabel>Ticket Amount</FormLabel>
               <Input
                 placeholder="Enter Ticket Amount"
@@ -109,11 +122,17 @@ const EventCreateStep = ({ currentTicket, onClose, onSaveData }: IProps) => {
                   })
                 }
               />
+              {formik.touched.amount && formik.errors.amount && (
+                <FormErrorMessage>
+                  <Text> {formik.errors.amount}</Text>
+                </FormErrorMessage>
+              )}
             </FormControl>
             <FormControl variant="create_form" isRequired>
               <FormLabel>Ticket Price</FormLabel>
               <Input
                 placeholder="Enter Ticket Price"
+                min={0}
                 value={formik.values.price}
                 onChange={e =>
                   formik.handleChange({
@@ -151,16 +170,26 @@ const EventCreateStep = ({ currentTicket, onClose, onSaveData }: IProps) => {
               }
             />
           </FormControl>
-          <ImageUpload
-            background={formik.values.asset}
-            size={'1920px X 1080px'}
-            label="Cover Ticket Image"
-            setBackground={content => {
-              formik.handleChange({
-                target: { name: 'asset', value: content.image },
-              });
-            }}
-          />
+          <FormControl
+            isInvalid={!!(formik.touched.asset && formik.errors.asset)}
+          >
+            <ImageUpload
+              background={formik.values.asset}
+              size={'1920px X 1080px'}
+              label="Cover Ticket Image"
+              setBackground={content => {
+                formik.handleChange({
+                  target: { name: 'asset', value: content.image },
+                });
+              }}
+            />
+            {formik.touched.asset && formik.errors.asset && (
+              <FormErrorMessage>
+                <Text> {formik.errors.asset}</Text>
+              </FormErrorMessage>
+            )}
+          </FormControl>
+
           <Button width="full" leftIcon={<Icon as={SaveIcon} />} type="submit">
             Save
           </Button>

@@ -51,11 +51,11 @@ function App({ Component, pageProps }: AppProps) {
                     }}
                     adapter={Adapter}
                   >
-                     <AuthProvider>
-                    <DefaultLayout>
-                      <Component {...pageProps} />
-                    </DefaultLayout>
-                     </AuthProvider>
+                    <AuthProvider>
+                      <DefaultLayout>
+                        <Component {...pageProps} />
+                      </DefaultLayout>
+                    </AuthProvider>
                   </QueryParamProvider>
                 </PersistGate>
               </Provider>

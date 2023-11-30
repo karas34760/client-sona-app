@@ -54,6 +54,7 @@ export const getMonthFirstDay = (month = THIS_MONTH, year = THIS_YEAR) => {
 };
 
 export const ONE_DAY = 24 * 60 * 60 * 1000; // follow milisecond
+export const ONE_HOUR = 60 * 60 * 1000;
 export function calculateMinEndTime(startTime: string, hour: number) {
   const startDateTime = new Date(startTime);
   const minEndTime = new Date(startDateTime.getTime() + hour); // hour in milili second

@@ -1,7 +1,15 @@
 /* eslint-disable no-unused-vars */
-import { Box, Button, Container, Flex, useDisclosure } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Container,
+  Flex,
+  useDisclosure,
+  useToast,
+} from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 
+import CardCreatedSinger from '../components/CardCreatedSinger';
 import SignerCreateStep from '../components/SignerCreateStep';
 export interface ISignerType {
   name: string;
@@ -38,52 +46,77 @@ const StepSingerCreate = ({
   useEffect(() => {
     updateFields({ singers: listSingers });
   }, [listSingers]);
+
+  const deleteSinger = (index: any) => {
+    const updatedList = listSingers.filter((item, i) => i !== index);
+    setListSingers(updatedList);
+  };
+  const toast = useToast();
   return (
     <>
-      {!isOpen && (
-        <Button
-          onClick={() => {
-            onOpen();
-          }}
-        >
-          Add Singer
-        </Button>
-      )}
-      {!isOpen &&
-        listSingers.map((item, index) => (
-          <>
-            <Box>{item.name}</Box>
-          </>
-        ))}
-      {isOpen && (
-        <SignerCreateStep
-          onClose={() => {
-            onClose();
-
-            setCurrentSinger(initialValue);
-          }}
-          onSaveData={addSinger}
-          currentSinger={currentSinger}
-          setCurrentSinger={setCurrentSinger}
-        />
-      )}
-
-      {!isOpen && (
-        <Flex gap={3}>
-          <Button width="full" variant="primary" onClick={() => goToPrevious()}>
-            Previous Step
-          </Button>
+      <Flex flexDirection="column" gap={6}>
+        {!isOpen && (
           <Button
-            width="full"
-            variant="primary"
             onClick={() => {
-              goToNext();
+              onOpen();
             }}
           >
-            Next Step
+            Add Singer
           </Button>
-        </Flex>
-      )}
+        )}
+        {!isOpen &&
+          listSingers.map((item, index) => (
+            <>
+              <CardCreatedSinger
+                name={item.name}
+                age={item.age}
+                sex={item.sex}
+                deleteSinger={deleteSinger}
+              />
+            </>
+          ))}
+        {isOpen && (
+          <SignerCreateStep
+            onClose={() => {
+              onClose();
+              setCurrentSinger(initialValue);
+            }}
+            onSaveData={addSinger}
+            currentSinger={currentSinger}
+          />
+        )}
+
+        {!isOpen && (
+          <Flex gap={3}>
+            <Button
+              width="full"
+              variant="primary"
+              onClick={() => goToPrevious()}
+            >
+              Previous Step
+            </Button>
+            <Button
+              width="full"
+              variant="primary"
+              onClick={() => {
+                if (!listSingers.length) {
+                  toast({
+                    title: 'You Need to import Singer in Your Event',
+                    description: 'It is neccesary',
+                    status: 'error',
+                    duration: 3000,
+                    isClosable: true,
+                  });
+                  return;
+                }
+                goToNext();
+              }}
+            >
+              Next Step
+            </Button>
+          </Flex>
+        )}
+      </Flex>
     </>
   );
 };

@@ -47,7 +47,7 @@ interface IForm {
   name: string;
   description: string;
   image: File | undefined; // when send need to reformat
-  location: string;
+  location: string | undefined;
   uri: string;
   tickets: ITicketType[];
   singers: ISignerType[];
@@ -86,11 +86,30 @@ const EventCreatePage = () => {
       return { ...prev, ...fields };
     });
   }
+  const handleResetForm = async () => {
+    setForm({
+      organizer: user || '',
+      name: '',
+      description: '',
+      image: undefined,
+      location: '',
+      uri: '',
+      tickets: [],
+      singers: [],
+      TimeForSell: 0,
+      DeadlineForSell: 0,
+      StartTime: 0,
+      EndTime: 0,
+      mortageTx: '',
+      license: '',
+    });
+    setActiveStep(0);
+  };
   const [isSubmiting, setIsSubmitting] = useState(false);
   const handleSubmit = async () => {
     setIsSubmitting(true);
     let imgUrl = '';
-
+    let uri = '';
     // First submit IPFS
     if (form.image) {
       const projectId = process.env.NEXT_PUBLIC_PROJECT_KEY;
@@ -106,6 +125,28 @@ const EventCreatePage = () => {
           authorization: auth,
         },
       });
+      const listSinger = [];
+      for (const singer of form.singers) {
+        if (singer.asset) {
+          const fileAdded = await client.add(singer.asset);
+          imgUrl =
+            `${
+              process.env.IPFS_SUBDOMAI || 'https://karas.infura-ipfs.io/ipfs/'
+            }` + fileAdded.path;
+          const metadata = {
+            name: singer.name,
+            description: `${singer.age} gender:${singer.sex}`,
+            image: imgUrl,
+          };
+          const metaAdd = await client.add(JSON.stringify(metadata));
+
+          listSinger.push(
+            `${
+              process.env.IPFS_SUBDOMAI || 'https://karas.infura-ipfs.io/ipfs/'
+            }${metaAdd.path}metaAdd.path`
+          );
+        }
+      }
       const fileAdded = await client.add(form.image);
       imgUrl =
         `${process.env.IPFS_SUBDOMAI || 'https://karas.infura-ipfs.io/ipfs/'}` +
@@ -114,10 +155,10 @@ const EventCreatePage = () => {
         name: form.name,
         description: 'Event Description',
         image: imgUrl,
-        attributes: [...form.singers],
+        attributes: [...listSinger],
       };
       const metadataAdded = await client.add(JSON.stringify(metadata));
-      console.log('Meta Data Addeed', metadataAdded);
+      uri = metadataAdded.path;
     }
     const listTicket = [];
     if (form.tickets) {
@@ -146,14 +187,16 @@ const EventCreatePage = () => {
             description: ticket.description,
             image: imgUrl,
           };
-          await client.add(JSON.stringify(metadata));
+          const metaAdd = await client.add(JSON.stringify(metadata));
 
           listTicket.push({
             name: ticket.name,
             description: ticket.description,
             asset: imgUrl,
             price: ticket.price,
-            uri: ticket.uri,
+            uri: `${
+              process.env.IPFS_SUBDOMAI || 'https://karas.infura-ipfs.io/ipfs/'
+            }${metaAdd.path}`,
             amount: ticket.amount,
             tier: ticket.tier,
           });
@@ -170,7 +213,7 @@ const EventCreatePage = () => {
           description: form.description,
           image: imgUrl,
           location: form.location,
-          uri: '',
+          uri: uri,
           tickets: listTicket,
           timeForSell: Date.parse(form.TimeForSell.toString()),
           deadlineForSell: Date.parse(form.DeadlineForSell.toString()),
@@ -189,23 +232,7 @@ const EventCreatePage = () => {
         duration: 5000,
         isClosable: true,
       });
-      setForm({
-        organizer: user || '',
-        name: '',
-        description: '',
-        image: undefined,
-        location: '',
-        uri: '',
-        tickets: [],
-        singers: [],
-        TimeForSell: 0,
-        DeadlineForSell: 0,
-        StartTime: 0,
-        EndTime: 0,
-        mortageTx: '',
-        license: '',
-      });
-      setActiveStep(0);
+      await handleResetForm();
     } catch (error) {
       setIsSubmitting(false);
       toast({

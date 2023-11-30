@@ -12,7 +12,7 @@ import { useFormik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
 
-import { ONE_DAY, calculateMinEndTime } from '@/utils/format/date';
+import { ONE_DAY, ONE_HOUR, calculateMinEndTime } from '@/utils/format/date';
 // Step Basic Event Info
 export interface IEventDetailData {
   name: string;
@@ -60,7 +60,25 @@ const StepEventBasic = ({
         .required('Event Name cannot be empty')
         .min(4, 'Event Name need to valid min is 4'),
       StartTime: Yup.date().required('Start Time is required'),
-      EndTime: Yup.date().required('End Time is required'),
+      EndTime: Yup.date()
+        .required('End Time is required')
+        .test(
+          'is-later-than',
+          'End Time must be at least 1 hour later than Time For Sell',
+          function (value) {
+            const { StartTime } = this.parent;
+
+            if (!StartTime || !value) {
+              // If either value is missing, let Yup handle the required validation
+              return true;
+            }
+
+            const oneHourLater = new Date(StartTime);
+            oneHourLater.setHours(oneHourLater.getHours() + 1);
+
+            return value >= oneHourLater;
+          }
+        ),
       TimeForSell: Yup.date().required('Time For Sell is required'),
       DeadlineForSell: Yup.date().required('Deadline For Sell is required'),
     }),
@@ -80,7 +98,13 @@ const StepEventBasic = ({
               id="name"
               step="any"
               value={formik.values.name}
-              onChange={formik.handleChange}
+              onChange={e => {
+                formik.handleChange(e);
+
+                updateFields({
+                  name: e.target.value,
+                });
+              }}
             />
             {formik.touched.name && formik.errors.name && (
               <FormErrorMessage>
@@ -97,12 +121,21 @@ const StepEventBasic = ({
                   type="datetime-local"
                   id="StartTime"
                   value={formik.values.StartTime}
-                  onChange={formik.handleChange}
+                  onChange={e => {
+                    formik.handleChange(e);
+                    updateFields({
+                      StartTime: e.target.value,
+                    });
+                  }}
                   min={new Date().toISOString().slice(0, 16)}
                 />
               </Flex>
             </FormControl>
-            <FormControl variant="create_form" isRequired>
+            <FormControl
+              variant="create_form"
+              isRequired
+              isInvalid={!!(formik.touched.EndTime && formik.errors.EndTime)}
+            >
               <FormLabel>Event End</FormLabel>
               <Flex gap={2} alignItems="center">
                 <Input
@@ -110,10 +143,20 @@ const StepEventBasic = ({
                   type="datetime-local"
                   id="EndTime"
                   value={formik.values.EndTime}
-                  onChange={formik.handleChange}
-                  min={calculateMinEndTime(formik.values.StartTime, ONE_DAY)}
+                  onChange={e => {
+                    formik.handleChange(e);
+                    updateFields({
+                      EndTime: e.target.value,
+                    });
+                  }}
+                  min={calculateMinEndTime(formik.values.StartTime, ONE_HOUR)}
                 />
               </Flex>
+              {formik.touched.EndTime && formik.errors.EndTime && (
+                <FormErrorMessage>
+                  <Text> {formik.errors.EndTime}</Text>
+                </FormErrorMessage>
+              )}
             </FormControl>
           </HStack>
           <HStack gap={5} flexWrap={{ md: 'nowrap', base: 'wrap' }}>
@@ -125,7 +168,12 @@ const StepEventBasic = ({
                   type="datetime-local"
                   id="TimeForSell"
                   value={formik.values.TimeForSell}
-                  onChange={formik.handleChange}
+                  onChange={e => {
+                    formik.handleChange(e);
+                    updateFields({
+                      TimeForSell: e.target.value,
+                    });
+                  }}
                   min={new Date().toISOString().slice(0, 16)}
                   max={formik.values.StartTime}
                 />
@@ -139,8 +187,13 @@ const StepEventBasic = ({
                   type="datetime-local"
                   id="DeadlineForSell"
                   value={formik.values.DeadlineForSell}
-                  onChange={formik.handleChange}
-                  min={formik.values.TimeForSell}
+                  onChange={e => {
+                    formik.handleChange(e);
+                    updateFields({
+                      DeadlineForSell: e.target.value,
+                    });
+                  }}
+                  min={calculateMinEndTime(formik.values.TimeForSell, ONE_DAY)}
                   max={formik.values.StartTime}
                 />
               </Flex>

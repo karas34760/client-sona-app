@@ -11,7 +11,6 @@ export interface ITicketType {
   description: string; // Ticket Description
   price: number;
   tier: number;
-  uri: string;
 }
 interface IProps {
   tickets: ITicketType[];
@@ -27,7 +26,6 @@ const initialValue = {
   description: '',
   price: 0,
   tier: 0,
-  uri: '',
   asset: undefined,
   minBooking: 0,
   maxBooking: 0,
