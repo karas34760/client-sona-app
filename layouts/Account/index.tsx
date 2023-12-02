@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-use-before-define */
+import { useQuery } from '@apollo/client';
 import { Box, Button, Container, HStack, Icon, Text } from '@chakra-ui/react';
 import Link from 'next/link';
 import { useAccount } from 'wagmi';
@@ -8,12 +9,20 @@ import AccountProfileTab from './AccountTab';
 import MoreData from './UsedComponents/MoreData';
 import SettingProfileImage from './UsedComponents/SettingProfileImage';
 
+import { SEARCH_ACCOUNT_BY_ADDRESS } from '@/graphql/query';
+import { useAuth } from '@/hooks/useAuth';
 import ShareData from '@/layouts/Account/UsedComponents/ShareData';
 import { shortenAddress } from '@/utils/format/address';
 import SettingIcon from 'public/assets/icons/generals/setting.svg';
 
 const AccountDetailPage = () => {
   const { address } = useAccount();
+  const { user } = useAuth();
+  const { loading, data, refetch } = useQuery(SEARCH_ACCOUNT_BY_ADDRESS, {
+    variables: {
+      address: user,
+    },
+  });
 
   return (
     <>

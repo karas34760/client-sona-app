@@ -5,6 +5,7 @@ import {
   ModalOverlay,
   VStack,
   Text,
+  useToast,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -20,6 +21,8 @@ const FaucetButton = () => {
   const { user } = useAuth();
   const web3 = new Web3(window.ethereum);
   const [isLoading, setIsLoading] = useState(false);
+  const toast = useToast();
+
   const dispatch = useDispatch();
   const handleSend = async () => {
     setIsLoading(true);
@@ -37,9 +40,23 @@ const FaucetButton = () => {
 
       setIsLoading(false);
       dispatch(setUserLoading(false));
+      toast({
+        title: 'Faucet Success',
+        description: 'Your Balance are updated ',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      });
     } catch (error) {
       setIsLoading(false);
       console.log(error);
+      toast({
+        title: 'Faucet Error',
+        description: `${error}`,
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
     }
   };
 

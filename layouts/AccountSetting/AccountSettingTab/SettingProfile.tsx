@@ -13,7 +13,7 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as yup from 'yup';
 
 import VerifyCodeModal from '@/components/Modal/VerifyCodeModal';
@@ -29,6 +29,16 @@ const SettingProfile = () => {
       address: user,
     },
   });
+
+  const [dataUser, setDataUser] = useState<any>(null);
+
+  useEffect(() => {
+    if (!loading && data && data.searchAccountByAddress) {
+      setDataUser(data.searchAccountByAddress);
+      console.log(dataUser);
+    }
+  }, [loading]);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [currentEmail, setCurrentEmail] = useState('');
   // Use yubobject to verify
@@ -59,6 +69,7 @@ const SettingProfile = () => {
         });
       });
   };
+
   return (
     <>
       <Box width="full">

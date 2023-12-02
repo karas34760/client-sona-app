@@ -112,7 +112,7 @@ export const SEARCH_ACCOUNT_BY_ADDRESS = gql`
   }
 `;
 
-const SEARCH_TICKETS = gql`
+export const SEARCH_TICKETS = gql`
   query SearchTickets($eventId: Int, $eventAddress: String, $tier: Float) {
     searchTickets(eventId: $eventId, eventAddress: $eventAddress, tier: $tier) {
       eventId
@@ -138,5 +138,21 @@ export const SEND_EMAIL_VERIFY = gql`
 export const VEIRYF_EMAIL = gql`
   mutation VerifyEmail($email: String!, $code: String!) {
     verifyEmail(email: $email, code: $code)
+  }
+`;
+export const UPDATE_PROFILE = gql`
+  mutation UpdateProfile($args: UpdateProfileInput!) {
+    updateProfile(args: $args) {
+      address
+      username
+      bio
+      website
+      social {
+        key
+        value
+      }
+      avatar
+      background
+    }
   }
 `;

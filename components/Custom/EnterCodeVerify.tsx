@@ -15,8 +15,6 @@ export default function EnterCode({ callback, isLoading }: IProps) {
     useRef<HTMLInputElement | null>(null),
     useRef<HTMLInputElement | null>(null),
     useRef<HTMLInputElement | null>(null),
-    useRef<HTMLInputElement | null>(null), // todo remove after update
-    useRef<HTMLInputElement | null>(null), // todo remove after update
   ];
 
   // Reset all inputs and clear state
@@ -32,7 +30,7 @@ export default function EnterCode({ callback, isLoading }: IProps) {
 
   // Call our callback when code = 6 chars
   useEffect(() => {
-    if (code.length === 8) {
+    if (code.length === 6) {
       if (typeof callback === 'function') {
         callback(code);
       }
@@ -119,7 +117,7 @@ export default function EnterCode({ callback, isLoading }: IProps) {
 
   return (
     <HStack>
-      {[0, 1, 2, 3, 4, 5, 6, 7].map(index => (
+      {[0, 1, 2, 3, 4, 5].map(index => (
         <Input
           width="50px"
           height="50px"

@@ -63,7 +63,7 @@ const VerifyCodeModal = ({ isOpen, onClose, email }: IProps) => {
           <ModalBody padding={8}>
             <VStack width="full">
               <Box display="inline-flex" gap={2}>
-                Please Check Your Email
+                Please Check Your Email , Code verify sent to:
                 <Text fontWeight="bold"> ${email} </Text>
               </Box>
               <EnterCode isLoading={isLoading} callback={setCode} />

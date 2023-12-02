@@ -20,6 +20,7 @@ import { CONNECT_WALLET, SEARCH_CONNECT_MSG } from '@/graphql/query';
 import { useAuth } from '@/hooks/useAuth';
 import {
   getAccessToken,
+  removeFromStorage,
   saveTokensStorage,
   saveUserToStorage,
 } from '@/redux/user/user-helper';
@@ -81,8 +82,15 @@ const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
   useEffect(() => {
     const currentCheck = async () => {
       const accessToken = getAccessToken();
-
+      if (address == null && !accessToken) {
+        //todo focus
+        setLoading(false);
+        disconnect();
+        removeFromStorage();
+        return;
+      }
       if (address != user && address != null) {
+        // Check when user want to change the account
         setLoading(true);
         dispatch(setUser(address));
         saveUserToStorage(address);
@@ -91,11 +99,13 @@ const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
         return;
       }
       if (!accessToken && address != null) {
+        // Check when user want to
         setLoading(true);
         await handleAccept();
         setLoading(false);
         return;
       }
+
       setLoading(false);
     };
     currentCheck();
