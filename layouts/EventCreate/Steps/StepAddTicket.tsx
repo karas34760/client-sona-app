@@ -39,6 +39,11 @@ const StepAddTicket = ({
   goToPrevious,
 }: IProps) => {
   const { onClose, onOpen, isOpen } = useDisclosure();
+  const {
+    onClose: onCloseUpdate,
+    onOpen: onOpenUpdate,
+    isOpen: isOpenUpdate,
+  } = useDisclosure();
   const [listTicket, setListTicket] = useState<ITicketType[]>(tickets);
   const [currentTicket, setCurrentTicket] = useState<ITicketType>(initialValue);
 
@@ -49,6 +54,11 @@ const StepAddTicket = ({
   const addTicket = (newTicket: ITicketType) => {
     // Use the spread operator to create a new array with the new ticket
     const updatedList = [...listTicket, newTicket];
+    setListTicket(updatedList);
+  };
+  const updateTicket = (index: number, updatedTicket: ITicketType) => {
+    const updatedList = [...listTicket];
+    updatedList[index] = updatedTicket;
     setListTicket(updatedList);
   };
   useEffect(() => {
@@ -79,6 +89,7 @@ const StepAddTicket = ({
                 price={item.price}
                 tier={item.tier}
                 deleteTicket={() => deleteTicket(index)}
+                updateTicket={() => {}}
               />
             </>
           ))}
@@ -125,6 +136,17 @@ const StepAddTicket = ({
           <EventCreateStep
             onClose={() => {
               onClose();
+
+              setCurrentTicket(initialValue);
+            }}
+            onSaveData={addTicket}
+            currentTicket={currentTicket}
+          />
+        )}
+        {isOpenUpdate && (
+          <EventCreateStep
+            onClose={() => {
+              onCloseUpdate();
 
               setCurrentTicket(initialValue);
             }}

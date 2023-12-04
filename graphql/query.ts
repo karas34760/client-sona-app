@@ -38,6 +38,7 @@ export const SUBMIT_NEW_EVENT = gql`
     $description: String!
     $image: String!
     $location: String!
+    $category: [String!]!
     $uri: String!
     $tickets: [NewTicketType!]!
     $timeForSell: Float!
@@ -52,6 +53,7 @@ export const SUBMIT_NEW_EVENT = gql`
       description: $description
       image: $image
       location: $location
+      category: $category
       uri: $uri
       tickets: $tickets
       TimeForSell: $timeForSell

@@ -35,6 +35,7 @@ import CompleteIcon from '@/public/assets/icons/generals/complete.svg';
 import InfoIcon from '@/public/assets/icons/generals/info.svg';
 import PerfomanceIcon from '@/public/assets/icons/generals/micro.svg';
 import TicketIcon from '@/public/assets/icons/generals/tickets.svg';
+import { categoryEvent, optionEventType } from '@/utils/constants/constants';
 interface StepProps {
   title: string;
   icon?: any;
@@ -49,6 +50,7 @@ interface IForm {
   image: File | undefined; // when send need to reformat
   location: string | undefined;
   uri: string;
+  category: optionEventType;
   tickets: ITicketType[];
   singers: ISignerType[];
   TimeForSell: number | string;
@@ -72,6 +74,7 @@ const EventCreatePage = () => {
     image: undefined,
     location: '',
     uri: '',
+    category: categoryEvent[0],
     tickets: [],
     singers: [],
     TimeForSell: 0,
@@ -102,6 +105,7 @@ const EventCreatePage = () => {
       EndTime: 0,
       mortageTx: '',
       license: '',
+      category: categoryEvent[0],
     });
     setActiveStep(0);
   };
@@ -221,6 +225,7 @@ const EventCreatePage = () => {
           endTime: Date.parse(form.EndTime.toString()),
           mortageTx: form.mortageTx,
           license: form.license,
+          category: form.category.value,
         },
       });
       setIsSubmitting(false);
@@ -268,6 +273,7 @@ const EventCreatePage = () => {
             <StepEventBasic
               event_data={{
                 name: form.name,
+                category: form.category,
                 StartTime: form.StartTime.toString(),
                 EndTime: form.EndTime.toString(),
                 DeadlineForSell: form.DeadlineForSell.toString(),

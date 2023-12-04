@@ -8,15 +8,18 @@ import {
   Input,
   Text,
 } from '@chakra-ui/react';
+import { Select } from 'chakra-react-select';
 import { useFormik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup';
 
+import { categoryEvent, optionEventType } from '@/utils/constants/constants';
 import { ONE_DAY, ONE_HOUR, calculateMinEndTime } from '@/utils/format/date';
 // Step Basic Event Info
+
 export interface IEventDetailData {
   name: string;
-
+  category: optionEventType;
   StartTime: string;
   EndTime: string;
   TimeForSell: string;
@@ -43,6 +46,7 @@ const StepEventBasic = ({
       EndTime: event_data.EndTime,
       TimeForSell: event_data.TimeForSell,
       DeadlineForSell: event_data.DeadlineForSell,
+      category: event_data.category,
     },
     onSubmit: async values => {
       updateFields({
@@ -87,31 +91,55 @@ const StepEventBasic = ({
     <>
       <form onSubmit={formik.handleSubmit}>
         <Flex flexDirection="column" gap={3} py={6}>
-          <FormControl
-            isRequired
-            variant="create_form"
-            isInvalid={!!(formik.touched.name && formik.errors.name)}
-          >
-            <FormLabel>Event Name</FormLabel>
-            <Input
-              placeholder="Event name"
-              id="name"
-              step="any"
-              value={formik.values.name}
-              onChange={e => {
-                formik.handleChange(e);
+          <HStack gap={5}>
+            <FormControl
+              isRequired
+              variant="create_form"
+              isInvalid={!!(formik.touched.name && formik.errors.name)}
+            >
+              <FormLabel>Event Name</FormLabel>
+              <Input
+                placeholder="Event name"
+                id="name"
+                step="any"
+                value={formik.values.name}
+                onChange={e => {
+                  formik.handleChange(e);
 
-                updateFields({
-                  name: e.target.value,
-                });
-              }}
-            />
-            {formik.touched.name && formik.errors.name && (
-              <FormErrorMessage>
-                <Text> {formik.errors.name}</Text>
-              </FormErrorMessage>
-            )}
-          </FormControl>
+                  updateFields({
+                    name: e.target.value,
+                  });
+                }}
+              />
+              {formik.touched.name && formik.errors.name && (
+                <FormErrorMessage>
+                  <Text> {formik.errors.name}</Text>
+                </FormErrorMessage>
+              )}
+            </FormControl>
+            <FormControl
+              isRequired
+              variant="create_form"
+              isInvalid={!!(formik.touched.name && formik.errors.name)}
+            >
+              <FormLabel>Event Category</FormLabel>
+              <Select
+                placeholder="Event Category"
+                name="category"
+                options={categoryEvent}
+                value={formik.values.category}
+                onChange={e =>
+                  formik.handleChange({
+                    target: {
+                      name: 'category',
+                      value: e,
+                    },
+                  })
+                }
+              />
+            </FormControl>
+          </HStack>
+
           <HStack gap={5} flexWrap={{ md: 'nowrap', base: 'wrap' }}>
             <FormControl variant="create_form" isRequired>
               <FormLabel>Event Start </FormLabel>

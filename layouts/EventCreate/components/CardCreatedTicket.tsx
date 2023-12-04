@@ -8,6 +8,8 @@ interface IProps {
   tier: number;
   // eslint-disable-next-line no-unused-vars
   deleteTicket: (index: any) => void;
+  // eslint-disable-next-line no-unused-vars
+  updateTicket: () => void;
 }
 const CardCreatedTicket = ({
   name,
@@ -15,6 +17,7 @@ const CardCreatedTicket = ({
   price,
   tier,
   deleteTicket,
+  updateTicket,
 }: IProps) => {
   return (
     <>
@@ -25,6 +28,7 @@ const CardCreatedTicket = ({
           <Text>Amount: {amount}</Text>
         </Box>
         <Text>{price} $</Text>
+        <Button onClick={updateTicket}>Edit</Button>
         <Button onClick={deleteTicket}>Delete Ticket</Button>
       </HStack>
     </>

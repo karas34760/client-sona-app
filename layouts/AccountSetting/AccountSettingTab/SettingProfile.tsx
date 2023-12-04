@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import {
   Box,
   Flex,
@@ -11,33 +11,37 @@ import {
   Button,
   useDisclosure,
   useToast,
+  Center,
+  Container,
+  Image,
 } from '@chakra-ui/react';
+import { useFormik } from 'formik';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
+import { useAccount } from 'wagmi';
 import * as yup from 'yup';
 
 import VerifyCodeModal from '@/components/Modal/VerifyCodeModal';
+import ProfileImageUpload from '@/components/Upload/ProfileImageUpload';
 import { client } from '@/graphql/httplink';
-import { SEARCH_ACCOUNT_BY_ADDRESS, SEND_EMAIL_VERIFY } from '@/graphql/query';
+import {
+  SEARCH_ACCOUNT_BY_ADDRESS,
+  SEND_EMAIL_VERIFY,
+  UPDATE_PROFILE,
+} from '@/graphql/query';
 import { useAuth } from '@/hooks/useAuth';
-import SettingProfileImage from '@/layouts/Account/UsedComponents/SettingProfileImage';
 import CompassIcon from 'public/assets/icons/generals/website.svg';
+
 const SettingProfile = () => {
   const { user } = useAuth();
+  const { address } = useAccount();
+
   const { loading, data, refetch } = useQuery(SEARCH_ACCOUNT_BY_ADDRESS, {
     variables: {
       address: user,
     },
   });
-
-  const [dataUser, setDataUser] = useState<any>(null);
-
-  useEffect(() => {
-    if (!loading && data && data.searchAccountByAddress) {
-      setDataUser(data.searchAccountByAddress);
-      console.log(dataUser);
-    }
-  }, [loading]);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [currentEmail, setCurrentEmail] = useState('');
@@ -70,106 +74,295 @@ const SettingProfile = () => {
       });
   };
 
+  // Settting initialize values
+  const tempData = {
+    avatar: undefined,
+    background: undefined,
+    bio: '',
+    username: '',
+    website: '',
+  };
+  const getData = () => data?.searchAccountByAddress || tempData;
+
+  // eslint-disable-next-line no-unused-vars
+  const [updateProfileMutation, { data: datUpdate, error }] =
+    useMutation(UPDATE_PROFILE);
+  const formik = useFormik({
+    initialValues: getData(),
+    onSubmit: async values => {
+      console.log(values);
+      const res = await updateProfileMutation({ variables: { args: values } });
+      console.log(res);
+    },
+    enableReinitialize: true,
+  });
+
   return (
     <>
       <Box width="full">
-        <SettingProfileImage />
-        <Flex pt={10} flexDirection="column" gap={6}>
-          <FormControl gap={2}>
-            <FormLabel fontWeight="bold">Display name</FormLabel>
-            <Input placeholder="Karas " variant="settingProfile" />
-          </FormControl>
-          <FormControl gap={2}>
-            <FormLabel fontWeight="bold">Description/Bio</FormLabel>
-            <Input variant="settingProfile" />
-          </FormControl>
-          <Box>
-            <HStack>
-              <Icon
-                as={CompassIcon}
-                height={6}
-                width={6}
-                sx={{
-                  path: {
-                    stroke: 'url(#CompassLinear04)',
-                  },
-                }}
-              />
-              <Text fontSize="lg" fontWeight="bold">
-                Social Connections
-              </Text>
-            </HStack>
-            <HStack fontSize="sm">
-              <Text color="primary.gray.600">
-                Connection to verify your account
-              </Text>
-              <Text
-                color="secondary.info.300"
-                textTransform="capitalize"
-                fontWeight="bold"
-              >
-                <Link href="#">more infos</Link>
-              </Text>
-            </HStack>
-          </Box>
-          <FormControl gap={2}>
-            <FormLabel fontWeight="bold">Website</FormLabel>
-            <Input
-              placeholder="https://youwbsite.com"
-              variant="settingProfile"
-            />
-          </FormControl>
-          <FormControl gap={2}>
-            <FormLabel fontWeight="bold">X (Twitter)</FormLabel>
-            <Input
-              placeholder="https://twitter.com/your_twitter"
-              variant="settingProfile"
-            />
-          </FormControl>
-          <FormControl gap={2}>
-            <FormLabel>
-              <Text fontWeight="bold">Email</Text>
-              <Text fontSize="sm" color="primary.gray.500">
-                Your email for use advance function
-              </Text>
-            </FormLabel>
-
-            <HStack>
-              <Input
-                type="email"
-                placeholder="Enter email"
-                variant="settingProfile"
-                value={data && data.email ? data.email : currentEmail}
-                onChange={e => setCurrentEmail(e.target.value)}
-              />
-              {data && !data.email && !loading && (
-                <Button
-                  onClick={async () => {
-                    await handleSendEmail();
-                  }}
-                >
-                  Verify Email
-                </Button>
+        <form onSubmit={formik.handleSubmit}>
+          <Box position="relative">
+            <Box role="group" height={{ lg: '500px', base: '300px' }}>
+              {formik.values.background ? (
+                <>
+                  <Image
+                    src={
+                      typeof formik.values.background === 'string'
+                        ? formik.values.background
+                        : URL.createObjectURL(formik.values.background)
+                    }
+                    alt=""
+                    inset="0"
+                    height="full"
+                    position="absolute"
+                    top={0}
+                    width="full"
+                    left={0}
+                    objectFit="cover"
+                  />
+                  <Center
+                    position="absolute"
+                    top={0}
+                    left={0}
+                    width="full"
+                    height="full"
+                    cursor="pointer"
+                  >
+                    <ProfileImageUpload
+                      setBackground={content =>
+                        formik.handleChange({
+                          target: {
+                            name: 'background',
+                            value: content,
+                          },
+                        })
+                      }
+                    />
+                  </Center>
+                </>
+              ) : (
+                <>
+                  <Box position="relative" cursor="pointer">
+                    <Center
+                      position="absolute"
+                      top={0}
+                      left={0}
+                      width="full"
+                      height="full"
+                    >
+                      <ProfileImageUpload
+                        setBackground={content =>
+                          formik.handleChange({
+                            target: {
+                              name: 'background',
+                              value: content,
+                            },
+                          })
+                        }
+                      />
+                    </Center>
+                  </Box>
+                </>
               )}
-            </HStack>
-          </FormControl>
-          <Button
-            variant="primary"
-            borderRadius="1.5rem"
-            width="fit-content"
-            px={6}
-          >
-            Save
-          </Button>
-          <VerifyCodeModal
-            isOpen={isOpen}
-            onClose={() => {
-              onClose();
-              refetch();
-            }}
-            email={currentEmail}
-          />
-        </Flex>
+            </Box>
+            <Container maxWidth="container.xl" position="relative">
+              <Box
+                position="absolute"
+                bottom="-40px"
+                zIndex={4}
+                borderRadius="full"
+                border="0.5rem solid"
+                borderColor="white"
+                overflow="hidden"
+                height={{ lg: 40, base: 32 }}
+                width={{ lg: 40, base: 32 }}
+                role="group"
+              >
+                <Box position="absolute" height="full" width="full">
+                  {formik.values.avatar ? (
+                    <>
+                      <Image
+                        src={
+                          typeof formik.values.avatar === 'string'
+                            ? formik.values.avatar
+                            : URL.createObjectURL(formik.values.avatar)
+                        }
+                        alt=""
+                        inset="0"
+                        height="full"
+                        position="absolute"
+                        top={0}
+                        width="full"
+                        left={0}
+                        objectFit="cover"
+                      />
+                      <Center
+                        position="absolute"
+                        top={0}
+                        left={0}
+                        width="full"
+                        height="full"
+                        cursor="pointer"
+                      >
+                        <ProfileImageUpload
+                          setBackground={content =>
+                            formik.handleChange({
+                              target: {
+                                name: 'avatar',
+                                value: content,
+                              },
+                            })
+                          }
+                        />
+                      </Center>
+                    </>
+                  ) : (
+                    <>
+                      <Box position="relative" cursor="pointer">
+                        <Jazzicon
+                          diameter={150}
+                          seed={jsNumberForAddress(
+                            address ||
+                              '0x1111111111111111111111111111111111111111'
+                          )}
+                        />
+                        <Center
+                          position="absolute"
+                          top={0}
+                          left={0}
+                          width="full"
+                          height="full"
+                        >
+                          <ProfileImageUpload
+                            setBackground={content =>
+                              formik.handleChange({
+                                target: {
+                                  name: 'avatar',
+                                  value: content,
+                                },
+                              })
+                            }
+                          />
+                        </Center>
+                      </Box>
+                    </>
+                  )}
+                </Box>
+              </Box>
+            </Container>
+          </Box>
+          <Flex pt={10} flexDirection="column" gap={6}>
+            <FormControl gap={2}>
+              <FormLabel fontWeight="bold">Display name</FormLabel>
+              <Input
+                placeholder=""
+                variant="settingProfile"
+                value={formik.values.username}
+                onChange={formik.handleChange}
+                name="username"
+              />
+            </FormControl>
+            <FormControl gap={2}>
+              <FormLabel fontWeight="bold">Description/Bio</FormLabel>
+              <Input
+                variant="settingProfile"
+                name=" bio"
+                value={formik.values.bio}
+                onChange={formik.handleChange}
+              />
+            </FormControl>
+            <Box>
+              <HStack>
+                <Icon
+                  as={CompassIcon}
+                  height={6}
+                  width={6}
+                  sx={{
+                    path: {
+                      stroke: 'url(#CompassLinear04)',
+                    },
+                  }}
+                />
+                <Text fontSize="lg" fontWeight="bold">
+                  Social Connections
+                </Text>
+              </HStack>
+              <HStack fontSize="sm">
+                <Text color="primary.gray.600">
+                  Connection to verify your account
+                </Text>
+                <Text
+                  color="secondary.info.300"
+                  textTransform="capitalize"
+                  fontWeight="bold"
+                >
+                  <Link href="#">more infos</Link>
+                </Text>
+              </HStack>
+            </Box>
+            <FormControl gap={2}>
+              <FormLabel fontWeight="bold">Website</FormLabel>
+              <Input
+                placeholder="Ex: https://youwbsite.com"
+                name="website"
+                value={formik.values.website}
+                onChange={formik.handleChange}
+                variant="settingProfile"
+              />
+            </FormControl>
+            <FormControl gap={2}>
+              <FormLabel fontWeight="bold">X (Twitter)</FormLabel>
+              <Input
+                placeholder="https://twitter.com/your_twitter"
+                variant="settingProfile"
+              />
+            </FormControl>
+            <FormControl gap={2}>
+              <FormLabel>
+                <Text fontWeight="bold">Email</Text>
+                <Text fontSize="sm" color="primary.gray.500">
+                  Your email for use advance function
+                </Text>
+              </FormLabel>
+
+              <HStack>
+                <Input
+                  type="email"
+                  placeholder="Enter email"
+                  variant="settingProfile"
+                  value={data && data.email ? data.email : currentEmail}
+                  onChange={e => setCurrentEmail(e.target.value)}
+                />
+                {data && !data.email && !loading && (
+                  <Button
+                    onClick={async () => {
+                      await handleSendEmail();
+                    }}
+                  >
+                    Verify Email
+                  </Button>
+                )}
+              </HStack>
+            </FormControl>
+            <Button
+              variant="primary"
+              borderRadius="1.5rem"
+              width="fit-content"
+              px={6}
+              type="submit"
+            >
+              Save
+            </Button>
+            <VerifyCodeModal
+              isOpen={isOpen}
+              onClose={() => {
+                onClose();
+                refetch();
+              }}
+              email={currentEmail}
+            />
+          </Flex>
+        </form>
       </Box>
     </>
   );

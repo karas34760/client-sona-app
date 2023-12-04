@@ -1,10 +1,8 @@
 /* eslint-disable no-unused-vars */
 import { Box, Center, Container, Icon, Image } from '@chakra-ui/react';
-import { useState } from 'react';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
 import { useAccount } from 'wagmi';
 
-import ProfileImageUpload from '@/components/Upload/ProfileImageUpload';
 import EditIcon from 'public/assets/icons/generals/editing.svg';
 interface IProps {
   background?: string;
@@ -29,8 +27,8 @@ const SettingProfileImage = ({ background, avatar }: IProps) => {
             position="absolute"
             zIndex={3}
             bg={`${background ? '' : 'rgba(229, 232, 235)'}`}
-          > </Center>
-          {background && (
+          ></Center>
+          {background && typeof background === 'string' && (
             <Image
               alt="Tickifi Image"
               src={background}
