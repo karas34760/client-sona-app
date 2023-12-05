@@ -82,18 +82,38 @@ const StepAddTicket = ({
           listTicket.length != 0 &&
           listTicket.map((item, index) => (
             <>
-              <CardCreatedTicket
-                key={`${index}-tickets-create`}
-                name={item.name}
-                amount={item.amount}
-                price={item.price}
-                tier={item.tier}
-                deleteTicket={() => deleteTicket(index)}
-                updateTicket={() => {}}
-              />
+              {!isOpenUpdate && (
+                <CardCreatedTicket
+                  key={`${index}-tickets-create`}
+                  name={item.name}
+                  amount={item.amount}
+                  price={item.price}
+                  tier={item.tier}
+                  description={item.description}
+                  image={item.asset}
+                  deleteTicket={() => deleteTicket(index)}
+                  updateTicket={async () => {
+                    await setCurrentTicket(item);
+                    onOpenUpdate();
+                  }}
+                />
+              )}
+
+              {isOpenUpdate && (
+                <EventCreateStep
+                  onClose={() => {
+                    onCloseUpdate();
+
+                    setCurrentTicket(initialValue);
+                  }}
+                  currentIndex={index}
+                  onUpdateData={updateTicket}
+                  currentTicket={currentTicket}
+                />
+              )}
             </>
           ))}
-        {!isOpen && listTicket.length != 0 && (
+        {!isOpen && !isOpenUpdate && listTicket.length != 0 && (
           <Button
             onClick={() => {
               onOpen();
@@ -102,7 +122,7 @@ const StepAddTicket = ({
             Add Another Ticket
           </Button>
         )}
-        {!isOpen && (
+        {!isOpen && !isOpenUpdate && (
           <Flex gap={3}>
             <Button
               width="full"
@@ -136,17 +156,6 @@ const StepAddTicket = ({
           <EventCreateStep
             onClose={() => {
               onClose();
-
-              setCurrentTicket(initialValue);
-            }}
-            onSaveData={addTicket}
-            currentTicket={currentTicket}
-          />
-        )}
-        {isOpenUpdate && (
-          <EventCreateStep
-            onClose={() => {
-              onCloseUpdate();
 
               setCurrentTicket(initialValue);
             }}

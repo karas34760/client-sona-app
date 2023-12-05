@@ -1,12 +1,13 @@
-import { Box, HStack, Text } from '@chakra-ui/react';
+import { useQuery } from '@apollo/client';
+import { Box, HStack, Text, Image } from '@chakra-ui/react';
 import Link from 'next/link';
 import React from 'react';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
-import { useAccount, useEnsAvatar, useEnsName } from 'wagmi';
+import { useAccount } from 'wagmi';
 
-import ChakraImage from '../Custom/ChakraImage';
 import CopyData from '../Custom/CopyData';
 
+import { SEARCH_PROFILE } from '@/graphql/query';
 import { shortenAddress } from '@/utils/format/address';
 
 interface IProps {
@@ -15,15 +16,20 @@ interface IProps {
 // Account Address Display Infomration
 const AccountAddress = ({ onClose }: IProps) => {
   const { address } = useAccount();
-
-  const { data: ensAvatar } = useEnsAvatar({ name: address });
-  const { data: ensName } = useEnsName({ address });
+  const { data: dataUser } = useQuery(SEARCH_PROFILE);
   return (
     <>
       <HStack gap={2} alignItems="center">
         <Box>
-          {ensAvatar ? (
-            <ChakraImage src={ensAvatar} alt="ENS Avatar" />
+          {dataUser ? (
+            <Image
+              borderRadius="full"
+              alt="Tickifi Profile Image"
+              objectFit="cover"
+              src={dataUser.searchAddressProfile.avatar}
+              height={10}
+              width={10}
+            />
           ) : (
             <Jazzicon
               diameter={40}
@@ -41,7 +47,9 @@ const AccountAddress = ({ onClose }: IProps) => {
                 color: 'primary.gray.500',
               }}
             >
-              {ensName ? `${ensName} ` : shortenAddress(address)}
+              {dataUser
+                ? `${dataUser.searchAddressProfile.username} `
+                : shortenAddress(address)}
             </Text>
             <CopyData
               h={4}

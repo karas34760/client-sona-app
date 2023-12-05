@@ -9,7 +9,7 @@ import AccountProfileTab from './AccountTab';
 import MoreData from './UsedComponents/MoreData';
 import SettingProfileImage from './UsedComponents/SettingProfileImage';
 
-import { SEARCH_ACCOUNT_BY_ADDRESS } from '@/graphql/query';
+import { SEARCH_ACCOUNT_BY_ADDRESS, SEARCH_PROFILE } from '@/graphql/query';
 import { useAuth } from '@/hooks/useAuth';
 import ShareData from '@/layouts/Account/UsedComponents/ShareData';
 import { shortenAddress } from '@/utils/format/address';
@@ -18,16 +18,20 @@ import SettingIcon from 'public/assets/icons/generals/setting.svg';
 const AccountDetailPage = () => {
   const { address } = useAccount();
   const { user } = useAuth();
-  const { loading, data, refetch } = useQuery(SEARCH_ACCOUNT_BY_ADDRESS, {
-    variables: {
-      address: user,
-    },
-  });
+  const { data: dataUser } = useQuery(SEARCH_PROFILE);
 
   return (
     <>
       <Box padding={0}>
-        <SettingProfileImage />
+        {dataUser ? (
+          <SettingProfileImage
+            avatar={dataUser.searchAddressProfile.avatar}
+            background={dataUser.searchAddressProfile.background}
+          />
+        ) : (
+          <SettingProfileImage />
+        )}
+
         <Container maxWidth="container.xl" my={12}>
           <HStack
             justifyContent="space-between"
@@ -36,7 +40,7 @@ const AccountDetailPage = () => {
           >
             <Box>
               <Text fontSize="2xl" fontWeight="bold">
-                Karas Developer
+                {dataUser ? dataUser.searchAddressProfile.username : 'No Name'}
               </Text>
               <HStack>
                 <Text>Address:</Text>

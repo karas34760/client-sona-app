@@ -114,12 +114,10 @@ const Header = () => {
                 <BtnSwitchColor />
                 {user && <FaucetButton />}
               </Box>
-
-              <ConnectWallet />
               <Box display={{ md: 'none', base: 'block' }}>
                 <NavMobileSearch />
               </Box>
-              {/*  <CartButton /> */}
+              <ConnectWallet />
             </Flex>
           </HStack>
         </Container>

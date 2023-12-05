@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import {
   Button,
   CloseButton,
@@ -23,11 +24,19 @@ interface IProps {
   currentTicket: ITicketType;
 
   onClose: () => void;
+  currentIndex?: number;
   // eslint-disable-next-line no-unused-vars
-  onSaveData: (newTicket: ITicketType) => void;
+  onSaveData?: (newTicket: ITicketType) => void;
+  onUpdateData?: (index: number, newTicket: ITicketType) => void;
 }
 
-const EventCreateStep = ({ currentTicket, onClose, onSaveData }: IProps) => {
+const EventCreateStep = ({
+  currentTicket,
+  onClose,
+  onSaveData,
+  currentIndex,
+  onUpdateData,
+}: IProps) => {
   const validationSchema = Yup.object().shape({
     amount: Yup.number()
       .required('Amount is required')
@@ -45,7 +54,13 @@ const EventCreateStep = ({ currentTicket, onClose, onSaveData }: IProps) => {
       tier: currentTicket.tier,
     },
     onSubmit: async values => {
-      onSaveData(values);
+      if (onSaveData) {
+        // use for add ticket
+        onSaveData(values);
+      }
+      if (onUpdateData && currentIndex) {
+        onUpdateData(currentIndex, values);
+      }
       onClose();
     },
     validateOnChange: true,
@@ -156,8 +171,9 @@ const EventCreateStep = ({ currentTicket, onClose, onSaveData }: IProps) => {
             </FormControl>
           </HStack>
           <FormControl variant="create_form" isRequired>
-            <FormLabel>Ticket Description</FormLabel>
+            <FormLabel>Ticket Description (max: 50 characters)</FormLabel>
             <Textarea
+              maxLength={50}
               placeholder="Enter Ticket Price"
               value={formik.values.description}
               onChange={e =>
@@ -189,9 +205,9 @@ const EventCreateStep = ({ currentTicket, onClose, onSaveData }: IProps) => {
               </FormErrorMessage>
             )}
           </FormControl>
-
+          {}
           <Button width="full" leftIcon={<Icon as={SaveIcon} />} type="submit">
-            Save
+            {onSaveData ? 'Save' : 'Update'}
           </Button>
         </Flex>
       </form>

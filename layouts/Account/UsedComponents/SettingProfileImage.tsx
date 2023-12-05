@@ -3,14 +3,12 @@ import { Box, Center, Container, Icon, Image } from '@chakra-ui/react';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
 import { useAccount } from 'wagmi';
 
-import EditIcon from 'public/assets/icons/generals/editing.svg';
 interface IProps {
   background?: string;
   avatar?: string;
 }
 const SettingProfileImage = ({ background, avatar }: IProps) => {
   const { address } = useAccount();
-
   return (
     <>
       <Box position="relative">
@@ -49,7 +47,6 @@ const SettingProfileImage = ({ background, avatar }: IProps) => {
             overflow="hidden"
             height={{ lg: 40, base: 32 }}
             width={{ lg: 40, base: 32 }}
-            role="group"
           >
             <Box position="absolute" height="full" width="full">
               {avatar ? (
@@ -69,26 +66,6 @@ const SettingProfileImage = ({ background, avatar }: IProps) => {
                 />
               )}
             </Box>
-
-            <Center
-              width="full"
-              height="full"
-              opacity={0}
-              transition="opacity 0.3s ease-in-out"
-              _groupHover={{
-                opacity: 1,
-              }}
-              position="absolute"
-              zIndex={3}
-            >
-              <Icon
-                as={EditIcon}
-                height={10}
-                width={10}
-                color="primary.gray.600"
-                cursor="pointer"
-              />
-            </Center>
           </Box>
         </Container>
       </Box>

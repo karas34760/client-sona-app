@@ -18,7 +18,7 @@ const CardCreatedSinger = ({ name, age, sex, deleteSinger }: IProps) => {
           <Text>Age: {age}</Text>
         </Box>
 
-        <Button onClick={deleteSinger}>Delete Ticket</Button>
+        <Button onClick={deleteSinger}>Delete Singer</Button>
       </HStack>
     </>
   );

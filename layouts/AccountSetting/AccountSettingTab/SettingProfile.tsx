@@ -99,8 +99,7 @@ const SettingProfile = () => {
 
   // eslint-disable-next-line no-unused-vars
   const [updateLoading, setUpdateLoading] = useState(false);
-  const [updateProfileMutation, { data: datUpdate, error }] =
-    useMutation(UPDATE_PROFILE);
+  const [updateProfileMutation] = useMutation(UPDATE_PROFILE);
   const formik = useFormik({
     initialValues: getData(),
     onSubmit: async values => {
@@ -167,7 +166,7 @@ const SettingProfile = () => {
     },
     enableReinitialize: true,
   });
-  console.log(formik.values);
+
   return (
     <>
       <Box width="full">
