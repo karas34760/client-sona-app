@@ -33,9 +33,7 @@ const EventCreateStep = ({ currentTicket, onClose, onSaveData }: IProps) => {
       .required('Amount is required')
       .min(1, 'Amount must be greater than 0'),
     asset: Yup.mixed().required('Image Ticket is required'),
-    tier: Yup.string()
-      .required('Tier is required')
-      .min(1, 'Tier must not be empty'),
+    tier: Yup.string().required('Tier is required').min(1, 'Tier can not be 0'),
   });
   const formik = useFormik({
     initialValues: {
@@ -89,11 +87,12 @@ const EventCreateStep = ({ currentTicket, onClose, onSaveData }: IProps) => {
               <Input
                 placeholder="Enter Ticket Tier Ex:1 ,2 "
                 value={formik.values.tier}
+                min={1}
                 onChange={e =>
                   formik.handleChange({
                     target: {
                       name: 'tier',
-                      value: parseFloat(e.target.value) || 0,
+                      value: parseFloat(e.target.value) || 1,
                     },
                   })
                 }
@@ -113,6 +112,7 @@ const EventCreateStep = ({ currentTicket, onClose, onSaveData }: IProps) => {
               <Input
                 placeholder="Enter Ticket Amount"
                 value={formik.values.amount}
+                min={1}
                 onChange={e =>
                   formik.handleChange({
                     target: {

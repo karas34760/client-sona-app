@@ -27,10 +27,10 @@ export type optionEventType = {
   label: string;
 };
 export const categoryEvent: optionEventType[] = [
-  { value: 'concert', label: 'concert' },
-  { value: 'festival', label: 'festival' },
-  { value: 'art', label: 'art' },
-  { value: 'party', label: 'party' },
-  { value: 'tech', label: 'Tech' },
+  { value: 'concert', label: 'Concert' },
+  { value: 'festival', label: 'Festival' },
+  { value: 'art', label: 'Art' },
+  { value: 'party', label: 'Party' },
+  { value: 'tech', label: 'Technology' },
   { value: 'education&learning', label: 'Education & Learning' },
 ];

@@ -87,6 +87,7 @@ const StepEventBasic = ({
       DeadlineForSell: Yup.date().required('Deadline For Sell is required'),
     }),
   });
+
   return (
     <>
       <form onSubmit={formik.handleSubmit}>

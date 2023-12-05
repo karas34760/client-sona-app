@@ -158,3 +158,38 @@ export const UPDATE_PROFILE = gql`
     }
   }
 `;
+
+export const CREATE_BUY_TICKET = gql`
+  mutation CreateBuyTickets(
+    $eventAddress: String!
+    $tiers: [Int!]!
+    $amounts: [Int!]!
+    $buyer: String!
+  ) {
+    createBuyTickets(
+      eventAddress: $eventAddress
+      tiers: $tiers
+      amounts: $amounts
+      buyer: $buyer
+    ) {
+      abi
+    }
+  }
+`;
+
+export const SEARCH_PROFILE = gql`
+  query SearchAddressProfile {
+    searchAddressProfile {
+      address
+      username
+      bio
+      website
+      social {
+        key
+        value
+      }
+      avatar
+      background
+    }
+  }
+`;

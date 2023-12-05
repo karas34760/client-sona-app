@@ -36,12 +36,11 @@ const VerifyCodeModal = ({ isOpen, onClose, email }: IProps) => {
         code: code,
       },
     });
-    console.log('Now Response', response);
     if (response.data.verifyEmail) {
       toast({
         title: 'Verify  Success.',
         description: 'Your email is verify sucess',
-        status: 'error',
+        status: 'success',
         duration: 5000,
         isClosable: true,
       });

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useMutation, useQuery } from '@apollo/client';
 import {
   Box,
@@ -16,6 +17,7 @@ import {
   Image,
 } from '@chakra-ui/react';
 import { useFormik } from 'formik';
+import { create } from 'ipfs-http-client';
 import Link from 'next/link';
 import { useState } from 'react';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
@@ -27,6 +29,7 @@ import ProfileImageUpload from '@/components/Upload/ProfileImageUpload';
 import { client } from '@/graphql/httplink';
 import {
   SEARCH_ACCOUNT_BY_ADDRESS,
+  SEARCH_PROFILE,
   SEND_EMAIL_VERIFY,
   UPDATE_PROFILE,
 } from '@/graphql/query';
@@ -42,7 +45,8 @@ const SettingProfile = () => {
       address: user,
     },
   });
-
+  const { data: dataUser } = useQuery(SEARCH_PROFILE);
+  console.log(dataUser);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [currentEmail, setCurrentEmail] = useState('');
   // Use yubobject to verify
@@ -81,22 +85,89 @@ const SettingProfile = () => {
     bio: '',
     username: '',
     website: '',
+    social: [],
   };
-  const getData = () => data?.searchAccountByAddress || tempData;
+  const getData = () => {
+    if (!dataUser) {
+      return tempData;
+    }
+    const {
+      searchAddressProfile: { __typename, address, ...rest },
+    } = dataUser || {};
+    return rest;
+  };
 
   // eslint-disable-next-line no-unused-vars
+  const [updateLoading, setUpdateLoading] = useState(false);
   const [updateProfileMutation, { data: datUpdate, error }] =
     useMutation(UPDATE_PROFILE);
   const formik = useFormik({
     initialValues: getData(),
     onSubmit: async values => {
-      console.log(values);
-      const res = await updateProfileMutation({ variables: { args: values } });
-      console.log(res);
+      setUpdateLoading(true);
+      let bgURL = undefined;
+      let avatarURL = undefined;
+      if (values.background instanceof File) {
+        const projectId = process.env.NEXT_PUBLIC_PROJECT_KEY;
+        const projectKey = process.env.NEXT_PUBLIC_SECRET_KEY;
+        const auth =
+          'Basic ' +
+          Buffer.from(projectId + ':' + projectKey).toString('base64');
+        // Create connection to IPFS using infura
+        const client = create({
+          host: 'ipfs.infura.io',
+          port: 5001,
+          protocol: 'https',
+          headers: {
+            authorization: auth,
+          },
+        });
+        const fileAdded = await client.add(values.background);
+        bgURL =
+          `${
+            process.env.IPFS_SUBDOMAI || 'https://karas.infura-ipfs.io/ipfs/'
+          }` + fileAdded.path;
+      }
+      if (values.avatar instanceof File) {
+        const projectId = process.env.NEXT_PUBLIC_PROJECT_KEY;
+        const projectKey = process.env.NEXT_PUBLIC_SECRET_KEY;
+        const auth =
+          'Basic ' +
+          Buffer.from(projectId + ':' + projectKey).toString('base64');
+        // Create connection to IPFS using infura
+        const client = create({
+          host: 'ipfs.infura.io',
+          port: 5001,
+          protocol: 'https',
+          headers: {
+            authorization: auth,
+          },
+        });
+        const fileAdded = await client.add(values.avatar);
+        avatarURL =
+          `${
+            process.env.IPFS_SUBDOMAI || 'https://karas.infura-ipfs.io/ipfs/'
+          }` + fileAdded.path;
+      }
+      /// IF update two bg image
+
+      const res = await updateProfileMutation({
+        variables: {
+          args: {
+            avatar: avatarURL || values.avatar,
+            background: bgURL || values.background,
+            bio: values.bio,
+            website: values.website,
+            username: values.username,
+            social: [],
+          },
+        },
+      });
+      setUpdateLoading(false);
     },
     enableReinitialize: true,
   });
-
+  console.log(formik.values);
   return (
     <>
       <Box width="full">
@@ -142,7 +213,13 @@ const SettingProfile = () => {
                 </>
               ) : (
                 <>
-                  <Box position="relative" cursor="pointer">
+                  <Box
+                    position="relative"
+                    cursor="pointer"
+                    width="full"
+                    height="full"
+                    bg="primary.gray.300"
+                  >
                     <Center
                       position="absolute"
                       top={0}
@@ -263,10 +340,10 @@ const SettingProfile = () => {
               />
             </FormControl>
             <FormControl gap={2}>
-              <FormLabel fontWeight="bold">Description/Bio</FormLabel>
+              <FormLabel fontWeight="bold">Bio</FormLabel>
               <Input
                 variant="settingProfile"
-                name=" bio"
+                name="bio"
                 value={formik.values.bio}
                 onChange={formik.handleChange}
               />
@@ -330,10 +407,14 @@ const SettingProfile = () => {
                   type="email"
                   placeholder="Enter email"
                   variant="settingProfile"
-                  value={data && data.email ? data.email : currentEmail}
+                  value={
+                    data && data.searchAccountByAddress.email
+                      ? data.searchAccountByAddress.email
+                      : currentEmail
+                  }
                   onChange={e => setCurrentEmail(e.target.value)}
                 />
-                {data && !data.email && !loading && (
+                {data && !data.searchAccountByAddress.email && !loading && (
                   <Button
                     onClick={async () => {
                       await handleSendEmail();

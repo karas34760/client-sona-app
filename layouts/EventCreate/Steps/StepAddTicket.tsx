@@ -25,7 +25,7 @@ const initialValue = {
   amount: 0,
   description: '',
   price: 0,
-  tier: 0,
+  tier: 1,
   asset: undefined,
   minBooking: 0,
   maxBooking: 0,
