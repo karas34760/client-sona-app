@@ -21,7 +21,7 @@ const AccountAddress = ({ onClose }: IProps) => {
     <>
       <HStack gap={2} alignItems="center">
         <Box>
-          {dataUser ? (
+          {dataUser && dataUser.searchAddressProfile.avatar ? (
             <Image
               borderRadius="full"
               alt="Tickifi Profile Image"
@@ -47,7 +47,7 @@ const AccountAddress = ({ onClose }: IProps) => {
                 color: 'primary.gray.500',
               }}
             >
-              {dataUser
+              {dataUser && dataUser.searchAddressProfile.username
                 ? `${dataUser.searchAddressProfile.username} `
                 : shortenAddress(address)}
             </Text>

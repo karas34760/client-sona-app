@@ -124,7 +124,7 @@ const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
       }
     };
     checkAuth();
-  }, [address, router.pathname]);
+  }, [router.pathname]);
   return (
     <>
       {children}

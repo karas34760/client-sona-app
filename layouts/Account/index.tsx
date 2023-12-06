@@ -9,15 +9,13 @@ import AccountProfileTab from './AccountTab';
 import MoreData from './UsedComponents/MoreData';
 import SettingProfileImage from './UsedComponents/SettingProfileImage';
 
-import { SEARCH_ACCOUNT_BY_ADDRESS, SEARCH_PROFILE } from '@/graphql/query';
-import { useAuth } from '@/hooks/useAuth';
+import { SEARCH_PROFILE } from '@/graphql/query';
 import ShareData from '@/layouts/Account/UsedComponents/ShareData';
 import { shortenAddress } from '@/utils/format/address';
 import SettingIcon from 'public/assets/icons/generals/setting.svg';
 
 const AccountDetailPage = () => {
   const { address } = useAccount();
-  const { user } = useAuth();
   const { data: dataUser } = useQuery(SEARCH_PROFILE);
 
   return (
@@ -40,7 +38,9 @@ const AccountDetailPage = () => {
           >
             <Box>
               <Text fontSize="2xl" fontWeight="bold">
-                {dataUser ? dataUser.searchAddressProfile.username : 'No Name'}
+                {dataUser && dataUser.searchAddressProfile.username
+                  ? dataUser.searchAddressProfile.username
+                  : 'No Name'}
               </Text>
               <HStack>
                 <Text>Address:</Text>
@@ -58,6 +58,11 @@ const AccountDetailPage = () => {
               <Text fontSize="sm" color="primary.gray.600">
                 Joined September 2023
               </Text>
+              {dataUser && dataUser.searchAddressProfile.bio && (
+                <Text color="primary.gray.600">
+                  {dataUser.searchAddressProfile.bio}
+                </Text>
+              )}
             </Box>
             <HStack gap={8}>
               <Button fontSize="sm" leftIcon={<Icon as={SettingIcon} />}>

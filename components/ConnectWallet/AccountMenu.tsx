@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client';
 import { Avatar, Flex, Text, useDisclosure } from '@chakra-ui/react';
 import React from 'react';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
-import { useAccount, useEnsName } from 'wagmi';
+import { useAccount } from 'wagmi';
 
 import ProfileDrawer from '../Profile/ProfileDrawer';
 
@@ -12,7 +12,6 @@ import { shortenAddress } from '@/utils/format/address';
 const AccountMenu = () => {
   const { address } = useAccount();
 
-  const { data: ensName } = useEnsName({ address });
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { data: dataUser } = useQuery(SEARCH_PROFILE);
   return (
@@ -21,7 +20,18 @@ const AccountMenu = () => {
         {dataUser &&
         dataUser.searchAddressProfile &&
         dataUser.searchAddressProfile.avatar ? (
-          <Avatar src={dataUser.searchAddressProfile.avatar} />
+          <Avatar
+            src={dataUser.searchAddressProfile.avatar}
+            size={{
+              md: 'md',
+              base: 'sm',
+            }}
+            name={`Tickifi-account|${
+              dataUser && dataUser.searchAddressProfile.username
+                ? dataUser.searchAddressProfile.username
+                : address
+            }`}
+          />
         ) : (
           <Jazzicon
             diameter={32}
@@ -37,7 +47,9 @@ const AccountMenu = () => {
             color: 'primary.gray.500',
           }}
         >
-          {ensName ? `${ensName} ` : shortenAddress(address)}
+          {dataUser && dataUser.searchAddressProfile.username
+            ? `${dataUser.searchAddressProfile.username} `
+            : shortenAddress(address)}
         </Text>
       </Flex>
       <ProfileDrawer onClose={onClose} isOpen={isOpen} />

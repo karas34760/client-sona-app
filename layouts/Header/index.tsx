@@ -98,7 +98,10 @@ const Header = () => {
               <Link href="/">
                 <LogoText />
               </Link>
-              <Box display={{ base: 'none', md: 'flex' }}>
+              <Box
+                display={{ base: 'none', md: 'flex' }}
+                width={{ lg: '31.25rem', md: '21.875rem' }}
+              >
                 <NavSearch />
               </Box>
             </Flex>
