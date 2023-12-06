@@ -15,6 +15,7 @@ import {
 } from '@chakra-ui/react';
 import { create } from 'ipfs-http-client';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import StepAddTicket, { ITicketType } from './Steps/StepAddTicket';
 import StepComplete from './Steps/StepComplete';
@@ -35,6 +36,7 @@ import CompleteIcon from '@/public/assets/icons/generals/complete.svg';
 import InfoIcon from '@/public/assets/icons/generals/info.svg';
 import PerfomanceIcon from '@/public/assets/icons/generals/micro.svg';
 import TicketIcon from '@/public/assets/icons/generals/tickets.svg';
+import { setUserLoading } from '@/redux/user/user-slice';
 import { categoryEvent, optionEventType } from '@/utils/constants/constants';
 interface StepProps {
   title: string;
@@ -109,8 +111,10 @@ const EventCreatePage = () => {
     });
     setActiveStep(0);
   };
+  const dispatch = useDispatch();
   const [isSubmiting, setIsSubmitting] = useState(false);
   const handleSubmit = async () => {
+    dispatch(setUserLoading(true));
     setIsSubmitting(true);
     let imgUrl = '';
     let uri = '';
@@ -229,6 +233,7 @@ const EventCreatePage = () => {
         },
       });
       setIsSubmitting(false);
+      dispatch(setUserLoading(false));
 
       toast({
         title: 'Event created.',

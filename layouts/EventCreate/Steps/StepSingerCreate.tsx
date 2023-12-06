@@ -1,12 +1,5 @@
 /* eslint-disable no-unused-vars */
-import {
-  Box,
-  Button,
-  Container,
-  Flex,
-  useDisclosure,
-  useToast,
-} from '@chakra-ui/react';
+import { Button, Flex, useDisclosure, useToast } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 
 import CardCreatedSinger from '../components/CardCreatedSinger';
@@ -38,9 +31,13 @@ const StepSingerCreate = ({
   const { onClose, onOpen, isOpen } = useDisclosure();
   const [listSingers, setListSingers] = useState<ISignerType[]>(singers);
   const [currentSinger, setCurrentSinger] = useState<ISignerType>(initialValue);
-  const addSinger = (newTicket: ISignerType) => {
-    // Use the spread operator to create a new array with the new ticket
-    const updatedList = [...listSingers, newTicket];
+  const {
+    onClose: onCloseUpdate,
+    onOpen: onOpenUpdate,
+    isOpen: isOpenUpdate,
+  } = useDisclosure();
+  const addSinger = (newSinger: ISignerType) => {
+    const updatedList = [...listSingers, newSinger];
     setListSingers(updatedList);
   };
   useEffect(() => {
@@ -51,11 +48,16 @@ const StepSingerCreate = ({
     const updatedList = listSingers.filter((item, i) => i !== index);
     setListSingers(updatedList);
   };
+  const updateSinger = (index: number, updatedSinger: ISignerType) => {
+    const updatedList = [...listSingers];
+    updatedList[index] = updatedSinger;
+    setListSingers(updatedList);
+  };
   const toast = useToast();
   return (
     <>
       <Flex flexDirection="column" gap={6}>
-        {!isOpen && (
+        {!isOpen && !listSingers.length && (
           <Button
             onClick={() => {
               onOpen();
@@ -67,14 +69,40 @@ const StepSingerCreate = ({
         {!isOpen &&
           listSingers.map((item, index) => (
             <>
-              <CardCreatedSinger
-                name={item.name}
-                age={item.age}
-                sex={item.sex}
-                deleteSinger={deleteSinger}
-              />
+              {!isOpenUpdate && (
+                <CardCreatedSinger
+                  name={item.name}
+                  image={item.asset}
+                  sex={item.sex}
+                  deleteSinger={() => deleteSinger(index)}
+                  updateSinger={async () => {
+                    await setCurrentSinger(item);
+                    onOpenUpdate();
+                  }}
+                />
+              )}
+              {isOpenUpdate && (
+                <SignerCreateStep
+                  onClose={() => {
+                    onCloseUpdate();
+                    setCurrentSinger(initialValue);
+                  }}
+                  currentIndex={index}
+                  onUpdateData={updateSinger}
+                  currentSinger={currentSinger}
+                />
+              )}
             </>
           ))}
+        {!isOpen && !isOpenUpdate && listSingers.length != 0 && (
+          <Button
+            onClick={() => {
+              onOpen();
+            }}
+          >
+            Add Another Singer
+          </Button>
+        )}
         {isOpen && (
           <SignerCreateStep
             onClose={() => {
@@ -86,7 +114,7 @@ const StepSingerCreate = ({
           />
         )}
 
-        {!isOpen && (
+        {!isOpen && !isOpenUpdate && (
           <Flex gap={3}>
             <Button
               width="full"

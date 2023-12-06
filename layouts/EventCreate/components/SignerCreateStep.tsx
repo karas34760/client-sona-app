@@ -11,7 +11,6 @@ import {
   Radio,
   RadioGroup,
   Text,
-  useToast,
 } from '@chakra-ui/react';
 import { useFormik } from 'formik';
 import React from 'react';
@@ -26,11 +25,19 @@ interface IProps {
 
   onClose: () => void;
   // eslint-disable-next-line no-unused-vars
-  onSaveData: (newSinger: ISignerType) => void;
+  onSaveData?: (newSinger: ISignerType) => void;
+  currentIndex?: number;
+  // eslint-disable-next-line no-unused-vars
+  onUpdateData?: (index: number, newSinger: ISignerType) => void;
 }
 
-const SignerCreateStep = ({ currentSinger, onClose, onSaveData }: IProps) => {
-  const toast = useToast();
+const SignerCreateStep = ({
+  currentSinger,
+  onClose,
+  onSaveData,
+  currentIndex,
+  onUpdateData,
+}: IProps) => {
   const formik = useFormik({
     initialValues: {
       name: currentSinger.name,
@@ -39,17 +46,12 @@ const SignerCreateStep = ({ currentSinger, onClose, onSaveData }: IProps) => {
       sex: currentSinger.sex,
     },
     onSubmit: async values => {
-      if (!values.asset) {
-        toast({
-          title: 'You Need to import Background Ticket',
-          description: "We're need image of each ticket",
-          status: 'error',
-          duration: 3000,
-          isClosable: true,
-        });
-        return;
+      if (onSaveData) {
+        onSaveData(values);
       }
-      onSaveData(values);
+      if (onUpdateData && currentIndex) {
+        onUpdateData(currentIndex, values);
+      }
       onClose();
     },
     validateOnChange: true,
@@ -131,7 +133,7 @@ const SignerCreateStep = ({ currentSinger, onClose, onSaveData }: IProps) => {
           </FormControl>
 
           <Button width="full" leftIcon={<Icon as={SaveIcon} />} type="submit">
-            Save
+            {onSaveData ? 'Save' : 'Update'}
           </Button>
         </Flex>
       </form>

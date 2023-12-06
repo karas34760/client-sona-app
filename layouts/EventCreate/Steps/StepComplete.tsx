@@ -52,7 +52,7 @@ const StepComplete = ({
       license: formik.values.license,
     });
   }, [formik.values.mortageTx]);
-  console.log('Now values Step Last', formik.values.mortageTx);
+
   return (
     <>
       <Box overflow="hidden">

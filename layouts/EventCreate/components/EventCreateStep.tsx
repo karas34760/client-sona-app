@@ -102,12 +102,12 @@ const EventCreateStep = ({
               <Input
                 placeholder="Enter Ticket Tier Ex:1 ,2 "
                 value={formik.values.tier}
-                min={1}
+                type="number"
                 onChange={e =>
                   formik.handleChange({
                     target: {
                       name: 'tier',
-                      value: parseFloat(e.target.value) || 1,
+                      value: parseFloat(e.target.value),
                     },
                   })
                 }
@@ -174,7 +174,7 @@ const EventCreateStep = ({
             <FormLabel>Ticket Description (max: 50 characters)</FormLabel>
             <Textarea
               maxLength={50}
-              placeholder="Enter Ticket Price"
+              placeholder="Enter Ticket Description"
               value={formik.values.description}
               onChange={e =>
                 formik.handleChange({
