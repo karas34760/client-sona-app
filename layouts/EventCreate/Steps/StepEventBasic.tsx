@@ -84,7 +84,25 @@ const StepEventBasic = ({
           }
         ),
       TimeForSell: Yup.date().required('Time For Sell is required'),
-      DeadlineForSell: Yup.date().required('Deadline For Sell is required'),
+      DeadlineForSell: Yup.date()
+        .required('Deadline For Sell is required')
+        .test(
+          'is-smaller-than-starttime',
+          'Deadline For Sell must be smaller than Start Time < 1 hour',
+          function (value) {
+            const { StartTime } = this.parent;
+
+            if (!StartTime || !value) {
+              // If either value is missing, let Yup handle the required validation
+              return true;
+            }
+
+            const oneHourBefore = new Date(StartTime);
+            oneHourBefore.setHours(oneHourBefore.getHours() - 1);
+
+            return value <= oneHourBefore;
+          }
+        ),
     }),
   });
 
@@ -208,7 +226,16 @@ const StepEventBasic = ({
                 />
               </Flex>
             </FormControl>
-            <FormControl variant="create_form" isRequired>
+            <FormControl
+              variant="create_form"
+              isRequired
+              isInvalid={
+                !!(
+                  formik.touched.DeadlineForSell &&
+                  formik.errors.DeadlineForSell
+                )
+              }
+            >
               <FormLabel>Deadline for Sale</FormLabel>
               <Flex gap={2} alignItems="center">
                 <Input
@@ -226,6 +253,12 @@ const StepEventBasic = ({
                   max={formik.values.StartTime}
                 />
               </Flex>
+              {formik.touched.DeadlineForSell &&
+                formik.errors.DeadlineForSell && (
+                  <FormErrorMessage>
+                    <Text> {formik.errors.DeadlineForSell}</Text>
+                  </FormErrorMessage>
+                )}
             </FormControl>
           </HStack>
         </Flex>

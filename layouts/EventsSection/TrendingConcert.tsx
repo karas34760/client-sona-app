@@ -1,3 +1,4 @@
+import { useQuery } from '@apollo/client';
 import { Container, HStack, Text } from '@chakra-ui/react';
 import Link from 'next/link';
 import React from 'react';
@@ -6,48 +7,19 @@ import { SwiperSlide } from 'swiper/react';
 import CardTicketOne from '@/components/Card/CardTicketOne';
 import Carousel from '@/components/Carousel/Carousel';
 import LinkSecondary from '@/components/Link/LinkSecondary';
+import { SEARCH_EVENTS } from '@/graphql/query';
+import { convertTimestampToDate } from '@/utils/format/date';
 const TrendingConcert = () => {
-  const Listest = [
-    {
-      name: 'Artic Monkey',
-      oganization: 'Mody Center-3',
-      time: '15 Steptember 30',
-      image_link: '/test/nft/nft_1_1.jpeg',
-      type_events: ['club', 'communicatiy events'],
+  const { data, loading } = useQuery(SEARCH_EVENTS, {
+    variables: {
+      page: 1,
+      size: 10,
+      filter: {
+        category: ['concert'],
+      },
     },
-    {
-      name: 'Artic Monkey',
-      oganization: 'Mody Center-2',
-      time: '15 Steptember 30',
-      image_link: '/test/nft/nft_1_4.jpeg',
-      type_events: ['festival', 'communicatiy events'],
-    },
-    {
-      name: 'Artic Monkey',
-      oganization: 'Mody Center-1',
-      time: '15 Steptember 30',
-      image_link: '/test/nft/nft_2_3.jpeg',
-    },
-    {
-      name: 'Escape56 Feat. Paramida (Love On The Rocks / DE), Leland & Anwar',
-      oganization: 'Mody Center',
-      time: '2023.7.20 ~ 10.22',
-      image_link: '/test/nft/nft_1_6.jpeg',
-      type_events: ['conference '],
-    },
-    {
-      name: 'Artic Monkey',
-      oganization: 'Mody Center--',
-      time: '15 Steptember 30',
-      image_link: '/test/nft/nft_1_2.jpeg',
-    },
-    {
-      name: 'Artic Monkey',
-      oganization: 'Mody Center==',
-      time: '2023.7.20 ~ 10.22',
-      image_link: '/test/nft/nft_1_2.jpeg',
-    },
-  ];
+  });
+  console.log('Concert', data);
   return (
     <Container maxWidth="container.xl">
       <HStack justifyContent="space-between">
@@ -61,47 +33,47 @@ const TrendingConcert = () => {
         />
       </HStack>
       <Carousel>
-        {Listest.map((item, index) => (
-          <SwiperSlide
-            key={`up-comming-${item.image_link} ${index}`}
-            style={{
-              height: 'auto',
-            }}
-          >
-            <Link href="#">
-              <CardTicketOne image_link={item.image_link}>
-                <Text
-                  fontWeight="bold"
-                  whiteSpace="nowrap"
-                  overflow="hidden"
-                  textOverflow="ellipsis"
-                >
-                  {item.name}
-                </Text>
-                <HStack justifyContent="space-between">
-                  <Text fontSize="sm">{item.oganization}</Text>
-                  <Text fontSize="sm" color="primary.gray.500">
-                    {item.time}
+        {data &&
+          data.searchEvents.items.map((item: any, index: number) => (
+            <SwiperSlide
+              key={`up-comming-${item.eventId} ${index}`}
+              style={{
+                height: 'auto',
+              }}
+            >
+              <Link href="#">
+                <CardTicketOne image_link={item.image}>
+                  <Text
+                    fontWeight="bold"
+                    whiteSpace="nowrap"
+                    overflow="hidden"
+                    textOverflow="ellipsis"
+                  >
+                    {item.name}
                   </Text>
-                </HStack>
-                {item.type_events && (
-                  <HStack gap={1}>
-                    {item.type_events.map((item_sub, index) => (
-                      <>
-                        <Text
-                          variant="type_categories"
-                          key={`type-events ${index} $}`}
-                        >
-                          {item_sub}
-                        </Text>
-                      </>
-                    ))}
+                  <HStack justifyContent="space-between">
+                    <Text fontSize="sm" color="primary.gray.500">
+                      {convertTimestampToDate(item.StartTime)}
+                    </Text>
                   </HStack>
-                )}
-              </CardTicketOne>
-            </Link>
-          </SwiperSlide>
-        ))}
+                  {item.type_events && (
+                    <HStack gap={1}>
+                      {item.category.map((item_sub: any, index: number) => (
+                        <>
+                          <Text
+                            variant="type_categories"
+                            key={`type-events ${index} $}`}
+                          >
+                            {item_sub}
+                          </Text>
+                        </>
+                      ))}
+                    </HStack>
+                  )}
+                </CardTicketOne>
+              </Link>
+            </SwiperSlide>
+          ))}
       </Carousel>
     </Container>
   );

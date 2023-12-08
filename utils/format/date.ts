@@ -65,3 +65,9 @@ export const formatDateTimeLocal = (dateString: string) => {
   const formattedDate = date.toISOString().slice(0, 16);
   return formattedDate;
 };
+
+// Convert Time Date
+export const convertTimestampToDate = (timestamp: string) => {
+  let date = new Date(timestamp);
+  return date.toISOString().replace(/T/, ' ').replace(/\..+/, '') + ' UTC';
+};

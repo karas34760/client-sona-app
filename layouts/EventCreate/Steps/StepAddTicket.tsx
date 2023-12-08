@@ -64,7 +64,7 @@ const StepAddTicket = ({
   useEffect(() => {
     updateFields({ tickets: listTicket });
   }, [listTicket]);
-  console.log('List TIcket', listTicket);
+
   const toast = useToast();
   return (
     <>
