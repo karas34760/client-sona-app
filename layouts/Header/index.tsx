@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/react';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
+import { useAccount } from 'wagmi';
 
 import ListNavHeader from './components/ListNavHeader';
 
@@ -21,7 +22,6 @@ import NavMobileSearch from '@/components/Search/NavMobileSearch';
 import NavSearch from '@/components/Search/NavSearch';
 import BtnSwitchColor from '@/components/Switch/BtnSwitchColor';
 import BtnSwitchLanguage from '@/components/Switch/BtnSwitchLanguage';
-import { useAuth } from '@/hooks/useAuth';
 import { breakpoints, colors } from '@/themes/theme';
 import { convertHex, debounce, throttle } from '@/utils/utils';
 import CloseIcon from 'public/assets/icons/arrow/close.svg';
@@ -54,7 +54,8 @@ const Header = () => {
       window.removeEventListener('scroll', throttle(debounce(handleScroll)));
   }, []);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { user } = useAuth();
+
+  const { address } = useAccount();
   return (
     <>
       <Box
@@ -115,7 +116,7 @@ const Header = () => {
                 <ListNavHeader />
                 <BtnSwitchLanguage />
                 <BtnSwitchColor />
-                {user && <FaucetButton />}
+                {address && <FaucetButton />}
               </Box>
               <Box display={{ md: 'none', base: 'block' }}>
                 <NavMobileSearch />
