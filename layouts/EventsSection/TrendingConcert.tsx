@@ -19,7 +19,6 @@ const TrendingConcert = () => {
       },
     },
   });
-  console.log('Concert', data);
   return (
     <Container maxWidth="container.xl">
       <HStack justifyContent="space-between">
@@ -36,7 +35,7 @@ const TrendingConcert = () => {
         {data &&
           data.searchEvents.items.map((item: any, index: number) => (
             <SwiperSlide
-              key={`up-comming-${item.eventId} ${index}`}
+              key={`trending-concert-${item.eventId} ${index}`}
               style={{
                 height: 'auto',
               }}

@@ -19,7 +19,7 @@ import { ONE_DAY, ONE_HOUR, calculateMinEndTime } from '@/utils/format/date';
 
 export interface IEventDetailData {
   name: string;
-  category: optionEventType;
+  category: optionEventType[];
   StartTime: string;
   EndTime: string;
   TimeForSell: string;
@@ -55,6 +55,7 @@ const StepEventBasic = ({
         EndTime: values.EndTime,
         DeadlineForSell: values.DeadlineForSell,
         TimeForSell: values.TimeForSell,
+        category: values.category,
       });
       goToNext();
     },
@@ -105,7 +106,7 @@ const StepEventBasic = ({
         ),
     }),
   });
-
+  console.log(formik.values.category);
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
@@ -143,6 +144,7 @@ const StepEventBasic = ({
             >
               <FormLabel>Event Category</FormLabel>
               <Select
+                isMulti
                 placeholder="Event Category"
                 name="category"
                 options={categoryEvent}

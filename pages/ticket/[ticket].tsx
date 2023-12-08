@@ -24,6 +24,7 @@ const TicketDetail = () => {
   return (
     <>
       <SEOHead
+        siteName="Tickifi"
         title="Ticket Detail"
         description="Ticket Detail | Tickifi NFT Place"
       />
