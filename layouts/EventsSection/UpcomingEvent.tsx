@@ -46,7 +46,7 @@ const UpcomingEvent = () => {
                     height: 'auto',
                   }}
                 >
-                  <Link href={`/event/${item.eventId}`}>
+                  <Link href={`/event/${item.address}`}>
                     <CardTicketOne image_link={item.image}>
                       <TimeReminder
                         targetDate={item.TimeForSell}

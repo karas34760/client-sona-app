@@ -40,7 +40,7 @@ const TrendingConcert = () => {
                 height: 'auto',
               }}
             >
-              <Link href="#">
+              <Link href={`/event/${item.address}`}>
                 <CardTicketOne image_link={item.image}>
                   <Text
                     fontWeight="bold"

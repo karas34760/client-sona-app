@@ -98,14 +98,14 @@ const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
         setLoading(false);
         return;
       }
-      if (!accessToken && address != null) {
+      /*  if (!accessToken && address != null) {
         // Check when user want to
         setLoading(true);
         await handleAccept();
         setLoading(false);
         return;
       }
-
+ */
       setLoading(false);
     };
     currentCheck();

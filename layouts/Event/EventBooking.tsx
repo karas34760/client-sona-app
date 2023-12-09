@@ -1,7 +1,11 @@
 import { Box, Button, Flex, HStack, Text } from '@chakra-ui/react';
 import React from 'react';
-
-const EventBooking = () => {
+interface IProps {
+  location: string;
+  StartDate: string;
+  EndDate: string;
+}
+const EventBooking = ({ location, StartDate, EndDate }: IProps) => {
   const currentSeat = [
     {
       label: 'Vip seat',
@@ -23,13 +27,10 @@ const EventBooking = () => {
     },
   ];
   const attributes = [
-    { key: 'Location', value: 'Ben Thanh Ward, District 1, HCMC' },
-    { key: 'Date', value: 'Saturday, 21 October 2023' },
+    { key: 'Location', value: location },
+    { key: 'Start Date', value: StartDate },
+    { key: 'End Date', value: EndDate },
     { key: 'Viewing Age', value: 'Over 8 ages' },
-    {
-      key: 'Performance',
-      value: '75 minutues (10 minutes intermission)',
-    },
   ];
   return (
     <>
@@ -55,9 +56,21 @@ const EventBooking = () => {
                 Overview
               </Text>
               {attributes.map(item => (
-                <HStack gap={2} key={item.key} justifyContent="space-between">
-                  <Text fontWeight="bold">{item.key}</Text>
-                  <Text textAlign="right" fontSize="sm">
+                <HStack
+                  gap={2}
+                  key={item.key}
+                  alignItems="flex-start"
+                  justifyContent="space-between"
+                >
+                  <Text fontWeight="bold" flex={1}>
+                    {item.key}
+                  </Text>
+                  <Text
+                    flex={1}
+                    textAlign="right"
+                    fontSize="sm"
+                    overflowWrap="break-word"
+                  >
                     {item.value}
                   </Text>
                 </HStack>
@@ -85,9 +98,6 @@ const EventBooking = () => {
               >
                 Time : 15:00
               </Box>
-              {/**
-               * Select Rountime base on current Date
-               */}
               <HStack justifyContent="space-between">
                 {currentSeat.map(item => (
                   <>
