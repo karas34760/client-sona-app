@@ -63,7 +63,7 @@ const DiscoverHead = () => {
         )}
 
         <Box width="full" flexGrow={1} height="650px">
-          <DiscoverResult />
+          <DiscoverResult isOpen={isOpen} />
         </Box>
       </Flex>
     </>

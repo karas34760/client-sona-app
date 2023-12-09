@@ -1,55 +1,56 @@
 import { useQuery } from '@apollo/client';
-import { Container, HStack, Text } from '@chakra-ui/react';
+import { Grid, GridItem, HStack, Text, Tooltip } from '@chakra-ui/react';
 import Link from 'next/link';
 import React from 'react';
-import { SwiperSlide } from 'swiper/react';
 
+import LoadingData from '@/animations/Loading/LoadingData';
 import CardTicketOne from '@/components/Card/CardTicketOne';
-import Carousel from '@/components/Carousel/Carousel';
-import LinkSecondary from '@/components/Link/LinkSecondary';
+import EmptyData from '@/components/EmptyData';
 import { SEARCH_EVENTS } from '@/graphql/query';
+import { useAuth } from '@/hooks/useAuth';
 import { convertTimestampToDate } from '@/utils/format/date';
-const TrendingConcert = () => {
+
+const CreatedEventTab = () => {
+  const { user } = useAuth();
   const { data, loading } = useQuery(SEARCH_EVENTS, {
     variables: {
       page: 1,
       size: 10,
       filter: {
-        category: ['concert'],
+        organizer: user,
+      },
+      orderBy: {
+        createdTime: 'desc',
       },
     },
   });
+
+  if (loading) {
+    return <LoadingData />;
+  }
+
   return (
-    <Container maxWidth="container.xl">
-      <HStack justifyContent="space-between">
-        <Text variant="type_sub_title">Trending Concert</Text>
-        <LinkSecondary
-          link="#"
-          label="View All"
-          sx={{
-            color: 'primary.gray.600',
-          }}
-        />
-      </HStack>
-      <Carousel>
-        {data &&
-          data.searchEvents.items.map((item: any, index: number) => (
-            <SwiperSlide
-              key={`trending-concert-${item.eventId} ${index}`}
-              style={{
-                height: 'auto',
-              }}
-            >
+    <>
+      {data.searchEvents.items.length ? (
+        <Grid templateColumns="repeat(4, 1fr)" gap={6}>
+          {data.searchEvents.items.map((item: any) => (
+            <GridItem key={item.eventId} width="full">
               <Link href={`/event/${item.address}`}>
                 <CardTicketOne image_link={item.image}>
-                  <Text
-                    fontWeight="bold"
-                    whiteSpace="nowrap"
-                    overflow="hidden"
-                    textOverflow="ellipsis"
+                  <Tooltip
+                    label={item.name}
+                    aria-label="Tooltip name event tickifi "
                   >
-                    {item.name}
-                  </Text>
+                    <Text
+                      width="200px"
+                      fontWeight="bold"
+                      whiteSpace="nowrap"
+                      overflow="hidden"
+                      textOverflow="ellipsis"
+                    >
+                      {item.name}
+                    </Text>
+                  </Tooltip>
                   <HStack justifyContent="space-between">
                     <Text fontSize="sm" color="primary.gray.500">
                       {convertTimestampToDate(item.StartTime)}
@@ -71,11 +72,14 @@ const TrendingConcert = () => {
                   )}
                 </CardTicketOne>
               </Link>
-            </SwiperSlide>
+            </GridItem>
           ))}
-      </Carousel>
-    </Container>
+        </Grid>
+      ) : (
+        <EmptyData />
+      )}
+    </>
   );
 };
 
-export default TrendingConcert;
+export default CreatedEventTab;
