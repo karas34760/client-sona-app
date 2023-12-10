@@ -15,6 +15,10 @@ import {
   Center,
   Container,
   Image,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  VStack,
 } from '@chakra-ui/react';
 import { useFormik } from 'formik';
 import { create } from 'ipfs-http-client';
@@ -24,6 +28,7 @@ import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
 import { useAccount } from 'wagmi';
 import * as yup from 'yup';
 
+import LoadingVerify from '@/animations/Loading/LoadingVerify';
 import VerifyCodeModal from '@/components/Modal/VerifyCodeModal';
 import ProfileImageUpload from '@/components/Upload/ProfileImageUpload';
 import { client } from '@/graphql/httplink';
@@ -46,7 +51,6 @@ const SettingProfile = () => {
     },
   });
   const { data: dataUser } = useQuery(SEARCH_PROFILE);
-  console.log(dataUser);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [currentEmail, setCurrentEmail] = useState('');
   // Use yubobject to verify
@@ -444,6 +448,17 @@ const SettingProfile = () => {
           </Flex>
         </form>
       </Box>
+      <Modal isOpen={updateLoading} onClose={() => {}}>
+        <ModalOverlay />
+        <ModalContent margin="auto">
+          <VStack padding={6}>
+            <LoadingVerify />
+            <Text variant="type_sub_title">
+              We are udating into block ....wait a minutes
+            </Text>
+          </VStack>
+        </ModalContent>
+      </Modal>
     </>
   );
 };

@@ -98,14 +98,7 @@ const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
         setLoading(false);
         return;
       }
-      /*  if (!accessToken && address != null) {
-        // Check when user want to
-        setLoading(true);
-        await handleAccept();
-        setLoading(false);
-        return;
-      }
- */
+
       setLoading(false);
     };
     currentCheck();
@@ -121,10 +114,17 @@ const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
       ) {
         router.push('/');
         await disconnect();
+        return;
+      }
+      if (address == null && user === null) {
+        router.push('/');
+        removeFromStorage();
+        await disconnect();
+        return;
       }
     };
     checkAuth();
-  }, [router.pathname]);
+  }, []);
   return (
     <>
       {children}

@@ -1,12 +1,16 @@
 import { useQuery } from '@apollo/client';
 import { Grid, GridItem, HStack, Text, Tooltip } from '@chakra-ui/react';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import LoadingData from '@/animations/Loading/LoadingData';
 import CardTicketOne from '@/components/Card/CardTicketOne';
 import EmptyData from '@/components/EmptyData';
-import { SEARCH_EVENTS } from '@/graphql/query';
+import {
+  SEARCH_EVENTS,
+  SEARCH_EVENTS_NOT_APPROVE,
+  SEARCH_REJECT_EVENT,
+} from '@/graphql/query';
 import { useAuth } from '@/hooks/useAuth';
 import { convertTimestampToDate } from '@/utils/format/date';
 
@@ -24,18 +28,77 @@ const CreatedEventTab = () => {
       },
     },
   });
-
-  if (loading) {
+  const { data: dataNotApprove, loading: loadingDataNotAprrove } = useQuery(
+    SEARCH_EVENTS_NOT_APPROVE,
+    {
+      variables: {
+        page: 1,
+        size: 10,
+        filter: {
+          organizer: user,
+        },
+        orderBy: {
+          createdTime: 'desc',
+        },
+      },
+    }
+  );
+  const { data: dataReject, loading: loadingDataReject } = useQuery(
+    SEARCH_REJECT_EVENT,
+    {
+      variables: {
+        page: 1,
+        size: 10,
+        filter: {
+          organizer: user,
+        },
+        orderBy: {
+          createdTime: 'desc',
+        },
+      },
+    }
+  );
+  const [listEvent, setListEvent] = useState<any[]>([]);
+  useEffect(() => {
+    if (!loading) {
+      setListEvent((prev: any[]) => [...prev, ...data.searchEvents.items]);
+    }
+  }, [loading]);
+  useEffect(() => {
+    if (!loadingDataNotAprrove) {
+      setListEvent((prev: any[]) => [
+        ...prev,
+        ...dataNotApprove.searchEventsNotApprove.items,
+      ]);
+    }
+  }, [loadingDataNotAprrove]);
+  useEffect(() => {
+    if (!loadingDataReject) {
+      setListEvent((prev: any[]) => [
+        ...prev,
+        ...dataReject.searchRejectedEvent.items,
+      ]);
+    }
+  }, [loadingDataReject]);
+  if (loading || loadingDataNotAprrove || loadingDataReject) {
     return <LoadingData />;
   }
 
+  console.log(listEvent);
   return (
     <>
-      {data.searchEvents.items.length ? (
+      {listEvent.length ? (
         <Grid templateColumns="repeat(4, 1fr)" gap={6}>
-          {data.searchEvents.items.map((item: any) => (
+          {listEvent.map((item: any) => (
             <GridItem key={item.eventId} width="full">
-              <Link href={`/event/${item.address}`}>
+              <Link
+                href={`${item.address ? `/event/${item.address}` : ''}`}
+                onClick={e => {
+                  if (!item.address) {
+                    e.preventDefault();
+                  }
+                }}
+              >
                 <CardTicketOne image_link={item.image}>
                   <Tooltip
                     label={item.name}

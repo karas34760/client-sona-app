@@ -115,8 +115,8 @@ export const SEARCH_ACCOUNT_BY_ADDRESS = gql`
 `;
 
 export const SEARCH_TICKETS = gql`
-  query SearchTickets($eventId: Int, $eventAddress: String, $tier: Float) {
-    searchTickets(eventId: $eventId, eventAddress: $eventAddress, tier: $tier) {
+  query SearchTickets($eventAddress: String, $tier: Float, $eventId: Int) {
+    searchTickets(eventAddress: $eventAddress, tier: $tier, eventId: $eventId) {
       eventId
       eventAddress
       tier
@@ -164,19 +164,21 @@ export const CREATE_BUY_TICKET = gql`
     $eventAddress: String!
     $tiers: [Int!]!
     $amounts: [Int!]!
-    $buyer: String!
   ) {
     createBuyTickets(
       eventAddress: $eventAddress
       tiers: $tiers
       amounts: $amounts
-      buyer: $buyer
     ) {
       abi
     }
   }
 `;
-
+export const SUBMIT_SIGNED_TRANSACTION = gql`
+  mutation SubmitSignedTransaction($rawTransaction: String!) {
+    submitSignedTransaction(rawTransaction: $rawTransaction)
+  }
+`;
 export const SEARCH_PROFILE = gql`
   query SearchAddressProfile {
     searchAddressProfile {
@@ -190,6 +192,89 @@ export const SEARCH_PROFILE = gql`
       }
       avatar
       background
+    }
+  }
+`;
+
+export const SEARCH_EVENTS_NOT_APPROVE = gql`
+  query SearchEventsNotApprove(
+    $page: Int
+    $size: Int
+    $filter: AdminEventFilter
+    $orderBy: AdminEventOrderBy
+  ) {
+    searchEventsNotApprove(
+      page: $page
+      size: $size
+      filter: $filter
+      orderBy: $orderBy
+    ) {
+      currentPage
+      hasNext
+      hasPrevious
+      pages
+      size
+      total
+      items {
+        eventId
+        address
+        organizer
+        name
+        description
+        image
+        location
+        uri
+        tickets
+        TimeForSell
+        DeadlineForSell
+        StartTime
+        EndTime
+        submitedTime
+        createdTime
+        createdTx
+      }
+    }
+  }
+`;
+export const SEARCH_REJECT_EVENT = gql`
+  query SearchRejectedEvent(
+    $page: Int
+    $size: Int
+    $filter: AdminEventFilter
+    $orderBy: AdminEventOrderBy
+  ) {
+    searchRejectedEvent(
+      page: $page
+      size: $size
+      filter: $filter
+      orderBy: $orderBy
+    ) {
+      currentPage
+      hasNext
+      hasPrevious
+      pages
+      size
+      total
+      items {
+        eventId
+        address
+        organizer
+        name
+        description
+        image
+        category
+        location
+        uri
+        tickets
+        TimeForSell
+        DeadlineForSell
+        StartTime
+        EndTime
+        submitedTime
+        createdTime
+        mortageTx
+        createdTx
+      }
     }
   }
 `;

@@ -13,6 +13,7 @@ import LoadingVerify from '@/animations/Loading/LoadingVerify';
 import { useAuth } from '@/hooks/useAuth';
 import { usdToWei } from '@/utils/format/money';
 import { CONTRACT_ABI, CONTRACT_ADDRESS, TARGET_ADDRESS } from '@/utils/utils';
+// Send money to create event
 interface IProp {
   // eslint-disable-next-line no-unused-vars
   setTxHash: (hash: string) => void;
@@ -36,7 +37,7 @@ const SendMoneyContract = ({ setTxHash }: IProp) => {
         .send({
           from: user,
         });
-      console.log('Recep', receipt);
+
       setTxHash(receipt.transactionHash);
       setIsLoading(false);
     } catch (error) {

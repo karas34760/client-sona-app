@@ -24,7 +24,7 @@ interface IProps {
   currentTicket: ITicketType;
 
   onClose: () => void;
-  currentIndex?: number;
+  currentIndex: number;
   // eslint-disable-next-line no-unused-vars
   onSaveData?: (newTicket: ITicketType) => void;
   onUpdateData?: (index: number, newTicket: ITicketType) => void;
@@ -51,7 +51,7 @@ const EventCreateStep = ({
       asset: currentTicket.asset,
       description: currentTicket.description,
       price: currentTicket.price,
-      tier: currentTicket.tier,
+      tier: currentIndex + 1,
     },
     onSubmit: async values => {
       if (onSaveData) {
@@ -93,30 +93,11 @@ const EventCreateStep = ({
             />
           </FormControl>
           <HStack gap={6}>
-            <FormControl
-              variant="create_form"
-              isRequired
-              isInvalid={!!(formik.touched.tier && formik.errors.tier)}
-            >
+            <FormControl variant="create_form">
               <FormLabel>Ticket Tier</FormLabel>
-              <Input
-                placeholder="Enter Ticket Tier Ex:1 ,2 "
-                value={formik.values.tier}
-                type="number"
-                onChange={e =>
-                  formik.handleChange({
-                    target: {
-                      name: 'tier',
-                      value: parseFloat(e.target.value),
-                    },
-                  })
-                }
-              />
-              {formik.touched.tier && formik.errors.tier && (
-                <FormErrorMessage>
-                  <Text> {formik.errors.tier}</Text>
-                </FormErrorMessage>
-              )}
+              <Text color="red" fontWeight="bold">
+                {formik.values.tier}
+              </Text>
             </FormControl>
             <FormControl
               variant="create_form"
@@ -158,16 +139,6 @@ const EventCreateStep = ({
                   })
                 }
               />
-            </FormControl>
-          </HStack>
-          <HStack gap={6}>
-            <FormControl variant="create_form">
-              <FormLabel>Minimum Per Booking</FormLabel>
-              <Input type="number" value={1} />
-            </FormControl>
-            <FormControl variant="create_form">
-              <FormLabel>Max Per Booking</FormLabel>
-              <Input type="number" value={10} />
             </FormControl>
           </HStack>
           <FormControl variant="create_form" isRequired>

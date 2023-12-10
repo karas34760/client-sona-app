@@ -1,8 +1,10 @@
 import { Flex, HStack, Text } from '@chakra-ui/react';
 import Link from 'next/link';
 import React from 'react';
-
-const TicketInformation = () => {
+interface IProps {
+  eventAddress: string;
+}
+const TicketInformation = ({ eventAddress }: IProps) => {
   const ListTicket = [
     {
       type: 'Vip Plantium',
@@ -23,7 +25,7 @@ const TicketInformation = () => {
       <Flex flexDirection="column" gap={4} py={6}>
         {ListTicket.map(item => (
           <>
-            <Link href="/ticket/3" key={item.type}>
+            <Link href={`/ticket/${eventAddress}/1`} key={item.type}>
               <HStack
                 width="full"
                 padding={6}

@@ -99,7 +99,9 @@ const AccountProfileTab = () => {
         items={TabItems}
         pt={4}
         position="sticky"
-        top="104px"
+        top="96px"
+        bg="white"
+        zIndex="99"
         width="100%"
         activeKey={(queryKey as string) || 'created_event'}
         flexWrap="wrap"

@@ -4,6 +4,8 @@ import Link from 'next/link';
 import React from 'react';
 import { SwiperSlide } from 'swiper/react';
 
+import ListEventSkeletons from '../Skeleton/ListEvent.tsx';
+
 import CardTicketOne from '@/components/Card/CardTicketOne';
 import Carousel from '@/components/Carousel/Carousel';
 import LinkSecondary from '@/components/Link/LinkSecondary';
@@ -19,6 +21,9 @@ const TrendingConcert = () => {
       },
     },
   });
+  if (loading) {
+    return <ListEventSkeletons />;
+  }
   return (
     <Container maxWidth="container.xl">
       <HStack justifyContent="space-between">

@@ -19,17 +19,6 @@ interface IProps {
   goToPrevious: () => void;
   goToNext: () => void;
 }
-// Manage By initial Value
-const initialValue = {
-  name: '',
-  amount: 0,
-  description: '',
-  price: 0,
-  tier: 1,
-  asset: undefined,
-  minBooking: 0,
-  maxBooking: 0,
-};
 
 const StepAddTicket = ({
   tickets,
@@ -45,8 +34,19 @@ const StepAddTicket = ({
     isOpen: isOpenUpdate,
   } = useDisclosure();
   const [listTicket, setListTicket] = useState<ITicketType[]>(tickets);
-  const [currentTicket, setCurrentTicket] = useState<ITicketType>(initialValue);
 
+  // Manage By initial Value
+  const initialValue = {
+    name: '',
+    amount: 0,
+    description: '',
+    price: 0,
+    tier: 1,
+    asset: undefined,
+    minBooking: 0,
+    maxBooking: 0,
+  };
+  const [currentTicket, setCurrentTicket] = useState<ITicketType>(initialValue);
   const deleteTicket = (index: any) => {
     const updatedList = listTicket.filter((item, i) => i !== index);
     setListTicket(updatedList);
@@ -159,6 +159,7 @@ const StepAddTicket = ({
 
               setCurrentTicket(initialValue);
             }}
+            currentIndex={listTicket.length}
             onSaveData={addTicket}
             currentTicket={currentTicket}
           />

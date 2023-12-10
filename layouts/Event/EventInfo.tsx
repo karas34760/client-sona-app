@@ -171,7 +171,9 @@ const EventInfo = ({ data }: IProps) => {
                   <AboutEvent description={data.description} />
                 )}
                 {queryKey === 'casting' && <CastingInfo />}
-                {queryKey === 'ticket_info' && <TicketInformation />}
+                {queryKey === 'ticket_info' && (
+                  <TicketInformation eventAddress={data.address} />
+                )}
                 {queryKey === 'oganizer' && <Oganizer />}
               </Box>
             </Box>
