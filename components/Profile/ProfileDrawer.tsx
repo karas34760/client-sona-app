@@ -21,7 +21,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { removeFromStorage } from '@/redux/user/user-helper';
 import { setUser } from '@/redux/user/user-slice';
 import { weiToUSD } from '@/utils/format/money';
-import { CONTRACT_ABI, CONTRACT_ADDRESS } from '@/utils/utils';
+import { CONTRACT_USDT_ABI, USDT_ADDRESS } from '@/utils/utils';
 import LogoutIcon from 'public/assets/icons/arrow/logout.svg';
 interface IProps {
   isOpen: boolean;
@@ -36,8 +36,8 @@ const ProfileDrawer = ({ isOpen, onClose }: IProps) => {
   const [currentBalance, setCurrentBalance] = useState<string>('0.000');
   const getBalance = async () => {
     const contract = new web3.eth.Contract(
-      JSON.parse(CONTRACT_ABI),
-      CONTRACT_ADDRESS
+      JSON.parse(CONTRACT_USDT_ABI),
+      USDT_ADDRESS
     );
 
     const balance = await contract.methods.balanceOf(user).call();

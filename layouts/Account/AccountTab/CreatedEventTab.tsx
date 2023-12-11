@@ -84,7 +84,6 @@ const CreatedEventTab = () => {
     return <LoadingData />;
   }
 
-  console.log(listEvent);
   return (
     <>
       {listEvent.length ? (

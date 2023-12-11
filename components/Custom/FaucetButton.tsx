@@ -15,7 +15,7 @@ import LoadingVerify from '@/animations/Loading/LoadingVerify';
 import { useAuth } from '@/hooks/useAuth';
 import { setUserLoading } from '@/redux/user/user-slice';
 import { usdToWei } from '@/utils/format/money';
-import { CONTRACT_ABI, CONTRACT_ADDRESS } from '@/utils/utils';
+import { CONTRACT_USDT_ABI, USDT_ADDRESS } from '@/utils/utils';
 
 const FaucetButton = () => {
   const { user } = useAuth();
@@ -28,8 +28,8 @@ const FaucetButton = () => {
     setIsLoading(true);
     dispatch(setUserLoading(true));
     const contract = new web3.eth.Contract(
-      JSON.parse(CONTRACT_ABI),
-      CONTRACT_ADDRESS
+      JSON.parse(CONTRACT_USDT_ABI),
+      USDT_ADDRESS
     );
     try {
       //todo remove

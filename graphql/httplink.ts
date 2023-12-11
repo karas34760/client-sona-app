@@ -2,14 +2,11 @@ import {
   ApolloClient,
   ApolloLink,
   createHttpLink,
-  FetchResult,
-  GraphQLRequest,
+  fromPromise,
   InMemoryCache,
 } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import { onError } from '@apollo/client/link/error';
-import { Observable } from '@apollo/client/utilities';
-import { GraphQLError } from 'graphql';
 import Cookies from 'js-cookie';
 
 import { REFRESH_ACCESS_TOKEN } from './query';
@@ -24,10 +21,22 @@ const httpLink = createHttpLink({
   uri: (process.env.REACT_API || 'https://api.karas.store') + `/graphql`,
 });
 
-const authLink = setContext((_, { headers }) => {
+const authLink = setContext(async (request, { headers }) => {
   // get the authentication token from local storage if it exists
   const token = getAccessToken();
-  // return the headers to the context so httpLink can read them
+  if (request.operationName === 'refreshAccessToken') {
+    const refreshToken = getRefreshToken();
+    if (refreshToken) {
+      return {
+        headers: {
+          ...headers,
+          authorization: `Bearer ${refreshToken}`,
+        },
+      };
+    } else {
+      return { headers };
+    }
+  }
   return {
     headers: {
       ...headers,
@@ -35,84 +44,52 @@ const authLink = setContext((_, { headers }) => {
     },
   };
 });
-
-function isRefreshRequest(operation: GraphQLRequest) {
-  return operation.operationName === 'refreshAccessToken';
-}
-
-// eslint-disable-next-line no-unused-vars
-function returnTokenDependingOnOperation(operation: GraphQLRequest) {
-  if (isRefreshRequest(operation)) return getRefreshToken();
-  else return getAccessToken();
-}
-const errorLink = onError(
-  ({ graphQLErrors, networkError, operation, forward }) => {
-    if (graphQLErrors) {
-      for (let err of graphQLErrors) {
-        switch (err.extensions.code) {
-          case 'UNAUTHENTICATED':
-            // ignore 401 error for a refresh request
-            if (operation.operationName === 'refreshAccessToken') return;
-
-            const observable = new Observable<FetchResult<Record<string, any>>>(
-              observer => {
-                // used an annonymous function for using an async function
-                (async () => {
-                  try {
-                    // eslint-disable-next-line no-use-before-define
-                    const accessToken = await refreshToken();
-
-                    if (!accessToken) {
-                      throw new GraphQLError('Empty AccessToken');
-                    }
-
-                    // Retry the failed request
-                    const subscriber = {
-                      next: observer.next.bind(observer),
-                      error: observer.error.bind(observer),
-                      complete: observer.complete.bind(observer),
-                    };
-
-                    forward(operation).subscribe(subscriber);
-                  } catch (err) {
-                    observer.error(err);
-                  }
-                })();
-              }
-            );
-
-            return observable;
-        }
-      }
-    }
-
-    if (networkError) console.log(`[Network error]: ${networkError}`);
-  }
-);
-
 const refreshToken = async () => {
   try {
-    /*    const currentUser = getItemFromLocal('user'); */
     // eslint-disable-next-line no-use-before-define
-    const refreshResolverResponse = await client.mutate<{
-      accessToken: string;
-    }>({
-      mutation: REFRESH_ACCESS_TOKEN,
-    });
-
-    const accessToken = refreshResolverResponse.data?.accessToken;
-    if (accessToken) {
-      Cookies.set(EnumTokens.ACCESSTOKEN, accessToken);
-      return accessToken;
-    } else {
-      removeFromStorage();
-      return;
-    }
+    return client
+      .mutate({
+        mutation: REFRESH_ACCESS_TOKEN,
+      })
+      .then(res => {
+        const accessToken = res.data.refreshAccessToken.accessToken;
+        Cookies.set(EnumTokens.ACCESSTOKEN, accessToken);
+        return accessToken;
+      });
   } catch (err) {
     removeFromStorage();
+
     throw err;
   }
 };
+const errorLink = onError(({ graphQLErrors, operation, forward }) => {
+  if (graphQLErrors) {
+    for (let err of graphQLErrors) {
+      switch (err.extensions.code) {
+        case 'UNAUTHENTICATED':
+          return fromPromise(
+            refreshToken().catch(error => {
+              console.log('Ertro', error);
+              return;
+            })
+          )
+            .filter(value => Boolean(value))
+            .flatMap(accessToken => {
+              const oldHeaders = operation.getContext().headers;
+              // modify the operation context with a new token
+              operation.setContext({
+                headers: {
+                  ...oldHeaders,
+                  authorization: `Bearer ${accessToken}`,
+                },
+              });
+
+              return forward(operation);
+            });
+      }
+    }
+  }
+});
 
 // Setting cache and header link
 export const client = new ApolloClient({

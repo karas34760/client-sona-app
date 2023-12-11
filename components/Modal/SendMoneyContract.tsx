@@ -12,7 +12,7 @@ import Web3 from 'web3';
 import LoadingVerify from '@/animations/Loading/LoadingVerify';
 import { useAuth } from '@/hooks/useAuth';
 import { usdToWei } from '@/utils/format/money';
-import { CONTRACT_ABI, CONTRACT_ADDRESS, TARGET_ADDRESS } from '@/utils/utils';
+import { CONTRACT_USDT_ABI, TARGET_ADDRESS, USDT_ADDRESS } from '@/utils/utils';
 // Send money to create event
 interface IProp {
   // eslint-disable-next-line no-unused-vars
@@ -26,8 +26,8 @@ const SendMoneyContract = ({ setTxHash }: IProp) => {
     setIsLoading(true);
 
     const contract = new web3.eth.Contract(
-      JSON.parse(CONTRACT_ABI),
-      CONTRACT_ADDRESS
+      JSON.parse(CONTRACT_USDT_ABI),
+      USDT_ADDRESS
     );
     try {
       //todo remove

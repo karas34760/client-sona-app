@@ -38,12 +38,12 @@ function App({ Component, pageProps }: AppProps) {
           }
         `}
       </style>
-      <ApolloProvider client={client}>
-        <ChakraProvider theme={theme}>
-          <WagmiConfig config={config}>
-            <ConnectKitProvider mode="light" debugMode>
-              <Provider store={store}>
-                <PersistGate loading={null} persistor={persistor}>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <ApolloProvider client={client}>
+            <ChakraProvider theme={theme}>
+              <WagmiConfig config={config}>
+                <ConnectKitProvider mode="light">
                   <QueryParamProvider
                     options={{
                       skipUpdateWhenNoChange: true,
@@ -57,12 +57,12 @@ function App({ Component, pageProps }: AppProps) {
                       </DefaultLayout>
                     </AuthProvider>
                   </QueryParamProvider>
-                </PersistGate>
-              </Provider>
-            </ConnectKitProvider>
-          </WagmiConfig>
-        </ChakraProvider>
-      </ApolloProvider>
+                </ConnectKitProvider>
+              </WagmiConfig>
+            </ChakraProvider>
+          </ApolloProvider>
+        </PersistGate>
+      </Provider>
     </>
   );
 }

@@ -7,8 +7,8 @@ export const CHECK_ACCESS_TOKEN = gql`
 `;
 
 export const REFRESH_ACCESS_TOKEN = gql`
-  mutation refreshAccessToken($address: String!) {
-    refreshAccessToken(address: $address) {
+  mutation RefreshAccessToken {
+    refreshAccessToken {
       accessToken
     }
   }
@@ -158,27 +158,22 @@ export const UPDATE_PROFILE = gql`
     }
   }
 `;
-
-export const CREATE_BUY_TICKET = gql`
-  mutation CreateBuyTickets(
-    $eventAddress: String!
-    $tiers: [Int!]!
-    $amounts: [Int!]!
+export const SUBMIT_TRANSACTION = gql`
+  mutation SubmitTransaction(
+    $blockHash: String!
+    $blockNumber: Int!
+    $transactionHash: String!
+    $from: String!
   ) {
-    createBuyTickets(
-      eventAddress: $eventAddress
-      tiers: $tiers
-      amounts: $amounts
-    ) {
-      abi
-    }
+    submitTransaction(
+      blockHash: $blockHash
+      blockNumber: $blockNumber
+      transactionHash: $transactionHash
+      from: $from
+    )
   }
 `;
-export const SUBMIT_SIGNED_TRANSACTION = gql`
-  mutation SubmitSignedTransaction($rawTransaction: String!) {
-    submitSignedTransaction(rawTransaction: $rawTransaction)
-  }
-`;
+
 export const SEARCH_PROFILE = gql`
   query SearchAddressProfile {
     searchAddressProfile {

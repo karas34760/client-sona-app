@@ -20,14 +20,14 @@ import React, { useState } from 'react';
 import Web3 from 'web3';
 
 import { client } from '@/graphql/httplink';
-import { CREATE_BUY_TICKET, SUBMIT_SIGNED_TRANSACTION } from '@/graphql/query';
 import { useAuth } from '@/hooks/useAuth';
 import { usdToWei } from '@/utils/format/money';
 import {
   BALANCE_ADDRESS,
-  CONTRACT_ABI,
-  CONTRACT_ADDRESS,
-  TARGET_ADDRESS,
+  CONTRACT_TICKIFI_ABI,
+  CONTRACT_USDT_ABI,
+  TICKIFI_ADDRESS,
+  USDT_ADDRESS,
 } from '@/utils/utils';
 interface IProps {
   isOpen: boolean;
@@ -64,8 +64,8 @@ const StepBuyTicket = ({
     setLoading(true);
     if (user) {
       const contract = new web3.eth.Contract(
-        JSON.parse(CONTRACT_ABI),
-        CONTRACT_ADDRESS
+        JSON.parse(CONTRACT_USDT_ABI),
+        USDT_ADDRESS
       );
       const fixedAmountUSD = usdToWei(payPrice + 2);
       const balanceAllow = await contract.methods
@@ -85,35 +85,25 @@ const StepBuyTicket = ({
           onClose();
         }
       }
-
-      const res = await client.mutate({
-        mutation: CREATE_BUY_TICKET,
-        variables: {
-          eventAddress: eventAddress,
-          tiers: tier,
-          amounts: amount,
-        },
-      });
-      const gasPrice = await web3.eth.getGasPrice();
-
-      const data = await web3.eth.signTransaction(
-        {
-          from: user,
-          to: '0x7070bD3Cc552F985a24DaAA29F2C8107F7c7e137',
-          gas: 1000000,
-          gasPrice,
-          value: fixedAmountUSD,
-          data: res.data.createBuyTickets.abi,
-        },
-        '0x4c0883a69102937d6231471b5dbb6204fe5129617082792ae468d01a3f362318'
+      goToNext();
+      const contract_tickfi = new web3.eth.Contract(
+        JSON.parse(CONTRACT_TICKIFI_ABI),
+        TICKIFI_ADDRESS
       );
-      console.log(data);
-      const res_signed = await client.mutate({
-        mutation: SUBMIT_SIGNED_TRANSACTION,
-        variables: {
-          rawTransaction: data,
-        },
-      });
+
+      const txHash = await contract_tickfi.methods
+        .buyTickets(eventAddress, [tier], [amount])
+        .send({
+          from: user,
+        });
+      console.log(txHash);
+      goToNext();
+      /*  const res_signed = await client.mutate({
+          mutation: SUBMIT_TRANSACTION,
+          variables: {
+            rawTransaction: data,
+          },
+        }); */
     }
 
     setLoading(false);

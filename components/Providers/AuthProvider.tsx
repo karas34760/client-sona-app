@@ -40,7 +40,7 @@ const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
       const res_message = await client.mutate({
         mutation: SEARCH_CONNECT_MSG,
         variables: {
-          address: address?.toString(),
+          address: address.toString(),
         },
       });
 
@@ -77,20 +77,12 @@ const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
       }
     }
   };
-
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     const currentCheck = async () => {
       const accessToken = getAccessToken();
-      if (address == null && !accessToken) {
-        //todo focus
-        setLoading(false);
-        disconnect();
-        removeFromStorage();
-        return;
-      }
       if (address != user && address != null) {
-        // Check when user want to change the account
         setLoading(true);
         dispatch(setUser(address));
         saveUserToStorage(address);
@@ -98,12 +90,23 @@ const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
         setLoading(false);
         return;
       }
+      if (!accessToken && address != null) {
+        setLoading(true);
+        await handleAccept();
+        setLoading(false);
+        return;
+      }
+      if (!accessToken && address == null && user == null) {
+        await disconnect();
+        router.push('/');
+        return;
+      }
 
       setLoading(false);
     };
     currentCheck();
   }, [address]);
-  const router = useRouter();
+
   useEffect(() => {
     const checkAuth = async () => {
       const public_path = ['/account'];
@@ -112,11 +115,7 @@ const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
         !accessToken &&
         public_path.some(path => router.asPath.includes(path))
       ) {
-        router.push('/');
-        await disconnect();
-        return;
-      }
-      if (address == null && user === null) {
+        console.log('What what');
         router.push('/');
         removeFromStorage();
         await disconnect();
