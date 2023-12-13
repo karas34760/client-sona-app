@@ -401,7 +401,7 @@ const EventCreatePage = () => {
             alignItems="flex-start"
             flexWrap={{ md: 'nowrap', base: 'wrap' }}
           >
-            <Box width="300px" height="full">
+            <Box minW="300px" height="full">
               <StepFollow steps={steps} activeStep={activeStep} />
             </Box>
             <Box

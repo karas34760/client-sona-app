@@ -1,18 +1,27 @@
 import {
   Box,
   Button,
+  Center,
   Flex,
   FormControl,
   FormErrorMessage,
   FormLabel,
+  Icon,
   Input,
+  Modal,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalOverlay,
   Text,
+  useDisclosure,
 } from '@chakra-ui/react';
 import { useFormik } from 'formik';
 import React, { useEffect } from 'react';
 import * as Yup from 'yup';
 
 import SendMoneyContract from '@/components/Modal/SendMoneyContract';
+import WorkingIcon from 'public/assets/icons/art/working.svg';
 
 interface IProps {
   mortageTx: string;
@@ -38,7 +47,7 @@ const StepComplete = ({
       license: license,
     },
     onSubmit: async () => {
-      handleSubmit();
+      //handleSubmit();
     },
     validationSchema: Yup.object({
       mortageTx: Yup.string().required('Transaction Hash cannot be empty'),
@@ -52,7 +61,7 @@ const StepComplete = ({
       license: formik.values.license,
     });
   }, [formik.values.mortageTx]);
-
+  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
       <Box overflow="hidden">
@@ -124,11 +133,39 @@ const StepComplete = ({
             >
               Previous Step
             </Button>
-            <Button width="full" variant="primary" type="submit">
+            <Button onClick={onOpen} width="full" variant="primary">
               Submit Complete
             </Button>
           </Flex>
         </Flex>
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent padding={8}>
+            <ModalCloseButton />
+            <Center flexDir="column" gap={4}>
+              <Icon as={WorkingIcon} height="240px" width="240px" />
+              <Text>
+                We will keep your data , and money refund back after 3 days end
+                of events
+              </Text>
+            </Center>
+
+            <ModalFooter gap={6}>
+              <Button
+                variant="primary"
+                onClick={() => {
+                  handleSubmit();
+                  onClose();
+                }}
+              >
+                Confirm Create
+              </Button>
+              <Button colorScheme="red" mr={3} onClick={onClose} paddingX={8}>
+                Close
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
       </form>
     </>
   );

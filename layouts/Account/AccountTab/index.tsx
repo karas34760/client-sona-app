@@ -77,21 +77,6 @@ const AccountProfileTab = () => {
         );
       },
     },
-    {
-      key: 'created',
-      title: t('created'),
-      component: (title, isActive) => {
-        return (
-          <TabButton
-            isActive={isActive}
-            title={title}
-            params={{
-              tab: 'created',
-            }}
-          />
-        );
-      },
-    },
   ];
   return (
     <>

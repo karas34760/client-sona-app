@@ -82,7 +82,7 @@ const ProfileDrawer = ({ isOpen, onClose }: IProps) => {
               </Button>
             </Flex>
             <Text fontSize="3xl" fontWeight="bold">
-              ${currentBalance}
+              ${parseFloat(currentBalance).toFixed(2)}
             </Text>
             <ListItemSetting onClose={onClose} />
           </Flex>

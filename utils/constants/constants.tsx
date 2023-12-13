@@ -31,6 +31,8 @@ export const categoryEvent: optionEventType[] = [
   { value: 'festival', label: 'Festival' },
   { value: 'art', label: 'Art' },
   { value: 'party', label: 'Party' },
+  { value: 'live-music', label: 'Live Music' },
   { value: 'tech', label: 'Technology' },
+  { value: 'conference', label: 'Conference' },
   { value: 'education&learning', label: 'Education & Learning' },
 ];
