@@ -273,3 +273,70 @@ export const SEARCH_REJECT_EVENT = gql`
     }
   }
 `;
+export const SEARCH_EVENT_METADATA = gql`
+  query SearchEventMetadata($uri: String!) {
+    searchEventMetadata(uri: $uri) {
+      name
+      description
+      location
+      image
+      organizer
+      singers {
+        name
+        age
+        sex
+      }
+      tickets
+      category
+      TimeForSell
+      DeadlineForSell
+      StartTime
+      EndTime
+      license
+    }
+  }
+`;
+
+export const SEARCH_EVENTS_NOT_APPROVE_BY_USER = gql`
+  query SearchEventNotApproveByUser(
+    $page: Int
+    $size: Int
+    $filter: UserEventFilter
+    $orderBy: AdminEventOrderBy
+  ) {
+    searchEventNotApproveByUser(
+      page: $page
+      size: $size
+      filter: $filter
+      orderBy: $orderBy
+    ) {
+      currentPage
+      hasNext
+      hasPrevious
+      pages
+      size
+      total
+      items {
+        eventId
+        address
+        organizer
+        name
+        description
+        image
+        category
+        location
+        uri
+        tickets
+        TimeForSell
+        DeadlineForSell
+        StartTime
+        EndTime
+        submitedTime
+        createdTime
+        mortageTx
+        createdTx
+        isLocked
+      }
+    }
+  }
+`;

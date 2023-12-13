@@ -119,55 +119,7 @@ const EventCreatePage = () => {
     let imgUrl = '';
     let uri = '';
     // First submit IPFS
-    if (form.image) {
-      const projectId = process.env.NEXT_PUBLIC_PROJECT_KEY;
-      const projectKey = process.env.NEXT_PUBLIC_SECRET_KEY;
-      const auth =
-        'Basic ' + Buffer.from(projectId + ':' + projectKey).toString('base64');
-      // Create connection to IPFS using infura
-      const client = create({
-        host: 'ipfs.infura.io',
-        port: 5001,
-        protocol: 'https',
-        headers: {
-          authorization: auth,
-        },
-      });
-      const listSinger = [];
-      for (const singer of form.singers) {
-        if (singer.asset) {
-          const fileAdded = await client.add(singer.asset);
-          imgUrl =
-            `${
-              process.env.IPFS_SUBDOMAI || 'https://karas.infura-ipfs.io/ipfs/'
-            }` + fileAdded.path;
-          const metadata = {
-            name: singer.name,
-            description: `${singer.age} gender:${singer.sex}`,
-            image: imgUrl,
-          };
-          const metaAdd = await client.add(JSON.stringify(metadata));
 
-          listSinger.push(
-            `${
-              process.env.IPFS_SUBDOMAI || 'https://karas.infura-ipfs.io/ipfs/'
-            }${metaAdd.path}metaAdd.path`
-          );
-        }
-      }
-      const fileAdded = await client.add(form.image);
-      imgUrl =
-        `${process.env.IPFS_SUBDOMAI || 'https://karas.infura-ipfs.io/ipfs/'}` +
-        fileAdded.path;
-      const metadata = {
-        name: form.name,
-        description: 'Event Description',
-        image: imgUrl,
-        attributes: [...listSinger],
-      };
-      const metadataAdded = await client.add(JSON.stringify(metadata));
-      uri = metadataAdded.path;
-    }
     const listTicket = [];
     if (form.tickets) {
       const projectId = process.env.NEXT_PUBLIC_PROJECT_KEY;
@@ -210,6 +162,69 @@ const EventCreatePage = () => {
           });
         }
       }
+    }
+    // Meta image
+    if (form.image) {
+      const projectId = process.env.NEXT_PUBLIC_PROJECT_KEY;
+      const projectKey = process.env.NEXT_PUBLIC_SECRET_KEY;
+      const auth =
+        'Basic ' + Buffer.from(projectId + ':' + projectKey).toString('base64');
+      // Create connection to IPFS using infura
+      const client = create({
+        host: 'ipfs.infura.io',
+        port: 5001,
+        protocol: 'https',
+        headers: {
+          authorization: auth,
+        },
+      });
+      const listSinger = [];
+      for (const singer of form.singers) {
+        if (singer.asset) {
+          const fileAdded = await client.add(singer.asset);
+          imgUrl =
+            `${
+              process.env.IPFS_SUBDOMAI || 'https://karas.infura-ipfs.io/ipfs/'
+            }` + fileAdded.path;
+          const metadata = {
+            name: singer.name,
+            age: singer.age,
+            sex: singer.sex,
+            image: imgUrl,
+          };
+          const metaAdd = await client.add(JSON.stringify(metadata));
+
+          listSinger.push(
+            `${
+              process.env.IPFS_SUBDOMAI || 'https://karas.infura-ipfs.io/ipfs/'
+            }${metaAdd.path}`
+          );
+        }
+      }
+      const fileAdded = await client.add(form.image);
+      imgUrl =
+        `${process.env.IPFS_SUBDOMAI || 'https://karas.infura-ipfs.io/ipfs/'}` +
+        fileAdded.path;
+      const metadata = {
+        name: form.name,
+        description: 'Event Description',
+        image: imgUrl,
+        singers: [...listSinger],
+        location: form.location,
+        organizer: form.organizer,
+        tickets: form.tickets.map((item: any) => item.tier),
+        timeForSell: Date.parse(form.TimeForSell.toString()),
+        deadlineForSell: Date.parse(form.DeadlineForSell.toString()),
+        startTime: Date.parse(form.StartTime.toString()),
+        endTime: Date.parse(form.EndTime.toString()),
+        mortageTx: form.mortageTx,
+        license: form.license,
+        category: form.category.map((item: optionEventType) => item.value),
+      };
+      const metadataAdded = await client.add(JSON.stringify(metadata));
+      uri =
+        `${process.env.IPFS_SUBDOMAI || 'https://karas.infura-ipfs.io/ipfs/'}` +
+        metadataAdded.path;
     }
     // create events
     try {
