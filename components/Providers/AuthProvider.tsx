@@ -115,7 +115,6 @@ const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
         !accessToken &&
         public_path.some(path => router.asPath.includes(path))
       ) {
-        console.log('What what');
         router.push('/');
         removeFromStorage();
         await disconnect();

@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { Box, HStack, Text, Image } from '@chakra-ui/react';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
 import { useAccount } from 'wagmi';
 
@@ -16,7 +16,10 @@ interface IProps {
 // Account Address Display Infomration
 const AccountAddress = ({ onClose }: IProps) => {
   const { address } = useAccount();
-  const { data: dataUser } = useQuery(SEARCH_PROFILE);
+  const { data: dataUser, refetch } = useQuery(SEARCH_PROFILE);
+  useEffect(() => {
+    refetch();
+  }, [address]);
   return (
     <>
       <HStack gap={2} alignItems="center">

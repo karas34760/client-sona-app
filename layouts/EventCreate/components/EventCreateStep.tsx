@@ -142,9 +142,9 @@ const EventCreateStep = ({
             </FormControl>
           </HStack>
           <FormControl variant="create_form" isRequired>
-            <FormLabel>Ticket Description (max: 50 characters)</FormLabel>
+            <FormLabel>Ticket Description (max: 150 characters)</FormLabel>
             <Textarea
-              maxLength={50}
+              maxLength={150}
               placeholder="Enter Ticket Description"
               value={formik.values.description}
               onChange={e =>

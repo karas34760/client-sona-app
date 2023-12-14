@@ -4,6 +4,7 @@ import Link from 'next/link';
 import React from 'react';
 import { SwiperSlide } from 'swiper/react';
 
+import LoadingData from '@/animations/Loading/LoadingData';
 import CardTicketOne from '@/components/Card/CardTicketOne';
 import Carousel from '@/components/Carousel/Carousel';
 import LinkSecondary from '@/components/Link/LinkSecondary';
@@ -22,6 +23,9 @@ const UpcomingEvent = () => {
     },
   });
   const text_color1 = useColorModeValue('"primary.gray.800"', 'white');
+  if (loading) {
+    return <LoadingData />;
+  }
   return (
     <Container maxWidth="container.xl">
       <HStack justifyContent="space-between">
