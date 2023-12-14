@@ -93,3 +93,16 @@ export function formatEventTime(timestamp: string) {
 
   return `${formmattedDateSetting} (${formattedDateTime})`;
 }
+
+export function getDayName(dayIndex: number) {
+  const days = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ];
+  return days[dayIndex];
+}

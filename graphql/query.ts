@@ -284,6 +284,7 @@ export const SEARCH_EVENT_METADATA = gql`
       singers {
         name
         age
+        image
         sex
       }
       tickets

@@ -19,7 +19,6 @@ import {
 import React, { useState } from 'react';
 import Web3 from 'web3';
 
-import { client } from '@/graphql/httplink';
 import { useAuth } from '@/hooks/useAuth';
 import { usdToWei } from '@/utils/format/money';
 import {

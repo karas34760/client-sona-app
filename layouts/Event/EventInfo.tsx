@@ -23,7 +23,7 @@ import TicketInformation from './EventTab/TicketInformation';
 import CalendarImage from '@/components/Calendar/CalendarImage';
 import ListTabItem from '@/components/Tab/ListTabItem';
 import TabButton from '@/components/Tab/TabButton';
-import { formatEventTime } from '@/utils/format/date';
+import { formatEventTime, getDayName } from '@/utils/format/date';
 import { TabItem } from '@/utils/type';
 import LocationIcon from 'public/assets/icons/generals/location.svg';
 import MoreIcon from 'public/assets/icons/generals/more.svg';
@@ -108,7 +108,13 @@ const EventInfo = ({ data }: IProps) => {
         <BannerEventDetail image={data.image} />
         <Container maxWidth="container.xl" py={{ lg: 20, base: 4 }}>
           <Flex gap={10} flexWrap="wrap">
-            <CalendarImage month="Octorber" date="21" day="Saturday" />
+            <CalendarImage
+              month={new Date(data.StartTime).toLocaleString('default', {
+                month: 'long',
+              })}
+              date={new Date(data.StartTime).getDate().toString()}
+              day={getDayName(new Date(data.StartTime).getDay())}
+            />
             <VStack gap={3} alignItems="flex-start">
               <Text fontSize="1.5rem" fontWeight="extrabold" maxWidth="650px">
                 {data.name}
@@ -117,7 +123,7 @@ const EventInfo = ({ data }: IProps) => {
                 <Icon as={TimeIcon} width={6} height={6} color={textColor} />
                 <Text color={textColor} fontWeight="bold">
                   {`${formatEventTime(data.StartTime)} - ${formatEventTime(
-                    data.EndDate
+                    data.EndTime
                   )}`}
                 </Text>
               </Flex>

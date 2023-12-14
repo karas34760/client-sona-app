@@ -112,9 +112,9 @@ const StepComplete = ({
             variant="create_form"
             isInvalid={!!(formik.touched.license && formik.errors.license)}
           >
-            <FormLabel>Lience Link</FormLabel>
+            <FormLabel>Liecense Link</FormLabel>
             <Input
-              placeholder="Lience"
+              placeholder="Liecense"
               name="license"
               value={formik.values.license}
               onChange={formik.handleChange}
@@ -133,7 +133,12 @@ const StepComplete = ({
             >
               Previous Step
             </Button>
-            <Button onClick={onOpen} width="full" variant="primary">
+            <Button
+              onClick={onOpen}
+              width="full"
+              variant="primary"
+              isDisabled={!formik.values.mortageTx || !formik.values.license}
+            >
               Submit Complete
             </Button>
           </Flex>
