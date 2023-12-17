@@ -19,8 +19,10 @@ import {
 import React, { useState } from 'react';
 import Web3 from 'web3';
 
+import { client } from '@/graphql/httplink';
+import { SUBMIT_TRANSACTION } from '@/graphql/query';
 import { useAuth } from '@/hooks/useAuth';
-import { usdToWei } from '@/utils/format/money';
+import { usdToWei, weiToUSD } from '@/utils/format/money';
 import {
   BALANCE_ADDRESS,
   CONTRACT_TICKIFI_ABI,
@@ -71,7 +73,8 @@ const StepBuyTicket = ({
         .allowance(user, BALANCE_ADDRESS)
         .call();
 
-      if (balanceAllow > fixedAmountUSD) {
+      const balanceAllowUSDT = parseFloat(weiToUSD(balanceAllow, 1));
+      if (balanceAllowUSDT < payPrice + 2) {
         try {
           const receipt = await contract.methods
             .approve(BALANCE_ADDRESS, fixedAmountUSD)
@@ -97,12 +100,16 @@ const StepBuyTicket = ({
         });
       console.log(txHash);
       goToNext();
-      /*  const res_signed = await client.mutate({
-          mutation: SUBMIT_TRANSACTION,
-          variables: {
-            rawTransaction: data,
-          },
-        }); */
+      const res_signed = await client.mutate({
+        mutation: SUBMIT_TRANSACTION,
+        variables: {
+          blockHash: txHash.blockHash,
+          blockNumber: txHash.blockNumber,
+          transactionHash: txHash.transactionHash,
+          from: txHash.from,
+        },
+      });
+      console.log('Res Signed', res_signed);
     }
 
     setLoading(false);

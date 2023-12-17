@@ -83,7 +83,7 @@ export default function EnterCode({ callback, isLoading }: IProps) {
     // eslint-disable-next-line no-unused-vars
     const nextInput = inputRefs[index + 1];
 
-    if ((e.keyCode === 8 || e.keyCode === 46) && input.value === '') {
+    if ((e.keyCode === 8 || e.keyCode === 46) && input.value == '') {
       e.preventDefault();
       setCode(prevCode => prevCode.slice(0, index) + prevCode.slice(index + 1));
       if (previousInput) {
@@ -95,7 +95,7 @@ export default function EnterCode({ callback, isLoading }: IProps) {
   // Capture pasted characters
   const handlePaste = (e: any) => {
     const pastedCode = e.clipboardData.getData('text');
-    if (pastedCode.length === 8) {
+    if (pastedCode.length === 6) {
       setCode(pastedCode);
       inputRefs.forEach((inputRef, index) => {
         inputRef.current!!.value = pastedCode.charAt(index);
