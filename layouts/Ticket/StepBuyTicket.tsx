@@ -109,7 +109,6 @@ const StepBuyTicket = ({
           from: txHash.from,
         },
       });
-      console.log('Res Signed', res_signed);
     }
 
     setLoading(false);
