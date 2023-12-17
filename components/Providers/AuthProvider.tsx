@@ -113,7 +113,7 @@ const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
 
   useEffect(() => {
     const checkAuth = async () => {
-      const public_path = ['/account'];
+      const public_path = ['/account', '/booking'];
       const accessToken = getAccessToken();
       if (
         !accessToken &&

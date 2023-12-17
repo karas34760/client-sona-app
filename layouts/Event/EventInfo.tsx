@@ -114,7 +114,7 @@ const EventInfo = ({ data }: IProps) => {
               })}
               date={new Date(data.StartTime).getDate().toString()}
               day={getDayName(new Date(data.StartTime).getDay())}
-          />
+            />
             <VStack gap={3} alignItems="flex-start">
               <Text fontSize="1.5rem" fontWeight="extrabold" maxWidth="650px">
                 {data.name}
@@ -184,6 +184,7 @@ const EventInfo = ({ data }: IProps) => {
               </Box>
             </Box>
             <EventBooking
+              address={data.address}
               location={data.location}
               StartDate={formatEventTime(data.StartTime)}
               EndDate={formatEventTime(data.EndTime)}

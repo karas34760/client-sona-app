@@ -1,11 +1,15 @@
-import { Box, Button, Flex, HStack, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, HStack, Text, Tooltip } from '@chakra-ui/react';
+import Link from 'next/link';
 import React from 'react';
+
+import { useAuth } from '@/hooks/useAuth';
 interface IProps {
   location: string;
   StartDate: string;
   EndDate: string;
+  address: string;
 }
-const EventBooking = ({ location, StartDate, EndDate }: IProps) => {
+const EventBooking = ({ location, StartDate, EndDate, address }: IProps) => {
   const currentSeat = [
     {
       label: 'Vip seat',
@@ -32,6 +36,7 @@ const EventBooking = ({ location, StartDate, EndDate }: IProps) => {
     { key: 'End Date', value: EndDate },
     { key: 'Viewing Age', value: 'Over 8 ages' },
   ];
+  const { user } = useAuth();
   return (
     <>
       <Box height="full" width="full">
@@ -115,9 +120,23 @@ const EventBooking = ({ location, StartDate, EndDate }: IProps) => {
             </Flex>
           </Flex>
 
-          <Button width="full" variant="primary">
-            Make a Reservation
-          </Button>
+          {user ? (
+            <>
+              <Link href={`/booking/${address}`}>
+                <Button width="full" variant="primary">
+                  Make a Reservation
+                </Button>
+              </Link>
+            </>
+          ) : (
+            <>
+              <Tooltip label="Please Connect wallet " fontSize="md">
+                <Button width="full" variant="primary" isDisabled={true}>
+                  Make a Reservation
+                </Button>
+              </Tooltip>
+            </>
+          )}
         </Flex>
       </Box>
     </>
