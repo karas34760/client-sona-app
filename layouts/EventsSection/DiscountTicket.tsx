@@ -140,7 +140,7 @@ const DiscountTicket = () => {
   return (
     <Container maxWidth="container.xl">
       <Center>
-        <Text variant="type_sub_title">Discount Ticket</Text>
+        <Text variant="type_sub_title">Active Events Ticket</Text>
       </Center>
       <Carousel
         options={

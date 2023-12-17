@@ -25,7 +25,7 @@ import {
   saveUserToStorage,
 } from '@/redux/user/user-helper';
 import { ITokens } from '@/redux/user/user-interface';
-import { setUser } from '@/redux/user/user-slice';
+import { setUser, setUserLoading } from '@/redux/user/user-slice';
 
 const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
   const { user } = useAuth();
@@ -83,17 +83,21 @@ const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
     const currentCheck = async () => {
       const accessToken = getAccessToken();
       if (address != user && address != null) {
+        dispatch(setUserLoading(true));
         setLoading(true);
         dispatch(setUser(address));
         saveUserToStorage(address);
         await handleAccept();
         setLoading(false);
+        dispatch(setUserLoading(false));
         return;
       }
       if (!accessToken && address != null) {
+        dispatch(setUserLoading(true));
         setLoading(true);
         await handleAccept();
         setLoading(false);
+        dispatch(setUserLoading(false));
         return;
       }
       if (!accessToken && address == null && user == null) {

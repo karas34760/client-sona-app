@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React from 'react';
 import { SwiperSlide } from 'swiper/react';
 
-import ListEventSkeletons from '../Skeleton/ListEvent.tsx';
+import ListEventSkeletons from '../Skeleton/ListEvent';
 
 import CardTicketOne from '@/components/Card/CardTicketOne';
 import Carousel from '@/components/Carousel/Carousel';
@@ -17,7 +17,7 @@ const TrendingConference = () => {
       page: 1,
       size: 10,
       filter: {
-        category: ['tech'],
+        category: ['tech', 'conference'],
       },
     },
   });

@@ -15,6 +15,7 @@ import {
   EnumTokens,
   getAccessToken,
   getRefreshToken,
+  getUserFromStorage,
   removeFromStorage,
 } from '@/redux/user/user-helper';
 const httpLink = createHttpLink({
@@ -24,7 +25,8 @@ const httpLink = createHttpLink({
 const authLink = setContext(async (request, { headers }) => {
   // get the authentication token from local storage if it exists
   const token = getAccessToken();
-  if (request.operationName === 'refreshAccessToken') {
+  const address = getUserFromStorage();
+  if (request.operationName === 'refreshAccessToken' && address) {
     const refreshToken = getRefreshToken();
     if (refreshToken) {
       return {
@@ -69,7 +71,6 @@ const errorLink = onError(({ graphQLErrors, operation, forward }) => {
         case 'UNAUTHENTICATED':
           return fromPromise(
             refreshToken().catch(error => {
-              console.log('Ertro', error);
               return;
             })
           )

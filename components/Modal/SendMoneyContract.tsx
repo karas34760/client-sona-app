@@ -16,6 +16,8 @@ const SendMoneyContract = ({ setTxHash }: IProp) => {
 
   const toast = useToast({
     position: 'top-right',
+    duration: 3000,
+    isClosable: true,
   });
 
   return (

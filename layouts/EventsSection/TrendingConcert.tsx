@@ -4,13 +4,15 @@ import Link from 'next/link';
 import React from 'react';
 import { SwiperSlide } from 'swiper/react';
 
-import ListEventSkeletons from '../Skeleton/ListEvent.tsx';
+import ListEventSkeletons from '../Skeleton/ListEvent';
 
 import CardTicketOne from '@/components/Card/CardTicketOne';
 import Carousel from '@/components/Carousel/Carousel';
 import LinkSecondary from '@/components/Link/LinkSecondary';
+import TimeReminder from '@/components/Time/TimeReminder';
 import { SEARCH_EVENTS } from '@/graphql/query';
 import { convertTimestampToDate } from '@/utils/format/date';
+
 const TrendingConcert = () => {
   const { data, loading } = useQuery(SEARCH_EVENTS, {
     variables: {
@@ -47,6 +49,8 @@ const TrendingConcert = () => {
             >
               <Link href={`/event/${item.address}`}>
                 <CardTicketOne image_link={item.image}>
+                  <TimeReminder targetDate={item.EndTime} text="End in" />
+
                   <Text
                     fontWeight="bold"
                     whiteSpace="nowrap"
