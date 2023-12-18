@@ -2,34 +2,23 @@ import { Box, Button, Flex, HStack, Text, Tooltip } from '@chakra-ui/react';
 import Link from 'next/link';
 import React from 'react';
 
+import { TicketBuy } from './EventTab/TicketInformation';
+
 import { useAuth } from '@/hooks/useAuth';
 interface IProps {
   location: string;
   StartDate: string;
   EndDate: string;
   address: string;
+  dataTicket: TicketBuy[];
 }
-const EventBooking = ({ location, StartDate, EndDate, address }: IProps) => {
-  const currentSeat = [
-    {
-      label: 'Vip seat',
-      quantity: 12,
-    },
-    {
-      label: 'R seat',
-      quantity: 30,
-    },
-    ,
-    {
-      label: 'A seat',
-      quantity: 10,
-    },
-    ,
-    {
-      label: 'S seat',
-      quantity: 10,
-    },
-  ];
+const EventBooking = ({
+  location,
+  StartDate,
+  EndDate,
+  address,
+  dataTicket,
+}: IProps) => {
   const attributes = [
     { key: 'Location', value: location },
     { key: 'Start Date', value: StartDate },
@@ -85,7 +74,7 @@ const EventBooking = ({ location, StartDate, EndDate, address }: IProps) => {
               flexDirection="column"
               gap={2}
               borderTop="0.063rem solid"
-              borderTopColor={'primary.gray.300'}
+              borderTopColor="primary.gray.300"
               p={4}
             >
               <Text fontSize="lg" fontWeight="bold">
@@ -103,15 +92,18 @@ const EventBooking = ({ location, StartDate, EndDate, address }: IProps) => {
               >
                 Time : 15:00
               </Box>
+              <Text fontWeight="bold" fontSize="lg">
+                Ticket Remaining
+              </Text>
               <HStack justifyContent="space-between">
-                {currentSeat.map(item => (
+                {dataTicket.map(item => (
                   <>
-                    <Flex>
+                    <Flex gap={1}>
                       <Text fontSize="sm" color="primary.gray.600">
-                        {item?.label}:
+                        {item.name}:
                       </Text>
                       <Text fontWeight="bold" fontSize="sm">
-                        {item?.quantity}
+                        {item.remaining}
                       </Text>
                     </Flex>
                   </>

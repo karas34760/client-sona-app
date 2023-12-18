@@ -86,16 +86,27 @@ export const SEARCH_EVENTS = gql`
         name
         description
         image
+        category
         location
         uri
-        tickets
+        tickets {
+          tier
+          amount
+          remaining
+          price
+          name
+          description
+          asset
+        }
         TimeForSell
         DeadlineForSell
         StartTime
         EndTime
         submitedTime
         createdTime
+        mortageTx
         createdTx
+        isLocked
       }
     }
   }

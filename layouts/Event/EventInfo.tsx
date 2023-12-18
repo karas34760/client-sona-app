@@ -101,7 +101,7 @@ const EventInfo = ({ data }: IProps) => {
     },
   ];
   const bg = useColorModeValue('white', 'rgb(26, 32, 44)');
-
+  console.log(data.tickets);
   return (
     <>
       <Box>
@@ -178,12 +178,16 @@ const EventInfo = ({ data }: IProps) => {
                 )}
                 {queryKey === 'casting' && <CastingInfo />}
                 {queryKey === 'ticket_info' && (
-                  <TicketInformation eventAddress={data.address} />
+                  <TicketInformation
+                    eventAddress={data.address}
+                    dataTicket={data.tickets}
+                  />
                 )}
                 {queryKey === 'oganizer' && <Oganizer />}
               </Box>
             </Box>
             <EventBooking
+              dataTicket={data.tickets}
               address={data.address}
               location={data.location}
               StartDate={formatEventTime(data.StartTime)}
