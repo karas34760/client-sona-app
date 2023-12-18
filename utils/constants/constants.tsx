@@ -22,3 +22,17 @@ export const optionFilter = [
     value: 'price_low_to_high',
   },
 ];
+export type optionEventType = {
+  value: string;
+  label: string;
+};
+export const categoryEvent: optionEventType[] = [
+  { value: 'concert', label: 'Concert' },
+  { value: 'festival', label: 'Festival' },
+  { value: 'art', label: 'Art' },
+  { value: 'party', label: 'Party' },
+  { value: 'live-music', label: 'Live Music' },
+  { value: 'tech', label: 'Technology' },
+  { value: 'conference', label: 'Conference' },
+  { value: 'education&learning', label: 'Education & Learning' },
+];

@@ -1,17 +1,15 @@
 /* eslint-disable no-unused-vars */
-import { Text, HStack, Icon, useDisclosure } from '@chakra-ui/react';
+import { Text, HStack, Icon } from '@chakra-ui/react';
 import { ConnectKitButton } from 'connectkit';
 import React from 'react';
 import { useAccount } from 'wagmi';
 
 import AccountMenu from './AccountMenu';
-import SelectWallet from './SelectWallet';
 
 import WalletIcon from 'public/assets/icons/generals/wallet.svg';
 const ConnectWallet = () => {
   const { isConnected } = useAccount();
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <>
       {isConnected ? (
@@ -55,7 +53,7 @@ const ConnectWallet = () => {
               );
             }}
           </ConnectKitButton.Custom>
-          {/*   <HStack
+          {/*  <HStack
             bg="gradient.200"
             color="white"
             borderRadius="3xl"
@@ -75,7 +73,7 @@ const ConnectWallet = () => {
         </>
       )}
 
-      {/*    <SelectWallet isOpen={isOpen} onClose={onClose} /> */}
+      {/* <SelectWallet isOpen={isOpen} onClose={onClose} /> */}
     </>
   );
 };

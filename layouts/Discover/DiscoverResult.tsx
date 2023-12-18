@@ -10,7 +10,10 @@ import {
 
 import CardTicketOne from '@/components/Card/CardTicketOne';
 import 'react-virtualized/styles.css';
-const DiscoverResult = () => {
+interface IProps {
+  isOpen: boolean;
+}
+const DiscoverResult = ({ isOpen }: IProps) => {
   const Listest = [
     {
       name: 'Artic Monkey',
@@ -91,11 +94,11 @@ const DiscoverResult = () => {
       image_link: '/test/nft/nft_30.jpeg',
     },
   ];
-  const colCount = 4;
+  const colCount = isOpen ? 3 : 4;
   const rowCount = Math.ceil(Listest.length / colCount);
 
   const cellCache = new CellMeasurerCache({
-    defaultHeight: 300, // Default cell height
+    defaultHeight: 400, // Default cell height
     defaultWidth: 300, // Default cell width
 
     fixedWidth: true,
@@ -120,7 +123,7 @@ const DiscoverResult = () => {
         {({ measure }) => (
           <div style={{ ...style }}>
             <Link href="#">
-              <Box margin={4} my={8}>
+              <Box margin={4} boxSizing="border-box">
                 <CardTicketOne image_link={item.image_link}>
                   <Text
                     fontWeight="bold"
@@ -157,7 +160,8 @@ const DiscoverResult = () => {
             columnWidth={cellCache.columnWidth}
             width={width}
             cellRenderer={cellRenderer}
-            /*  style={{ overflow: 'hidden' }} */ // Hide default scrollbar
+            style={{ gridGap: '16px', columnGap: '16px' }}
+            /* */ // Hide default scrollbar
           />
         )}
       </AutoSizer>

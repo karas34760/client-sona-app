@@ -42,7 +42,7 @@ const DiscoverHead = () => {
               position="sticky"
               top="104px"
               height="fit-content"
-              width={{ md: '380px' }}
+              w={{ md: '300px' }}
               border="0.063rem solid"
               /*   boxShadow="shadow.200" */
               borderColor="primary.gray.300"
@@ -63,7 +63,7 @@ const DiscoverHead = () => {
         )}
 
         <Box width="full" flexGrow={1} height="650px">
-          <DiscoverResult />
+          <DiscoverResult isOpen={isOpen} />
         </Box>
       </Flex>
     </>

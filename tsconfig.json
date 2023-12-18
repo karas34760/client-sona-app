@@ -20,6 +20,11 @@
     }
   },
 
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "layouts/Skeleton/ListEvent"
+  ],
   "exclude": ["node_modules"]
 }

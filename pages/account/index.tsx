@@ -1,6 +1,6 @@
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
-import { useAccount, useEnsName } from 'wagmi';
+import { useAccount } from 'wagmi';
 
 import SEOHead from '@/components/SEO/SEOHead';
 import AccountDetailPage from '@/layouts/Account';
@@ -13,21 +13,13 @@ export async function getServerSideProps({ locale }: { locale: string }) {
 }
 // profile account detail
 const AccountDetail = () => {
-  const { address, isConnected } = useAccount();
-  const { data: ensName } = useEnsName({ address });
+  const { address } = useAccount();
   return (
     <>
-      {isConnected ? (
-        <SEOHead
-          title={`Your Profile`}
-          description={`Tickifi Profile Detail of Account ${address}`}
-        />
-      ) : (
-        <SEOHead
-          title={` ${ensName ? ensName : address}`}
-          description={`Tickifi Profile Detail of Account ${address}`}
-        />
-      )}
+      <SEOHead
+        title={`Your Profile`}
+        description={`Tickifi Profile Detail of Account ${address}`}
+      />
 
       <AccountDetailPage />
     </>

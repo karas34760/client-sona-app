@@ -7,36 +7,124 @@ import {
   Icon,
   useColorModeValue,
   HStack,
+  Grid,
 } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import BannerEventDetail from './BannerEventDetail';
-import EventTabDetail from './EventTab/EventTabDetail';
+import EventBooking from './EventBooking';
+import AboutEvent from './EventTab/AboutEvent';
+import CastingInfo from './EventTab/CastingInfo';
+import Oganizer from './EventTab/Oganizer';
+import TicketInformation from './EventTab/TicketInformation';
 
 import CalendarImage from '@/components/Calendar/CalendarImage';
-/* import LoveIcon from 'public/assets/icons/generals/heart.svg'; */
+import ListTabItem from '@/components/Tab/ListTabItem';
+import TabButton from '@/components/Tab/TabButton';
+import { formatEventTime, getDayName } from '@/utils/format/date';
+import { TabItem } from '@/utils/type';
 import LocationIcon from 'public/assets/icons/generals/location.svg';
 import MoreIcon from 'public/assets/icons/generals/more.svg';
 import ShareIcon from 'public/assets/icons/generals/share.svg';
 import TimeIcon from 'public/assets/icons/generals/time.svg';
-const EventInfo = () => {
+
+interface IProps {
+  data: any; //Event Search Data
+}
+const EventInfo = ({ data }: IProps) => {
   const textColor = useColorModeValue('primary.gray.500', 'primary.purple.500');
+  const { t } = useTranslation();
+  const router = useRouter();
+  const queryKey = router.query?.tab;
+  const TabItems: TabItem[] = [
+    {
+      key: 'about',
+      title: t('about'),
+      component: (title, isActive) => {
+        return (
+          <TabButton
+            isActive={isActive}
+            title={title}
+            params={{
+              tab: 'about',
+            }}
+          />
+        );
+      },
+    },
+    {
+      key: 'casting',
+      title: t('casting'),
+      component: (title, isActive) => {
+        return (
+          <TabButton
+            isActive={isActive}
+            title={title}
+            params={{
+              tab: 'casting',
+            }}
+          />
+        );
+      },
+    },
+    {
+      key: 'oganizer',
+      title: t('oganizer'),
+      component: (title, isActive) => {
+        return (
+          <TabButton
+            isActive={isActive}
+            title={title}
+            params={{
+              tab: 'oganizer',
+            }}
+          />
+        );
+      },
+    },
+    {
+      key: 'ticket_info',
+      title: t('ticket_info'),
+      component: (title, isActive) => {
+        return (
+          <TabButton
+            isActive={isActive}
+            title={title}
+            params={{
+              tab: 'ticket_info',
+            }}
+          />
+        );
+      },
+    },
+  ];
+  const bg = useColorModeValue('white', 'rgb(26, 32, 44)');
+
   return (
     <>
       <Box>
-        <BannerEventDetail />
+        <BannerEventDetail image={data.image} />
         <Container maxWidth="container.xl" py={{ lg: 20, base: 4 }}>
           <Flex gap={10} flexWrap="wrap">
-            <CalendarImage month="Octorber" date="21" day="Saturday" />
-            <VStack gap={3}>
+            <CalendarImage
+              month={new Date(data.StartTime).toLocaleString('default', {
+                month: 'long',
+              })}
+              date={new Date(data.StartTime).getDate().toString()}
+              day={getDayName(new Date(data.StartTime).getDay())}
+            />
+            <VStack gap={3} alignItems="flex-start">
               <Text fontSize="1.5rem" fontWeight="extrabold" maxWidth="650px">
-                2023-2024 Alan Walker THE 1ST WORLD Festival [AREA 52] in HO CHI
-                MINH
+                {data.name}
               </Text>
               <Flex alignItems="center" width="full" gap={2}>
                 <Icon as={TimeIcon} width={6} height={6} color={textColor} />
                 <Text color={textColor} fontWeight="bold">
-                  Saturday, 21 October 2023 (07:00 PM - Until late)
+                  {`${formatEventTime(data.StartTime)} - ${formatEventTime(
+                    data.EndTime
+                  )}`}
                 </Text>
               </Flex>
               <Flex alignItems="flex-start" width="full" gap={2}>
@@ -50,9 +138,7 @@ const EventInfo = () => {
                   <Text color={textColor} fontWeight="extrabold">
                     Nguyen Du Gymnasium
                   </Text>
-                  <Text fontSize="sm">
-                    116 Nguyen Du, Ben Thanh Ward, District 1, HCMC
-                  </Text>
+                  <Text fontSize="sm">{data.location}</Text>
                 </Box>
               </Flex>
             </VStack>
@@ -64,7 +150,46 @@ const EventInfo = () => {
               </HStack>
             </Box>
           </Flex>
-          <EventTabDetail />
+          <Grid gridTemplateColumns={{ lg: '70% 30%', md: '1fr 1fr' }} gap={10}>
+            <Box>
+              <ListTabItem
+                items={TabItems}
+                pt={4}
+                position="sticky"
+                top="90px"
+                zIndex="10"
+                bgColor={bg}
+                width="100%"
+                _after={{
+                  content: "''",
+                  height: '0.125rem',
+                  width: '100%',
+                  backgroundColor: 'primary.gray.300',
+                  position: 'absolute',
+                  bottom: '0.05rem',
+                  left: 0,
+                }}
+                activeKey={(queryKey as string) || 'about'}
+                flexWrap="wrap"
+              />
+              <Box py={4} mr={{ md: 8, base: 0 }}>
+                {(queryKey === 'about' || !queryKey) && (
+                  <AboutEvent description={data.description} />
+                )}
+                {queryKey === 'casting' && <CastingInfo />}
+                {queryKey === 'ticket_info' && (
+                  <TicketInformation eventAddress={data.address} />
+                )}
+                {queryKey === 'oganizer' && <Oganizer />}
+              </Box>
+            </Box>
+            <EventBooking
+              address={data.address}
+              location={data.location}
+              StartDate={formatEventTime(data.StartTime)}
+              EndDate={formatEventTime(data.EndTime)}
+            />
+          </Grid>
         </Container>
       </Box>
     </>

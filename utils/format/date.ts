@@ -52,3 +52,57 @@ export const getMonthDays = (month = THIS_MONTH, year = THIS_YEAR) => {
 export const getMonthFirstDay = (month = THIS_MONTH, year = THIS_YEAR) => {
   return +new Date(`${year}-${zeroPad(month, 2)}-01`).getDay() + 1;
 };
+
+export const ONE_DAY = 24 * 60 * 60 * 1000; // follow milisecond
+export const ONE_HOUR = 60 * 60 * 1000;
+export function calculateMinEndTime(startTime: string, hour: number) {
+  const startDateTime = new Date(startTime);
+  const minEndTime = new Date(startDateTime.getTime() + hour); // hour in milili second
+  return minEndTime.toISOString().slice(0, 16);
+}
+export const formatDateTimeLocal = (dateString: string) => {
+  const date = new Date(dateString);
+  const formattedDate = date.toISOString().slice(0, 16);
+  return formattedDate;
+};
+
+// Convert Time Date
+export const convertTimestampToDate = (timestamp: string) => {
+  let date = new Date(timestamp);
+  return date.toISOString().replace(/T/, ' ').replace(/\..+/, '') + ' UTC';
+};
+
+export function formatEventTime(timestamp: string) {
+  // Convert timestamps to Date objects
+  const dateSetting = new Date(timestamp);
+
+  // Format the date
+  const formmattedDateSetting = dateSetting.toLocaleDateString('en-US', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+
+  // Format the time
+  const formattedDateTime = dateSetting.toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: 'numeric',
+    hour12: true,
+  });
+
+  return `${formmattedDateSetting} (${formattedDateTime})`;
+}
+
+export function getDayName(dayIndex: number) {
+  const days = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ];
+  return days[dayIndex];
+}

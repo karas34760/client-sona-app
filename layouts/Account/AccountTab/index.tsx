@@ -4,7 +4,7 @@ import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import ActivityTab from './ActivityTab';
-import CollectionTab from './CollectionTab';
+import CreatedEventTab from './CreatedEventTab';
 import DealTab from './DealTab';
 import FavoritedTab from './FavoritedTab';
 
@@ -18,15 +18,15 @@ const AccountProfileTab = () => {
   const queryKey = router.query?.tab;
   const TabItems: TabItem[] = [
     {
-      key: 'collected',
-      title: t('collected'),
+      key: 'created_event',
+      title: t('Created Events'),
       component: (title, isActive) => {
         return (
           <TabButton
             isActive={isActive}
             title={title}
             params={{
-              tab: 'collected',
+              tab: 'created_event',
             }}
           />
         );
@@ -77,21 +77,6 @@ const AccountProfileTab = () => {
         );
       },
     },
-    {
-      key: 'created',
-      title: t('created'),
-      component: (title, isActive) => {
-        return (
-          <TabButton
-            isActive={isActive}
-            title={title}
-            params={{
-              tab: 'created',
-            }}
-          />
-        );
-      },
-    },
   ];
   return (
     <>
@@ -99,13 +84,15 @@ const AccountProfileTab = () => {
         items={TabItems}
         pt={4}
         position="sticky"
-        top="104px"
+        top="96px"
+        bg="white"
+        zIndex="99"
         width="100%"
-        activeKey={(queryKey as string) || 'collected'}
+        activeKey={(queryKey as string) || 'created_event'}
         flexWrap="wrap"
       />
-      <Box padding={2}>
-        {(queryKey === 'collected' || !queryKey) && <CollectionTab />}
+      <Box pt={8}>
+        {(queryKey === 'created_event' || !queryKey) && <CreatedEventTab />}
         {queryKey === 'deal' && <DealTab />}
         {queryKey === 'favorited' && <FavoritedTab />}
         {queryKey === 'activity' && <ActivityTab />}

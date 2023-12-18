@@ -50,7 +50,13 @@ const CardTicketOne = ({ image_link, children }: IProps) => {
           bg="primary.purple.300"
           width="full"
         >
-          <Image src={image_link} alt="" objectFit="cover" maxHeight="242px" />
+          <Image
+            src={image_link}
+            alt=""
+            objectFit="cover"
+            h="240px"
+            width="full"
+          />
           <Center
             position="absolute"
             top={3}

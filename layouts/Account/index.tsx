@@ -1,4 +1,6 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-use-before-define */
+import { useQuery } from '@apollo/client';
 import { Box, Button, Container, HStack, Icon, Text } from '@chakra-ui/react';
 import Link from 'next/link';
 import { useAccount } from 'wagmi';
@@ -7,36 +9,26 @@ import AccountProfileTab from './AccountTab';
 import MoreData from './UsedComponents/MoreData';
 import SettingProfileImage from './UsedComponents/SettingProfileImage';
 
+import { SEARCH_PROFILE } from '@/graphql/query';
 import ShareData from '@/layouts/Account/UsedComponents/ShareData';
 import { shortenAddress } from '@/utils/format/address';
 import SettingIcon from 'public/assets/icons/generals/setting.svg';
 
 const AccountDetailPage = () => {
   const { address } = useAccount();
-  /* const handleAccept = async () => {
-    if (address) {
-      const data = await useSearchConnectMsgMutation.fetcher(client, {
-        address: address?.toString(),
-      })();
-      try {
-        // @ts-ignore because web3 is defined here.
-        const signature = await web3.eth.personal.sign(
-          data.searchConnectMsg.message,
-          address,
-          '' // MetaMask will ignore the password argument here
-        );
-
-        console.log(signature);
-      } catch (err) {
-        throw new Error('You need to sign the message to be able to log in.');
-      }
-    }
-  }; */
+  const { data: dataUser } = useQuery(SEARCH_PROFILE);
 
   return (
     <>
       <Box padding={0}>
-        <SettingProfileImage />
+        {dataUser ? (
+          <SettingProfileImage
+            avatar={dataUser.searchAddressProfile.avatar}
+            background={dataUser.searchAddressProfile.background}
+          />
+        ) : (
+          <SettingProfileImage />
+        )}
 
         <Container maxWidth="container.xl" my={12}>
           <HStack
@@ -46,7 +38,9 @@ const AccountDetailPage = () => {
           >
             <Box>
               <Text fontSize="2xl" fontWeight="bold">
-                Karas Developer
+                {dataUser && dataUser.searchAddressProfile.username
+                  ? dataUser.searchAddressProfile.username
+                  : 'No Name'}
               </Text>
               <HStack>
                 <Text>Address:</Text>
@@ -64,6 +58,11 @@ const AccountDetailPage = () => {
               <Text fontSize="sm" color="primary.gray.600">
                 Joined September 2023
               </Text>
+              {dataUser && dataUser.searchAddressProfile.bio && (
+                <Text color="primary.gray.600">
+                  {dataUser.searchAddressProfile.bio}
+                </Text>
+              )}
             </Box>
             <HStack gap={8}>
               <Button fontSize="sm" leftIcon={<Icon as={SettingIcon} />}>

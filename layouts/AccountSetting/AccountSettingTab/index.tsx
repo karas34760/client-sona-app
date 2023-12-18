@@ -119,7 +119,7 @@ const AccountSettingTab = () => {
   ];
   return (
     <>
-      <Grid gridTemplateColumns={{ lg: '25% 75%', md: '1fr 1fr' }}>
+      <Grid gridTemplateColumns={{ lg: '25% 75%', md: 'none' }}>
         <Box overflowX={{ lg: 'unset', base: 'scroll' }}>
           <ListTabItem
             items={TabItems}

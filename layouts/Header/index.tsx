@@ -10,10 +10,12 @@ import {
 } from '@chakra-ui/react';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
+import { useAccount } from 'wagmi';
 
 import ListNavHeader from './components/ListNavHeader';
 
 import ConnectWallet from '@/components/ConnectWallet/ConnectWallet';
+import FaucetButton from '@/components/Custom/FaucetButton';
 import LogoText from '@/components/Logo/LogoText';
 import Sidebar from '@/components/Modal/Sidebar';
 import NavMobileSearch from '@/components/Search/NavMobileSearch';
@@ -52,6 +54,8 @@ const Header = () => {
       window.removeEventListener('scroll', throttle(debounce(handleScroll)));
   }, []);
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const { address } = useAccount();
   return (
     <>
       <Box
@@ -95,7 +99,10 @@ const Header = () => {
               <Link href="/">
                 <LogoText />
               </Link>
-              <Box display={{ base: 'none', md: 'flex' }}>
+              <Box
+                display={{ base: 'none', md: 'flex' }}
+                width={{ lg: '31.25rem', md: '21.875rem' }}
+              >
                 <NavSearch />
               </Box>
             </Flex>
@@ -109,12 +116,12 @@ const Header = () => {
                 <ListNavHeader />
                 <BtnSwitchLanguage />
                 <BtnSwitchColor />
+                {address && <FaucetButton />}
               </Box>
-              <ConnectWallet />
               <Box display={{ md: 'none', base: 'block' }}>
                 <NavMobileSearch />
               </Box>
-              {/*  <CartButton /> */}
+              <ConnectWallet />
             </Flex>
           </HStack>
         </Container>

@@ -1,7 +1,15 @@
-import { Box, Button, Flex, HStack, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, HStack, Text, Tooltip } from '@chakra-ui/react';
+import Link from 'next/link';
 import React from 'react';
 
-const EventBooking = () => {
+import { useAuth } from '@/hooks/useAuth';
+interface IProps {
+  location: string;
+  StartDate: string;
+  EndDate: string;
+  address: string;
+}
+const EventBooking = ({ location, StartDate, EndDate, address }: IProps) => {
   const currentSeat = [
     {
       label: 'Vip seat',
@@ -23,14 +31,12 @@ const EventBooking = () => {
     },
   ];
   const attributes = [
-    { key: 'Location', value: 'Ben Thanh Ward, District 1, HCMC' },
-    { key: 'Date', value: 'Saturday, 21 October 2023' },
+    { key: 'Location', value: location },
+    { key: 'Start Date', value: StartDate },
+    { key: 'End Date', value: EndDate },
     { key: 'Viewing Age', value: 'Over 8 ages' },
-    {
-      key: 'Performance',
-      value: '75 minutues (10 minutes intermission)',
-    },
   ];
+  const { user } = useAuth();
   return (
     <>
       <Box height="full" width="full">
@@ -55,9 +61,21 @@ const EventBooking = () => {
                 Overview
               </Text>
               {attributes.map(item => (
-                <HStack gap={2} key={item.key} justifyContent="space-between">
-                  <Text fontWeight="bold">{item.key}</Text>
-                  <Text textAlign="right" fontSize="sm">
+                <HStack
+                  gap={2}
+                  key={item.key}
+                  alignItems="flex-start"
+                  justifyContent="space-between"
+                >
+                  <Text fontWeight="bold" flex={1}>
+                    {item.key}
+                  </Text>
+                  <Text
+                    flex={1}
+                    textAlign="right"
+                    fontSize="sm"
+                    overflowWrap="break-word"
+                  >
                     {item.value}
                   </Text>
                 </HStack>
@@ -85,9 +103,6 @@ const EventBooking = () => {
               >
                 Time : 15:00
               </Box>
-              {/**
-               * Select Rountime base on current Date
-               */}
               <HStack justifyContent="space-between">
                 {currentSeat.map(item => (
                   <>
@@ -105,9 +120,23 @@ const EventBooking = () => {
             </Flex>
           </Flex>
 
-          <Button width="full" variant="primary">
-            Make a Reservation
-          </Button>
+          {user ? (
+            <>
+              <Link href={`/booking/${address}`}>
+                <Button width="full" variant="primary">
+                  Make a Reservation
+                </Button>
+              </Link>
+            </>
+          ) : (
+            <>
+              <Tooltip label="Please Connect wallet " fontSize="md">
+                <Button width="full" variant="primary" isDisabled={true}>
+                  Make a Reservation
+                </Button>
+              </Tooltip>
+            </>
+          )}
         </Flex>
       </Box>
     </>
