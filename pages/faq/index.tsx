@@ -4,7 +4,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
 
 import SEOHead from '@/components/SEO/SEOHead';
-import MarketPlacePage from '@/layouts/MarketPlace';
+
 export const getServerSideProps: GetServerSideProps = async ({
   locale,
   req,
@@ -20,17 +20,16 @@ export const getServerSideProps: GetServerSideProps = async ({
     },
   };
 };
-// Market place use for normal user sell the current ticket
-const MarketPlace = () => {
+/// Discover Page will use for filter already Page exist
+const Discover = () => {
   return (
     <>
       <SEOHead
-        title="Tickifi | MarketPlace Ticket"
-        description="Tickifi Marketplace where user free to exchange and sell the ticke† "
+        title="Tickifi | Faq Introduction Ticket"
+        description="Tickifi Events FAQ Question"
       />
-      <MarketPlacePage />
     </>
   );
 };
 
-export default MarketPlace;
+export default Discover;

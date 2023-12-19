@@ -16,12 +16,12 @@ const ListNavHeader = () => {
       link: '/events',
     },
     {
-      label: t('marketplace'),
-      link: '/marketplace',
-    },
-    {
       label: t('discover'),
       link: '/discover',
+    },
+    {
+      label: t('faq'),
+      link: '/faq',
     },
   ];
   return (

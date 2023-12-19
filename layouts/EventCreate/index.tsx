@@ -207,7 +207,7 @@ const EventCreatePage = () => {
         fileAdded.path;
       const metadata = {
         name: form.name,
-        description: 'Event Description',
+        description: form.description,
         image: imgUrl,
         singers: [...listSinger],
         location: form.location,

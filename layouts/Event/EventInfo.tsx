@@ -102,7 +102,7 @@ const EventInfo = ({ data, address }: IProps) => {
     },
   ];
   const bg = useColorModeValue('white', 'rgb(26, 32, 44)');
-  console.log(data.tickets);
+
   return (
     <>
       <Box>
@@ -186,7 +186,9 @@ const EventInfo = ({ data, address }: IProps) => {
                     dataTicket={data.tickets}
                   />
                 )}
-                {queryKey === 'oganizer' && <Oganizer />}
+                {queryKey === 'oganizer' && (
+                  <Oganizer organizer={data.organizer} />
+                )}
               </Box>
             </Box>
             <EventBooking

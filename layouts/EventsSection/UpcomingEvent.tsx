@@ -18,7 +18,7 @@ const UpcomingEvent = () => {
       page: 1,
       size: 10,
       orderBy: {
-        StartTime: 'desc',
+        TimeForSell: 'asc',
       },
     },
   });
@@ -66,12 +66,11 @@ const UpcomingEvent = () => {
                       >
                         {item.name}
                       </Text>
-                      <HStack justifyContent="space-between">
-                        <Text fontSize="sm">{item.oganization}</Text>
-                        <Text fontSize="sm" color="primary.gray.500">
-                          {convertTimestampToDate(item.StartTime)}
-                        </Text>
-                      </HStack>
+
+                      <Text fontSize="sm" color="primary.gray.500">
+                        {convertTimestampToDate(item.StartTime)}
+                      </Text>
+
                       {item.category && (
                         <HStack gap={1}>
                           {item.category.map(

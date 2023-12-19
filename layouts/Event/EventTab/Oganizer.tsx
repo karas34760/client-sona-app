@@ -1,3 +1,4 @@
+import { useQuery } from '@apollo/client';
 import {
   Box,
   Flex,
@@ -9,9 +10,23 @@ import {
 import React from 'react';
 
 import VerifySymbol from '@/components/Logo/VerifyIcon';
+import { SEARCH_ORGANIZER_PROFILE } from '@/graphql/query';
+import OrganizerSkeleton from '@/layouts/Skeleton/EventDetail/OrganizerSkeleton';
+interface IProps {
+  organizer: string;
+}
+const Oganizer = ({ organizer }: IProps) => {
+  // eslint-disable-next-line no-unused-vars
+  const { loading, data } = useQuery(SEARCH_ORGANIZER_PROFILE, {
+    variables: {
+      address: organizer,
+    },
+  });
+  const colorText = useColorModeValue('primary.gray.600', 'white');
+  if (loading) {
+    return <OrganizerSkeleton />;
+  }
 
-const Oganizer = () => {
-  const colorText = useColorModeValue(';color="primary.gray.600', 'white');
   return (
     <>
       <Box>

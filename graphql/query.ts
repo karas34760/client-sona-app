@@ -364,3 +364,43 @@ export const SEARCH_EVENTS_NOT_APPROVE_BY_USER = gql`
     }
   }
 `;
+export const SEARCH_TICKET_HOLDER = gql`
+  query SearchTicketHolders(
+    $page: Int
+    $size: Int
+    $filter: TicketOwnerFilter
+  ) {
+    searchTicketHolders(page: $page, size: $size, filter: $filter) {
+      currentPage
+      hasNext
+      hasPrevious
+      pages
+      size
+      total
+      items {
+        userAddress
+        eventAddress
+        tier
+        amount
+        latestTx
+      }
+    }
+  }
+`;
+
+export const SEARCH_ORGANIZER_PROFILE = gql`
+  query SearchOrganizerProfile($address: String!) {
+    searchOrganizerProfile(address: $address) {
+      address
+      username
+      bio
+      website
+      social {
+        key
+        value
+      }
+      avatar
+      background
+    }
+  }
+`;
