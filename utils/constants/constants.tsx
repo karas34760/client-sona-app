@@ -36,3 +36,34 @@ export const categoryEvent: optionEventType[] = [
   { value: 'conference', label: 'Conference' },
   { value: 'education&learning', label: 'Education & Learning' },
 ];
+
+export interface TicketMetaResult {
+  amount: number;
+  asset: string;
+  description: string;
+  name: string;
+  price: number;
+  tier: number;
+  remaining: number;
+}
+export interface SignerMetaResult {
+  age: number;
+  image: string;
+  name: string;
+  sex: string;
+}
+export interface EventMedataResult {
+  category: string[];
+  timeForSell: number;
+  deadlineForSell: number;
+  startTime: number;
+  endTime: number;
+  license: string;
+  name: string;
+  description: string;
+  location: string;
+  image: string;
+  organizer: string;
+  tickets: TicketMetaResult[];
+  singers: SignerMetaResult[];
+}

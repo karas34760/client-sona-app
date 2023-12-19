@@ -98,9 +98,9 @@ const StepBuyTicket = ({
         .send({
           from: user,
         });
-      console.log(txHash);
+
       goToNext();
-      const res_signed = await client.mutate({
+      await client.mutate({
         mutation: SUBMIT_TRANSACTION,
         variables: {
           blockHash: txHash.blockHash,

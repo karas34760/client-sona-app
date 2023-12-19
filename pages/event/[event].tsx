@@ -6,7 +6,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
 
 import SEOHead from '@/components/SEO/SEOHead';
-import { SEARCH_EVENTS } from '@/graphql/query';
+import { SEARCH_EVENT_METADATA } from '@/graphql/query';
 import EventInfo from '@/layouts/Event/EventInfo';
 import SkeletonEventDetail from '@/layouts/Skeleton/EventDetail';
 
@@ -30,32 +30,30 @@ const EventDetail = ({
   query,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const router = useRouter();
-  const { loading, data } = useQuery(SEARCH_EVENTS, {
+  const { loading, data } = useQuery(SEARCH_EVENT_METADATA, {
     variables: {
-      page: 1,
-      size: 10,
       filter: {
-        address: query,
+        eventAddress: query,
       },
     },
   });
   if (loading) {
     return <SkeletonEventDetail />;
   }
-  if (data && !data.searchEvents.items.length) {
+  if (data && !data.searchEventMetadata) {
     router.push('/404');
   }
 
   return (
     <>
-      {data && data.searchEvents.items[0] && (
+      {data && data.searchEventMetadata && (
         <>
           <SEOHead
-            title={`Tickifi Event | ${data.searchEvents.items[0].name}`}
-            description={`Tickifi Event Description | ${data.searchEvents.items[0].description}`}
+            title={`Tickifi Event | ${data.searchEventMetadata.name}`}
+            description={`Tickifi Event Description | ${data.searchEventMetadata.description}`}
           />
 
-          <EventInfo data={data.searchEvents.items[0]} />
+          <EventInfo data={data.searchEventMetadata} address={query} />
         </>
       )}
     </>

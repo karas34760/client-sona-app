@@ -66,13 +66,13 @@ export const SUBMIT_NEW_EVENT = gql`
 `;
 
 export const SEARCH_EVENTS = gql`
-  query SearchEvents(
+  query SearchEventMetadata(
+    $orderBy: EventOrderBy
     $page: Int
     $size: Int
     $filter: EventFilter
-    $orderBy: EventOrderBy
   ) {
-    searchEvents(page: $page, size: $size, filter: $filter, orderBy: $orderBy) {
+    searchEvents(orderBy: $orderBy, page: $page, size: $size, filter: $filter) {
       currentPage
       hasNext
       hasPrevious
@@ -89,15 +89,7 @@ export const SEARCH_EVENTS = gql`
         category
         location
         uri
-        tickets {
-          tier
-          amount
-          remaining
-          price
-          name
-          description
-          asset
-        }
+        tickets
         TimeForSell
         DeadlineForSell
         StartTime
@@ -121,6 +113,18 @@ export const SEARCH_ACCOUNT_BY_ADDRESS = gql`
       isBanned
       firstActive
       verifiedAt
+      profile {
+        address
+        username
+        bio
+        website
+        social {
+          key
+          value
+        }
+        avatar
+        background
+      }
     }
   }
 `;
@@ -285,8 +289,8 @@ export const SEARCH_REJECT_EVENT = gql`
   }
 `;
 export const SEARCH_EVENT_METADATA = gql`
-  query SearchEventMetadata($uri: String!) {
-    searchEventMetadata(uri: $uri) {
+  query SearchEventMetadata($filter: EventMetadataFilter!) {
+    searchEventMetadata(filter: $filter) {
       name
       description
       location
@@ -298,12 +302,20 @@ export const SEARCH_EVENT_METADATA = gql`
         image
         sex
       }
-      tickets
+      tickets {
+        tier
+        amount
+        remaining
+        price
+        name
+        description
+        asset
+      }
       category
-      TimeForSell
-      DeadlineForSell
-      StartTime
-      EndTime
+      timeForSell
+      deadlineForSell
+      startTime
+      endTime
       license
     }
   }

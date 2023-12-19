@@ -129,6 +129,9 @@ const EventBooking = ({
               </Tooltip>
             </>
           )}
+          <Button width="full" variant="primary">
+            Buy Tickets in Marketplace
+          </Button>
         </Flex>
       </Box>
     </>

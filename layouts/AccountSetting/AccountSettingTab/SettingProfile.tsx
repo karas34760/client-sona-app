@@ -50,7 +50,7 @@ const SettingProfile = () => {
       address: user,
     },
   });
-  const { data: dataUser } = useQuery(SEARCH_PROFILE);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [currentEmail, setCurrentEmail] = useState('');
   // Use yubobject to verify
@@ -92,12 +92,13 @@ const SettingProfile = () => {
     social: [],
   };
   const getData = () => {
-    if (!dataUser) {
+    if (!data || !data.searchAccountByAddress.profile) {
       return tempData;
     }
     const {
-      searchAddressProfile: { __typename, address, ...rest },
-    } = dataUser || {};
+      profile: { address, ...rest },
+    } = data.searchAccountByAddress || {};
+
     return rest;
   };
 

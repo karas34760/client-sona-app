@@ -1,10 +1,28 @@
+import { useQuery } from '@apollo/client';
+import {
+  Button,
+  HStack,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalOverlay,
+  Text,
+} from '@chakra-ui/react';
 import { QueryClient, dehydrate } from '@tanstack/react-query';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
 
 import SEOHead from '@/components/SEO/SEOHead';
+import {
+  SEARCH_ACCOUNT_BY_ADDRESS,
+  SEARCH_EVENT_METADATA,
+} from '@/graphql/query';
+import { useAuth } from '@/hooks/useAuth';
 import BookingPage from '@/layouts/Booking/BookingPage';
+import SkeletonEventDetail from '@/layouts/Skeleton/EventDetail';
 
 export const getServerSideProps: GetServerSideProps = async ({
   locale,
@@ -25,14 +43,62 @@ export const getServerSideProps: GetServerSideProps = async ({
 const BookingEvent = ({
   query,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+  const router = useRouter();
+  const { user } = useAuth();
+  const { loading: loadingUser, data: dataUser } = useQuery(
+    SEARCH_ACCOUNT_BY_ADDRESS,
+    {
+      variables: {
+        address: user,
+      },
+    }
+  );
+  const { loading, data } = useQuery(SEARCH_EVENT_METADATA, {
+    variables: {
+      filter: {
+        eventAddress: query,
+      },
+    },
+  });
+
+  if (loading || loadingUser) {
+    return <SkeletonEventDetail />;
+  }
+
+  if (data && !data.searchEventMetadata) {
+    router.push('/404');
+  }
   return (
     <>
-      <SEOHead
-        siteName="Tickifi"
-        title="Event Booking Detail"
-        description={`Booking Detail | Tickifi Events MarketPlace ${query}`}
-      />
-      <BookingPage />
+      {data && data.searchEventMetadata && (
+        <>
+          <SEOHead
+            siteName="Tickifi"
+            title="Event Booking Detail"
+            description={`Booking Detail | Tickifi Events MarketPlace ${query}`}
+          />
+          <BookingPage data={data.searchEventMetadata} eventAddress={query} />
+
+          {!dataUser.verifiedAt && !loadingUser && (
+            <Modal isOpen={true} onClose={() => {}} size="xl">
+              <ModalOverlay />
+              <ModalContent>
+                <ModalBody padding={8}>
+                  <Text>You Need To verify Email to countinue Booking</Text>
+                  <HStack gap={6}>
+                    <Link href={`/event/${query}`}>
+                      <Button>Back To Event</Button>
+                    </Link>
+                    <Link href={`/account/setting`}>
+                      <Button>Go To Verify Email</Button>
+                    </Link>
+                  </HStack>
+                </ModalBody>
+              </ModalContent>
+            </Modal>
+          )}
+        </>
+      )}
     </>
   );
 };
