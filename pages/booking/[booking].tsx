@@ -1,7 +1,9 @@
 import { useQuery } from '@apollo/client';
 import {
   Button,
+  Center,
   HStack,
+  Icon,
   Modal,
   ModalBody,
   ModalContent,
@@ -23,7 +25,7 @@ import {
 import { useAuth } from '@/hooks/useAuth';
 import BookingPage from '@/layouts/Booking/BookingPage';
 import SkeletonEventDetail from '@/layouts/Skeleton/EventDetail';
-
+import ErrorEmail from 'public/assets/icons/socials/email-error.svg';
 export const getServerSideProps: GetServerSideProps = async ({
   locale,
   req,
@@ -80,17 +82,28 @@ const BookingEvent = ({
           <BookingPage data={data.searchEventMetadata} eventAddress={query} />
 
           {!dataUser.verifiedAt && !loadingUser && (
-            <Modal isOpen={true} onClose={() => {}} size="xl">
+            <Modal isOpen={true} onClose={() => {}} size="xl" isCentered>
               <ModalOverlay />
               <ModalContent>
-                <ModalBody padding={8}>
+                <ModalBody
+                  padding={8}
+                  as={Center}
+                  flexDirection="column"
+                  gap={5}
+                >
+                  <Icon
+                    as={ErrorEmail}
+                    height="200px"
+                    width="200px"
+                    color="red.400"
+                  />
                   <Text>You Need To verify Email to countinue Booking</Text>
                   <HStack gap={6}>
                     <Link href={`/event/${query}`}>
-                      <Button>Back To Event</Button>
+                      <Button variant="primary">Back To Event</Button>
                     </Link>
                     <Link href={`/account/setting`}>
-                      <Button>Go To Verify Email</Button>
+                      <Button variant="primary">Go To Verify Email</Button>
                     </Link>
                   </HStack>
                 </ModalBody>
