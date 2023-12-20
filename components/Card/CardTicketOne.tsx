@@ -13,10 +13,15 @@ import { convertHex } from '@/utils/utils';
 import HertIcon from 'public/assets/icons/generals/heart.svg';
 interface IProps {
   image_link: string;
+  activeFavorite?: boolean;
   children?: React.ReactNode;
 }
 // Normal type Ticket or Concert
-const CardTicketOne = ({ image_link, children }: IProps) => {
+const CardTicketOne = ({
+  image_link,
+  children,
+  activeFavorite = false,
+}: IProps) => {
   const handleFavorite = (e: any) => {
     e.preventDefault();
   };
@@ -57,33 +62,35 @@ const CardTicketOne = ({ image_link, children }: IProps) => {
             h="240px"
             width="full"
           />
-          <Center
-            position="absolute"
-            top={3}
-            right={3}
-            opacity={0}
-            transition="opacity 0.5s , visibility 0.5s"
-            visibility="hidden"
-            cursor="pointer"
-            _groupHover={{
-              opacity: 1,
-              visibility: 'visible',
-            }}
-            _hover={{
-              bg: 'primary.purple.500',
-              color: 'white',
-            }}
-            color="primary.purple.400"
-            height="fit-content"
-            width="fit-content"
-            px={2}
-            py={2}
-            bg="white"
-            borderRadius="full"
-            onClick={e => handleFavorite(e)}
-          >
-            <Icon as={HertIcon} height={4} width={4} />
-          </Center>
+          {activeFavorite && (
+            <Center
+              position="absolute"
+              top={3}
+              right={3}
+              opacity={0}
+              transition="opacity 0.5s , visibility 0.5s"
+              visibility="hidden"
+              cursor="pointer"
+              _groupHover={{
+                opacity: 1,
+                visibility: 'visible',
+              }}
+              _hover={{
+                bg: 'primary.purple.500',
+                color: 'white',
+              }}
+              color="primary.purple.400"
+              height="fit-content"
+              width="fit-content"
+              px={2}
+              py={2}
+              bg="white"
+              borderRadius="full"
+              onClick={e => handleFavorite(e)}
+            >
+              <Icon as={HertIcon} height={4} width={4} />
+            </Center>
+          )}
         </Center>
         <Flex flexDirection="column" width="full" padding={4} gap={2}>
           {children}

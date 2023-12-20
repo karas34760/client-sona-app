@@ -1,23 +1,20 @@
 import { useQuery } from '@apollo/client';
-import { Grid, GridItem, Text } from '@chakra-ui/react';
+import { Button, Grid, GridItem, HStack, Icon, Text } from '@chakra-ui/react';
 import Link from 'next/link';
 import React from 'react';
 
 import LoadingData from '@/animations/Loading/LoadingData';
 import CardTicketOne from '@/components/Card/CardTicketOne';
 import EmptyData from '@/components/EmptyData';
-import { SEARCH_TICKET_HOLDER } from '@/graphql/query';
-import { useAuth } from '@/hooks/useAuth';
+import OnSaleMyTicket from '@/components/Modal/OnSaleMyTicket';
+import { SEARCH_TICKET_OF_USER } from '@/graphql/query';
+import EyeIcon from 'public/assets/icons/generals/eye.svg';
 
 const MyTicket = () => {
-  const { user } = useAuth();
-  const { data, loading } = useQuery(SEARCH_TICKET_HOLDER, {
+  const { data, loading } = useQuery(SEARCH_TICKET_OF_USER, {
     variables: {
       page: 1,
       size: 10,
-      filter: {
-        userAddress: user,
-      },
     },
   });
   if (loading) {
@@ -25,30 +22,42 @@ const MyTicket = () => {
   }
   return (
     <>
-      {data.searchTicketHolders.items.length ? (
+      {data.searchTicketsOfUser.items.length ? (
         <Grid templateColumns="repeat(4, 1fr)" gap={6}>
-          {data.searchTicketHolders.items.map((item: any) => (
+          {data.searchTicketsOfUser.items.map((item: any) => (
             <GridItem key={item.eventId} width="full">
-              <Link
-                href={`${item.address ? `/event/${item.address}` : ''}`}
-                onClick={e => {
-                  if (!item.address) {
-                    e.preventDefault();
-                  }
-                }}
-              >
-                <CardTicketOne image_link={item.image}>
-                  <Text
-                    width="200px"
-                    fontWeight="bold"
-                    whiteSpace="nowrap"
-                    overflow="hidden"
-                    textOverflow="ellipsis"
-                  >
-                    {item.tier}
-                  </Text>
-                </CardTicketOne>
-              </Link>
+              <CardTicketOne image_link={item.asset}>
+                <Text
+                  width="200px"
+                  fontWeight="bold"
+                  whiteSpace="nowrap"
+                  overflow="hidden"
+                  textOverflow="ellipsis"
+                >
+                  Tier Ticket: {item.tier}
+                </Text>
+                <HStack justifyContent="space-between">
+                  <Text>Pricing List : {item.price}</Text>
+                  <Text>Amount: {item.amount}</Text>
+                </HStack>
+                <HStack justifyContent="space-between">
+                  <OnSaleMyTicket
+                    tier={item.tier}
+                    amount={item.amount}
+                    eventAddress={item.eventAddress}
+                    asset={item.asset}
+                    priceListing={item.price}
+                  />
+                  <Link href={`/ticket/${item.eventAddress}/${item.tier}`}>
+                    <Button
+                      variant="primary"
+                      leftIcon={<Icon as={EyeIcon} height={5} width={5} />}
+                    >
+                      View
+                    </Button>
+                  </Link>
+                </HStack>
+              </CardTicketOne>
             </GridItem>
           ))}
         </Grid>

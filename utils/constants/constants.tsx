@@ -36,7 +36,11 @@ export const categoryEvent: optionEventType[] = [
   { value: 'conference', label: 'Conference' },
   { value: 'education&learning', label: 'Education & Learning' },
 ];
-
+export const ListPeriod: optionEventType[] = [
+  { value: 'A_WEEK', label: 'One Week' },
+  { value: 'TWO_WEEK', label: 'Two Week' },
+  { value: 'A_MONTH', label: 'One Month' },
+];
 export interface TicketMetaResult {
   amount: number;
   asset: string;

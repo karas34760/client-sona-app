@@ -1,17 +1,21 @@
-import {
-  Box,
-  Center,
-  Container,
-  HStack,
-  Heading,
-  Text,
-} from '@chakra-ui/react';
+import { useQuery } from '@apollo/client';
+import { Box, Container, HStack, Heading } from '@chakra-ui/react';
 import React from 'react';
+
+import { SEARCH_TICKET_ON_SALE } from '@/graphql/query';
 interface IProps {
   data: any; //Event Search Data
   address: string;
 }
 const MarketPlacePage = ({ data, address }: IProps) => {
+  const { data: dataHolders, loading } = useQuery(SEARCH_TICKET_ON_SALE, {
+    variables: {
+      filter: {
+        eventAddress: address,
+      },
+    },
+  });
+  console.log(dataHolders);
   return (
     <Box width="full" height="full">
       <Box

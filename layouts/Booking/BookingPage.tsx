@@ -99,7 +99,7 @@ const BookingPage = ({ data, eventAddress }: IProps) => {
               <Text>ticket type</Text>
               <Text>Unit Price </Text>
               <Text>Remaining</Text>
-              <Text>Quantity</Text>
+              <Text>Quantity (max :10)</Text>
             </Grid>
             <Grid
               rowGap={4}

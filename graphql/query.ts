@@ -364,13 +364,20 @@ export const SEARCH_EVENTS_NOT_APPROVE_BY_USER = gql`
     }
   }
 `;
-export const SEARCH_TICKET_HOLDER = gql`
-  query SearchTicketHolders(
+
+export const SEARCH_TICKET_ON_SALE = gql`
+  query SearchTicketsOnSales(
     $page: Int
     $size: Int
-    $filter: TicketOwnerFilter
+    $filter: TicketsOnSalesFilter
+    $orderBy: TicketsOnSalesOrderBy
   ) {
-    searchTicketHolders(page: $page, size: $size, filter: $filter) {
+    searchTicketsOnSales(
+      page: $page
+      size: $size
+      filter: $filter
+      orderBy: $orderBy
+    ) {
       currentPage
       hasNext
       hasPrevious
@@ -378,11 +385,17 @@ export const SEARCH_TICKET_HOLDER = gql`
       size
       total
       items {
-        userAddress
         eventAddress
         tier
         amount
-        latestTx
+        price
+        seller
+        name
+        description
+        asset
+        signature
+        startTime
+        deadline
       }
     }
   }
@@ -401,6 +414,60 @@ export const SEARCH_ORGANIZER_PROFILE = gql`
       }
       avatar
       background
+    }
+  }
+`;
+
+export const SEARCH_TICKET_OF_USER = gql`
+  query SearchTicketsOfUser(
+    $page: Int
+    $size: Int
+    $filter: TicketPaginationFilter
+  ) {
+    searchTicketsOfUser(page: $page, size: $size, filter: $filter) {
+      currentPage
+      hasNext
+      hasPrevious
+      pages
+      size
+      total
+      items {
+        eventId
+        eventAddress
+        tier
+        amount
+        price
+        name
+        description
+        asset
+        uri
+      }
+    }
+  }
+`;
+
+export const SEARCH_LISTING_TICKET_MESSAGE = gql`
+  query SearchListingTicketsMessage(
+    $eventAddress: String!
+    $tier: Int!
+    $amount: Int!
+    $price: Int!
+    $period: PERIOD!
+  ) {
+    searchListingTicketsMessage(
+      eventAddress: $eventAddress
+      tier: $tier
+      amount: $amount
+      price: $price
+      period: $period
+    ) {
+      eventAddress
+      tier
+      amount
+      price
+      startTime
+      deadline
+      message
     }
   }
 `;

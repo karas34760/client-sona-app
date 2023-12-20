@@ -1,10 +1,11 @@
-import React from 'react';
-import TicketIcon from 'public/assets/icons/generals/tickets.svg';
-import QrCodeIcon from 'public/assets/icons/generals/qr-code.svg';
-import RoyalIcon from 'public/assets/icons/generals/royalties.svg';
-import MusicNFT from 'public/assets/icons/generals/music-nft.svg';
 import { As, Container, Flex, Grid, Icon, Text } from '@chakra-ui/react';
 import { useTranslation } from 'next-i18next';
+import React from 'react';
+
+import MusicNFT from 'public/assets/icons/generals/music-nft.svg';
+import QrCodeIcon from 'public/assets/icons/generals/qr-code.svg';
+import RoyalIcon from 'public/assets/icons/generals/royalties.svg';
+import TicketIcon from 'public/assets/icons/generals/tickets.svg';
 interface ListProps {
   title: string;
   content: string;

@@ -7,6 +7,7 @@ import FeatureSection from '@/layouts/HomeSection/FeatureSection';
 import HeroSection from '@/layouts/HomeSection/HeroSection';
 import HowWork from '@/layouts/HomeSection/HowWork';
 import InvestorSection from '@/layouts/HomeSection/InvestorSection';
+import LearnUse from '@/layouts/HomeSection/LearnUse';
 import OrganizeSection from '@/layouts/HomeSection/OrganizeSection';
 import SubcribeEmail from '@/layouts/HomeSection/SubcribeEmail';
 import TicketFeature from '@/layouts/HomeSection/TicketFeature';
@@ -33,6 +34,7 @@ export default function Home() {
         <ArtistSection />
         <OrganizeSection />
         <FeatureSection />
+        <LearnUse />
         <InvestorSection />
         <SubcribeEmail />
       </Box>

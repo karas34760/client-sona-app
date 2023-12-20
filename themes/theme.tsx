@@ -189,6 +189,15 @@ const Button: ComponentStyleConfig = {
       left: 0,
       bottom: 0,
     }),
+
+    gradient_1: {
+      borderRadius: '8px',
+      bg: 'linear-gradient(180deg, rgba(243, 238, 255, 0.00) 0%, rgba(243, 238, 255, 0.04) 100%), rgba(76, 56, 203, 0.01)',
+      boxShadow: ' 0px 0px 12px 0px rgba(255, 255, 255, 0.08) inset',
+      _hover: {
+        opacity: 0.7,
+      },
+    },
   },
 };
 const Popover: ComponentStyleConfig = {
