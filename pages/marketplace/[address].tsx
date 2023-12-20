@@ -6,10 +6,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
 
 import SEOHead from '@/components/SEO/SEOHead';
-import {
-  SEARCH_ACCOUNT_BY_ADDRESS,
-  SEARCH_EVENT_METADATA,
-} from '@/graphql/query';
+import { SEARCH_EVENT_METADATA } from '@/graphql/query';
 import MarketPlacePage from '@/layouts/MarketPlace';
 import SkeletonEventDetail from '@/layouts/Skeleton/EventDetail';
 
@@ -41,16 +38,8 @@ const MarketPlaceDetail = ({
       },
     },
   });
-  const { loading: loadingOrganizer, data: dataOrganizer } = useQuery(
-    SEARCH_ACCOUNT_BY_ADDRESS,
-    {
-      variables: {
-        address: data.organizer,
-      },
-    }
-  );
-  console.log(dataOrganizer);
-  if (loading || loadingOrganizer) {
+
+  if (loading) {
     return <SkeletonEventDetail />;
   }
   if (data && !data.searchEventMetadata) {

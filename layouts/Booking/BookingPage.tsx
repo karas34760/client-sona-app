@@ -209,7 +209,7 @@ const BookingPage = ({ data, eventAddress }: IProps) => {
                         JSON.parse(CONTRACT_USDT_ABI),
                         USDT_ADDRESS
                       );
-                      const fixedAmountUSD = usdToWei(payPrice + 2);
+                      const fixedAmountUSD = usdToWei(payPrice);
                       const balanceAllow = await contract.methods
                         .allowance(user, BALANCE_ADDRESS)
                         .call();
@@ -218,13 +218,12 @@ const BookingPage = ({ data, eventAddress }: IProps) => {
                       );
 
                       // Check balance allow is enough or not
-                      if (balanceAllowUSDT < payPrice + 2) {
-                        const receipt = await contract.methods
+                      if (balanceAllowUSDT < payPrice) {
+                        await contract.methods
                           .approve(BALANCE_ADDRESS, fixedAmountUSD)
                           .send({
                             from: user,
                           });
-                        console.log(receipt);
                       }
                       const contract_tickfi = new web3.eth.Contract(
                         JSON.parse(CONTRACT_TICKIFI_ABI),

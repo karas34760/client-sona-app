@@ -188,6 +188,21 @@ export const SUBMIT_TRANSACTION = gql`
     )
   }
 `;
+export const SUBMIT_SIGNATURE = gql`
+  mutation SubmitSignature($filter: SubmitSignatureArgsInput!) {
+    submitSignature(filter: $filter) {
+      eventAddress
+      tier
+      amount
+      price
+      startTime
+      deadline
+      signature
+      signer
+      status
+    }
+  }
+`;
 
 export const SEARCH_PROFILE = gql`
   query SearchAddressProfile {
