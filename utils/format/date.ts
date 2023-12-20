@@ -72,7 +72,7 @@ export const convertTimestampToDate = (timestamp: string) => {
   return date.toISOString().replace(/T/, ' ').replace(/\..+/, '') + ' UTC';
 };
 
-export function formatEventTime(timestamp: string) {
+export function formatEventTime(timestamp: number) {
   // Convert timestamps to Date objects
   const dateSetting = new Date(timestamp);
 

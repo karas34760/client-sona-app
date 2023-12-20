@@ -269,7 +269,7 @@ const EventCreatePage = () => {
       });
     }
   };
-  console.log(form.category);
+
   const steps: StepProps[] = [
     {
       title: 'Oganize Details',
@@ -388,7 +388,6 @@ const EventCreatePage = () => {
 
   const bgCard = useColorModeValue('white', 'dark.200');
   const bgContent = useColorModeValue('primary.gray.100', 'dark.100');
-  console.log('My Form', form);
   return (
     <>
       <Box width="full" bg={bgContent} py={8}>

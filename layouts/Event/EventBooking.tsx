@@ -4,25 +4,31 @@ import React from 'react';
 
 import { TicketBuy } from './EventTab/TicketInformation';
 
+import TimeReminder from '@/components/Time/TimeReminder';
 import { useAuth } from '@/hooks/useAuth';
+import { formatEventTime } from '@/utils/format/date';
 interface IProps {
   location: string;
-  StartDate: string;
-  EndDate: string;
+  StartDate: number; // use timestamp for create logic
+  TimeForSale: number;
+  DeadlineForSale: number;
+  EndDate: number;
   address: string;
   dataTicket: TicketBuy[];
 }
 const EventBooking = ({
   location,
   StartDate,
+  TimeForSale,
+  DeadlineForSale,
   EndDate,
   address,
   dataTicket,
 }: IProps) => {
   const attributes = [
     { key: 'Location', value: location },
-    { key: 'Start Date', value: StartDate },
-    { key: 'End Date', value: EndDate },
+    { key: 'Start Date', value: formatEventTime(StartDate) },
+    { key: 'End Date', value: formatEventTime(EndDate) },
     { key: 'Viewing Age', value: 'Over 8 ages' },
   ];
   const { user } = useAuth();
@@ -80,7 +86,7 @@ const EventBooking = ({
               <Text fontSize="lg" fontWeight="bold">
                 Round Time
               </Text>
-              <Box
+              {/*  <Box
                 py={2}
                 px={4}
                 width="fit-content"
@@ -91,7 +97,7 @@ const EventBooking = ({
                 fontWeight="bold"
               >
                 Time : 15:00
-              </Box>
+              </Box> */}
               <Text fontWeight="bold" fontSize="lg">
                 Ticket Remaining
               </Text>
@@ -111,27 +117,50 @@ const EventBooking = ({
               </HStack>
             </Flex>
           </Flex>
-
-          {user ? (
+          {new Date(TimeForSale) > new Date() ? (
             <>
-              <Link href={`/booking/${address}`}>
-                <Button width="full" variant="primary">
-                  Make a Reservation
-                </Button>
-              </Link>
+              <TimeReminder targetDate={TimeForSale} text="Open Sales In" />
             </>
           ) : (
             <>
-              <Tooltip label="Please Connect wallet " fontSize="md">
-                <Button width="full" variant="primary" isDisabled={true}>
-                  Make a Reservation
-                </Button>
-              </Tooltip>
+              {new Date(DeadlineForSale) > new Date() ? (
+                <>
+                  <TimeReminder
+                    targetDate={DeadlineForSale}
+                    text="Sales End in"
+                  />
+                  {user ? (
+                    <>
+                      <Link href={`/booking/${address}`}>
+                        <Button width="full" variant="primary">
+                          Make a Reservation
+                        </Button>
+                      </Link>
+                    </>
+                  ) : (
+                    <>
+                      <Tooltip label="Please Connect wallet " fontSize="md">
+                        <Button
+                          width="full"
+                          variant="primary"
+                          isDisabled={true}
+                        >
+                          Make a Reservation
+                        </Button>
+                      </Tooltip>
+                    </>
+                  )}
+                  <Link href={`/marketplace/${address}`}>
+                    <Button width="full" variant="primary">
+                      Buy Tickets in Marketplace
+                    </Button>
+                  </Link>
+                </>
+              ) : (
+                <Text>Event is expired</Text>
+              )}
             </>
           )}
-          <Button width="full" variant="primary">
-            Buy Tickets in Marketplace
-          </Button>
         </Flex>
       </Box>
     </>

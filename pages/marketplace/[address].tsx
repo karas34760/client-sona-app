@@ -1,20 +1,16 @@
 import { useQuery } from '@apollo/client';
-import { Button, HStack } from '@chakra-ui/react';
 import { QueryClient, dehydrate } from '@tanstack/react-query';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
 
-import AlertVerifyEmail from '@/components/Modal/AlertVerifyEmail';
 import SEOHead from '@/components/SEO/SEOHead';
 import {
   SEARCH_ACCOUNT_BY_ADDRESS,
   SEARCH_EVENT_METADATA,
 } from '@/graphql/query';
-import { useAuth } from '@/hooks/useAuth';
-import BookingPage from '@/layouts/Booking/BookingPage';
+import MarketPlacePage from '@/layouts/MarketPlace';
 import SkeletonEventDetail from '@/layouts/Skeleton/EventDetail';
 
 export const getServerSideProps: GetServerSideProps = async ({
@@ -23,7 +19,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   query,
 }) => {
   const queryClient = new QueryClient();
-  const eventAddress = query.booking;
+  const eventAddress = query.address;
   return {
     props: {
       cookies: req.headers.cookie ?? '',
@@ -33,19 +29,11 @@ export const getServerSideProps: GetServerSideProps = async ({
     },
   };
 };
-const BookingEvent = ({
+// Marketplace detail for event holder
+const MarketPlaceDetail = ({
   query,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const router = useRouter();
-  const { user } = useAuth();
-  const { loading: loadingUser, data: dataUser } = useQuery(
-    SEARCH_ACCOUNT_BY_ADDRESS,
-    {
-      variables: {
-        address: user,
-      },
-    }
-  );
   const { loading, data } = useQuery(SEARCH_EVENT_METADATA, {
     variables: {
       filter: {
@@ -53,41 +41,36 @@ const BookingEvent = ({
       },
     },
   });
-
-  if (loading || loadingUser) {
+  const { loading: loadingOrganizer, data: dataOrganizer } = useQuery(
+    SEARCH_ACCOUNT_BY_ADDRESS,
+    {
+      variables: {
+        address: data.organizer,
+      },
+    }
+  );
+  console.log(dataOrganizer);
+  if (loading || loadingOrganizer) {
     return <SkeletonEventDetail />;
   }
-
   if (data && !data.searchEventMetadata) {
     router.push('/404');
   }
+
   return (
     <>
       {data && data.searchEventMetadata && (
         <>
           <SEOHead
-            siteName="Tickifi"
-            title="Event Booking Detail"
-            description={`Booking Detail | Tickifi Events MarketPlace ${query}`}
+            title={`Tickifi Marketplace for Event | ${data.searchEventMetadata.name}`}
+            description={`Tickifi Marketplace Event Description | ${data.searchEventMetadata.description}`}
           />
-          <BookingPage data={data.searchEventMetadata} eventAddress={query} />
 
-          <AlertVerifyEmail
-            isOpen={!dataUser.searchAccountByAddress.verifiedAt}
-          >
-            <HStack gap={6}>
-              <Link href={`/event/${query}`}>
-                <Button variant="primary">Back To Event</Button>
-              </Link>
-              <Link href={`/account/setting`}>
-                <Button variant="primary">Go To Verify Email</Button>
-              </Link>
-            </HStack>
-          </AlertVerifyEmail>
+          <MarketPlacePage data={data.searchEventMetadata} address={query} />
         </>
       )}
     </>
   );
 };
 
-export default BookingEvent;
+export default MarketPlaceDetail;

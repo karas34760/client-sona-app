@@ -195,8 +195,10 @@ const EventInfo = ({ data, address }: IProps) => {
               dataTicket={data.tickets}
               address={address}
               location={data.location}
-              StartDate={formatEventTime(data.startTime)}
-              EndDate={formatEventTime(data.endTime)}
+              TimeForSale={data.timeForSell}
+              DeadlineForSale={data.deadlineForSell}
+              StartDate={data.startTime}
+              EndDate={data.endTime}
             />
           </Grid>
         </Container>
