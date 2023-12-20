@@ -221,6 +221,8 @@ const OnSaleMyTicket = ({
                       }
                     } catch (error) {
                       reject(error);
+                    } finally {
+                      onClose();
                     }
                   }
                 );

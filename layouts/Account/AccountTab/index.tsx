@@ -6,6 +6,7 @@ import React from 'react';
 import CreatedEventTab from './CreatedEventTab';
 import FavoritedTab from './FavoritedTab';
 import MyTicket from './MyTicket';
+import OnSaleTicket from './OnSaleTicket';
 
 import ListTabItem from '@/components/Tab/ListTabItem';
 import TabButton from '@/components/Tab/TabButton';
@@ -32,15 +33,30 @@ const AccountProfileTab = () => {
       },
     },
     {
-      key: 'my_ticket',
-      title: t('my_ticket'),
+      key: 'my_tickets',
+      title: t('my_tickets'),
       component: (title, isActive) => {
         return (
           <TabButton
             isActive={isActive}
             title={title}
             params={{
-              tab: 'my_ticket',
+              tab: 'my_tickets',
+            }}
+          />
+        );
+      },
+    },
+    {
+      key: 'my_sale_tickets',
+      title: t('my_sale_tickets'),
+      component: (title, isActive) => {
+        return (
+          <TabButton
+            isActive={isActive}
+            title={title}
+            params={{
+              tab: 'my_sale_tickets',
             }}
           />
         );
@@ -77,7 +93,8 @@ const AccountProfileTab = () => {
       />
       <Box pt={8}>
         {(queryKey === 'created_event' || !queryKey) && <CreatedEventTab />}
-        {queryKey === 'my_ticket' && <MyTicket />}
+        {queryKey === 'my_tickets' && <MyTicket />}
+        {queryKey === 'my_sale_tickets' && <OnSaleTicket />}
         {queryKey === 'favorited' && <FavoritedTab />}
       </Box>
     </>

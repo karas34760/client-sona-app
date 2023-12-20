@@ -140,7 +140,7 @@ const TicketDetailPage = ({ address, tier }: IProps) => {
               </HStack>
 
               <Text fontSize={{ md: '3xl', base: 'xl' }} fontWeight="bold">
-                Ticket Multiple Banm Event
+                {data.searchTickets[0].name}
               </Text>
 
               <HStack>
