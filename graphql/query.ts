@@ -130,8 +130,8 @@ export const SEARCH_ACCOUNT_BY_ADDRESS = gql`
 `;
 
 export const SEARCH_TICKETS = gql`
-  query SearchTickets($eventAddress: String, $tier: Float, $eventId: Int) {
-    searchTickets(eventAddress: $eventAddress, tier: $tier, eventId: $eventId) {
+  query SearchTickets($eventId: Int, $eventAddress: String, $tier: Int) {
+    searchTickets(eventId: $eventId, eventAddress: $eventAddress, tier: $tier) {
       eventId
       eventAddress
       tier

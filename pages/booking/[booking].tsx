@@ -81,35 +81,33 @@ const BookingEvent = ({
           />
           <BookingPage data={data.searchEventMetadata} eventAddress={query} />
 
-          {!dataUser.verifiedAt && !loadingUser && (
-            <Modal isOpen={true} onClose={() => {}} size="xl" isCentered>
-              <ModalOverlay />
-              <ModalContent>
-                <ModalBody
-                  padding={8}
-                  as={Center}
-                  flexDirection="column"
-                  gap={5}
-                >
-                  <Icon
-                    as={ErrorEmail}
-                    height="200px"
-                    width="200px"
-                    color="red.400"
-                  />
-                  <Text>You Need To verify Email to countinue Booking</Text>
-                  <HStack gap={6}>
-                    <Link href={`/event/${query}`}>
-                      <Button variant="primary">Back To Event</Button>
-                    </Link>
-                    <Link href={`/account/setting`}>
-                      <Button variant="primary">Go To Verify Email</Button>
-                    </Link>
-                  </HStack>
-                </ModalBody>
-              </ModalContent>
-            </Modal>
-          )}
+          <Modal
+            isOpen={!dataUser.searchAccountByAddress.verifiedAt}
+            onClose={() => {}}
+            size="xl"
+            isCentered
+          >
+            <ModalOverlay />
+            <ModalContent>
+              <ModalBody padding={8} as={Center} flexDirection="column" gap={5}>
+                <Icon
+                  as={ErrorEmail}
+                  height="200px"
+                  width="200px"
+                  color="red.400"
+                />
+                <Text>You Need To verify Email to countinue Booking</Text>
+                <HStack gap={6}>
+                  <Link href={`/event/${query}`}>
+                    <Button variant="primary">Back To Event</Button>
+                  </Link>
+                  <Link href={`/account/setting`}>
+                    <Button variant="primary">Go To Verify Email</Button>
+                  </Link>
+                </HStack>
+              </ModalBody>
+            </ModalContent>
+          </Modal>
         </>
       )}
     </>

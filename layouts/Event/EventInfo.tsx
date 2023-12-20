@@ -182,7 +182,7 @@ const EventInfo = ({ data, address }: IProps) => {
                 )}
                 {queryKey === 'ticket_info' && (
                   <TicketInformation
-                    eventAddress={data.address}
+                    eventAddress={address}
                     dataTicket={data.tickets}
                   />
                 )}

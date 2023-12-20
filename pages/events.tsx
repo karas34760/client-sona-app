@@ -3,7 +3,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
 
 import SEOHead from '@/components/SEO/SEOHead';
-import DiscountTicket from '@/layouts/EventsSection/DiscountTicket';
+import DiscountTicket from '@/layouts/EventsSection/ActiveEvents';
 import EventsExplore from '@/layouts/EventsSection/EventsExplore';
 import HeroSection from '@/layouts/EventsSection/HeroSection';
 import LiveAuction from '@/layouts/EventsSection/LiveAuction';

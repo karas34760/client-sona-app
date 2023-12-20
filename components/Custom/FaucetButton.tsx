@@ -63,7 +63,7 @@ const FaucetButton = () => {
   return (
     <>
       <Button variant="primary" onClick={handleSend}>
-        Faucet
+        Faucet Money
       </Button>
       <Modal isOpen={isLoading} onClose={() => {}}>
         <ModalOverlay />

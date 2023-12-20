@@ -41,6 +41,8 @@ export const colors = {
   dark: {
     100: '#0C0C0C',
     200: '#14141F',
+    300: '#2A2B3A',
+    400: '#010314',
   },
   secondary: {
     success: {
@@ -78,11 +80,12 @@ export const shadows = {
     200: '0px 6px 32px rgba(0, 0, 0, 0.2)',
   },
 };
+
 const styles = {
   // eslint-disable-next-line no-unused-vars
   global: (props: StyleFunctionProps) => ({
     body: {
-      /*  bg: mode('white', 'dark.100'), */
+      bg: mode('white', 'dark.400'),
     },
   }),
 };

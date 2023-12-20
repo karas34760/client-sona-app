@@ -34,7 +34,6 @@ import ProfileImageUpload from '@/components/Upload/ProfileImageUpload';
 import { client } from '@/graphql/httplink';
 import {
   SEARCH_ACCOUNT_BY_ADDRESS,
-  SEARCH_PROFILE,
   SEND_EMAIL_VERIFY,
   UPDATE_PROFILE,
 } from '@/graphql/query';

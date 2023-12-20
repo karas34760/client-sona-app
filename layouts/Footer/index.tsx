@@ -1,7 +1,3 @@
-import SocialLink from '@/components/Link/SocialLink';
-import LogoText from '@/components/Logo/LogoText';
-import { breakpoints, colors } from '@/themes/theme';
-import { convertHex } from '@/utils/utils';
 import {
   Box,
   Container,
@@ -16,8 +12,13 @@ import React from 'react';
 
 import LinkFooter from './components/LinkFooter';
 
+import SocialLink from '@/components/Link/SocialLink';
+import LogoText from '@/components/Logo/LogoText';
+import { colors } from '@/themes/theme';
+import { convertHex } from '@/utils/utils';
+
 const Footer = () => {
-  const bgFooter = useColorModeValue('#202020', 'dark.200');
+  const bgFooter = useColorModeValue('#202020', 'dark.100');
 
   return (
     <>
