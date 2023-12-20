@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
-import ActivityTab from './ActivityTab';
 import CreatedEventTab from './CreatedEventTab';
 import FavoritedTab from './FavoritedTab';
 import MyTicket from './MyTicket';
@@ -62,21 +61,6 @@ const AccountProfileTab = () => {
         );
       },
     },
-    {
-      key: 'activity',
-      title: t('activity'),
-      component: (title, isActive) => {
-        return (
-          <TabButton
-            isActive={isActive}
-            title={title}
-            params={{
-              tab: 'activity',
-            }}
-          />
-        );
-      },
-    },
   ];
   return (
     <>
@@ -95,7 +79,6 @@ const AccountProfileTab = () => {
         {(queryKey === 'created_event' || !queryKey) && <CreatedEventTab />}
         {queryKey === 'my_ticket' && <MyTicket />}
         {queryKey === 'favorited' && <FavoritedTab />}
-        {queryKey === 'activity' && <ActivityTab />}
       </Box>
     </>
   );

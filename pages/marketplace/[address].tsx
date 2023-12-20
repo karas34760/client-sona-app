@@ -1,12 +1,19 @@
 import { useQuery } from '@apollo/client';
+import { Button, HStack } from '@chakra-ui/react';
 import { QueryClient, dehydrate } from '@tanstack/react-query';
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
 
+import AlertVerifyEmail from '@/components/Modal/AlertVerifyEmail';
 import SEOHead from '@/components/SEO/SEOHead';
-import { SEARCH_EVENT_METADATA } from '@/graphql/query';
+import {
+  SEARCH_ACCOUNT_BY_ADDRESS,
+  SEARCH_EVENT_METADATA,
+} from '@/graphql/query';
+import { useAuth } from '@/hooks/useAuth';
 import MarketPlacePage from '@/layouts/MarketPlace';
 import SkeletonEventDetail from '@/layouts/Skeleton/EventDetail';
 
@@ -38,8 +45,16 @@ const MarketPlaceDetail = ({
       },
     },
   });
-
-  if (loading) {
+  const { user } = useAuth();
+  const { loading: loadingUser, data: dataUser } = useQuery(
+    SEARCH_ACCOUNT_BY_ADDRESS,
+    {
+      variables: {
+        address: user,
+      },
+    }
+  );
+  if (loading || loadingUser) {
     return <SkeletonEventDetail />;
   }
   if (data && !data.searchEventMetadata) {
@@ -56,6 +71,18 @@ const MarketPlaceDetail = ({
           />
 
           <MarketPlacePage data={data.searchEventMetadata} address={query} />
+          <AlertVerifyEmail
+            isOpen={!dataUser.searchAccountByAddress.verifiedAt}
+          >
+            <HStack gap={6}>
+              <Link href={`/event/${query}`}>
+                <Button variant="primary">Back To Event</Button>
+              </Link>
+              <Link href={`/account/setting`}>
+                <Button variant="primary">Go To Verify Email</Button>
+              </Link>
+            </HStack>
+          </AlertVerifyEmail>
         </>
       )}
     </>
