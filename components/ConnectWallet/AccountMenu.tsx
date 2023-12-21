@@ -1,19 +1,25 @@
 import { useQuery } from '@apollo/client';
 import { Avatar, Flex, Text, useDisclosure } from '@chakra-ui/react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
 import { useAccount } from 'wagmi';
 
 import ProfileDrawer from '../Profile/ProfileDrawer';
 
 import { SEARCH_PROFILE } from '@/graphql/query';
+import { useAuth } from '@/hooks/useAuth';
 import { shortenAddress } from '@/utils/format/address';
 
 const AccountMenu = () => {
   const { address } = useAccount();
-
+  const { isLoading } = useAuth();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { data: dataUser } = useQuery(SEARCH_PROFILE);
+  const { data: dataUser, refetch } = useQuery(SEARCH_PROFILE);
+  useEffect(() => {
+    if (!isLoading) {
+      refetch();
+    }
+  }, [isLoading]);
   return (
     <>
       <Flex gap={1} alignItems="center" onClick={onOpen} cursor="pointer">

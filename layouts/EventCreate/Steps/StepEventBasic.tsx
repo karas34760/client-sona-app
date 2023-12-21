@@ -64,6 +64,9 @@ const StepEventBasic = ({
       name: Yup.string()
         .required('Event Name cannot be empty')
         .min(4, 'Event Name need to valid min is 4'),
+      category: Yup.array()
+        .required()
+        .max(3, 'You only can select max 3 categories'),
       StartTime: Yup.date().required('Start Time is required'),
       EndTime: Yup.date()
         .required('End Time is required')
@@ -140,7 +143,7 @@ const StepEventBasic = ({
             <FormControl
               isRequired
               variant="create_form"
-              isInvalid={!!(formik.touched.name && formik.errors.name)}
+              isInvalid={!!(formik.touched.category && formik.errors.category)}
             >
               <FormLabel>Event Category</FormLabel>
               <Select
@@ -158,6 +161,11 @@ const StepEventBasic = ({
                   })
                 }
               />
+              {formik.touched.category && formik.errors.category && (
+                <FormErrorMessage>
+                  <Text> {formik.errors.category as any}</Text>
+                </FormErrorMessage>
+              )}
             </FormControl>
           </HStack>
 
