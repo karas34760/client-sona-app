@@ -66,13 +66,13 @@ export const SUBMIT_NEW_EVENT = gql`
 `;
 
 export const SEARCH_EVENTS = gql`
-  query SearchEventMetadata(
-    $orderBy: EventOrderBy
+  query SearchEvents(
     $page: Int
     $size: Int
     $filter: EventFilter
+    $orderBy: EventOrderBy
   ) {
-    searchEvents(orderBy: $orderBy, page: $page, size: $size, filter: $filter) {
+    searchEvents(page: $page, size: $size, filter: $filter, orderBy: $orderBy) {
       currentPage
       hasNext
       hasPrevious
@@ -99,6 +99,8 @@ export const SEARCH_EVENTS = gql`
         mortageTx
         createdTx
         isLocked
+        isWithdrawable
+        withdrawableAmount
       }
     }
   }
