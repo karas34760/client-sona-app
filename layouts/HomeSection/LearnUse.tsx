@@ -29,7 +29,7 @@ const LearnUse = () => {
             textAlign="center"
             gap={6}
           >
-            <Text variant="type_title">{t('faq_guiding')}</Text>
+            <Text variant="type_title">{t('users_guide')}</Text>
             <Text fontSize={{ lg: '48px' }} color="white">
               {t('home_guide_subtitle')}
             </Text>
