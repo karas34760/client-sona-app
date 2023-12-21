@@ -71,7 +71,7 @@ const HeroSection = () => {
             return (
               <SwiperSlide key={item.name}>
                 <Box
-                  height="500px"
+                  height={{ md: '500px', base: '300px' }}
                   position="relative"
                   overflow="hidden"
                   borderRadius="lg"
@@ -96,13 +96,21 @@ const HeroSection = () => {
                     <HStack px="24px" justifyContent="space-between">
                       <Box>
                         <AvatarTypeOne link={item.logo_url} />
-                        <Text color="white" fontSize="24px" fontWeight="bold">
+                        <Text
+                          color="white"
+                          fontSize={{ md: '24px', base: '18px' }}
+                          fontWeight="bold"
+                        >
                           {item.name}
                         </Text>
-                        <Text fontWeight="bold" color="white">
+                        <Text
+                          fontSize={{ md: 'md', base: 'sm' }}
+                          fontWeight="bold"
+                          color="white"
+                        >
                           By {item.creator}
                         </Text>
-                        <Text color="white">
+                        <Text color="white" fontSize={{ md: 'md', base: 'sm' }}>
                           Total {item.ticket} Tickets * {item.average_price}
                         </Text>
                       </Box>

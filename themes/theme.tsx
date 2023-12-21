@@ -143,6 +143,15 @@ const Button: ComponentStyleConfig = {
         color: 'white',
       },
     },
+    dark: (props: StyleFunctionProps) => ({
+      borderRadius: '14px',
+      transition: 'all linear .4s',
+      background: mode('#000', 'dark.300')(props),
+      color: 'white',
+      boxShadow:
+        '0px 2px 4px -2px rgba(0, 0, 0, 0.10), 0px 4px 6px -1px rgba(0, 0, 0, 0.10)',
+    }),
+
     tab: ({ isActive }) => ({
       fontSize: 'medium',
       fontWeight: 'bold',

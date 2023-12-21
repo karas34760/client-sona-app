@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client';
 import { Container, HStack, Text, useColorModeValue } from '@chakra-ui/react';
 import Link from 'next/link';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 import { SwiperSlide } from 'swiper/react';
 
@@ -14,6 +15,7 @@ import { SEARCH_EVENTS } from '@/graphql/query';
 import { convertTimestampToDate } from '@/utils/format/date';
 // This event just approved
 const UpcomingEvent = () => {
+  const { t } = useTranslation();
   const { data, loading } = useQuery(SEARCH_EVENTS, {
     variables: {
       page: 1,
@@ -30,7 +32,7 @@ const UpcomingEvent = () => {
   return (
     <Container maxWidth="container.xl">
       <HStack justifyContent="space-between">
-        <Text variant="type_sub_title">Upcomming Schedule</Text>
+        <Text variant="type_sub_title">{t('upcomming_schedule')}</Text>
         <LinkSecondary
           link="#"
           label="View All"

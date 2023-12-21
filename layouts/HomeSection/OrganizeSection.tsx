@@ -7,6 +7,7 @@ import {
   Icon,
   Text,
 } from '@chakra-ui/react';
+import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
@@ -31,8 +32,11 @@ const OrganizeSection = () => {
 
           <Text>{t('oganization_content_2')}</Text>
           <HStack>
-            <Button>{t('create_events')}</Button>
-            <Button>{t('contact_us')}</Button>
+            <Link href={'/account/create_events'}>
+              <Button>{t('create_events')}</Button>
+            </Link>
+
+            <Button variant="dark">{t('contact_us')}</Button>
           </HStack>
         </Flex>
       </HStack>

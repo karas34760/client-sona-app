@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react';
+import { Box, useColorModeValue } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
@@ -78,6 +78,7 @@ const AccountProfileTab = () => {
       },
     },
   ];
+  const bg = useColorModeValue('white', 'transparent');
   return (
     <>
       <ListTabItem
@@ -85,7 +86,7 @@ const AccountProfileTab = () => {
         pt={4}
         position="sticky"
         top="96px"
-        bg="white"
+        bg={bg}
         zIndex="99"
         width="100%"
         activeKey={(queryKey as string) || 'created_event'}
