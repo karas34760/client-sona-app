@@ -81,7 +81,7 @@ const StepSingerCreate = ({
                   }}
                 />
               )}
-              {isOpenUpdate && (
+              {isOpenUpdate && currentSinger.name === item.name && (
                 <SignerCreateStep
                   onClose={() => {
                     onCloseUpdate();
@@ -110,6 +110,7 @@ const StepSingerCreate = ({
               setCurrentSinger(initialValue);
             }}
             onSaveData={addSinger}
+            currentIndex={listSingers.length}
             currentSinger={currentSinger}
           />
         )}

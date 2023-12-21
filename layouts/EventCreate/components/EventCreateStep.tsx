@@ -58,7 +58,7 @@ const EventCreateStep = ({
         // use for add ticket
         onSaveData(values);
       }
-      if (onUpdateData && currentIndex) {
+      if (onUpdateData) {
         onUpdateData(currentIndex, values);
       }
       onClose();
