@@ -7,6 +7,7 @@ import LoadingData from '@/animations/Loading/LoadingData';
 import CardTicketOne from '@/components/Card/CardTicketOne';
 import EmptyData from '@/components/EmptyData';
 import OnSaleMyTicket from '@/components/Modal/OnSaleMyTicket';
+import RefundTicketMoney from '@/components/Modal/RefundTicketMoney';
 import { SEARCH_TICKET_OF_USER } from '@/graphql/query';
 import EyeIcon from 'public/assets/icons/generals/eye.svg';
 
@@ -47,6 +48,11 @@ const MyTicket = () => {
                     eventAddress={item.eventAddress}
                     asset={item.asset}
                     priceListing={item.price}
+                  />
+                  <RefundTicketMoney
+                    tier={item.tier}
+                    amount={item.amount}
+                    eventAddress={item.eventAddress}
                   />
                   <Link href={`/ticket/${item.eventAddress}/${item.tier}`}>
                     <Button

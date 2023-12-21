@@ -2,7 +2,6 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
 
 import SEOHead from '@/components/SEO/SEOHead';
-import GuidePage from '@/layouts/Guide';
 
 // FAQ Page common frequently question
 export async function getStaticProps({ locale }: { locale: string }) {
@@ -12,17 +11,16 @@ export async function getStaticProps({ locale }: { locale: string }) {
     },
   };
 }
-const FAQ = () => {
+const Term = () => {
   return (
     <>
       <SEOHead
         siteName="Tickifi"
-        description="Tickifi | Guide Using Events "
-        title="Tickifi | Guide How To Use and Improve Performance to create events in blockchains "
+        description="Tickifi | Term of Tickifi  "
+        title="Tickifi | Pricvacy using your data in Tickifi "
       />
-      <GuidePage />
     </>
   );
 };
 
-export default FAQ;
+export default Term;

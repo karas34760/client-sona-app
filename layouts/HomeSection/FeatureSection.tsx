@@ -1,10 +1,11 @@
-import { Box, Button, Container, Grid, Text } from '@chakra-ui/react';
+import { Box, Container, Grid, Text } from '@chakra-ui/react';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
+
+import CardFeature from '@/components/Card/CardFeature';
 import FlexIcon from 'public/assets/icons/generals/flexibility.svg';
 import MarketIcon from 'public/assets/icons/generals/marketplace.svg';
 import ShieldIcon from 'public/assets/icons/generals/shield.svg';
-import CardFeature from '@/components/Card/CardFeature';
-import { useTranslation } from 'next-i18next';
 
 const FeatureSection = () => {
   const ListFeature = [

@@ -47,7 +47,7 @@ const Footer = () => {
               </Flex>
             </VStack>
             <Grid
-              templateColumns={{ md: 'repeat(4, 1fr)', base: 'repeat(2, 1fr)' }}
+              templateColumns={{ md: 'repeat(3, 1fr)', base: 'repeat(2, 1fr)' }}
               gap={24}
             >
               <LinkFooter />

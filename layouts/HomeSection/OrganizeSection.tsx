@@ -31,8 +31,8 @@ const OrganizeSection = () => {
 
           <Text>{t('oganization_content_2')}</Text>
           <HStack>
-            <Button>Create Events</Button>
-            <Button>Contact Us</Button>
+            <Button>{t('create_events')}</Button>
+            <Button>{t('contact_us')}</Button>
           </HStack>
         </Flex>
       </HStack>

@@ -9,13 +9,12 @@ import {
 } from '@chakra-ui/react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 const HeroSection = () => {
-  const bg = useColorModeValue(
-    'gradient.300',
-    'transparent'
-  ); /* linear-gradient(184deg, #0C0C0C 40%, #6F4FF2 100%) */
+  const bg = useColorModeValue('gradient.300', 'transparent');
+  const { t } = useTranslation();
   return (
     <Box py={16} bg={bg}>
       <Container maxWidth="container.xl">
@@ -27,22 +26,18 @@ const HeroSection = () => {
           <Flex color="white" flexDirection="column" gap={6}>
             <Box>
               <Text variant="type_title" color="white">
-                NFTs - New,
+                {t('nfts-new')},
               </Text>
-              <Text variant="type_title">Fairer Ticking Concert</Text>
+              <Text variant="type_title">{t('fairer-ticking-concert')}</Text>
             </Box>
 
-            <Text maxWidth="400px">
-              An NFT event ticketing marketplace helping artists foster closer
-              connections with fans, eliminating fraud and reducing the impact
-              of scalping.
-            </Text>
+            <Text maxWidth="400px">{t('hero-home-content')}</Text>
             <Flex gap={6}>
               <Link href="/events">
-                <Button variant="primary">Expore Now</Button>
+                <Button variant="primary">{t('explore')}</Button>
               </Link>
 
-              <Button variant="solid">Buy Ticket</Button>
+              <Button variant="solid">{t('buy_ticket')}</Button>
             </Flex>
           </Flex>
           <Box
@@ -59,9 +54,7 @@ const HeroSection = () => {
               src={`assets/bg/bg-hero.svg`}
               priority
               fill
-              /*  width="700"
-              height="760" */
-              alt="Hero Image"
+              alt="Tickifi | Hero Image"
             />
           </Box>
         </HStack>

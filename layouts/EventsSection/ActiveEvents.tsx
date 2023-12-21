@@ -1,16 +1,24 @@
 import { useQuery } from '@apollo/client';
-import { Button, Center, Container, HStack, Text } from '@chakra-ui/react';
+import {
+  Button,
+  Center,
+  Container,
+  Flex,
+  HStack,
+  Text,
+} from '@chakra-ui/react';
 import Link from 'next/link';
 import React from 'react';
 import { SwiperSlide } from 'swiper/react';
 
-import LoadingData from '@/animations/Loading/LoadingData';
+import ListEventSkeletons from '../Skeleton/ListEvent';
+
 import CardTicketOne from '@/components/Card/CardTicketOne';
 import Carousel from '@/components/Carousel/Carousel';
 import TimeReminder from '@/components/Time/TimeReminder';
 import { SEARCH_EVENTS } from '@/graphql/query';
 import { convertTimestampToDate } from '@/utils/format/date';
-// su kien co ve dang giam gia
+
 const ActiveEvents = () => {
   const { data, loading } = useQuery(SEARCH_EVENTS, {
     variables: {
@@ -22,7 +30,12 @@ const ActiveEvents = () => {
     },
   });
   if (loading) {
-    return <LoadingData />;
+    return (
+      <Flex flexDirection="column" gap={4}>
+        <ListEventSkeletons />
+        <ListEventSkeletons />
+      </Flex>
+    );
   }
   return (
     <Container maxWidth="container.xl">

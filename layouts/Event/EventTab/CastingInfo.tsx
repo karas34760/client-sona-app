@@ -11,7 +11,6 @@ interface IProps {
   ];
 }
 const CastingInfo = ({ singers }: IProps) => {
-  console.log(singers);
   return (
     <>
       <Box height="700px" color="primary.gray.500" overflow="hidden">
@@ -20,7 +19,11 @@ const CastingInfo = ({ singers }: IProps) => {
           circumstances of the actors and production companies.
         </Text>
         <Grid
-          templateColumns={'repeat(5,1fr)'}
+          templateColumns={{
+            lg: 'repeat(5,1fr)',
+            md: 'repeat(4,1fr)',
+            base: 'repeat(2,1fr)',
+          }}
           columnGap={10}
           rowGap={6}
           mt={6}
@@ -36,7 +39,7 @@ const CastingInfo = ({ singers }: IProps) => {
                   borderRadius="50%"
                   height="128px"
                   overflow="hidden"
-                  w="full"
+                  w="128px"
                 >
                   <Image
                     alt=""

@@ -15,17 +15,17 @@ const LinkFooter = () => {
       label: 'marketplace',
       items: [
         {
-          label: 'sell_products',
-          link: '#',
+          label: 'view_events',
+          link: '/events',
         },
         {
-          label: 'buy_products',
-          link: '#',
+          label: 'buy_tickets',
+          link: '/events',
         },
 
         {
           label: 'create_tickets',
-          link: '#',
+          link: '/account/create_events',
         },
       ],
     },
@@ -34,20 +34,16 @@ const LinkFooter = () => {
       items: [
         {
           label: 'about_us',
-          link: '#',
+          link: '/about_us',
         },
         {
           label: 'events',
-          link: '#',
+          link: '/events',
         },
 
         {
           label: 'faq',
-          link: '#',
-        },
-        {
-          label: 'support',
-          link: '#',
+          link: '/faq',
         },
       ],
     },
@@ -56,28 +52,11 @@ const LinkFooter = () => {
       items: [
         {
           label: 'terms',
-          link: '#',
+          link: '/terms',
         },
         {
           label: 'privacy',
-          link: '#',
-        },
-      ],
-    },
-    {
-      label: 'company',
-      items: [
-        {
-          label: 'sell_products',
-          link: '#',
-        },
-        {
-          label: 'buy_products',
-          link: '#',
-        },
-        {
-          label: 'create_tickets',
-          link: '#',
+          link: '/privacy',
         },
       ],
     },

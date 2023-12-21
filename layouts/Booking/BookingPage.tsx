@@ -251,7 +251,6 @@ const BookingPage = ({ data, eventAddress }: IProps) => {
                           from: txHash.from,
                         },
                       });
-                      console.log('Signed Booking', res_signed);
                       resolve(res_signed);
                     }
                   } catch (error) {

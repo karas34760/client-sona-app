@@ -26,28 +26,36 @@ const HowWork = () => {
   const ListImage = [
     {
       link: 'https://images.squarespace-cdn.com/content/v1/641a832cd4167e73e6d2e927/e42ccb85-2821-4779-8eb7-26b1e9207702/ezgif-5-8a9acce601.gif?format=500w',
+      alt: 'Tickifi | Content 1',
     },
     {
       link: 'https://images.squarespace-cdn.com/content/v1/641a832cd4167e73e6d2e927/d3eb2b89-c781-41ff-b578-ce45e5ebf125/5zef+-+420+%28Uz%CC%8C+je+c%CC%8Cas%29.gif?format=500w',
+      alt: 'Tickifi | Content 2',
     },
     {
       link: 'https://images.squarespace-cdn.com/content/v1/641a832cd4167e73e6d2e927/9d9b8b24-c27a-4f87-87f8-3dcc96431b9c/tumblr_26e6cb0c69630312ea8312717a447ab3_51084b0d_540.gif?format=500w',
+      alt: 'Tickifi | Content 3',
     },
 
     {
       link: 'https://images.squarespace-cdn.com/content/v1/641a832cd4167e73e6d2e927/d9400a4c-57a9-479b-8fbc-b593f1339628/original_dc71e7d45c6c08f8decfe881e61ce46a.gif?format=500w',
+      alt: 'Tickifi | Content 4',
     },
     {
       link: 'https://i.postimg.cc/CMfHRKfP/woman-2003647-960-720.jpg',
+      alt: 'Tickifi | Content 5',
     },
     {
       link: 'https://images.squarespace-cdn.com/content/v1/641a832cd4167e73e6d2e927/bca602f4-786f-49b7-a28a-2151f9cd68a6/Apr-13-2023+23-51-32.gif?format=2500w',
+      alt: 'Tickifi | Content 6',
     },
     {
       link: 'https://i.postimg.cc/CMfHRKfP/woman-2003647-960-720.jpg',
+      alt: 'Tickifi | Content 7',
     },
     {
       link: 'https://i.postimg.cc/BQcRL38F/pexels-photo-761963.jpg',
+      alt: 'Tickifi | Content 8',
     },
   ];
   return (
@@ -100,12 +108,12 @@ const HowWork = () => {
                       transform: {
                         md: `rotateY(calc(${index}* 45deg)) translateY(300px) translateZ(200px)`,
                         base: `rotateY(calc(${index}* 45deg)) translateY(300px) translateZ(120px)`,
-                      } /* rotateX(-25deg)  translateY(calc(${index}*30px)) */,
+                      },
                     }}
                   >
                     <Image
                       src={item.link}
-                      alt={''}
+                      alt={item.alt}
                       borderRadius="15px"
                       width="full"
                       height="full"

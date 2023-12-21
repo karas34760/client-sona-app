@@ -12,7 +12,7 @@ export async function getStaticProps({ locale }: { locale: string }) {
     },
   };
 }
-const FAQ = () => {
+const Guide = () => {
   return (
     <>
       <SEOHead
@@ -25,4 +25,4 @@ const FAQ = () => {
   );
 };
 
-export default FAQ;
+export default Guide;
