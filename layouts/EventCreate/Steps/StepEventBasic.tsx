@@ -109,7 +109,7 @@ const StepEventBasic = ({
         ),
     }),
   });
-  console.log(formik.values.category);
+
   return (
     <>
       <form onSubmit={formik.handleSubmit}>

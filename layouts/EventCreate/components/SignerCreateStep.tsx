@@ -88,14 +88,21 @@ const SignerCreateStep = ({
             <RadioGroup
               flexGrow={1}
               defaultValue={formik.values.sex}
-              onChange={formik.handleChange}
+              onChange={e =>
+                formik.handleChange({
+                  target: {
+                    name: 'sex',
+                    value: e,
+                  },
+                })
+              }
             >
               <FormLabel>Gender</FormLabel>
               <HStack spacing={5} direction="row">
-                <Radio colorScheme="red" value="male">
+                <Radio colorScheme="red" value="male" name="sex">
                   Male
                 </Radio>
-                <Radio colorScheme="green" value="female">
+                <Radio colorScheme="green" value="female" name="sex">
                   Female
                 </Radio>
               </HStack>

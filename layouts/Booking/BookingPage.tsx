@@ -119,6 +119,7 @@ const BookingPage = ({ data, eventAddress }: IProps) => {
                     }
                     defaultValue={userChoices[item?.tier]?.amount || 0}
                     max={10}
+                    min={0}
                   >
                     <NumberInputField />
                     <NumberInputStepper>

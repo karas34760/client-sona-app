@@ -157,7 +157,7 @@ const EventBooking = ({
                   </Link>
                 </>
               ) : (
-                <Text>Event is expired</Text>
+                <Text>Event Sale is expired</Text>
               )}
             </>
           )}

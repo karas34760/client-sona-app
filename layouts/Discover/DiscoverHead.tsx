@@ -1,19 +1,16 @@
 import { Box, HStack, useDisclosure, Flex } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React from 'react';
 
+import CategoryTypeFilter from './components/CategoryTypeFilter';
 import DiscoverFilterButton from './components/DiscoverFilterButton';
 import MinMaxPrice from './components/MinMaxPrice';
 import StatusFilter from './components/StatusFilter';
 import DiscoverFilterDrawer from './DiscoverFilterDrawer';
 import DiscoverResult from './DiscoverResult';
 
-import NavSearch from '@/components/Search/NavSearch';
-import SelectTypeOne from '@/components/Select/SelectTypeOne';
-import { optionFilter } from '@/utils/constants/constants';
-
 const DiscoverHead = () => {
   const { isOpen, onToggle } = useDisclosure({ defaultIsOpen: true });
-  const [selectValue, setSelectValue] = useState(optionFilter[0]);
+
   return (
     <>
       <HStack gap={4}>
@@ -24,15 +21,6 @@ const DiscoverHead = () => {
           sx={{
             display: { md: 'flex', base: 'none' },
           }}
-        />
-        <Box display={{ md: 'block', base: 'none' }} flexGrow={1}>
-          <NavSearch />
-        </Box>
-
-        <SelectTypeOne
-          selectValue={selectValue}
-          setSelectValue={setSelectValue}
-          data={optionFilter}
         />
       </HStack>
       <Flex py={6} gap={{ md: 4, base: 0 }} transition="all .5s">
@@ -54,8 +42,11 @@ const DiscoverHead = () => {
               }}
               borderRadius="xl"
             >
-              <StatusFilter />
-              <MinMaxPrice />
+              <Flex flexDir="column" gap={6}>
+                <CategoryTypeFilter />
+                <StatusFilter />
+                <MinMaxPrice />
+              </Flex>
             </Box>
           </>
         ) : (
