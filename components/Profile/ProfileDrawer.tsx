@@ -8,6 +8,7 @@ import {
   Icon,
   useColorModeValue,
 } from '@chakra-ui/react';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useDisconnect } from 'wagmi';
@@ -33,6 +34,7 @@ const ProfileDrawer = ({ isOpen, onClose }: IProps) => {
   const bgDrawer = useColorModeValue('white', 'body.100');
   const web3 = new Web3(window.ethereum);
   const { user, isLoading } = useAuth();
+  const router = useRouter();
   const [currentBalance, setCurrentBalance] = useState<string>('0.000');
   const getBalance = async () => {
     const contract = new web3.eth.Contract(
@@ -72,6 +74,7 @@ const ProfileDrawer = ({ isOpen, onClose }: IProps) => {
               <AccountAddress onClose={onClose} />
               <Button
                 onClick={() => {
+                  router.push('/');
                   disconnect();
                   dispatch(setUser(null));
                   removeFromStorage();

@@ -85,7 +85,7 @@ const AccountProfileTab = () => {
         items={TabItems}
         pt={4}
         position="sticky"
-        top="96px"
+        top="90px"
         bg={bg}
         zIndex="99"
         width="100%"

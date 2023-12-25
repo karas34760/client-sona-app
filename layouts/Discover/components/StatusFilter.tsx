@@ -13,16 +13,16 @@ import ArrowIcon from 'public/assets/icons/arrow/down.svg';
 const StatusFilter = () => {
   const optionStatus = [
     {
+      title: 'Active ',
+      value: 'active',
+    },
+    {
+      title: 'Expired ',
+      value: 'expired',
+    },
+    {
       title: 'All',
       value: 'all',
-    },
-    {
-      title: 'Buy Now',
-      value: 'buy-ow',
-    },
-    {
-      title: 'Live Auction',
-      value: 'live-auction',
     },
   ];
   const [currentValue, setCurrentValue] = useState(optionStatus[0]);

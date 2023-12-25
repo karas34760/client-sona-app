@@ -16,10 +16,11 @@ interface IProps {
 // Account Address Display Infomration
 const AccountAddress = ({ onClose }: IProps) => {
   const { address } = useAccount();
-  const { data: dataUser, refetch } = useQuery(SEARCH_PROFILE);
+  const { data: dataUser, refetch, loading } = useQuery(SEARCH_PROFILE);
   useEffect(() => {
     refetch();
-  }, [address]);
+  }, [address, loading]);
+
   return (
     <>
       <HStack gap={2} alignItems="center">
