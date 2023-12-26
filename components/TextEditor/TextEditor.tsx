@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Box } from '@chakra-ui/react';
+
 import DOMPurify from 'dompurify';
 import { convertToHTML } from 'draft-convert';
 import { ContentState, EditorState, convertFromHTML } from 'draft-js';
@@ -49,6 +49,18 @@ const TextEditor = ({ convertedContent, setConvertedContent }: IProps) => {
         wrapperClassName="wrapper-class"
         editorClassName="editor-class"
         toolbarClassName="toolbar-class"
+        hashtag={{
+          separator: ' ',
+          trigger: '#',
+        }}
+        mention={{
+          separator: ' ',
+          trigger: '@',
+          suggestions: [
+            { text: 'Tickifi', value: 'tickifi', url: 'https://karas.store/' },
+            { text: 'Karas', value: 'karas', url: 'https://karas.store/' },
+          ],
+        }}
       />
       {/*  <Box dangerouslySetInnerHTML={createMarkup(convertedContent)}></Box> */}
     </>

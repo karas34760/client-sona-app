@@ -111,5 +111,7 @@
     "my_sale_tickets":"My Sale Tickets",
     "guide":"Guide",
     "upcomming_schedule":"Upcomming Schedule",
-    "users_guide":"Users Guide"
+    "users_guide":"Users Guide",
+    "view_event":"View Event",
+    "withdraw_events":"WithDraw Events"
 }

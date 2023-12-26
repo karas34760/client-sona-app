@@ -7,6 +7,7 @@ import CreatedEventTab from './CreatedEventTab';
 import FavoritedTab from './FavoritedTab';
 import MyTicket from './MyTicket';
 import OnSaleTicket from './OnSaleTicket';
+import WithDrawEvents from './WithDrawEvents';
 
 import ListTabItem from '@/components/Tab/ListTabItem';
 import TabButton from '@/components/Tab/TabButton';
@@ -77,6 +78,21 @@ const AccountProfileTab = () => {
         );
       },
     },
+    {
+      key: 'withdraw_events',
+      title: t('withdraw_events'),
+      component: (title, isActive) => {
+        return (
+          <TabButton
+            isActive={isActive}
+            title={title}
+            params={{
+              tab: 'withdraw_events',
+            }}
+          />
+        );
+      },
+    },
   ];
   const bg = useColorModeValue('white', 'transparent');
   return (
@@ -97,6 +113,7 @@ const AccountProfileTab = () => {
         {queryKey === 'my_tickets' && <MyTicket />}
         {queryKey === 'my_sale_tickets' && <OnSaleTicket />}
         {queryKey === 'favorited' && <FavoritedTab />}
+        {queryKey === 'widthdraw_events' && <WithDrawEvents />}
       </Box>
     </>
   );

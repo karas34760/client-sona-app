@@ -12,12 +12,12 @@ import SearchIcon from 'public/assets/icons/generals/search.svg';
 const NavSearch = () => {
   const { t } = useTranslation();
   const bgInput = useColorModeValue('primary.gray.300', 'primary.gray.100');
-  const colorIcon = useColorModeValue('white', 'black');
+
   return (
     <>
       <InputGroup>
         <InputLeftElement>
-          <Icon as={SearchIcon} h={6} w={6} color={colorIcon} />
+          <Icon as={SearchIcon} h={6} w={6} color="black" />
         </InputLeftElement>
         <Input
           background={bgInput}

@@ -88,7 +88,7 @@ const ActiveEvents = () => {
         {data &&
           data.searchEvents.items.map((item: any, index: number) => (
             <>
-              {item.EndTime > new Date() && (
+              {item.DeadlineForSell > new Date() && (
                 <SwiperSlide
                   key={`up-comming-${item.eventId} ${index}`}
                   style={{
@@ -97,7 +97,10 @@ const ActiveEvents = () => {
                 >
                   <Link href={`/event/${item.address}`}>
                     <CardTicketOne image_link={item.image}>
-                      <TimeReminder targetDate={item.EndTime} text="End in" />
+                      <TimeReminder
+                        targetDate={item.DeadlineForSell}
+                        text="End in"
+                      />
 
                       <Text
                         fontWeight="bold"
