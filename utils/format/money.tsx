@@ -15,3 +15,5 @@ export const weiToUSD = (amountWei: string, exchangeRate: number): string => {
 
   return amountUSD.toString();
 };
+
+export const checkIsNumber = (query: string) => query.match(/^[0-9]+$/);

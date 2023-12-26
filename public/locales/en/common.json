@@ -113,5 +113,10 @@
     "upcomming_schedule":"Upcomming Schedule",
     "users_guide":"Users Guide",
     "view_event":"View Event",
-    "withdraw_events":"WithDraw Events"
+    "withdraw_events":"WithDraw Events",
+    "recent_search":"Recent Search",
+    "oops_not_found":"OOPS NOT FOUND",
+   "please_make_sure_enter_correct":"Please make sure you enter correct data !" ,
+   "event":"Event"
+   
 }

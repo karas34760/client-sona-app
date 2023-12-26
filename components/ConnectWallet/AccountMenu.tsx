@@ -20,6 +20,11 @@ const AccountMenu = () => {
       refetch();
     }
   }, [isLoading]);
+  useEffect(() => {
+    if (!isLoading) {
+      refetch();
+    }
+  }, [address]);
   return (
     <>
       <Flex gap={1} alignItems="center" onClick={onOpen} cursor="pointer">

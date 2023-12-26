@@ -243,6 +243,17 @@ const Input: ComponentStyleConfig = {
         },
       },
     }),
+    search: (props: StyleFunctionProps) => ({
+      field: {
+        color: mode('primary.gray.800', 'white')(props),
+
+        bg: mode('primary.gray.300', 'dark.300')(props),
+        fontWeight: 'bold',
+        _placeholder: {
+          color: 'currentColor',
+        },
+      },
+    }),
   },
 };
 const Form: ComponentStyleConfig = {
