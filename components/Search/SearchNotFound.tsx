@@ -3,7 +3,7 @@ import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import useSearchResult from 'hooks/useSearchResult';
-import WarningIcon from 'public/assets/icons/generals/bell.svg';
+import NotFoundIcon from 'public/assets/icons/generals/not-found.svg';
 
 interface UltraSearchNotFoundProps {
   query: string;
@@ -20,16 +20,21 @@ export default function UltraSearchNotFound({
 
   return eventShouldZero ? (
     <HStack
-      alignItems="flex-start"
       justifyContent="center"
       textAlign="center"
       bg="theme.accent.100"
       padding={4}
       spacing={1}
+      gap={4}
     >
-      <Icon as={WarningIcon} width={6} height={6} color="primary.purple.400" />
+      <Icon
+        as={NotFoundIcon}
+        width={10}
+        height={10}
+        color="primary.purple.400"
+      />
 
-      <Box>
+      <Box textAlign="left">
         <Text color="paragraph.accent.100" fontWeight="semibold">
           {t('oops_not_found')}
         </Text>

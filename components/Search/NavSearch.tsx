@@ -23,10 +23,12 @@ export default function NavSearch() {
           leftIcon={<SearchIcon />}
           width={{ lg: '31.25rem', md: '21.875rem' }}
           display="flex"
+          color="primary.gray.600"
           justifyContent="flex-start"
           border="0.0625rem solid"
           borderColor="primary.purple.500"
           borderRadius="xl"
+          bg="primary.gray.300"
           onClick={onOpen}
           _hover={{}}
           _active={{}}

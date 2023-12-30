@@ -23,6 +23,10 @@ const ListNavHeader = () => {
       label: t('guide'),
       link: '/guide',
     },
+    {
+      label: t('faq'),
+      link: '/faq',
+    },
   ];
   return (
     <>

@@ -36,8 +36,11 @@ const HeroSection = () => {
               <Link href="/events">
                 <Button variant="primary">{t('explore')}</Button>
               </Link>
-
-              <Button variant="solid">{t('buy_ticket')}</Button>
+              <Link href="/events">
+                <Button variant="primary_version1" borderRadius="lg">
+                  {t('buy_ticket')}
+                </Button>
+              </Link>
             </Flex>
           </Flex>
           <Box

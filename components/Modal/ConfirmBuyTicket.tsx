@@ -79,7 +79,7 @@ const ConfirmBuyTicket = ({
           <ModalHeader>Confirm to buy tickets</ModalHeader>
           <ModalCloseButton />
           <ModalBody display="flex" flexDirection="column" gap={5}>
-            <Image src={asset} />
+            <Image src={asset} aria-label="Tickifi | Confirm Buy Image" />
             <Text>Name: {name}</Text>
             <Text>Tier: {tier}</Text>
             <Text>Description: {description}</Text>

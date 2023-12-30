@@ -143,6 +143,18 @@ const Button: ComponentStyleConfig = {
         color: 'white',
       },
     },
+    primary_version1: {
+      border: '0.063rem solid',
+      borderColor: 'primary.purple.300',
+      color: 'primary.purple.400',
+      px: 4,
+      cursor: 'pointer',
+      transition: 'all linear .4s',
+      _hover: {
+        bg: 'primary.purple.400',
+        color: 'white',
+      },
+    },
     dark: (props: StyleFunctionProps) => ({
       borderRadius: '14px',
       transition: 'all linear .4s',
