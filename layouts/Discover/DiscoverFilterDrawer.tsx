@@ -3,13 +3,13 @@ import {
   Drawer,
   DrawerContent,
   DrawerOverlay,
+  Text,
   useDisclosure,
 } from '@chakra-ui/react';
 import React from 'react';
 
+import CategoryTypeFilter from './components/CategoryTypeFilter';
 import DiscoverFilterButton from './components/DiscoverFilterButton';
-import MinMaxPrice from './components/MinMaxPrice';
-import StatusFilter from './components/StatusFilter';
 
 const DiscoverFilterDrawer = () => {
   const { isOpen, onToggle, onClose } = useDisclosure();
@@ -22,11 +22,20 @@ const DiscoverFilterDrawer = () => {
           display: { md: 'none', base: 'flex' },
         }}
       />
-      <Drawer isOpen={isOpen} placement="left" onClose={onClose} size="full">
+      <Drawer isOpen={isOpen} placement="left" onClose={onClose}>
         <DrawerOverlay />
-        <DrawerContent padding={6} px={4} overflow="hidden">
-          <StatusFilter />
-          <MinMaxPrice />
+        <DrawerContent
+          padding={6}
+          px={4}
+          overflow="hidden"
+          display="flex"
+          flexDirection="column"
+          gap={6}
+        >
+          <Text textAlign="center" fontSize="lg" fontWeight="bold">
+            Discover Events
+          </Text>
+          <CategoryTypeFilter />
           <Button variant="draw_close" onClick={onClose} borderRadius="none">
             Close
           </Button>

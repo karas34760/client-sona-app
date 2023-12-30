@@ -2,38 +2,33 @@ import { Box, Button, Flex, HStack, Text, Tooltip } from '@chakra-ui/react';
 import Link from 'next/link';
 import React from 'react';
 
+import { TicketBuy } from './EventTab/TicketInformation';
+
+import TimeReminder from '@/components/Time/TimeReminder';
 import { useAuth } from '@/hooks/useAuth';
+import { formatEventTime } from '@/utils/format/date';
 interface IProps {
   location: string;
-  StartDate: string;
-  EndDate: string;
+  StartDate: number; // use timestamp for create logic
+  TimeForSale: number;
+  DeadlineForSale: number;
+  EndDate: number;
   address: string;
+  dataTicket: TicketBuy[];
 }
-const EventBooking = ({ location, StartDate, EndDate, address }: IProps) => {
-  const currentSeat = [
-    {
-      label: 'Vip seat',
-      quantity: 12,
-    },
-    {
-      label: 'R seat',
-      quantity: 30,
-    },
-    ,
-    {
-      label: 'A seat',
-      quantity: 10,
-    },
-    ,
-    {
-      label: 'S seat',
-      quantity: 10,
-    },
-  ];
+const EventBooking = ({
+  location,
+  StartDate,
+  TimeForSale,
+  DeadlineForSale,
+  EndDate,
+  address,
+  dataTicket,
+}: IProps) => {
   const attributes = [
     { key: 'Location', value: location },
-    { key: 'Start Date', value: StartDate },
-    { key: 'End Date', value: EndDate },
+    { key: 'Start Date', value: formatEventTime(StartDate) },
+    { key: 'End Date', value: formatEventTime(EndDate) },
     { key: 'Viewing Age', value: 'Over 8 ages' },
   ];
   const { user } = useAuth();
@@ -85,13 +80,13 @@ const EventBooking = ({ location, StartDate, EndDate, address }: IProps) => {
               flexDirection="column"
               gap={2}
               borderTop="0.063rem solid"
-              borderTopColor={'primary.gray.300'}
+              borderTopColor="primary.gray.300"
               p={4}
             >
               <Text fontSize="lg" fontWeight="bold">
                 Round Time
               </Text>
-              <Box
+              {/*  <Box
                 py={2}
                 px={4}
                 width="fit-content"
@@ -102,16 +97,19 @@ const EventBooking = ({ location, StartDate, EndDate, address }: IProps) => {
                 fontWeight="bold"
               >
                 Time : 15:00
-              </Box>
+              </Box> */}
+              <Text fontWeight="bold" fontSize="lg">
+                Ticket Remaining
+              </Text>
               <HStack justifyContent="space-between">
-                {currentSeat.map(item => (
+                {dataTicket.map(item => (
                   <>
-                    <Flex>
+                    <Flex gap={1}>
                       <Text fontSize="sm" color="primary.gray.600">
-                        {item?.label}:
+                        {item.name}:
                       </Text>
                       <Text fontWeight="bold" fontSize="sm">
-                        {item?.quantity}
+                        {item.remaining}
                       </Text>
                     </Flex>
                   </>
@@ -119,22 +117,48 @@ const EventBooking = ({ location, StartDate, EndDate, address }: IProps) => {
               </HStack>
             </Flex>
           </Flex>
-
-          {user ? (
+          {new Date(TimeForSale) > new Date() ? (
             <>
-              <Link href={`/booking/${address}`}>
-                <Button width="full" variant="primary">
-                  Make a Reservation
-                </Button>
-              </Link>
+              <TimeReminder targetDate={TimeForSale} text="Open Sales In" />
             </>
           ) : (
             <>
-              <Tooltip label="Please Connect wallet " fontSize="md">
-                <Button width="full" variant="primary" isDisabled={true}>
-                  Make a Reservation
-                </Button>
-              </Tooltip>
+              {new Date(DeadlineForSale) > new Date() ? (
+                <>
+                  <TimeReminder
+                    targetDate={DeadlineForSale}
+                    text="Sales End in"
+                  />
+                  {user ? (
+                    <>
+                      <Link href={`/booking/${address}`}>
+                        <Button width="full" variant="primary">
+                          Make a Reservation
+                        </Button>
+                      </Link>
+                    </>
+                  ) : (
+                    <>
+                      <Tooltip label="Please Connect wallet " fontSize="md">
+                        <Button
+                          width="full"
+                          variant="primary"
+                          isDisabled={true}
+                        >
+                          Make a Reservation
+                        </Button>
+                      </Tooltip>
+                    </>
+                  )}
+                  <Link href={`/marketplace/${address}`}>
+                    <Button width="full" variant="primary">
+                      Buy Tickets in Marketplace
+                    </Button>
+                  </Link>
+                </>
+              ) : (
+                <Text>Event Sale is expired</Text>
+              )}
             </>
           )}
         </Flex>

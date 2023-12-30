@@ -46,9 +46,21 @@ const CreatedEventTab = () => {
 
   return (
     <>
+      <Text mb={6} fontWeight="bold">
+        Total My Created Events:{' '}
+        {dataNotApprove.searchEventNotApproveByUser.items.length +
+          data.searchEvents.items.length}
+      </Text>
       {dataNotApprove.searchEventNotApproveByUser.items.length ||
       data.searchEvents.items.length ? (
-        <Grid templateColumns="repeat(4, 1fr)" gap={6}>
+        <Grid
+          templateColumns={{
+            lg: 'repeat(4, 1fr)',
+            md: 'repeat(3, 1fr)',
+            base: 'repeat(1, 1fr)',
+          }}
+          gap={6}
+        >
           {data.searchEvents.items.map((item: any) => (
             <GridItem key={item.eventId} width="full">
               <Link

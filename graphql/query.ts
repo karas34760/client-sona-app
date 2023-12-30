@@ -86,6 +86,7 @@ export const SEARCH_EVENTS = gql`
         name
         description
         image
+        category
         location
         uri
         tickets
@@ -95,7 +96,11 @@ export const SEARCH_EVENTS = gql`
         EndTime
         submitedTime
         createdTime
+        mortageTx
         createdTx
+        isLocked
+        isWithdrawable
+        withdrawableAmount
       }
     }
   }
@@ -110,13 +115,25 @@ export const SEARCH_ACCOUNT_BY_ADDRESS = gql`
       isBanned
       firstActive
       verifiedAt
+      profile {
+        address
+        username
+        bio
+        website
+        social {
+          key
+          value
+        }
+        avatar
+        background
+      }
     }
   }
 `;
 
 export const SEARCH_TICKETS = gql`
-  query SearchTickets($eventAddress: String, $tier: Float, $eventId: Int) {
-    searchTickets(eventAddress: $eventAddress, tier: $tier, eventId: $eventId) {
+  query SearchTickets($eventId: Int, $eventAddress: String, $tier: Int) {
+    searchTickets(eventId: $eventId, eventAddress: $eventAddress, tier: $tier) {
       eventId
       eventAddress
       tier
@@ -171,6 +188,21 @@ export const SUBMIT_TRANSACTION = gql`
       transactionHash: $transactionHash
       from: $from
     )
+  }
+`;
+export const SUBMIT_SIGNATURE = gql`
+  mutation SubmitSignature($filter: SubmitSignatureArgsInput!) {
+    submitSignature(filter: $filter) {
+      eventAddress
+      tier
+      amount
+      price
+      startTime
+      deadline
+      signature
+      signer
+      status
+    }
   }
 `;
 
@@ -274,8 +306,8 @@ export const SEARCH_REJECT_EVENT = gql`
   }
 `;
 export const SEARCH_EVENT_METADATA = gql`
-  query SearchEventMetadata($uri: String!) {
-    searchEventMetadata(uri: $uri) {
+  query SearchEventMetadata($filter: EventMetadataFilter!) {
+    searchEventMetadata(filter: $filter) {
       name
       description
       location
@@ -287,12 +319,20 @@ export const SEARCH_EVENT_METADATA = gql`
         image
         sex
       }
-      tickets
+      tickets {
+        tier
+        amount
+        remaining
+        price
+        name
+        description
+        asset
+      }
       category
-      TimeForSell
-      DeadlineForSell
-      StartTime
-      EndTime
+      timeForSell
+      deadlineForSell
+      startTime
+      endTime
       license
     }
   }
@@ -338,6 +378,113 @@ export const SEARCH_EVENTS_NOT_APPROVE_BY_USER = gql`
         createdTx
         isLocked
       }
+    }
+  }
+`;
+
+export const SEARCH_TICKET_ON_SALE = gql`
+  query SearchTicketsOnSales(
+    $page: Int
+    $size: Int
+    $filter: TicketsOnSalesFilter
+    $orderBy: TicketsOnSalesOrderBy
+  ) {
+    searchTicketsOnSales(
+      page: $page
+      size: $size
+      filter: $filter
+      orderBy: $orderBy
+    ) {
+      currentPage
+      hasNext
+      hasPrevious
+      pages
+      size
+      total
+      items {
+        eventAddress
+        tier
+        amount
+        price
+        seller
+        name
+        description
+        asset
+        signature
+        startTime
+        deadline
+      }
+    }
+  }
+`;
+
+export const SEARCH_ORGANIZER_PROFILE = gql`
+  query SearchOrganizerProfile($address: String!) {
+    searchOrganizerProfile(address: $address) {
+      address
+      username
+      bio
+      website
+      social {
+        key
+        value
+      }
+      avatar
+      background
+    }
+  }
+`;
+
+export const SEARCH_TICKET_OF_USER = gql`
+  query SearchTicketsOfUser(
+    $page: Int
+    $size: Int
+    $filter: TicketPaginationFilter
+  ) {
+    searchTicketsOfUser(page: $page, size: $size, filter: $filter) {
+      currentPage
+      hasNext
+      hasPrevious
+      pages
+      size
+      total
+      items {
+        eventId
+        eventAddress
+        tier
+        amount
+        price
+        name
+        description
+        asset
+        uri
+      }
+    }
+  }
+`;
+
+export const SEARCH_LISTING_TICKET_MESSAGE = gql`
+  query SearchListingTicketsMessage(
+    $eventAddress: String!
+    $tier: Int!
+    $amount: Int!
+    $price: Int!
+    $period: PERIOD!
+  ) {
+    searchListingTicketsMessage(
+      eventAddress: $eventAddress
+      tier: $tier
+      amount: $amount
+      price: $price
+      period: $period
+    ) {
+      eventAddress
+      tier
+      amount
+      price
+      startTime
+      deadline
+      message
     }
   }
 `;

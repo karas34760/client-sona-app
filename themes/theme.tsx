@@ -41,6 +41,8 @@ export const colors = {
   dark: {
     100: '#0C0C0C',
     200: '#14141F',
+    300: '#2A2B3A',
+    400: '#010314',
   },
   secondary: {
     success: {
@@ -78,11 +80,12 @@ export const shadows = {
     200: '0px 6px 32px rgba(0, 0, 0, 0.2)',
   },
 };
+
 const styles = {
   // eslint-disable-next-line no-unused-vars
   global: (props: StyleFunctionProps) => ({
     body: {
-      /*  bg: mode('white', 'dark.100'), */
+      bg: mode('white', 'dark.400'),
     },
   }),
 };
@@ -140,6 +143,27 @@ const Button: ComponentStyleConfig = {
         color: 'white',
       },
     },
+    primary_version1: {
+      border: '0.063rem solid',
+      borderColor: 'primary.purple.300',
+      color: 'primary.purple.400',
+      px: 4,
+      cursor: 'pointer',
+      transition: 'all linear .4s',
+      _hover: {
+        bg: 'primary.purple.400',
+        color: 'white',
+      },
+    },
+    dark: (props: StyleFunctionProps) => ({
+      borderRadius: '14px',
+      transition: 'all linear .4s',
+      background: mode('#000', 'dark.300')(props),
+      color: 'white',
+      boxShadow:
+        '0px 2px 4px -2px rgba(0, 0, 0, 0.10), 0px 4px 6px -1px rgba(0, 0, 0, 0.10)',
+    }),
+
     tab: ({ isActive }) => ({
       fontSize: 'medium',
       fontWeight: 'bold',
@@ -186,6 +210,15 @@ const Button: ComponentStyleConfig = {
       left: 0,
       bottom: 0,
     }),
+
+    gradient_1: {
+      borderRadius: '8px',
+      bg: 'linear-gradient(180deg, rgba(243, 238, 255, 0.00) 0%, rgba(243, 238, 255, 0.04) 100%), rgba(76, 56, 203, 0.01)',
+      boxShadow: ' 0px 0px 12px 0px rgba(255, 255, 255, 0.08) inset',
+      _hover: {
+        opacity: 0.7,
+      },
+    },
   },
 };
 const Popover: ComponentStyleConfig = {
@@ -219,6 +252,17 @@ const Input: ComponentStyleConfig = {
         borderRadius: 'lg',
         _placeholder: {
           color: 'primary.gray.400',
+        },
+      },
+    }),
+    search: (props: StyleFunctionProps) => ({
+      field: {
+        color: mode('primary.gray.800', 'white')(props),
+
+        bg: mode('primary.gray.300', 'dark.300')(props),
+        fontWeight: 'bold',
+        _placeholder: {
+          color: 'currentColor',
         },
       },
     }),

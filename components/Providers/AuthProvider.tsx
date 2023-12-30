@@ -100,11 +100,6 @@ const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
         dispatch(setUserLoading(false));
         return;
       }
-      if (!accessToken && address == null && user == null) {
-        await disconnect();
-        router.push('/');
-        return;
-      }
 
       setLoading(false);
     };

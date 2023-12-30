@@ -52,6 +52,7 @@ const AccountSettingTab = () => {
           <TabButton
             sx={{
               variant: { lg: 'tab_profile', base: 'tab' },
+              isDisabled: true,
             }}
             iconStyle={{
               height: { md: 6, base: 5 },
@@ -76,6 +77,7 @@ const AccountSettingTab = () => {
           <TabButton
             sx={{
               variant: { lg: 'tab_profile', base: 'tab' },
+              isDisabled: true,
             }}
             iconStyle={{
               height: { md: 6, base: 5 },
@@ -100,6 +102,7 @@ const AccountSettingTab = () => {
           <TabButton
             sx={{
               variant: { lg: 'tab_profile', base: 'tab' },
+              isDisabled: true,
             }}
             iconStyle={{
               height: { md: 6, base: 5 },

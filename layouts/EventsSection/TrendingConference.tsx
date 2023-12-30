@@ -16,6 +16,9 @@ const TrendingConference = () => {
     variables: {
       page: 1,
       size: 10,
+      orderBy: {
+        StartTime: 'asc',
+      },
       filter: {
         category: ['tech', 'conference'],
       },

@@ -18,7 +18,6 @@ import ConnectWallet from '@/components/ConnectWallet/ConnectWallet';
 import FaucetButton from '@/components/Custom/FaucetButton';
 import LogoText from '@/components/Logo/LogoText';
 import Sidebar from '@/components/Modal/Sidebar';
-import NavMobileSearch from '@/components/Search/NavMobileSearch';
 import NavSearch from '@/components/Search/NavSearch';
 import BtnSwitchColor from '@/components/Switch/BtnSwitchColor';
 import BtnSwitchLanguage from '@/components/Switch/BtnSwitchLanguage';
@@ -99,12 +98,7 @@ const Header = () => {
               <Link href="/">
                 <LogoText />
               </Link>
-              <Box
-                display={{ base: 'none', md: 'flex' }}
-                width={{ lg: '31.25rem', md: '21.875rem' }}
-              >
-                <NavSearch />
-              </Box>
+              <NavSearch />
             </Flex>
             <Flex alignItems="center" gap={{ base: 4, md: 6 }}>
               <Box
@@ -117,9 +111,6 @@ const Header = () => {
                 <BtnSwitchLanguage />
                 <BtnSwitchColor />
                 {address && <FaucetButton />}
-              </Box>
-              <Box display={{ md: 'none', base: 'block' }}>
-                <NavMobileSearch />
               </Box>
               <ConnectWallet />
             </Flex>

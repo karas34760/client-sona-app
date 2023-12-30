@@ -1,12 +1,13 @@
-import { Box } from '@chakra-ui/react';
+import { Box, useColorModeValue } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
-import ActivityTab from './ActivityTab';
 import CreatedEventTab from './CreatedEventTab';
-import DealTab from './DealTab';
 import FavoritedTab from './FavoritedTab';
+import MyTicket from './MyTicket';
+import OnSaleTicket from './OnSaleTicket';
+import WithDrawEvents from './WithDrawEvents';
 
 import ListTabItem from '@/components/Tab/ListTabItem';
 import TabButton from '@/components/Tab/TabButton';
@@ -33,15 +34,30 @@ const AccountProfileTab = () => {
       },
     },
     {
-      key: 'deal',
-      title: t('deal'),
+      key: 'my_tickets',
+      title: t('my_tickets'),
       component: (title, isActive) => {
         return (
           <TabButton
             isActive={isActive}
             title={title}
             params={{
-              tab: 'deal',
+              tab: 'my_tickets',
+            }}
+          />
+        );
+      },
+    },
+    {
+      key: 'my_sale_tickets',
+      title: t('my_sale_tickets'),
+      component: (title, isActive) => {
+        return (
+          <TabButton
+            isActive={isActive}
+            title={title}
+            params={{
+              tab: 'my_sale_tickets',
             }}
           />
         );
@@ -63,29 +79,30 @@ const AccountProfileTab = () => {
       },
     },
     {
-      key: 'activity',
-      title: t('activity'),
+      key: 'withdraw_events',
+      title: t('withdraw_events'),
       component: (title, isActive) => {
         return (
           <TabButton
             isActive={isActive}
             title={title}
             params={{
-              tab: 'activity',
+              tab: 'withdraw_events',
             }}
           />
         );
       },
     },
   ];
+  const bg = useColorModeValue('white', 'transparent');
   return (
     <>
       <ListTabItem
         items={TabItems}
         pt={4}
         position="sticky"
-        top="96px"
-        bg="white"
+        top="90px"
+        bg={bg}
         zIndex="99"
         width="100%"
         activeKey={(queryKey as string) || 'created_event'}
@@ -93,9 +110,10 @@ const AccountProfileTab = () => {
       />
       <Box pt={8}>
         {(queryKey === 'created_event' || !queryKey) && <CreatedEventTab />}
-        {queryKey === 'deal' && <DealTab />}
+        {queryKey === 'my_tickets' && <MyTicket />}
+        {queryKey === 'my_sale_tickets' && <OnSaleTicket />}
         {queryKey === 'favorited' && <FavoritedTab />}
-        {queryKey === 'activity' && <ActivityTab />}
+        {queryKey === 'widthdraw_events' && <WithDrawEvents />}
       </Box>
     </>
   );

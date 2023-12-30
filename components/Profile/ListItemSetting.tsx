@@ -26,7 +26,7 @@ const ListItemSetting = ({ onClose }: IProps) => {
       icon: PaymentIcon,
     },
     {
-      label: 'buy_crypto',
+      label: 'with_draw',
       link: '/buy',
       icon: WalletIcon,
     },

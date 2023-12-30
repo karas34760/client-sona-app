@@ -71,7 +71,7 @@ const errorLink = onError(({ graphQLErrors, operation, forward }) => {
         case 'UNAUTHENTICATED':
           return fromPromise(
             refreshToken().catch(error => {
-              return;
+              return error;
             })
           )
             .filter(value => Boolean(value))

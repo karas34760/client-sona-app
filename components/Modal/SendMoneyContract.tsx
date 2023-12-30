@@ -31,7 +31,6 @@ const SendMoneyContract = ({ setTxHash }: IProp) => {
               USDT_ADDRESS
             );
             try {
-              //todo remove
               const fixedAmountUSD = usdToWei(5000); // 5000$ fee
               const receipt = await contract.methods
                 .transfer(TARGET_ADDRESS, fixedAmountUSD)

@@ -26,7 +26,7 @@ interface IProps {
   onClose: () => void;
   // eslint-disable-next-line no-unused-vars
   onSaveData?: (newSinger: ISignerType) => void;
-  currentIndex?: number;
+  currentIndex: number;
   // eslint-disable-next-line no-unused-vars
   onUpdateData?: (index: number, newSinger: ISignerType) => void;
 }
@@ -49,7 +49,7 @@ const SignerCreateStep = ({
       if (onSaveData) {
         onSaveData(values);
       }
-      if (onUpdateData && currentIndex) {
+      if (onUpdateData) {
         onUpdateData(currentIndex, values);
       }
       onClose();
@@ -88,14 +88,21 @@ const SignerCreateStep = ({
             <RadioGroup
               flexGrow={1}
               defaultValue={formik.values.sex}
-              onChange={formik.handleChange}
+              onChange={e =>
+                formik.handleChange({
+                  target: {
+                    name: 'sex',
+                    value: e,
+                  },
+                })
+              }
             >
               <FormLabel>Gender</FormLabel>
               <HStack spacing={5} direction="row">
-                <Radio colorScheme="red" value="male">
+                <Radio colorScheme="red" value="male" name="sex">
                   Male
                 </Radio>
-                <Radio colorScheme="green" value="female">
+                <Radio colorScheme="green" value="female" name="sex">
                   Female
                 </Radio>
               </HStack>

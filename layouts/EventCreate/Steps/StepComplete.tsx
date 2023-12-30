@@ -99,7 +99,6 @@ const StepComplete = ({
               placeholder="Tx-Hash"
               name="mortageTx"
               value={formik.values.mortageTx}
-              onChange={formik.handleChange}
             />
             {formik.touched.mortageTx && formik.errors.mortageTx && (
               <FormErrorMessage mb={6}>

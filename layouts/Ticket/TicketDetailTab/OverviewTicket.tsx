@@ -1,4 +1,4 @@
-import { Box, Text } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import DOMPurify from 'dompurify';
 import React from 'react';
 interface IProps {
@@ -12,9 +12,6 @@ const OverviewTicket = ({ description }: IProps) => {
   }
   return (
     <>
-      <Text fontWeight="extrabold" fontSize="2xl">
-        Description
-      </Text>
       <Box dangerouslySetInnerHTML={createMarkup(description)}></Box>
     </>
   );

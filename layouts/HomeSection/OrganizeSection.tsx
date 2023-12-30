@@ -5,14 +5,23 @@ import {
   Flex,
   HStack,
   Icon,
+  Modal,
+  ModalCloseButton,
+  ModalContent,
+  ModalOverlay,
   Text,
+  useDisclosure,
 } from '@chakra-ui/react';
+import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import React from 'react';
 
+import { useAuth } from '@/hooks/useAuth';
 import OganizeIcon from 'public/assets/icons/art/organize-art.svg';
 const OrganizeSection = () => {
   const { t } = useTranslation();
+  const { user } = useAuth();
+  const { onOpen, onClose, isOpen } = useDisclosure();
   return (
     <Container maxWidth="container.xl" py={16}>
       <HStack
@@ -31,8 +40,22 @@ const OrganizeSection = () => {
 
           <Text>{t('oganization_content_2')}</Text>
           <HStack>
-            <Button>Create Events</Button>
-            <Button>Contact Us</Button>
+            {user ? (
+              <Link href={'/account/create_events'}>
+                <Button>{t('create_events')}</Button>
+              </Link>
+            ) : (
+              <Button onClick={onOpen}>{t('create_events')}</Button>
+            )}
+            <Modal isOpen={isOpen} onClose={onClose} isCentered>
+              <ModalOverlay />
+              <ModalContent padding={8}>
+                <ModalCloseButton />
+
+                <Text> Please connect your Wallet First</Text>
+              </ModalContent>
+            </Modal>
+            <Button variant="dark">{t('contact_us')}</Button>
           </HStack>
         </Flex>
       </HStack>

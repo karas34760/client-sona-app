@@ -25,6 +25,7 @@ import { create } from 'ipfs-http-client';
 import Link from 'next/link';
 import { useState } from 'react';
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon';
+import { useDispatch } from 'react-redux';
 import { useAccount } from 'wagmi';
 import * as yup from 'yup';
 
@@ -34,11 +35,11 @@ import ProfileImageUpload from '@/components/Upload/ProfileImageUpload';
 import { client } from '@/graphql/httplink';
 import {
   SEARCH_ACCOUNT_BY_ADDRESS,
-  SEARCH_PROFILE,
   SEND_EMAIL_VERIFY,
   UPDATE_PROFILE,
 } from '@/graphql/query';
 import { useAuth } from '@/hooks/useAuth';
+import { setUserLoading } from '@/redux/user/user-slice';
 import CompassIcon from 'public/assets/icons/generals/website.svg';
 
 const SettingProfile = () => {
@@ -50,7 +51,7 @@ const SettingProfile = () => {
       address: user,
     },
   });
-  const { data: dataUser } = useQuery(SEARCH_PROFILE);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [currentEmail, setCurrentEmail] = useState('');
   // Use yubobject to verify
@@ -92,15 +93,16 @@ const SettingProfile = () => {
     social: [],
   };
   const getData = () => {
-    if (!dataUser) {
+    if (!data || !data.searchAccountByAddress.profile) {
       return tempData;
     }
     const {
-      searchAddressProfile: { __typename, address, ...rest },
-    } = dataUser || {};
+      profile: { address, ...rest },
+    } = data.searchAccountByAddress || {};
+
     return rest;
   };
-
+  const dispatch = useDispatch();
   // eslint-disable-next-line no-unused-vars
   const [updateLoading, setUpdateLoading] = useState(false);
   const [updateProfileMutation] = useMutation(UPDATE_PROFILE);
@@ -108,6 +110,7 @@ const SettingProfile = () => {
     initialValues: getData(),
     onSubmit: async values => {
       setUpdateLoading(true);
+      dispatch(setUserLoading(true));
       let bgURL = undefined;
       let avatarURL = undefined;
       if (values.background instanceof File) {
@@ -166,6 +169,7 @@ const SettingProfile = () => {
           },
         },
       });
+      dispatch(setUserLoading(false));
       setUpdateLoading(false);
     },
     enableReinitialize: true,

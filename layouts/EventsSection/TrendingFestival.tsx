@@ -18,6 +18,9 @@ const TrendingFestival = () => {
     variables: {
       page: 1,
       size: 10,
+      orderBy: {
+        StartTime: 'asc',
+      },
       filter: {
         category: ['festival'],
       },

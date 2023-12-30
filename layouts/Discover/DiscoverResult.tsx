@@ -1,170 +1,76 @@
-import { Box, HStack, Text } from '@chakra-ui/react';
+import {
+  Grid,
+  GridItem,
+  HStack,
+  Text,
+  useColorModeValue,
+} from '@chakra-ui/react';
 import Link from 'next/link';
 import React from 'react';
-import {
-  AutoSizer,
-  CellMeasurer,
-  CellMeasurerCache,
-  Grid,
-} from 'react-virtualized';
 
 import CardTicketOne from '@/components/Card/CardTicketOne';
-import 'react-virtualized/styles.css';
+import { convertTimestampToDate } from '@/utils/format/date';
 interface IProps {
   isOpen: boolean;
+  data?: any;
 }
-const DiscoverResult = ({ isOpen }: IProps) => {
-  const Listest = [
-    {
-      name: 'Artic Monkey',
-      oganization: 'Mody Center-3',
-      time: '15 Steptember 30',
-      image_link: '/test/nft/nft_25.jpeg',
-      type_events: ['club', 'communicatiy events'],
-    },
-    {
-      name: 'Artic Monkey',
-      oganization: 'Mody Center-2',
-      time: '15 Steptember 30',
-      image_link: '/test/nft/nft_26.jpeg',
-      type_events: ['festival', 'communicatiy events'],
-    },
-    {
-      name: 'Artic Monkey',
-      oganization: 'Mody Center-1',
-      time: '15 Steptember 30',
-      image_link: '/test/nft/nft_27.jpeg',
-    },
-    {
-      name: 'Escape56 Feat. Paramida (Love On The Rocks / DE), Leland & Anwar',
-      oganization: 'Mody Center',
-      time: '2023.7.20 ~ 10.22',
-      image_link: '/test/nft/nft_28.jpeg',
-      type_events: ['conference '],
-    },
-    {
-      name: 'Artic Monkey',
-      oganization: 'Mody Center--',
-      time: '15 Steptember 30',
-      image_link: '/test/nft/nft_29.jpeg',
-    },
-    {
-      name: 'Artic Monkey',
-      oganization: 'Mody Center==',
-      time: '2023.7.20 ~ 10.22',
-      image_link: '/test/nft/nft_30.jpeg',
-    },
-    {
-      name: 'Artic Monkey',
-      oganization: 'Mody Center-3',
-      time: '15 Steptember 30',
-      image_link: '/test/nft/nft_25.jpeg',
-      type_events: ['club', 'communicatiy events'],
-    },
-    {
-      name: 'Artic Monkey',
-      oganization: 'Mody Center-2',
-      time: '15 Steptember 30',
-      image_link: '/test/nft/nft_26.jpeg',
-      type_events: ['festival', 'communicatiy events'],
-    },
-    {
-      name: 'Artic Monkey',
-      oganization: 'Mody Center-1',
-      time: '15 Steptember 30',
-      image_link: '/test/nft/nft_27.jpeg',
-    },
-    {
-      name: 'Escape56 Feat. Paramida (Love On The Rocks / DE), Leland & Anwar',
-      oganization: 'Mody Center',
-      time: '2023.7.20 ~ 10.22',
-      image_link: '/test/nft/nft_28.jpeg',
-      type_events: ['conference '],
-    },
-    {
-      name: 'Artic Monkey',
-      oganization: 'Mody Center--',
-      time: '15 Steptember 30',
-      image_link: '/test/nft/nft_29.jpeg',
-    },
-    {
-      name: 'Artic Monkey',
-      oganization: 'Mody Center==',
-      time: '2023.7.20 ~ 10.22',
-      image_link: '/test/nft/nft_30.jpeg',
-    },
-  ];
-  const colCount = isOpen ? 3 : 4;
-  const rowCount = Math.ceil(Listest.length / colCount);
-
-  const cellCache = new CellMeasurerCache({
-    defaultHeight: 400, // Default cell height
-    defaultWidth: 300, // Default cell width
-
-    fixedWidth: true,
-    fixedHeight: true,
-  });
-  const cellRenderer = ({ columnIndex, key, rowIndex, style, parent }: any) => {
-    const index = rowIndex * colCount + columnIndex;
-    const item = Listest[index];
-
-    if (!item) {
-      return null;
-    }
-
-    return (
-      <CellMeasurer
-        cache={cellCache}
-        columnIndex={columnIndex}
-        key={key}
-        parent={parent}
-        rowIndex={rowIndex}
+const DiscoverResult = ({ isOpen, data }: IProps) => {
+  const text_color1 = useColorModeValue('"primary.gray.800"', 'white');
+  return (
+    <>
+      <Grid
+        width="full"
+        templateColumns={{
+          lg: isOpen ? 'repeat(3, 1fr)' : 'repeat(4, 1fr)',
+          md: isOpen ? 'repeat(2, 1fr)' : 'repeat(3, 1fr)',
+          base: 'repeat(1, 1fr)',
+        }}
+        gap={6}
       >
-        {({ measure }) => (
-          <div style={{ ...style }}>
-            <Link href="#">
-              <Box margin={4} boxSizing="border-box">
-                <CardTicketOne image_link={item.image_link}>
+        {data &&
+          data.searchEvents.items.map((item: any) => (
+            <GridItem key={item.eventId} width="full">
+              <Link href={`/event/${item.address}`}>
+                <CardTicketOne image_link={item.image}>
+                  {/* <TimeReminder
+                        targetDate={item.TimeForSell}
+                        text="Open in"
+                      /> */}
+
                   <Text
+                    width="200px"
                     fontWeight="bold"
                     whiteSpace="nowrap"
                     overflow="hidden"
                     textOverflow="ellipsis"
-                    onLoad={measure}
+                    color={text_color1}
                   >
                     {item.name}
                   </Text>
-                  <HStack justifyContent="space-between">
-                    <Text fontSize="sm">{item.oganization}</Text>
-                    <Text fontSize="sm" color="primary.gray.500">
-                      {item.time}
-                    </Text>
-                  </HStack>
+
+                  <Text fontSize="sm" color="primary.gray.500">
+                    {convertTimestampToDate(item.StartTime)}
+                  </Text>
+
+                  {item.category && (
+                    <HStack gap={1}>
+                      {item.category.map((item_sub: string, index: number) => (
+                        <>
+                          <Text
+                            variant="type_categories"
+                            key={`up-comming-events-sub${index} $${item.name} ${index}}`}
+                          >
+                            {item_sub}
+                          </Text>
+                        </>
+                      ))}
+                    </HStack>
+                  )}
                 </CardTicketOne>
-              </Box>
-            </Link>
-          </div>
-        )}
-      </CellMeasurer>
-    );
-  };
-  return (
-    <>
-      <AutoSizer>
-        {({ height, width }) => (
-          <Grid
-            columnCount={colCount}
-            height={height}
-            rowCount={rowCount}
-            rowHeight={cellCache.rowHeight}
-            columnWidth={cellCache.columnWidth}
-            width={width}
-            cellRenderer={cellRenderer}
-            style={{ gridGap: '16px', columnGap: '16px' }}
-            /* */ // Hide default scrollbar
-          />
-        )}
-      </AutoSizer>
+              </Link>
+            </GridItem>
+          ))}
+      </Grid>
     </>
   );
 };

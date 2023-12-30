@@ -1,31 +1,26 @@
 import { Flex, HStack, Text } from '@chakra-ui/react';
 import Link from 'next/link';
 import React from 'react';
+export interface TicketBuy {
+  amount: number;
+  asset: string;
+  description: string;
+  name: string;
+  price: number;
+  remaining: number;
+  tier: number;
+}
 interface IProps {
   eventAddress: string;
+  dataTicket: TicketBuy[];
 }
-const TicketInformation = ({ eventAddress }: IProps) => {
-  const ListTicket = [
-    {
-      type: 'Vip Plantium',
-      price: '200$',
-    },
-    {
-      type: 'Vip Gold',
-      price: '160$',
-    },
-
-    {
-      type: 'Cat 1',
-      price: '120$',
-    },
-  ];
+const TicketInformation = ({ eventAddress, dataTicket }: IProps) => {
   return (
     <>
       <Flex flexDirection="column" gap={4} py={6}>
-        {ListTicket.map(item => (
+        {dataTicket.map(item => (
           <>
-            <Link href={`/ticket/${eventAddress}/1`} key={item.type}>
+            <Link href={`/ticket/${eventAddress}/${item.tier}`} key={item.tier}>
               <HStack
                 width="full"
                 padding={6}
@@ -41,8 +36,8 @@ const TicketInformation = ({ eventAddress }: IProps) => {
                   boxShadow: 'shadow.100',
                 }}
               >
-                <Text>{item.type}</Text>
-                <Text>{item.price}</Text>
+                <Text>{item.name}</Text>
+                <Text>${item.price}</Text>
               </HStack>
             </Link>
           </>

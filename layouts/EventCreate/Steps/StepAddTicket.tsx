@@ -47,7 +47,7 @@ const StepAddTicket = ({
     maxBooking: 0,
   };
   const [currentTicket, setCurrentTicket] = useState<ITicketType>(initialValue);
-  const deleteTicket = (index: any) => {
+  const deleteTicket = (index: number) => {
     const updatedList = listTicket.filter((item, i) => i !== index);
     setListTicket(updatedList);
   };
@@ -99,11 +99,10 @@ const StepAddTicket = ({
                 />
               )}
 
-              {isOpenUpdate && (
+              {isOpenUpdate && currentTicket.tier == item.tier && (
                 <EventCreateStep
                   onClose={() => {
                     onCloseUpdate();
-
                     setCurrentTicket(initialValue);
                   }}
                   currentIndex={index}

@@ -51,7 +51,7 @@ const ImageUpload = ({
             cursor="pointer"
             onClick={handleRemove}
           >
-            Remove
+            Remove Image
           </Button>
         </>
       ) : (

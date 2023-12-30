@@ -15,43 +15,54 @@ const ArtistSection = () => {
     {
       image:
         'https://demo.lunartheme.com/stevecadey/wp-content/uploads/2016/07/gallery1-960x615.jpg',
+      alt: 'Tickifi | Artist 1',
     },
     {
       image:
         'https://media.vov.vn/sites/default/files/styles/large/public/2023-06/fzhnvbpagaalfdq.jpg',
+      alt: 'Tickifi | Artist 2',
     },
     {
       image: 'https://yh.io/assets/graphics/artists-block-02.png',
+      alt: 'Tickifi | Artist 3',
     },
     {
       image:
         'https://demo.lunartheme.com/stevecadey/wp-content/uploads/2016/07/gallery1-960x615.jpg',
+      alt: 'Tickifi | Artist 4',
     },
     {
       image:
         'https://demo.lunartheme.com/stevecadey/wp-content/uploads/2016/07/gallery1-960x615.jpg',
+      alt: 'Tickifi | Artist 5',
     },
     {
       image: 'https://yh.io/assets/graphics/artists-block-02.png',
+      alt: 'Tickifi | Artist 6',
     },
     {
       image:
         'https://demo.lunartheme.com/stevecadey/wp-content/uploads/2016/07/gallery1-960x615.jpg',
+      alt: 'Tickifi | Artist 7',
     },
     {
       image:
         'https://demo.lunartheme.com/stevecadey/wp-content/uploads/2016/07/gallery1-960x615.jpg',
+      alt: 'Tickifi | Artist 8',
     },
     {
       image: 'https://yh.io/assets/graphics/artists-block-02.png',
+      alt: 'Tickifi | Artist 9',
     },
     {
       image:
         'https://demo.lunartheme.com/stevecadey/wp-content/uploads/2016/07/gallery1-960x615.jpg',
+      alt: 'Tickifi | Artist 10',
     },
     {
       image:
         'https://demo.lunartheme.com/stevecadey/wp-content/uploads/2016/07/gallery1-960x615.jpg',
+      alt: 'Tickifi | Artist 11',
     },
   ];
   return (
@@ -80,7 +91,7 @@ const ArtistSection = () => {
             <Box height="250px">
               <Image
                 src={item.image}
-                alt={`image ${index}`}
+                alt={item.alt}
                 height="full"
                 width="full"
                 objectFit="cover"

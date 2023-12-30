@@ -1,10 +1,12 @@
 import { useQuery } from '@apollo/client';
 import { Container, HStack, Text, useColorModeValue } from '@chakra-ui/react';
 import Link from 'next/link';
+import { useTranslation } from 'next-i18next';
 import React from 'react';
 import { SwiperSlide } from 'swiper/react';
 
-import LoadingData from '@/animations/Loading/LoadingData';
+import ListEventSkeletons from '../Skeleton/ListEvent';
+
 import CardTicketOne from '@/components/Card/CardTicketOne';
 import Carousel from '@/components/Carousel/Carousel';
 import LinkSecondary from '@/components/Link/LinkSecondary';
@@ -13,23 +15,24 @@ import { SEARCH_EVENTS } from '@/graphql/query';
 import { convertTimestampToDate } from '@/utils/format/date';
 // This event just approved
 const UpcomingEvent = () => {
+  const { t } = useTranslation();
   const { data, loading } = useQuery(SEARCH_EVENTS, {
     variables: {
       page: 1,
       size: 10,
       orderBy: {
-        StartTime: 'desc',
+        TimeForSell: 'asc',
       },
     },
   });
   const text_color1 = useColorModeValue('"primary.gray.800"', 'white');
   if (loading) {
-    return <LoadingData />;
+    return <ListEventSkeletons />;
   }
   return (
     <Container maxWidth="container.xl">
       <HStack justifyContent="space-between">
-        <Text variant="type_sub_title">Upcomming Schedule</Text>
+        <Text variant="type_sub_title">{t('upcomming_schedule')}</Text>
         <LinkSecondary
           link="#"
           label="View All"
@@ -66,12 +69,11 @@ const UpcomingEvent = () => {
                       >
                         {item.name}
                       </Text>
-                      <HStack justifyContent="space-between">
-                        <Text fontSize="sm">{item.oganization}</Text>
-                        <Text fontSize="sm" color="primary.gray.500">
-                          {convertTimestampToDate(item.StartTime)}
-                        </Text>
-                      </HStack>
+
+                      <Text fontSize="sm" color="primary.gray.500">
+                        {convertTimestampToDate(item.StartTime)}
+                      </Text>
+
                       {item.category && (
                         <HStack gap={1}>
                           {item.category.map(

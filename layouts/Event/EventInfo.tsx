@@ -32,8 +32,9 @@ import TimeIcon from 'public/assets/icons/generals/time.svg';
 
 interface IProps {
   data: any; //Event Search Data
+  address: string;
 }
-const EventInfo = ({ data }: IProps) => {
+const EventInfo = ({ data, address }: IProps) => {
   const textColor = useColorModeValue('primary.gray.500', 'primary.purple.500');
   const { t } = useTranslation();
   const router = useRouter();
@@ -109,11 +110,11 @@ const EventInfo = ({ data }: IProps) => {
         <Container maxWidth="container.xl" py={{ lg: 20, base: 4 }}>
           <Flex gap={10} flexWrap="wrap">
             <CalendarImage
-              month={new Date(data.StartTime).toLocaleString('default', {
+              month={new Date(data.startTime).toLocaleString('default', {
                 month: 'long',
               })}
-              date={new Date(data.StartTime).getDate().toString()}
-              day={getDayName(new Date(data.StartTime).getDay())}
+              date={new Date(data.startTime).getDate().toString()}
+              day={getDayName(new Date(data.startTime).getDay())}
             />
             <VStack gap={3} alignItems="flex-start">
               <Text fontSize="1.5rem" fontWeight="extrabold" maxWidth="650px">
@@ -122,8 +123,8 @@ const EventInfo = ({ data }: IProps) => {
               <Flex alignItems="center" width="full" gap={2}>
                 <Icon as={TimeIcon} width={6} height={6} color={textColor} />
                 <Text color={textColor} fontWeight="bold">
-                  {`${formatEventTime(data.StartTime)} - ${formatEventTime(
-                    data.EndTime
+                  {`${formatEventTime(data.startTime)} - ${formatEventTime(
+                    data.endTime
                   )}`}
                 </Text>
               </Flex>
@@ -176,18 +177,28 @@ const EventInfo = ({ data }: IProps) => {
                 {(queryKey === 'about' || !queryKey) && (
                   <AboutEvent description={data.description} />
                 )}
-                {queryKey === 'casting' && <CastingInfo />}
-                {queryKey === 'ticket_info' && (
-                  <TicketInformation eventAddress={data.address} />
+                {queryKey === 'casting' && (
+                  <CastingInfo singers={data.singers} />
                 )}
-                {queryKey === 'oganizer' && <Oganizer />}
+                {queryKey === 'ticket_info' && (
+                  <TicketInformation
+                    eventAddress={address}
+                    dataTicket={data.tickets}
+                  />
+                )}
+                {queryKey === 'oganizer' && (
+                  <Oganizer organizer={data.organizer} />
+                )}
               </Box>
             </Box>
             <EventBooking
-              address={data.address}
+              dataTicket={data.tickets}
+              address={address}
               location={data.location}
-              StartDate={formatEventTime(data.StartTime)}
-              EndDate={formatEventTime(data.EndTime)}
+              TimeForSale={data.timeForSell}
+              DeadlineForSale={data.deadlineForSell}
+              StartDate={data.startTime}
+              EndDate={data.endTime}
             />
           </Grid>
         </Container>

@@ -1,51 +1,16 @@
 import { Box, Grid, Image, Text, VStack } from '@chakra-ui/react';
 import React from 'react';
-
-const CastingInfo = () => {
-  const CastingExample = [
+interface IProps {
+  singers: [
     {
-      id: '1',
-      casting_actor: 'Karas KKK',
-      casting_name: 'Park Young Nam',
-      images: '/test/avatar/avatar_1.jpg',
-    },
-    {
-      id: '2',
-      casting_actor: 'Peter Pan',
-      casting_name: 'Park Young Nam',
-      images: '/test/avatar/avatar_2.jpg',
-    },
-    {
-      id: '3',
-      casting_actor: 'Peter Parker',
-      casting_name: 'Park Young Nam',
-      images: '/test/avatar/avatar_2.jpg',
-    },
-    {
-      id: '4',
-      casting_actor: 'Laconic Ecopan',
-      casting_name: 'Park Young Nam',
-      images: '/test/avatar/avatar_4.jpg',
-    },
-    {
-      id: '5',
-      casting_actor: 'Simura',
-      casting_name: 'Park Young Nam',
-      images: '/test/avatar/avatar_1.jpg',
-    },
-    {
-      id: '6',
-      casting_actor: 'What ....',
-      casting_name: 'Park Young Nam',
-      images: '/test/avatar/avatar_3.jpg',
-    },
-    {
-      id: '3',
-      casting_actor: 'What ....',
-      casting_name: 'Park Young Nam',
-      images: '/test/avatar/avatar_4.jpg',
+      age: number;
+      image: string;
+      name: string;
+      sex: string;
     },
   ];
+}
+const CastingInfo = ({ singers }: IProps) => {
   return (
     <>
       <Box height="700px" color="primary.gray.500" overflow="hidden">
@@ -54,31 +19,39 @@ const CastingInfo = () => {
           circumstances of the actors and production companies.
         </Text>
         <Grid
-          templateColumns={'repeat(5,1fr)'}
+          templateColumns={{
+            lg: 'repeat(5,1fr)',
+            md: 'repeat(4,1fr)',
+            base: 'repeat(2,1fr)',
+          }}
           columnGap={10}
           rowGap={6}
           mt={6}
         >
-          {CastingExample.map(actor => (
+          {singers.map((actor, index) => (
             <>
-              <VStack fontSize="sm" key={actor.id} width="full">
+              <VStack
+                fontSize="sm"
+                key={`${actor.name}- actor-${index}`}
+                width="full"
+              >
                 <Box
                   borderRadius="50%"
                   height="128px"
                   overflow="hidden"
-                  w="full"
+                  w="128px"
                 >
                   <Image
                     alt=""
-                    src={actor.images}
+                    src={actor.image}
                     objectFit="cover"
                     height="full"
                     width="full"
                   />
                 </Box>
 
-                <Text fontWeight="bold">{actor.casting_actor}</Text>
-                <Text>{actor.casting_name}</Text>
+                <Text fontWeight="bold">{actor.name}</Text>
+                <Text>{actor.age}</Text>
               </VStack>
             </>
           ))}

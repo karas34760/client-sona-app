@@ -6,6 +6,7 @@ import {
   VStack,
   Text,
   useToast,
+  ButtonProps,
 } from '@chakra-ui/react';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -17,7 +18,7 @@ import { setUserLoading } from '@/redux/user/user-slice';
 import { usdToWei } from '@/utils/format/money';
 import { CONTRACT_USDT_ABI, USDT_ADDRESS } from '@/utils/utils';
 
-const FaucetButton = () => {
+const FaucetButton = ({ ...rest }: ButtonProps) => {
   const { user } = useAuth();
   const web3 = new Web3(window.ethereum);
   const [isLoading, setIsLoading] = useState(false);
@@ -62,8 +63,8 @@ const FaucetButton = () => {
 
   return (
     <>
-      <Button variant="primary" onClick={handleSend}>
-        Faucet
+      <Button variant="primary" onClick={handleSend} {...rest}>
+        Faucet Money
       </Button>
       <Modal isOpen={isLoading} onClose={() => {}}>
         <ModalOverlay />
