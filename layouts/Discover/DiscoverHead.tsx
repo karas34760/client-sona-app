@@ -9,26 +9,38 @@ import DiscoverResult from './DiscoverResult';
 
 import LoadingData from '@/animations/Loading/LoadingData';
 import { SEARCH_EVENTS } from '@/graphql/query';
-/* interface FilterDataProps {
-  category?: string[];
-  address?: string;
+import { optionEventType } from '@/utils/constants/constants';
+export interface FilterDataProps {
+  category?: optionEventType[];
+  name?: string;
   organizer?: string;
-} */
+}
 const DiscoverHead = () => {
   const { isOpen, onToggle } = useDisclosure({ defaultIsOpen: true });
 
   const [page, setPage] = useState(1);
   const ref = useRef(null);
-  /*  const [filter, setFilter] = useState({
+  const [filter, setFilter] = useState<FilterDataProps>({
     category: [],
     name: '',
     organizer: '',
-  }); */
+  });
+  function updateFields(fields: Partial<FilterDataProps>) {
+    setFilter(prev => {
+      return { ...prev, ...fields };
+    });
+  }
 
-  const { data, loading, fetchMore } = useQuery(SEARCH_EVENTS, {
+  const { data, loading, fetchMore, refetch } = useQuery(SEARCH_EVENTS, {
     variables: {
       page: 1,
       size: 10,
+      filter: {
+        name: filter.name?.length ? filter.name : undefined,
+        category: filter.category?.length
+          ? filter.category.map((item: optionEventType) => item.value)
+          : undefined,
+      },
       orderBy: {
         StartTime: 'asc',
       },
@@ -41,6 +53,10 @@ const DiscoverHead = () => {
         variables: {
           page: page + 1,
           size: 10,
+          filter: {
+            name: filter.name?.length ? filter.name : undefined,
+            category: filter.category?.length ? filter.category : undefined,
+          },
           orderBy: {
             StartTime: 'asc',
           },
@@ -60,6 +76,9 @@ const DiscoverHead = () => {
       };
     }
   }, data);
+  useEffect(() => {
+    refetch();
+  }, [filter]);
 
   return (
     <>
@@ -93,7 +112,7 @@ const DiscoverHead = () => {
               borderRadius="xl"
             >
               <Flex flexDir="column" gap={6}>
-                <CategoryTypeFilter />
+                <CategoryTypeFilter updateFields={updateFields} />
                 <Button width="full" bg="black" color="white">
                   Apply
                 </Button>

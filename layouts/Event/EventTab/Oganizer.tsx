@@ -46,13 +46,15 @@ const Oganizer = ({ organizer }: IProps) => {
             <Box>
               <Flex alignItems="center" gap={2}>
                 <Text color={colorText} fontSize="xl" fontWeight="bold">
-                  {data.searchAccountByAddress.profile.name || 'No Name'}
+                  {data.searchAccountByAddress.profile.username || 'No Name'}
                 </Text>
-                {data.searchAccountByAddress.profile.verifiedAt && (
-                  <VerifySymbol />
-                )}
+                {data.searchAccountByAddress.verifiedAt && <VerifySymbol />}
               </Flex>
-              <Text textOverflow="clip" mt={2} noOfLines={3}></Text>
+              {data.searchAccountByAddress.profile.bio && (
+                <Text textOverflow="clip" mt={2} noOfLines={3}>
+                  {data.searchAccountByAddress.profile.bio}
+                </Text>
+              )}
             </Box>
           </HStack>
         )}
