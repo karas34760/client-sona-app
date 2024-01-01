@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Flex,
   HStack,
   Icon,
@@ -27,8 +28,22 @@ const StepFollow = ({ activeStep, steps }: StepValidateProps) => {
         {steps.map(item => {
           if (!item.children) {
             return (
-              <Step key={item.id}>
+              <Step
+                key={item.id}
+                onClick={() => {
+                  if (!item.isDisable) {
+                    item.onActive();
+                  }
+                }}
+              >
                 <HStack
+                  as={Button}
+                  variant="unstyled"
+                  isDisabled={item.isDisable}
+                  cursor="pointer"
+                  _hover={{
+                    opacity: activeStep == item.id ? 1 : 0.6,
+                  }}
                   color={
                     activeStep == item.id
                       ? 'primary.purple.500'
@@ -57,7 +72,14 @@ const StepFollow = ({ activeStep, steps }: StepValidateProps) => {
                   <Flex flexDirection="column" minH="250px" pl={6}>
                     {React.Children.toArray(
                       item.children.map((child: any) => (
-                        <Step key={child.id_child}>
+                        <Step
+                          key={child.id_child}
+                          onClick={() => {
+                            if (!child.isDisable) {
+                              child.onActive();
+                            }
+                          }}
+                        >
                           <StepIndicator>
                             <StepStatus
                               complete={
@@ -70,7 +92,16 @@ const StepFollow = ({ activeStep, steps }: StepValidateProps) => {
                             />
                           </StepIndicator>
 
-                          <Box flexShrink="0">
+                          <Box
+                            as={Button}
+                            variant="unstyled"
+                            isDisabled={child.isDisable}
+                            flexShrink="0"
+                            cursor="pointer"
+                            _hover={{
+                              opacity: child.id_child == activeStep ? 1 : 0.6,
+                            }}
+                          >
                             <StepTitle>{child.title}</StepTitle>
                           </Box>
                           <StepSeparator />

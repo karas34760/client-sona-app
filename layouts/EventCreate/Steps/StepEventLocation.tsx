@@ -12,7 +12,7 @@ import {
   FormErrorMessage,
 } from '@chakra-ui/react';
 import { useFormik } from 'formik';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 export interface ILocationData {
   location: string | undefined;
@@ -44,6 +44,9 @@ const StepEventLocation = ({
     }),
     validateOnChange: true,
   });
+  useEffect(() => {
+    updateFields({ location: formik.values.location });
+  }, [formik.values.location]);
   return (
     <>
       <form onSubmit={formik.handleSubmit}>

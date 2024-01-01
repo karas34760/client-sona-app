@@ -16,7 +16,7 @@ const ListNavHeader = () => {
       link: '/events',
     },
     {
-      label: t('discover'),
+      label: 'Discover ',
       link: '/discover',
     },
     {

@@ -44,6 +44,8 @@ interface StepProps {
   id?: number;
   element?: any;
   children?: any;
+  onActive?: any; // onActive Element Action
+  isDisable?: any; // Disable for active button
 }
 interface IForm {
   organizer: string; // organizer  address
@@ -274,6 +276,9 @@ const EventCreatePage = () => {
     {
       title: 'Oganize Details',
       icon: AddIcon,
+      onActive: () => {
+        setActiveStep(0);
+      },
       id: 0,
       element: (
         <StepOrganize
@@ -290,6 +295,17 @@ const EventCreatePage = () => {
         {
           title: 'Basic',
           id_child: 1,
+          isDisable:
+            form.name.length ||
+            form.StartTime ||
+            form.EndTime ||
+            form.DeadlineForSell ||
+            form.TimeForSell
+              ? false
+              : true,
+          onActive: () => {
+            setActiveStep(1);
+          },
           element: (
             <StepEventBasic
               event_data={{
@@ -309,6 +325,10 @@ const EventCreatePage = () => {
         {
           title: 'Location',
           id_child: 2,
+          isDisable: form.location ? false : true,
+          onActive: () => {
+            setActiveStep(2);
+          },
           element: (
             <StepEventLocation
               location_data={{ location: form.location }}
@@ -321,6 +341,10 @@ const EventCreatePage = () => {
         {
           title: 'Description',
           id_child: 3,
+          isDisable: form.description ? false : true,
+          onActive: () => {
+            setActiveStep(3);
+          },
           element: (
             <StepEventDescription
               goToPrevious={goToPrevious}
@@ -333,6 +357,10 @@ const EventCreatePage = () => {
         {
           title: 'Photos',
           id_child: 4,
+          isDisable: form.image ? false : true,
+          onActive: () => {
+            setActiveStep(4);
+          },
           element: (
             <StepEventPhoto
               image={form.image}
@@ -348,6 +376,10 @@ const EventCreatePage = () => {
       title: 'Ticket Details',
       icon: TicketIcon,
       id: 5,
+      isDisable: form.tickets.length ? false : true,
+      onActive: () => {
+        setActiveStep(5);
+      },
       element: (
         <StepAddTicket
           goToNext={goToNext}
@@ -361,6 +393,10 @@ const EventCreatePage = () => {
       title: 'Singers',
       icon: PerfomanceIcon,
       id: 6,
+      isDisable: form.singers.length ? false : true,
+      onActive: () => {
+        setActiveStep(6);
+      },
       element: (
         <StepSingerCreate
           singers={form.singers}
@@ -374,6 +410,10 @@ const EventCreatePage = () => {
       title: 'Complete Create',
       icon: CompleteIcon,
       id: 7,
+      isDisable: form.mortageTx.length || form.license.length ? false : true,
+      onActive: () => {
+        setActiveStep(7);
+      },
       element: (
         <StepComplete
           mortageTx={form.mortageTx}

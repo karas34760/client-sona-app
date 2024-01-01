@@ -21,7 +21,7 @@ const UpcomingEvent = () => {
       page: 1,
       size: 10,
       orderBy: {
-        TimeForSell: 'asc',
+        TimeForSell: 'desc',
       },
     },
   });

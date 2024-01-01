@@ -2,7 +2,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import React from 'react';
 
 import SEOHead from '@/components/SEO/SEOHead';
-import GuidePage from '@/layouts/Guide';
+import FaqPage from '@/layouts/Faq';
 
 // FAQ Page common frequently question
 export async function getStaticProps({ locale }: { locale: string }) {
@@ -20,7 +20,7 @@ const FAQ = () => {
         description="Tickifi | Guide Using Events "
         title="Tickifi | Guide How To Use and Improve Performance to create events in blockchains "
       />
-      <GuidePage />
+      <FaqPage />
     </>
   );
 };

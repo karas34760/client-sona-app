@@ -337,9 +337,12 @@ const SettingProfile = () => {
           </Box>
           <Flex pt={10} flexDirection="column" gap={6}>
             <FormControl gap={2}>
-              <FormLabel fontWeight="bold">Display name</FormLabel>
+              <FormLabel fontWeight="bold">
+                Display name(max: 20 characters)
+              </FormLabel>
               <Input
                 placeholder=""
+                maxLength={20}
                 variant="settingProfile"
                 value={formik.values.username}
                 onChange={formik.handleChange}

@@ -20,7 +20,6 @@ import LogoText from '@/components/Logo/LogoText';
 import Sidebar from '@/components/Modal/Sidebar';
 import NavSearch from '@/components/Search/NavSearch';
 import BtnSwitchColor from '@/components/Switch/BtnSwitchColor';
-import BtnSwitchLanguage from '@/components/Switch/BtnSwitchLanguage';
 import { breakpoints, colors } from '@/themes/theme';
 import { convertHex, debounce, throttle } from '@/utils/utils';
 import CloseIcon from 'public/assets/icons/arrow/close.svg';
@@ -108,7 +107,7 @@ const Header = () => {
                 alignItems="center"
               >
                 <ListNavHeader />
-                <BtnSwitchLanguage />
+                {/*  <BtnSwitchLanguage /> */}
                 <BtnSwitchColor />
                 {address && <FaucetButton />}
               </Box>

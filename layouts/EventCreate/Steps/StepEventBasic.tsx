@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { Select } from 'chakra-react-select';
 import { useFormik } from 'formik';
-import React from 'react';
+import React, { useEffect } from 'react';
 import * as Yup from 'yup';
 
 import { categoryEvent, optionEventType } from '@/utils/constants/constants';
@@ -109,7 +109,16 @@ const StepEventBasic = ({
         ),
     }),
   });
-
+  useEffect(() => {
+    updateFields({
+      name: formik.values.name,
+      StartTime: formik.values.StartTime,
+      EndTime: formik.values.EndTime,
+      DeadlineForSell: formik.values.DeadlineForSell,
+      TimeForSell: formik.values.TimeForSell,
+      category: formik.values.category,
+    });
+  }, [formik.values]);
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
