@@ -9,16 +9,22 @@ import DiscoverResult from './DiscoverResult';
 
 import LoadingData from '@/animations/Loading/LoadingData';
 import { SEARCH_EVENTS } from '@/graphql/query';
-
+/* interface FilterDataProps {
+  category?: string[];
+  address?: string;
+  organizer?: string;
+} */
 const DiscoverHead = () => {
   const { isOpen, onToggle } = useDisclosure({ defaultIsOpen: true });
 
   const [page, setPage] = useState(1);
   const ref = useRef(null);
-  /*   const [filter, setFilter] = useState({
+  /*  const [filter, setFilter] = useState({
     category: [],
-    sort: '',
+    name: '',
+    organizer: '',
   }); */
+
   const { data, loading, fetchMore } = useQuery(SEARCH_EVENTS, {
     variables: {
       page: 1,

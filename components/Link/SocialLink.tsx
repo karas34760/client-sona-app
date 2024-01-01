@@ -10,12 +10,12 @@ import TwitterIcon from 'public/assets/icons/socials/twitter.svg';
 const LinkSocials = [
   {
     key: 'twitter',
-    link: 'https://twitter.com/Karas_2k',
+    link: 'https://twitter.com/Karas34760',
     icon: TwitterIcon,
   },
   {
     key: 'facebook',
-    link: '#',
+    link: 'https://www.facebook.com/profile.php?id=100019553707449',
     icon: FacebookIcon,
   },
   {
@@ -25,12 +25,12 @@ const LinkSocials = [
   },
   {
     key: 'github',
-    link: 'https://github.com/Kafierence',
+    link: 'https://github.com/battery34760',
     icon: GithubIcon,
   },
   {
     key: 'website',
-    link: '#',
+    link: 'http://karasdev.com/',
     icon: WebsiteIcon,
   },
 ];
