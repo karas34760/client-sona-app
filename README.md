@@ -8,6 +8,8 @@
 yarn
 ```
 
+#
+
 2. Add file .env
 
 ```bash
