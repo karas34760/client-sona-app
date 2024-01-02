@@ -9,7 +9,6 @@ import ListEventSkeletons from '../Skeleton/ListEvent';
 
 import CardTicketOne from '@/components/Card/CardTicketOne';
 import Carousel from '@/components/Carousel/Carousel';
-import LinkSecondary from '@/components/Link/LinkSecondary';
 import TimeReminder from '@/components/Time/TimeReminder';
 import { SEARCH_EVENTS } from '@/graphql/query';
 import { convertTimestampToDate } from '@/utils/format/date';
@@ -33,14 +32,14 @@ const UpcomingEvent = () => {
     <Container maxWidth="container.xl">
       <HStack justifyContent="space-between">
         <Text variant="type_sub_title">{t('upcomming_schedule')}</Text>
-        <LinkSecondary
-          link="#"
+        {/*        <LinkSecondary
+          link="/discover"
           label="View All"
           sx={{
             fontWeight: 'bold',
             color: 'primary.purple.300',
           }}
-        />
+        /> */}
       </HStack>
       <Carousel>
         {data &&

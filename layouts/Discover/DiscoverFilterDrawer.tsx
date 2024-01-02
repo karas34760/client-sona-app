@@ -10,8 +10,12 @@ import React from 'react';
 
 import CategoryTypeFilter from './components/CategoryTypeFilter';
 import DiscoverFilterButton from './components/DiscoverFilterButton';
-
-const DiscoverFilterDrawer = () => {
+import { FilterDataProps } from './DiscoverHead';
+interface IProps {
+  // eslint-disable-next-line no-unused-vars
+  updateFields: (fields: Partial<FilterDataProps>) => void;
+}
+const DiscoverFilterDrawer = ({ updateFields }: IProps) => {
   const { isOpen, onToggle, onClose } = useDisclosure();
   return (
     <>
@@ -35,7 +39,7 @@ const DiscoverFilterDrawer = () => {
           <Text textAlign="center" fontSize="lg" fontWeight="bold">
             Discover Events
           </Text>
-          <CategoryTypeFilter />
+          <CategoryTypeFilter updateFields={updateFields} />
           <Button variant="draw_close" onClick={onClose} borderRadius="none">
             Close
           </Button>

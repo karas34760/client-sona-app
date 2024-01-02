@@ -78,13 +78,21 @@ const StepComplete = ({
           to more clear.
         </Text>
         <Text fontWeight="bold">Basic Price: 5000$</Text>
-        <SendMoneyContract
-          setTxHash={content =>
-            formik.handleChange({
-              target: { name: 'mortageTx', value: content },
-            })
-          }
-        />
+        {mortageTx.length ? (
+          <>
+            <Text fontSize="lg" color="primary.purple.500">
+              You pay success!
+            </Text>
+          </>
+        ) : (
+          <SendMoneyContract
+            setTxHash={content =>
+              formik.handleChange({
+                target: { name: 'mortageTx', value: content },
+              })
+            }
+          />
+        )}
       </Box>
 
       <form onSubmit={formik.handleSubmit}>

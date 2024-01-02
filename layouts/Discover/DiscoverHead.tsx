@@ -83,7 +83,7 @@ const DiscoverHead = () => {
   return (
     <>
       <HStack gap={4}>
-        <DiscoverFilterDrawer />
+        <DiscoverFilterDrawer updateFields={updateFields} />
         <DiscoverFilterButton
           isOpen={isOpen}
           onToggle={onToggle}
