@@ -30,6 +30,7 @@ const HeroSection = () => {
         <Carousel
           options={{
             slidesPerView: 1,
+
             breakpoints: {
               360: {
                 slidesPerView: 1,
@@ -49,65 +50,66 @@ const HeroSection = () => {
           }}
         >
           {data &&
-            data.searchEvents.items.map((item: any, index: number) => {
-              return (
-                <SwiperSlide key={`${item.eventId}-${index}-hero`}>
-                  <Box
-                    height={{ md: '500px', base: '300px' }}
-                    position="relative"
-                    overflow="hidden"
-                    borderRadius="lg"
-                  >
+            data.searchEvents.items.map(
+              (item: any, index: number) =>
+                !item.isLocked && (
+                  <SwiperSlide key={`${item.eventId}-${index}-hero`}>
                     <Box
+                      height={{ md: '500px', base: '300px' }}
                       position="relative"
                       overflow="hidden"
-                      width="full"
-                      height="full"
+                      borderRadius="lg"
                     >
                       <Box
-                        position="absolute"
-                        height="full"
-                        width="full"
+                        position="relative"
                         overflow="hidden"
+                        width="full"
+                        height="full"
                       >
-                        <Image
-                          src={item.image}
-                          minWidth="full"
-                          minH="full"
-                          objectFit="cover"
-                          alt=""
-                        />
+                        <Box
+                          position="absolute"
+                          height="full"
+                          width="full"
+                          overflow="hidden"
+                        >
+                          <Image
+                            src={item.image}
+                            minWidth="full"
+                            minH="full"
+                            objectFit="cover"
+                            alt=""
+                          />
+                        </Box>
+                      </Box>
+                      <Box position="absolute" bottom="5%" width="full">
+                        <HStack px="24px" justifyContent="space-between">
+                          <Box>
+                            <AvatarTypeOne link={item.image} />
+                            <Text
+                              color="white"
+                              fontSize={{ md: '24px', base: '18px' }}
+                              fontWeight="bold"
+                            >
+                              {item.name}
+                            </Text>
+
+                            <Text
+                              color="white"
+                              fontWeight="bold"
+                              fontSize={{ md: 'md', base: 'sm' }}
+                            >
+                              Total {item.tickets.length} kind of tickets
+                            </Text>
+                          </Box>
+                          <Box>
+                            <Button>{t('view_event')}</Button>
+                          </Box>
+                        </HStack>
                       </Box>
                     </Box>
-                    <Box position="absolute" bottom="5%" width="full">
-                      <HStack px="24px" justifyContent="space-between">
-                        <Box>
-                          <AvatarTypeOne link={item.image} />
-                          <Text
-                            color="white"
-                            fontSize={{ md: '24px', base: '18px' }}
-                            fontWeight="bold"
-                          >
-                            {item.name}
-                          </Text>
-
-                          <Text
-                            color="white"
-                            fontWeight="bold"
-                            fontSize={{ md: 'md', base: 'sm' }}
-                          >
-                            Total {item.tickets.length} kind of tickets
-                          </Text>
-                        </Box>
-                        <Box>
-                          <Button>{t('view_event')}</Button>
-                        </Box>
-                      </HStack>
-                    </Box>
-                  </Box>
-                </SwiperSlide>
-              );
-            })}
+                  </SwiperSlide>
+                )
+            )}
         </Carousel>
       </Container>
     </Box>

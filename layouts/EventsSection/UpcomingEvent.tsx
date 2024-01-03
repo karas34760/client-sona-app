@@ -45,7 +45,7 @@ const UpcomingEvent = () => {
         {data &&
           data.searchEvents.items.map((item: any, index: number) => (
             <>
-              {new Date(item.TimeForSell) > new Date() && (
+              {new Date(item.TimeForSell) > new Date() && !item.isLocked && (
                 <SwiperSlide
                   key={`up-comming-${item.eventId} ${index}`}
                   style={{

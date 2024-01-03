@@ -9,7 +9,7 @@ import EyeIcon from 'public/assets/icons/generals/eye.svg';
 import HelpIcon from 'public/assets/icons/generals/info.svg';
 import PaymentIcon from 'public/assets/icons/generals/payment.svg';
 import SettingIcon from 'public/assets/icons/generals/setting.svg';
-import WalletIcon from 'public/assets/icons/generals/wallet.svg';
+
 interface IProps {
   onClose: () => void;
 }
@@ -24,11 +24,6 @@ const ListItemSetting = ({ onClose }: IProps) => {
       label: 'buy_and_sell_tickets',
       link: '/tickets',
       icon: PaymentIcon,
-    },
-    {
-      label: 'with_draw',
-      link: '/buy',
-      icon: WalletIcon,
     },
   ];
   const List2: LinkContent[] = [

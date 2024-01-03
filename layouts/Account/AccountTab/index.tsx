@@ -6,7 +6,6 @@ import React from 'react';
 import CreatedEventTab from './CreatedEventTab';
 import MyTicket from './MyTicket';
 import OnSaleTicket from './OnSaleTicket';
-import WithDrawOwner from './WithDrawOwner';
 
 import ListTabItem from '@/components/Tab/ListTabItem';
 import TabButton from '@/components/Tab/TabButton';
@@ -62,22 +61,6 @@ const AccountProfileTab = () => {
         );
       },
     },
-
-    {
-      key: 'withdraw_events',
-      title: t('withdraw_events'),
-      component: (title, isActive) => {
-        return (
-          <TabButton
-            isActive={isActive}
-            title={title}
-            params={{
-              tab: 'withdraw_events',
-            }}
-          />
-        );
-      },
-    },
   ];
   const bg = useColorModeValue('white', 'transparent');
   return (
@@ -97,8 +80,6 @@ const AccountProfileTab = () => {
         {(queryKey === 'created_event' || !queryKey) && <CreatedEventTab />}
         {queryKey === 'my_tickets' && <MyTicket />}
         {queryKey === 'my_sale_tickets' && <OnSaleTicket />}
-
-        {queryKey === 'withdraw_events' && <WithDrawOwner />}
       </Box>
     </>
   );

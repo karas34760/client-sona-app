@@ -20,6 +20,7 @@ import {
 } from '@/graphql/query';
 import { useAuth } from '@/hooks/useAuth';
 import { convertTimestampToDate } from '@/utils/format/date';
+import RejectedIcon from 'public/assets/icons/generals/rejected.svg';
 import PendingIcon from 'public/assets/icons/generals/track-of-time.svg';
 const CreatedEventTab = () => {
   const { user, isLoading } = useAuth();
@@ -169,12 +170,23 @@ const CreatedEventTab = () => {
                   </Tooltip>
                   <HStack justifyContent="space-between">
                     <Text>Status:</Text>
-                    <HStack color="blue">
-                      <Text fontSize="sm" fontWeight="bold">
-                        Waitting Approve
-                      </Text>
-                      <Icon as={PendingIcon} />
-                    </HStack>
+                    {item.isRejected ? (
+                      <>
+                        <HStack color="red">
+                          <Text fontSize="sm" fontWeight="bold">
+                            Rejected
+                          </Text>
+                          <Icon as={RejectedIcon} />
+                        </HStack>
+                      </>
+                    ) : (
+                      <HStack color="blue">
+                        <Text fontSize="sm" fontWeight="bold">
+                          Waitting Approve
+                        </Text>
+                        <Icon as={PendingIcon} />
+                      </HStack>
+                    )}
                   </HStack>
                   <Text fontSize="sm" color="primary.gray.500">
                     {`  Start:

@@ -377,6 +377,7 @@ export const SEARCH_EVENTS_NOT_APPROVE_BY_USER = gql`
         mortageTx
         createdTx
         isLocked
+        isRejected
       }
     }
   }
