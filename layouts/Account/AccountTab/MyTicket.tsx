@@ -1,5 +1,13 @@
 import { useQuery } from '@apollo/client';
-import { Button, Grid, GridItem, HStack, Icon, Text } from '@chakra-ui/react';
+import {
+  Badge,
+  Button,
+  Grid,
+  GridItem,
+  HStack,
+  Icon,
+  Text,
+} from '@chakra-ui/react';
 import Link from 'next/link';
 import React from 'react';
 
@@ -48,19 +56,24 @@ const MyTicket = () => {
                   <Text>Pricing List : {item.price}</Text>
                   <Text>Amount: {item.amount}</Text>
                 </HStack>
-                <HStack justifyContent="space-between">
-                  <OnSaleMyTicket
-                    tier={item.tier}
-                    amount={item.amount}
-                    eventAddress={item.eventAddress}
-                    asset={item.asset}
-                    priceListing={item.price}
-                  />
-                  <RefundTicketMoney
-                    tier={item.tier}
-                    amount={item.amount}
-                    eventAddress={item.eventAddress}
-                  />
+                <HStack justifyContent="space-between" flexWrap="wrap">
+                  {!item.isExpired && (
+                    <OnSaleMyTicket
+                      tier={item.tier}
+                      amount={item.amount}
+                      eventAddress={item.eventAddress}
+                      asset={item.asset}
+                      priceListing={item.price}
+                    />
+                  )}
+                  {!item.isExpired && (
+                    <RefundTicketMoney
+                      tier={item.tier}
+                      amount={item.amount}
+                      eventAddress={item.eventAddress}
+                    />
+                  )}
+
                   <Link href={`/ticket/${item.eventAddress}/${item.tier}`}>
                     <Button
                       variant="primary"
@@ -69,6 +82,9 @@ const MyTicket = () => {
                       View
                     </Button>
                   </Link>
+                  {item.isExpired && (
+                    <Badge colorScheme="red">Event Expired</Badge>
+                  )}
                 </HStack>
               </CardTicketOne>
             </GridItem>

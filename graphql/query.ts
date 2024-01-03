@@ -458,6 +458,7 @@ export const SEARCH_TICKET_OF_USER = gql`
         description
         asset
         uri
+        isExpired
       }
     }
   }

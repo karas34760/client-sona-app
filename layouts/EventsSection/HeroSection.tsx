@@ -17,7 +17,7 @@ const HeroSection = () => {
       page: 1,
       size: 10,
       orderBy: {
-        DeadlineForSell: 'asc',
+        DeadlineForSell: 'desc',
       },
     },
   });

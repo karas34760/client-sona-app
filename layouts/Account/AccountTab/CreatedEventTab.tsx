@@ -1,5 +1,13 @@
 import { useQuery } from '@apollo/client';
-import { Grid, GridItem, HStack, Icon, Text, Tooltip } from '@chakra-ui/react';
+import {
+  Badge,
+  Grid,
+  GridItem,
+  HStack,
+  Icon,
+  Text,
+  Tooltip,
+} from '@chakra-ui/react';
 import Link from 'next/link';
 import React, { useEffect } from 'react';
 
@@ -94,15 +102,19 @@ const CreatedEventTab = () => {
                     </Text>
                   </Tooltip>
                   <HStack justifyContent="space-between">
-                    <Text fontSize="sm" color="primary.gray.500">
+                    <Text
+                      fontSize="sm"
+                      color="primary.gray.500"
+                      fontWeight="bold"
+                    >
                       Status:
                     </Text>
-                    {new Date(item.EndTime) > new Date() ? (
+                    {new Date(item.DeadlineForSell) > new Date() ? (
                       <>
-                        <Text>Active</Text>
+                        <Badge colorScheme="green">Active</Badge>
                       </>
                     ) : (
-                      <Text>Expired</Text>
+                      <Badge colorScheme="red">Expired sale</Badge>
                     )}
                   </HStack>
                   <Text fontSize="sm" color="primary.gray.500">
