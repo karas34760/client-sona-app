@@ -4,10 +4,9 @@ import { useTranslation } from 'next-i18next';
 import React from 'react';
 
 import CreatedEventTab from './CreatedEventTab';
-import FavoritedTab from './FavoritedTab';
 import MyTicket from './MyTicket';
 import OnSaleTicket from './OnSaleTicket';
-import WithDrawEvents from './WithDrawEvents';
+import WithDrawOwner from './WithDrawOwner';
 
 import ListTabItem from '@/components/Tab/ListTabItem';
 import TabButton from '@/components/Tab/TabButton';
@@ -63,21 +62,7 @@ const AccountProfileTab = () => {
         );
       },
     },
-    {
-      key: 'favorited',
-      title: t('favorited'),
-      component: (title, isActive) => {
-        return (
-          <TabButton
-            isActive={isActive}
-            title={title}
-            params={{
-              tab: 'favorited',
-            }}
-          />
-        );
-      },
-    },
+
     {
       key: 'withdraw_events',
       title: t('withdraw_events'),
@@ -112,8 +97,8 @@ const AccountProfileTab = () => {
         {(queryKey === 'created_event' || !queryKey) && <CreatedEventTab />}
         {queryKey === 'my_tickets' && <MyTicket />}
         {queryKey === 'my_sale_tickets' && <OnSaleTicket />}
-        {queryKey === 'favorited' && <FavoritedTab />}
-        {queryKey === 'widthdraw_events' && <WithDrawEvents />}
+
+        {queryKey === 'withdraw_events' && <WithDrawOwner />}
       </Box>
     </>
   );

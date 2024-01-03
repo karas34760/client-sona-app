@@ -489,3 +489,38 @@ export const SEARCH_LISTING_TICKET_MESSAGE = gql`
     }
   }
 `;
+
+export const SEARCH_AVAILABLE_WRAP_USD = gql`
+  query Query {
+    searchAvailableWrapUSD
+  }
+`;
+export const UPDATE_FAVORITE_EVENTS = gql`
+  mutation UpdateFavoriteEvent(
+    $eventAddress: String!
+    $status: FavoriteStatusType!
+  ) {
+    updateFavoriteEvent(eventAddress: $eventAddress, status: $status)
+  }
+`;
+export const SEARCH_FAVORITE_EVENTS = gql`
+  query SearchFavoritedEvents(
+    $page: Int
+    $size: Int
+    $filter: FavoriteEventFilterType
+  ) {
+    searchFavoritedEvents(page: $page, size: $size, filter: $filter) {
+      currentPage
+      hasNext
+      hasPrevious
+      pages
+      size
+      total
+      items {
+        eventAddress
+        userAddress
+        timestamp
+      }
+    }
+  }
+`;

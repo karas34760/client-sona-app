@@ -9,7 +9,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import Link from 'next/link';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import LoadingData from '@/animations/Loading/LoadingData';
 import CardTicketOne from '@/components/Card/CardTicketOne';
@@ -17,18 +17,26 @@ import EmptyData from '@/components/EmptyData';
 import OnSaleMyTicket from '@/components/Modal/OnSaleMyTicket';
 import RefundTicketMoney from '@/components/Modal/RefundTicketMoney';
 import { SEARCH_TICKET_OF_USER } from '@/graphql/query';
+import { useAuth } from '@/hooks/useAuth';
 import EyeIcon from 'public/assets/icons/generals/eye.svg';
 
 const MyTicket = () => {
-  const { data, loading } = useQuery(SEARCH_TICKET_OF_USER, {
+  const { data, loading, refetch } = useQuery(SEARCH_TICKET_OF_USER, {
     variables: {
       page: 1,
       size: 10,
     },
   });
+  const { isLoading } = useAuth();
+  useEffect(() => {
+    if (!isLoading) {
+      refetch();
+    }
+  }, [isLoading]);
   if (loading) {
     return <LoadingData />;
   }
+
   return (
     <>
       {data.searchTicketsOfUser.items.length ? (
@@ -73,15 +81,16 @@ const MyTicket = () => {
                       eventAddress={item.eventAddress}
                     />
                   )}
-
-                  <Link href={`/ticket/${item.eventAddress}/${item.tier}`}>
-                    <Button
-                      variant="primary"
-                      leftIcon={<Icon as={EyeIcon} height={5} width={5} />}
-                    >
-                      View
-                    </Button>
-                  </Link>
+                  {!item.isExpired && (
+                    <Link href={`/event/${item.eventAddress}`}>
+                      <Button
+                        variant="primary"
+                        leftIcon={<Icon as={EyeIcon} height={5} width={5} />}
+                      >
+                        View
+                      </Button>
+                    </Link>
+                  )}
                   {item.isExpired && (
                     <Badge colorScheme="red">Event Expired</Badge>
                   )}

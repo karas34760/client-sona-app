@@ -9,6 +9,7 @@ import {
   Heading,
   Text,
 } from '@chakra-ui/react';
+import Link from 'next/link';
 import React from 'react';
 
 import LoadingData from '@/animations/Loading/LoadingData';
@@ -96,7 +97,9 @@ const MarketPlacePage = ({ data, address }: IProps) => {
                       startTime={item.startTime}
                       deadline={item.deadline}
                     />
-                    <Button>View Events</Button>
+                    <Link href={`/event/${item.eventAddress}`}>
+                      <Button>View Events</Button>
+                    </Link>
                   </HStack>
                 </CardTicketOne>
               </GridItem>

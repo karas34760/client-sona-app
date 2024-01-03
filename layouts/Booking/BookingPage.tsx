@@ -108,9 +108,16 @@ const BookingPage = ({ data, eventAddress }: IProps) => {
             >
               {data.tickets.map((item: TicketMetaResult) => (
                 <>
-                  <Text fontWeight="bold">{item.name}</Text>
-                  <Text>${item.price}</Text>
-                  <Text>{item.remaining}</Text>
+                  <Center justifyContent="flex-start">
+                    <Text fontWeight="bold">{item.name}</Text>
+                  </Center>
+                  <Center justifyContent="flex-start">
+                    <Text>${item.price}</Text>
+                  </Center>
+                  <Center justifyContent="flex-start">
+                    <Text>{item.remaining}</Text>
+                  </Center>
+
                   <NumberInput
                     size="lg"
                     maxW={32}
@@ -147,17 +154,34 @@ const BookingPage = ({ data, eventAddress }: IProps) => {
                   <Text>Email: ${user}</Text>
                   <Box>
                     <Text fontSize="lg" fontWeight="bold">
-                      Booking Info
+                      Booking Information:
                     </Text>
-                    <HStack justifyContent="space-between" fontWeight="bold">
-                      <Text>Ticket Type</Text>
-                      <Text>Quantity</Text>
+                    <HStack
+                      justifyContent="space-between"
+                      fontWeight="bold"
+                      textAlign="center"
+                    >
+                      <Text flex={1}>Ticket Type</Text>
+                      <Text flex={1}>Quantity</Text>
+                      <Text flex={1}>Price ($)</Text>
                     </HStack>
                     {Object.entries(userChoices).map(
                       ([tier, { amount, price }]) => (
-                        <li key={tier}>
-                          Tier {tier}: Amount: {amount}, Price: {price}
-                        </li>
+                        <>
+                          {amount != 0 && (
+                            <HStack key={tier} justifyContent="space-between">
+                              <Text textAlign="center" flex={1}>
+                                {tier}
+                              </Text>
+                              <Text flex={1} textAlign="center">
+                                {amount}
+                              </Text>
+                              <Text flex={1} textAlign="center">
+                                ${price}
+                              </Text>
+                            </HStack>
+                          )}
+                        </>
                       )
                     )}
                   </Box>
@@ -252,6 +276,7 @@ const BookingPage = ({ data, eventAddress }: IProps) => {
                           from: txHash.from,
                         },
                       });
+                      await setUserChoices({});
                       resolve(res_signed);
                     }
                   } catch (error) {

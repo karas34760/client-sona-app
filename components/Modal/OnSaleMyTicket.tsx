@@ -20,6 +20,8 @@ import {
   Box,
   Input,
   useToast,
+  Tooltip,
+  IconButton,
 } from '@chakra-ui/react';
 import { Select } from 'chakra-react-select';
 import React, { useState } from 'react';
@@ -40,6 +42,7 @@ interface IProps {
   priceListing: number;
   asset: string;
   tier: number;
+  short?: boolean;
 }
 const OnSaleMyTicket = ({
   eventAddress,
@@ -47,6 +50,7 @@ const OnSaleMyTicket = ({
   priceListing,
   asset,
   tier,
+  short = false,
 }: IProps) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const [currentAmount, setCurrentAmount] = useState(1);
@@ -63,13 +67,27 @@ const OnSaleMyTicket = ({
   });
   return (
     <>
-      <Button
-        variant="primary"
-        onClick={onOpen}
-        leftIcon={<Icon as={SaleTicketIcon} height={5} width={5} />}
-      >
-        Sale
-      </Button>
+      {short ? (
+        <>
+          <Tooltip placement="top" label="Sale Ticket">
+            <IconButton
+              onClick={onOpen}
+              variant="primary"
+              icon={<Icon as={SaleTicketIcon} height={5} width={5} />}
+              aria-label="Sale"
+            />
+          </Tooltip>
+        </>
+      ) : (
+        <Button
+          variant="primary"
+          onClick={onOpen}
+          leftIcon={<Icon as={SaleTicketIcon} height={5} width={5} />}
+        >
+          Sale
+        </Button>
+      )}
+
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
