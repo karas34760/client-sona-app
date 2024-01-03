@@ -63,7 +63,7 @@ const StepSingerCreate = ({
               onOpen();
             }}
           >
-            Add Singer
+            Add Celebrity
           </Button>
         )}
         {!isOpen &&
@@ -100,7 +100,7 @@ const StepSingerCreate = ({
               onOpen();
             }}
           >
-            Add Another Singer
+            Add Another Celebrity
           </Button>
         )}
         {isOpen && (

@@ -17,15 +17,15 @@ import CardTicketOne from '@/components/Card/CardTicketOne';
 import Carousel from '@/components/Carousel/Carousel';
 import TimeReminder from '@/components/Time/TimeReminder';
 import { SEARCH_EVENTS } from '@/graphql/query';
-import { convertTimestampToDate } from '@/utils/format/date';
+import { convertTimestampToDate, timeAgo } from '@/utils/format/date';
 
 const ActiveEvents = () => {
   const { data, loading } = useQuery(SEARCH_EVENTS, {
     variables: {
       page: 1,
-      size: 10,
+      size: 50,
       orderBy: {
-        StartTime: 'asc',
+        DeadlineForSell: 'asc',
       },
     },
   });
@@ -88,58 +88,65 @@ const ActiveEvents = () => {
         {data &&
           data.searchEvents.items.map((item: any, index: number) => (
             <>
-              {item.DeadlineForSell > new Date() && (
-                <SwiperSlide
-                  key={`up-comming-${item.eventId} ${index}`}
-                  style={{
-                    height: 'auto',
-                  }}
-                >
-                  <Link href={`/event/${item.address}`}>
-                    <CardTicketOne image_link={item.image}>
-                      <TimeReminder
-                        targetDate={item.DeadlineForSell}
-                        text="End in"
-                      />
+              {new Date(item.DeadlineForSell) > new Date() &&
+                new Date(item.TimeForSell) < new Date() && (
+                  <SwiperSlide
+                    key={`up-comming-${item.eventId} ${index}`}
+                    style={{
+                      height: 'auto',
+                    }}
+                  >
+                    <Link href={`/event/${item.address}`}>
+                      <CardTicketOne image_link={item.image}>
+                        <TimeReminder
+                          targetDate={item.DeadlineForSell}
+                          text="End Sale in"
+                        />
 
-                      <Text
-                        fontWeight="bold"
-                        whiteSpace="nowrap"
-                        overflow="hidden"
-                        textOverflow="ellipsis"
-                      >
-                        {item.name}
-                      </Text>
+                        <Text
+                          fontWeight="bold"
+                          whiteSpace="nowrap"
+                          overflow="hidden"
+                          textOverflow="ellipsis"
+                        >
+                          {item.name}
+                        </Text>
+                        <Text fontSize="sm" color="primary.gray.500">
+                          {`Sale :
+                        ${timeAgo(new Date(item.TimeForSell))} ago`}
+                        </Text>
+                        <Text fontSize="sm" color="primary.gray.500">
+                          {`  Event Start:
+                        ${convertTimestampToDate(item.StartTime)}`}
+                        </Text>
 
-                      <Text fontSize="sm" color="primary.gray.500">
-                        {convertTimestampToDate(item.StartTime)}
-                      </Text>
-
-                      {item.category && (
-                        <HStack gap={1}>
-                          {item.category.map(
-                            (item_sub: string, index: number) => (
-                              <>
-                                <Text
-                                  variant="type_categories"
-                                  key={`up-comming-events-sub${index} $${item.name} ${index}}`}
-                                >
-                                  {item_sub}
-                                </Text>
-                              </>
-                            )
-                          )}
-                        </HStack>
-                      )}
-                    </CardTicketOne>
-                  </Link>
-                </SwiperSlide>
-              )}
+                        {item.category && (
+                          <HStack gap={1}>
+                            {item.category.map(
+                              (item_sub: string, index: number) => (
+                                <>
+                                  <Text
+                                    variant="type_categories"
+                                    key={`up-comming-events-sub${index} $${item.name} ${index}}`}
+                                  >
+                                    {item_sub}
+                                  </Text>
+                                </>
+                              )
+                            )}
+                          </HStack>
+                        )}
+                      </CardTicketOne>
+                    </Link>
+                  </SwiperSlide>
+                )}
             </>
           ))}
       </Carousel>
       <Center>
-        <Button variant="primary">View More</Button>
+        <Link href="/discover">
+          <Button variant="primary">View More</Button>
+        </Link>
       </Center>
     </Container>
   );

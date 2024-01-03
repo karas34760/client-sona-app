@@ -106,3 +106,37 @@ export function getDayName(dayIndex: number) {
   ];
   return days[dayIndex];
 }
+
+export function timeAgo(timestamp: Date): string {
+  const seconds: number = Math.floor(
+    (new Date().getTime() - timestamp.getTime()) / 1000
+  );
+
+  const interval: number = Math.floor(seconds / 60);
+  if (interval < 2) {
+    return 'a minute ago';
+  } else if (interval < 60) {
+    return `${interval} minutes ago`;
+  }
+
+  const hours: number = Math.floor(interval / 60);
+  if (hours < 2) {
+    return 'an hour ago';
+  } else if (hours < 24) {
+    return `${hours} hours ago`;
+  }
+
+  const days: number = Math.floor(hours / 24);
+  if (days < 2) {
+    return 'a day ago';
+  } else if (days < 30) {
+    return `${days} days ago`;
+  }
+
+  const months: number = Math.floor(days / 30);
+  if (months < 2) {
+    return 'a month ago';
+  } else {
+    return `${months} months ago`;
+  }
+}

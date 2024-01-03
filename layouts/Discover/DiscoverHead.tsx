@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { Box, HStack, useDisclosure, Flex, Button } from '@chakra-ui/react';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import CategoryTypeFilter from './components/CategoryTypeFilter';
 import DiscoverFilterButton from './components/DiscoverFilterButton';
@@ -18,8 +18,6 @@ export interface FilterDataProps {
 const DiscoverHead = () => {
   const { isOpen, onToggle } = useDisclosure({ defaultIsOpen: true });
 
-  const [page, setPage] = useState(1);
-  const ref = useRef(null);
   const [filter, setFilter] = useState<FilterDataProps>({
     category: [],
     name: '',
@@ -31,10 +29,10 @@ const DiscoverHead = () => {
     });
   }
 
-  const { data, loading, fetchMore, refetch } = useQuery(SEARCH_EVENTS, {
+  const { data, loading, refetch } = useQuery(SEARCH_EVENTS, {
     variables: {
       page: 1,
-      size: 10,
+      size: 100,
       filter: {
         name: filter.name?.length ? filter.name : undefined,
         category: filter.category?.length
@@ -46,36 +44,7 @@ const DiscoverHead = () => {
       },
     },
   });
-  function onIterection(entries: any) {
-    const firstEntries = entries[0];
-    if (firstEntries.isIntersecting && data.searchEvents.hasNext) {
-      fetchMore({
-        variables: {
-          page: page + 1,
-          size: 10,
-          filter: {
-            name: filter.name?.length ? filter.name : undefined,
-            category: filter.category?.length ? filter.category : undefined,
-          },
-          orderBy: {
-            StartTime: 'asc',
-          },
-        },
-      });
-      setPage(page => page + 1);
-    }
-  }
-  useEffect(() => {
-    const observer = new IntersectionObserver(onIterection);
-    if (observer && ref.current) {
-      observer.observe(ref.current);
-      return () => {
-        if (observer) {
-          observer.disconnect();
-        }
-      };
-    }
-  }, data);
+
   useEffect(() => {
     refetch();
   }, [filter]);
@@ -134,7 +103,9 @@ const DiscoverHead = () => {
           {loading ? (
             <LoadingData />
           ) : (
-            <DiscoverResult isOpen={isOpen} data={data} />
+            <>
+              <DiscoverResult isOpen={isOpen} data={data} />
+            </>
           )}
         </Box>
       </Flex>

@@ -8,7 +8,6 @@ import ListEventSkeletons from '../Skeleton/ListEvent';
 
 import CardTicketOne from '@/components/Card/CardTicketOne';
 import Carousel from '@/components/Carousel/Carousel';
-import LinkSecondary from '@/components/Link/LinkSecondary';
 import TimeReminder from '@/components/Time/TimeReminder';
 import { SEARCH_EVENTS } from '@/graphql/query';
 import { convertTimestampToDate } from '@/utils/format/date';
@@ -33,13 +32,6 @@ const TrendingFestival = () => {
     <Container maxWidth="container.xl">
       <HStack justifyContent="space-between">
         <Text variant="type_sub_title">Trending Festival</Text>
-        <LinkSecondary
-          link="#"
-          label="View All"
-          sx={{
-            color: 'primary.gray.600',
-          }}
-        />
       </HStack>
       <Carousel>
         {data &&

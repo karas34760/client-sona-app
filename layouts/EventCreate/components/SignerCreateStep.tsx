@@ -76,9 +76,9 @@ const SignerCreateStep = ({
       <form onSubmit={formik.handleSubmit}>
         <Flex flexDirection="column" gap={3}>
           <FormControl variant="create_form" isRequired>
-            <FormLabel>Singer Name</FormLabel>
+            <FormLabel>Celebrity Name</FormLabel>
             <Input
-              placeholder="Enter Singer Name"
+              placeholder="Enter Celebrity Name"
               name="name"
               value={formik.values.name}
               onChange={formik.handleChange}

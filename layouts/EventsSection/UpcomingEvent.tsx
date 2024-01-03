@@ -18,9 +18,9 @@ const UpcomingEvent = () => {
   const { data, loading } = useQuery(SEARCH_EVENTS, {
     variables: {
       page: 1,
-      size: 10,
+      size: 20,
       orderBy: {
-        TimeForSell: 'desc',
+        TimeForSell: 'asc',
       },
     },
   });
@@ -45,7 +45,7 @@ const UpcomingEvent = () => {
         {data &&
           data.searchEvents.items.map((item: any, index: number) => (
             <>
-              {item.TimeForSell > new Date() && (
+              {new Date(item.TimeForSell) > new Date() && (
                 <SwiperSlide
                   key={`up-comming-${item.eventId} ${index}`}
                   style={{
@@ -56,7 +56,7 @@ const UpcomingEvent = () => {
                     <CardTicketOne image_link={item.image}>
                       <TimeReminder
                         targetDate={item.TimeForSell}
-                        text="Open in"
+                        text="Open Sale in"
                       />
 
                       <Text

@@ -390,7 +390,7 @@ const EventCreatePage = () => {
       ),
     },
     {
-      title: 'Singers',
+      title: 'Celebrity',
       icon: PerfomanceIcon,
       id: 6,
       isDisable: form.singers.length ? false : true,
